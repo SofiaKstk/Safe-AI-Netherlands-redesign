@@ -53,7 +53,7 @@ export default function ResearchPeople() {
             </span>
           </h4>
 
-          <p className="mt-2 max-w-[200px] text-[13px] leading-5 text-white/70">
+          <p className="mt-2 max-w-[200px] text-footnote leading-5 text-white/70">
             {person.positionShort}
           </p>
           {/* The whole supervisor is the link now, so the destination has to be

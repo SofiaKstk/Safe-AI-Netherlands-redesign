@@ -133,7 +133,7 @@ export default function Home() {
             <h1 className="font-serif text-display text-navy">
               Your AI Safety career starts here.
             </h1>
-            <p className="max-w-[620px] font-sans text-[16.5px] leading-[27px] text-navy/72">
+            <p className="max-w-[620px] font-sans text-body text-navy/72">
               AI Safety expertise has never been more important than today. SAIN provides the
               community, courses and resources to help students and professionals join the AI
               Safety field. We provide a clear path through education, community and practical
@@ -161,13 +161,13 @@ export default function Home() {
       {/* Chapters. A thin index band: cities as peers, left hairline, no cards. */}
       <section id="chapters" className="scroll-mt-36 border-t border-navy/10 bg-cream">
         <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
-          <h2 className="kicker pt-0.5 text-[17px] leading-6 text-navy/65 lg:w-[300px] lg:shrink-0">
+          <h2 className="kicker pt-0.5 text-kicker text-navy/65 lg:w-[300px] lg:shrink-0">
             Local chapters
           </h2>
           <div className="grid flex-1 gap-6 sm:grid-cols-3">
             {chapters.map((chapter) => (
               <article key={chapter.city} className="border-l border-navy/14 py-0.5 pl-[18px]">
-                <h3 className="font-serif text-[21px] leading-[26px] text-navy">{chapter.city}</h3>
+                <h3 className="font-serif text-title text-navy">{chapter.city}</h3>
                 <p className="mt-2 font-sans text-sm leading-5 text-navy/66">{chapter.blurb}</p>
                 <Link
                   href={chapter.href}
@@ -194,7 +194,7 @@ export default function Home() {
               <h2 className="max-w-[640px] font-serif text-heading text-navy">
                 How SAIN is upskilling the next wave of AI Safety experts in the Netherlands.
               </h2>
-              <div className="max-w-[720px] space-y-[27px] font-sans text-[16.5px] leading-[27px] text-navy/74">
+              <div className="max-w-[720px] space-y-[27px] font-sans text-body text-navy/74">
                 <p>
                   Learn about AI Safety from experts working at the frontier. SAIN&rsquo;s courses,
                   research hub, and community give you a clear way in, whether you&rsquo;re curious
@@ -229,7 +229,7 @@ export default function Home() {
         <div id="courses" className="shell relative isolate scroll-mt-36 pb-14 pt-10">
           <div className="mx-auto mb-10 max-w-[640px] text-center">
             <h2 className="font-serif text-heading text-navy">Start with a free course</h2>
-            <p className="mt-2.5 font-sans text-[16.5px] leading-[26px] text-navy/74">
+            <p className="mt-2.5 font-sans text-body leading-[26px] text-navy/74">
               Pick a track. Every programme is free and taught in person. What you join, and how it
               runs, depends on the chapter.
             </p>
@@ -246,17 +246,17 @@ export default function Home() {
           <Reveal><CommunityPrints /></Reveal>
           <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,620px)] xl:gap-16">
             <div className="flex flex-col gap-4">
-              <p className="kicker text-[17px] leading-6 text-navy/65">Community</p>
+              <p className="kicker text-kicker text-navy/65">Community</p>
               <h2 className="max-w-[480px] font-serif text-heading-sm text-navy">
                 The community is how SAIN works.
               </h2>
             </div>
             <div className="flex flex-col items-start gap-6">
-              <p className="max-w-[600px] font-sans text-[16.5px] leading-[27px] text-navy/74">
+              <p className="max-w-[600px] font-sans text-body text-navy/74">
                 Weekly sessions, hackathons, and the evenings after. People meet friends and
                 collaborators here, and often find their next step in AI Safety.
               </p>
-              <ul className="flex flex-col gap-2.5 font-sans text-[15px] leading-[22px] text-navy">
+              <ul className="flex flex-col gap-2.5 font-sans text-kicker-sm leading-[22px] text-navy">
                 {[
                   "Friends working on the same problems",
                   "A network across Utrecht, Groningen and Amsterdam",
@@ -288,12 +288,12 @@ export default function Home() {
             <div className="flex flex-col items-start gap-6">
 
               <h2 className="max-w-[560px] font-serif text-heading">The SAIN Research Hub</h2>
-              <p className="max-w-[590px] text-[16.5px] leading-[27px] text-white/75">SAIN connects researchers with supervisors and supports collaborative AI Safety projects. Work on interpretability, evaluations, control, or governance, with access to mentorship, compute, and a national research community.</p>
+              <p className="max-w-[590px] text-body text-white/75">SAIN connects researchers with supervisors and supports collaborative AI Safety projects. Work on interpretability, evaluations, control, or governance, with access to mentorship, compute, and a national research community.</p>
               <div className="mt-2 flex flex-wrap items-center gap-6">
                 <a href="https://forms.gle/na3wbBR4V1YVHAnFA" target="_blank" rel="noopener noreferrer" className="btn-accent">Join as a researcher<span className="sr-only"> (opens in a new tab)</span></a>
-                <Link href="/research/handbook" className="text-[14px] text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white">Read the research handbook →</Link>
+                <Link href="/research/handbook" className="text-label text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white">Read the research handbook →</Link>
               </div>
-              <p className="text-[13px] leading-5 text-white/55">Open to students, researchers, and people without formal affiliation. Apply at any time; remote participation is welcome.</p>
+              <p className="text-footnote leading-5 text-white/55">Open to students, researchers, and people without formal affiliation. Apply at any time; remote participation is welcome.</p>
             </div>
             <ResearchIllustration />
           </Reveal>
@@ -307,7 +307,7 @@ export default function Home() {
               <div key={step.number} className="border-t border-white/20 pt-5">
                 <span className="font-sans text-xs text-orange">{step.number}</span>
                 <h3 className="mb-3 mt-4 font-serif text-[23px] leading-7">{step.title}</h3>
-                <p className="max-w-[360px] text-[15px] leading-6 text-white/65">{step.description}</p>
+                <p className="max-w-[360px] text-kicker-sm leading-6 text-white/65">{step.description}</p>
               </div>
             ))}
           </Reveal>
@@ -316,9 +316,9 @@ export default function Home() {
             <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div>
                 <h3 className="font-serif text-heading-sm">Research supervisors</h3>
-                <p className="mt-3 max-w-[530px] text-[15px] leading-6 text-white/65">Meet our supervisors and explore their research agendas.</p>
+                <p className="mt-3 max-w-[530px] text-kicker-sm leading-6 text-white/65">Meet our supervisors and explore their research agendas.</p>
               </div>
-              <a href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`} className="self-start text-[14px] text-white/75 underline decoration-white/30 underline-offset-4 hover:text-white focus-visible:text-white">Become a supervisor →</a>
+              <a href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`} className="self-start text-label text-white/75 underline decoration-white/30 underline-offset-4 hover:text-white focus-visible:text-white">Become a supervisor →</a>
             </div>
             <ResearchPeople />
           </Reveal>
@@ -330,12 +330,12 @@ export default function Home() {
             <Reveal className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-16">
               <div className="max-w-[600px]">
                 <h3 className="font-serif text-heading-sm">Research publications</h3>
-                <p className="mt-4 text-[15px] leading-6 text-white/70">
+                <p className="mt-4 text-kicker-sm leading-6 text-white/70">
                   Work from the hub has appeared at NeurIPS and ICLR.
                   <span className="hidden md:inline"> Explore the papers and projects below.</span>
                 </p>
               </div>
-              <p className="flex flex-wrap gap-7 text-[13px] leading-5 text-white/65"><span>6+ active projects</span><span>20+ researchers</span><span>{publications.length}+ publications</span></p>
+              <p className="flex flex-wrap gap-7 text-footnote leading-5 text-white/65"><span>6+ active projects</span><span>20+ researchers</span><span>{publications.length}+ publications</span></p>
             </Reveal>
           </div>
           <PublicationMarquee />
@@ -347,9 +347,9 @@ export default function Home() {
         <div className="shell band-section flex flex-col gap-9">
           <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] xl:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
             <div className="flex min-w-0 flex-col gap-[22px]">
-              <p className="kicker text-[17px] leading-6 text-navy/65">Careers</p>
+              <p className="kicker text-kicker text-navy/65">Careers</p>
               <h2 className="max-w-[620px] font-serif text-heading-sm text-navy">Build an AI Safety career</h2>
-              <p className="max-w-[720px] font-sans text-[16.5px] leading-[27px] text-navy/74">
+              <p className="max-w-[720px] font-sans text-body text-navy/74">
                 Most people who end up working on AI Safety did not plan for it. We shorten that
                 path with mentorship, funding advice, and introductions to the labs, institutes and
                 ministries hiring in Europe right now.
@@ -366,7 +366,7 @@ export default function Home() {
               <p className="kicker text-base leading-[22px] text-navy/65">
                 Internship · Existential Risk Observatory
               </p>
-              <p className="font-serif text-[21px] font-light leading-[31px] text-navy">
+              <p className="font-serif text-title font-light leading-[31px] text-navy">
                 &ldquo;Without this community I almost certainly wouldn&rsquo;t be where I
                 am.&rdquo;
               </p>
@@ -374,7 +374,7 @@ export default function Home() {
                 <cite className="block font-sans text-sm font-medium not-italic leading-5 text-navy">
                   Stefano Zuffi
                 </cite>
-                <p className="kicker mt-1 text-[15px] leading-5 text-navy/65">
+                <p className="kicker mt-1 text-kicker-sm text-navy/65">
                   Mapping research on AI alignment techniques and government interventions
                 </p>
               </footer>
@@ -394,14 +394,14 @@ export default function Home() {
                     className="shrink-0 text-orange"
                     aria-hidden="true"
                   />
-                  <h3 className="font-serif text-[19px] leading-6 text-navy lg:w-[200px] lg:shrink-0 xl:w-[240px]">
+                  <h3 className="font-serif text-title-sm text-navy lg:w-[200px] lg:shrink-0 xl:w-[240px]">
                     {track.title}
                   </h3>
                 </div>
-                <p className="flex-1 font-sans text-[14.5px] leading-[23px] text-navy/68">
+                <p className="flex-1 font-sans text-ui leading-[23px] text-navy/68">
                   {track.description}
                 </p>
-                <p className="flex items-center gap-[7px] font-sans text-[13.5px] leading-[18px] text-navy/65 lg:w-[140px] lg:shrink-0 xl:w-40">
+                <p className="flex items-center gap-[7px] font-sans text-caption text-navy/65 lg:w-[140px] lg:shrink-0 xl:w-40">
                   <track.DestinationIcon
                     size={16}
                     weight="light"
@@ -420,11 +420,11 @@ export default function Home() {
       <section id="involved" className="scroll-mt-36 bg-navy">
         <div className="shell band-close grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] xl:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
           <div className="flex min-w-0 flex-col gap-[22px]">
-            <p className="kicker text-[17px] leading-6 text-white/60">Get involved</p>
+            <p className="kicker text-kicker text-white/60">Get involved</p>
             <h2 className="max-w-[580px] font-serif text-closing text-white">
               The next decade is being decided now
             </h2>
-            <p className="font-sans text-[16.5px] leading-[27px] text-white/78">
+            <p className="font-sans text-body text-white/78">
               Every SAIN programme is free and run by volunteers. Start with a course, or write to
               us about helping run one.
             </p>

@@ -52,15 +52,33 @@
      Heading is 34.5/39 against 38/43. Preserved rather than corrected --
      that is a typographic decision to make deliberately, not a side effect
      of making the page responsive. */
+  /* Each fixed role carries its published line height, so a call site names the
+     role instead of restating both numbers. Sites that deviate keep an explicit
+     `leading-*`, which is then a visible decision rather than the norm. */
   --text-index: 11px;
+  --text-index--line-height: 14px;
+  --text-index--letter-spacing: 0.1em;
   --text-footnote: 13px;
+  --text-footnote--line-height: 18px;
   --text-caption: 13.5px;
+  --text-caption--line-height: 18px;
   --text-label: 14px;
+  --text-label--line-height: 20px;
+  /* Not in the published table. Twelve call sites shipped it - small kickers on
+     inverse, the announcement line, course outline labels - so it is named here
+     rather than left as a literal repeated a dozen times. */
+  --text-kicker-sm: 15px;
+  --text-kicker-sm--line-height: 20px;
   --text-ui: 14.5px;
+  --text-ui--line-height: 20px;
   --text-body: 16.5px;
+  --text-body--line-height: 27px;
   --text-kicker: 17px;
+  --text-kicker--line-height: 24px;
   --text-title-sm: 19px;
+  --text-title-sm--line-height: 24px;
   --text-title: 21px;
+  --text-title--line-height: 26px;
 
   /* 28.5 -> 34.5. Section turns. */
   --text-heading: clamp(1.781rem, 0.66vw + 1.625rem, 2.156rem);

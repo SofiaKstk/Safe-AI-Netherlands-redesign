@@ -80,7 +80,7 @@ export default function Footer() {
               width={113}
               height={48}
             />
-            <p className="kicker text-[15px] leading-5 text-white/50">
+            <p className="kicker text-kicker-sm text-white/50">
               Stichting Safe AI Netherlands
             </p>
             <a
@@ -94,7 +94,7 @@ export default function Footer() {
           <div className="grid flex-1 gap-8 sm:grid-cols-3">
             {columns.map((column) => (
               <div key={column.title} className="flex flex-col gap-[11px]">
-                <p className="kicker text-[15px] leading-5 text-white/50">{column.title}</p>
+                <p className="kicker text-kicker-sm text-white/50">{column.title}</p>
                 {column.links.map((link) => (
                   <FooterAnchor key={link.name} link={link} />
                 ))}
@@ -104,7 +104,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-[26px] flex flex-col justify-between gap-3 border-t border-white/16 pt-[18px] sm:flex-row sm:items-center">
-          <p className="font-sans text-[13px] leading-[18px] text-white/60">
+          <p className="font-sans text-footnote text-white/60">
             &copy; {new Date().getFullYear()} Safe AI Netherlands
           </p>
           <div className="flex flex-wrap gap-5">
@@ -112,13 +112,13 @@ export default function Footer() {
               <Link
                 key={document.name}
                 href={document.href}
-                className="font-sans text-[13px] leading-[18px] text-white/60 transition-colors hover:text-white focus-visible:text-white"
+                className="font-sans text-footnote text-white/60 transition-colors hover:text-white focus-visible:text-white"
               >
                 {document.name}
               </Link>
             ))}
           </div>
-          <p className="font-sans text-[13px] leading-[18px] text-white/60">
+          <p className="font-sans text-footnote text-white/60">
             Utrecht &middot; Groningen &middot; Amsterdam
           </p>
         </div>

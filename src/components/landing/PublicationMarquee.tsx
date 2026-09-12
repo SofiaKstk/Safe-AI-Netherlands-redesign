@@ -41,11 +41,11 @@ function Chip({ paper, duplicate = false }: { paper: Publication; duplicate?: bo
       aria-hidden={duplicate || undefined}
       tabIndex={duplicate ? -1 : undefined}
     >
-      <span className="whitespace-nowrap font-sans text-[13px] font-medium leading-[18px] text-navy">
+      <span className="whitespace-nowrap font-sans text-footnote font-medium text-navy">
         {paper.venueShort}
       </span>
       <span className="block h-3.5 w-px bg-navy/20" aria-hidden="true" />
-      <span className="whitespace-nowrap font-serif text-[15px] leading-5 text-navy/80">
+      <span className="whitespace-nowrap font-serif text-kicker-sm text-navy/80">
         {paper.chipTitle}
       </span>
       <span className="sr-only"> (opens in a new tab)</span>

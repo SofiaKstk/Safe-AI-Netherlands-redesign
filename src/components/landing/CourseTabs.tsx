@@ -252,7 +252,7 @@ export default function CourseTabs() {
                   button's own column once the headers become a strip. */}
               <span className="flex min-w-0 flex-1 flex-col gap-1.5 md:contents">
                 <span
-                  className={`font-sans text-[11px] leading-[14px] tracking-normal ${
+                  className={`font-sans text-index tracking-normal ${
                     on ? "text-orange" : "text-navy/65"
                   }`}
                 >
@@ -263,7 +263,7 @@ export default function CourseTabs() {
                 >
                   {active.title}
                 </span>
-                <span className="font-sans text-[13.5px] leading-[18px] text-navy/65">
+                <span className="font-sans text-caption text-navy/65">
                   {active.tagline}
                 </span>
               </span>
@@ -315,10 +315,10 @@ export default function CourseTabs() {
               </p>
 
               <div>
-                <p className="kicker pb-2 text-[15px] leading-5 text-navy/65">
+                <p className="kicker pb-2 text-kicker-sm text-navy/65">
                   {active.outlineTitle}
                 </p>
-                <ol className="font-sans text-[14.5px] leading-5 text-navy">
+                <ol className="font-sans text-ui text-navy">
                   {active.outline.map((item, i) => (
                     <li
                       key={item}
@@ -334,7 +334,7 @@ export default function CourseTabs() {
               </div>
 
               <div>
-                <p className="kicker pb-2 text-[15px] leading-5 text-navy/65">
+                <p className="kicker pb-2 text-kicker-sm text-navy/65">
                   Where you can attend
                 </p>
                 {active.cities.map((entry) => (
@@ -345,7 +345,7 @@ export default function CourseTabs() {
                     <span className="w-[108px] shrink-0 font-serif text-base leading-[22px] text-navy">
                       {entry.city}
                     </span>
-                    <span className="font-sans text-[14.5px] leading-[22px] text-navy/72">
+                    <span className="font-sans text-ui leading-[22px] text-navy/72">
                       {entry.detail}
                     </span>
                   </div>
@@ -382,7 +382,7 @@ export default function CourseTabs() {
                 decoding="async"
                 className="absolute inset-0 size-full object-cover object-center"
               />
-              <p className="kicker absolute inset-x-0 bottom-0 bg-navy/88 px-5 py-2.5 text-[15px] leading-5 text-white">
+              <p className="kicker absolute inset-x-0 bottom-0 bg-navy/88 px-5 py-2.5 text-kicker-sm text-white">
                 {active.caption}
               </p>
             </motion.div>
