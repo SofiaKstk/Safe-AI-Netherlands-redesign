@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono, Newsreader } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-/* Newsreader is the voice. Optical sizing is requested explicitly so the
-   46px hero and the 15px caption are not the same drawing scaled. */
-const newsreader = Newsreader({
+/* IBM Plex Serif gives headings and editorial labels their scholarly voice. */
+const plexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
-  variable: "--font-newsreader",
+  variable: "--font-plex-serif",
   display: "swap",
   style: ["normal", "italic"],
-  axes: ["opsz"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 /* Archivo is the work: everything you read as a sentence of interface. */
@@ -115,7 +114,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`scroll-smooth ${newsreader.variable} ${archivo.variable} ${plexMono.variable}`}
+      className={`scroll-smooth ${plexSerif.variable} ${archivo.variable} ${plexMono.variable}`}
     >
       <head>
         <link rel="prefetch" href="/about" />

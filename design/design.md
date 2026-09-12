@@ -48,7 +48,7 @@ SAIN talks to universities, ministries, and frontier labs while recruiting stude
 
 **White is the reading page. Paper `#F7F5F2` is the printed programme.** White is default. Cream is for chapters, courses, and careers, the parts that behave like a schedule. Navy inverse is earned. Use it when the page is presenting proof (publications) or asking for a decision (get involved, footer). Do not default the site to dark.
 
-**Newsreader is the voice. Archivo is the work. IBM Plex Mono is the instrument.** Headlines are a newspaper serif at weight 400, not a bold billboard. Kickers are Newsreader italic, not tracked uppercase. Body is Archivo at 16.5/27. Mono appears only as `01` / `02` / `03` and week numbers. Archivo Black is loaded in the Paper file and unused. Leave it unused.
+**IBM Plex Serif is the voice. Archivo is the work. IBM Plex Mono is the instrument.** Headlines are a newspaper serif at weight 400, not a bold billboard. Kickers are IBM Plex Serif italic, not tracked uppercase. Body is Archivo at 16.5/27. Mono appears only as `01` / `02` / `03` and week numbers. Archivo Black is loaded in the Paper file and unused. Leave it unused.
 
 **Corners are square because this is print, not product.** Buttons, chips, tabs, and sections have radius 0. The only radii in the landing are 3px on inverse trail cards and 50% on 7 to 9px dots. A pill button is a category error.
 
@@ -72,7 +72,7 @@ Every section must answer a new question. Combine duplicates. Do not recap the t
 
 ## Choose the composition
 
-The first viewport is the argument. On the landing that is a split: Newsreader claim on the left, an exponential chart on the right. The chart is not a dashboard widget. Navy bars become orange at the inflection. The orange is the part of the curve SAIN is pointing at. If you cannot name what the geometry proves, do not draw it.
+The first viewport is the argument. On the landing that is a split: IBM Plex Serif claim on the left, an exponential chart on the right. The chart is not a dashboard widget. Navy bars become orange at the inflection. The orange is the part of the curve SAIN is pointing at. If you cannot name what the geometry proves, do not draw it.
 
 Name the obvious layout this page type would suggest, then reject it unless the material earns it. A nonprofit landing does not need a centered hero, three circular icons, and a donor strip.
 
@@ -96,13 +96,13 @@ Open space must amplify the focal object. The hero copy is 700px against a 656px
 
 Every completed page has the same SAIN authorship outcome.
 
-**Announcement (optional, site-wide).** Full-bleed `--color-accent`. Newsreader italic 15/20 white at 85% for the news. A 22×1 white hairline at 50%. Archivo 13.5/18 white link, underline white at 45%. Padding 11×48. This is a civic broadcast. Do not turn it into a dismissible marketing cookie.
+**Announcement (optional, site-wide).** Full-bleed `--color-accent`. IBM Plex Serif italic 15/20 white at 85% for the news. A 22×1 white hairline at 50%. Archivo 13.5/18 white link, underline white at 45%. Padding 11×48. This is a civic broadcast. Do not turn it into a dismissible marketing cookie.
 
 **Header.** 70px min height, padding 14×48, frost `--color-canvas-header`, 1px `--color-hairline` bottom. Pinwheel + wordmark at 72×30 on the left (header lockup: navy wordmark, orange A, pinwheel in both). Nav is Archivo 14/20 `--color-ink`, gap 30px. The active item gets a 1px ink underline, not a fill. Right side: ghost Volunteer, solid ink "Join a free course".
 
-**Footer.** Inverse navy. Light lockup at ~113×48. Newsreader italic 15px at `--color-on-inverse-meta` for the stichting line and column titles. Archivo 14px `--color-on-inverse-body` for links. Bottom rule `--color-on-inverse-hairline`. Copyright and cities Archivo 13px white at 45%. Padding 52×48×40.
+**Footer.** Inverse navy. Light lockup at ~113×48. IBM Plex Serif italic 15px at `--color-on-inverse-meta` for the stichting line and column titles. Archivo 14px `--color-on-inverse-body` for links. Bottom rule `--color-on-inverse-hairline`. Copyright and cities Archivo 13px white at 45%. Padding 52×48×40.
 
-Do not invent a second logo treatment. Do not set the wordmark in Newsreader. Do not recolour the pinwheel to a single ink.
+Do not invent a second logo treatment. Do not set the wordmark in IBM Plex Serif. Do not recolour the pinwheel to a single ink.
 
 ## Grid and alignment
 
@@ -129,19 +129,19 @@ Do not normalise these to one stack gap. The chapters band is a thin index. Miss
 
 ## Typography and rhythm
 
-Load Newsreader with optical sizing (`opsz` 6..72), Archivo, and IBM Plex Mono. Fallbacks: `Georgia, serif` for Newsreader, `system-ui, sans-serif` for Archivo, `ui-monospace, monospace` for Plex.
+Load IBM Plex Serif in normal and italic styles, Archivo, and IBM Plex Mono. Fallbacks: `Georgia, serif` for IBM Plex Serif, `system-ui, sans-serif` for Archivo, `ui-monospace, monospace` for Plex.
 
 Use only the published roles. Do not invent a 32px headline because the string is short.
 
 | Role | Token | Face | Weight | Size / line / tracking | Use |
 |---|---|---|---|---|---|
-| Display | `--text-display` | Newsreader | 400 | 46 / 52 / -0.015em | One hero claim per page |
-| Closing | `--text-closing` | Newsreader | 400 | 42 / 46 / -0.014em | Get-involved claim only |
-| Heading | `--text-heading` | Newsreader | 400 | 38 / 43 / -0.012em | Section turns |
-| Title | `--text-title` | Newsreader | 400 | 21 / 26 | City names |
-| Quote | `--text-title` | Newsreader | 300 | 21 / 31 | Pull quotes |
-| Title SM | `--text-title-sm` | Newsreader | 400 | 19 / 24 | Career track titles. Course tabs on the landing are 20/24, same role. |
-| Kicker | `--text-kicker` | Newsreader italic | 400 | 17 / 24 | Section names. Never uppercase |
+| Display | `--text-display` | IBM Plex Serif | 400 | 46 / 52 / -0.015em | One hero claim per page |
+| Closing | `--text-closing` | IBM Plex Serif | 400 | 42 / 46 / -0.014em | Get-involved claim only |
+| Heading | `--text-heading` | IBM Plex Serif | 400 | 38 / 43 / -0.012em | Section turns |
+| Title | `--text-title` | IBM Plex Serif | 400 | 21 / 26 | City names |
+| Quote | `--text-title` | IBM Plex Serif | 300 | 21 / 31 | Pull quotes |
+| Title SM | `--text-title-sm` | IBM Plex Serif | 400 | 19 / 24 | Career track titles. Course tabs on the landing are 20/24, same role. |
+| Kicker | `--text-kicker` | IBM Plex Serif italic | 400 | 17 / 24 | Section names. Never uppercase |
 | Body | `--text-body` | Archivo | 400 | 16.5 / 27 | Reading |
 | UI | `--text-ui` | Archivo | 400 | 14.5 / 20 | Accent CTA label |
 | Label | `--text-label` | Archivo | 400 | 14 / 20 | Nav, ghosts, footer links |
@@ -149,9 +149,9 @@ Use only the published roles. Do not invent a 32px headline because the string i
 | Footnote | `--text-footnote` | Archivo | 400 | 13 / 18 | Legal |
 | Index | `--text-index` | IBM Plex Mono | 400 | 11 / 14 / 0.1em | `01` `02` `03` |
 
-Hero kicker (the organisation name next to the 7×7 orange square) is Newsreader italic 16/22 at `--color-ink-kicker`. That is a special case of the kicker, not a new role.
+Hero kicker (the organisation name next to the 7×7 orange square) is IBM Plex Serif italic 16/22 at `--color-ink-kicker`. That is a special case of the kicker, not a new role.
 
-**The Square Kicker Rule.** A section kicker is Newsreader italic, ink at 55%, never tracked, never uppercase, never a pill. On white, it may be led by a 7×7 `--color-accent` square (hero only). On inverse, drop the square and use `--color-on-inverse-kicker`.
+**The Square Kicker Rule.** A section kicker is IBM Plex Serif italic, ink at 55%, never tracked, never uppercase, never a pill. On white, it may be led by a 7×7 `--color-accent` square (hero only). On inverse, drop the square and use `--color-on-inverse-kicker`.
 
 **The One Display Rule.** `--text-display` appears once. Section turns use `--text-heading`. Do not scale a heading up because the section is important.
 
@@ -188,7 +188,7 @@ Treatments on the landing:
 
 - **Prints.** White 8px mat, rotate between about −11° and 8°, shadow `0 12px 28px #021C4D29`. The centre print is slightly stronger (`0 14px 32px #021C4D33`). This is a table of photographs, not a gallery component.
 - **Multiply in the funnel.** Photo at 10 to 14% opacity, `mix-blend-mode: multiply` (luminosity on the orange terminus), slight grayscale and contrast. The photo is texture inside a diagram, not a hero crop.
-- **Caption bar.** On a course image, a `--color-ink` bar at 88% (`#021C4DE0`) with Newsreader italic 15/20 white. `Cohort graduation · SAIN Utrecht`.
+- **Caption bar.** On a course image, a `--color-ink` bar at 88% (`#021C4DE0`) with IBM Plex Serif italic 15/20 white. `Cohort graduation · SAIN Utrecht`.
 
 Diagrams must encode a claim. The funnel narrows because the path narrows. The chart rises because the underlying quantity rises. If you find yourself drawing a network of dots "to feel like community", stop and use photographs.
 
@@ -287,19 +287,19 @@ padding: 14px 22px;
 font: 400 14px/20px var(--font-sans);
 ```
 
-**Chapter column.** Flex column, padding 2px 0 2px 18px, gap 8px, `border-left: 1px solid var(--color-rule)`. City in Newsreader 21/26 ink. Blurb Archivo 14/20 `--color-ink-secondary`. Link row Archivo 14/20 ink plus the 12px arrow.
+**Chapter column.** Flex column, padding 2px 0 2px 18px, gap 8px, `border-left: 1px solid var(--color-rule)`. City in IBM Plex Serif 21/26 ink. Blurb Archivo 14/20 `--color-ink-secondary`. Link row Archivo 14/20 ink plus the 12px arrow.
 
 **Course tabs.** Height 88px, equal flex, padding inline 24px, gap 6px. Active: white, `border-bottom: 3px solid var(--color-accent)`, mono index in accent. Inactive: `border-left: 1px solid var(--color-hairline)`, `border-bottom: 1px solid #021C4D1F`, index in `--color-ink-kicker`, title in `--color-ink-body`.
 
 **Course outline row.** `border-top: 1px solid var(--color-hairline)`, padding 7px 0, gap 12px. Number IBM Plex Mono 12/18 accent, width 22px. Text Archivo 14.5/20 ink.
 
-**Quote.** Newsreader italic 16/22 at 50% ink for the context line. Newsreader 300 21/31 for the quote. Attribution: 1px `--color-rule` top, Archivo 500 14/20 name, Newsreader italic 15/20 kicker for the role.
+**Quote.** IBM Plex Serif italic 16/22 at 50% ink for the context line. IBM Plex Serif 300 21/31 for the quote. Attribution: 1px `--color-rule` top, Archivo 500 14/20 name, IBM Plex Serif italic 15/20 kicker for the role.
 
-**Publication chip.** Inverse only. Padding 14×18, gap 12px, fill `--color-on-inverse-fill`, border `--color-on-inverse-hairline`. Venue Archivo 500 13/18 accent. 1×14 divider white at 20%. Title Newsreader 15/20 white.
+**Publication chip.** Inverse only. Padding 14×18, gap 12px, fill `--color-on-inverse-fill`, border `--color-on-inverse-hairline`. Venue Archivo 500 13/18 accent. 1×14 divider white at 20%. Title IBM Plex Serif 15/20 white.
 
 **Career row.** Full width, padding 18×22, gap 24px, `border-top: 1px solid var(--color-hairline)`. 26px orange stroke icon (1.4 width, round caps). Do not put the icon in a coloured tile.
 
-**Funnel.** Widths 432, 356, 292, 240, 196. Height 86. Trapezoid SVG stroke navy at about 30 to 34%. Fills navy at about 4 to 5% until the last band, which is solid accent. Origin is a 7px accent dot and an accent arrow. Terminus is a 1×10 `--color-hairline-strong` stem and a 7px accent dot. Container `filter: drop-shadow(0 2px 16px #00000033)`. Labels Newsreader 16 → 13px, white on the last band.
+**Funnel.** Widths 432, 356, 292, 240, 196. Height 86. Trapezoid SVG stroke navy at about 30 to 34%. Fills navy at about 4 to 5% until the last band, which is solid accent. Origin is a 7px accent dot and an accent arrow. Terminus is a 1×10 `--color-hairline-strong` stem and a 7px accent dot. Container `filter: drop-shadow(0 2px 16px #00000033)`. Labels IBM Plex Serif 16 → 13px, white on the last band.
 
 **Trail (inverse).** 520px wide. 1px spine white at 20%. Stops alternate left and right. Cards 240×92, radius 3px, fill `--color-on-inverse-fill`, luminosity photo at 22%. Last card and last dot are accent.
 
@@ -336,7 +336,7 @@ Use these names with `var()`. Do not invent a parallel `--sain-*` colour, and do
   --color-accent-hover: #E65620;
   --color-accent-muted: #FF602580;
 
-  --font-serif: "Newsreader", Georgia, serif;
+  --font-serif: "IBM Plex Serif", Georgia, serif;
   --font-sans: "Archivo", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
@@ -400,10 +400,10 @@ Use these names with `var()`. Do not invent a parallel `--sain-*` colour, and do
 
 A companion stylesheet with the same tokens lives at `sain-brand.css` in this folder. Prefer it in implementation so the model does not invent type sizes.
 
-Newsreader must be requested with optical sizing:
+IBM Plex Serif must be requested with optical sizing:
 
 ```
-https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100,400;0,100,500;1,100,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,ital,wght@6..72,0,300;6..72,0,400;6..72,1,400&display=swap
+https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100,400;0,100,500;1,100,400&family=IBM+Plex+Mono:wght@400;500&family=IBM Plex Serif:opsz,ital,wght@6..72,0,300;6..72,0,400;6..72,1,400&display=swap
 ```
 
 ## Page pattern (the landing)

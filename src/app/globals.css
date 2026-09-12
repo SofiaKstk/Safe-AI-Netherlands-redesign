@@ -31,11 +31,11 @@
   --color-dutch-orange-50: #fff5ed;
   --color-dutch-orange-100: #ffe4cc;
 
-  /* Newsreader is the voice, Archivo is the work, Plex Mono is the instrument. */
-  --font-serif: var(--font-newsreader), Georgia, serif;
+  /* IBM Plex Serif is the voice, Archivo is the work, Plex Mono is the instrument. */
+  --font-serif: var(--font-plex-serif), Georgia, serif;
   --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
-  --font-display: var(--font-newsreader), Georgia, serif;
+  --font-display: var(--font-plex-serif), Georgia, serif;
 
   /* Published type roles. */
   --text-index: 11px;
@@ -164,7 +164,7 @@
   }
 }
 
-/* The Square Kicker Rule: Newsreader italic, never tracked, never uppercase. */
+/* The Square Kicker Rule: IBM Plex Serif italic, never tracked, never uppercase. */
 @utility kicker {
   font-family: var(--font-serif);
   font-style: italic;
