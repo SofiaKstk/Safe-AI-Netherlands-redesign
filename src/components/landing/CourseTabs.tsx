@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { CaretDown } from "@phosphor-icons/react/dist/ssr";
@@ -149,9 +149,44 @@ const TRACKS: Track[] = [
   },
 ];
 
+const COMPACT = "(max-width: 767.98px)";
+
+/**
+ * True while the headers are a stacked list rather than a strip.
+ *
+ * The server snapshot is `false`, so this only ever reports the strip until
+ * the browser has said otherwise. That is safe because nothing here reaches
+ * the markup — it decides what a click does, not what renders — so there is
+ * no hydration to mismatch.
+ */
+function useCompact() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const query = window.matchMedia(COMPACT);
+      query.addEventListener("change", onChange);
+      return () => query.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(COMPACT).matches,
+    () => false,
+  );
+}
+
 export default function CourseTabs() {
-  const [activeId, setActiveId] = useState(TRACKS[0].id);
+  const [activeId, setActiveId] = useState<string | null>(TRACKS[0].id);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const compact = useCompact();
+
+  /* Closing to nothing is right on a phone: the headers are a list, an open
+     panel is most of the screen, and a reader who has finished with a track
+     wants the other two back. On the strip it would leave three tabs pointing
+     at an empty band, so there one is always open. */
+  const toggle = (id: string) =>
+    setActiveId((current) => (current === id && compact ? null : id));
+
+  /* Carried back from a phone by a rotation or a resized window. */
+  useEffect(() => {
+    if (!compact && activeId === null) setActiveId(TRACKS[0].id);
+  }, [compact, activeId]);
 
   const activeIndex = TRACKS.findIndex((track) => track.id === activeId);
   const reduce = useReducedMotion();
@@ -187,11 +222,11 @@ export default function CourseTabs() {
               id={`tab-${active.id}`}
               aria-expanded={on}
               aria-controls={`panel-${active.id}`}
-              onClick={() => setActiveId(active.id)}
+              onClick={() => toggle(active.id)}
               /* The divider belongs to the gap between two tabs, not to either
                  tab's state — hanging it off `on` made it blink on selection.
                  Stacked, that rule runs above each header instead. */
-              className={`relative flex min-h-[88px] items-center gap-4 border-t border-navy/12 px-6 py-5 text-left transition-colors md:flex-col md:items-stretch md:justify-center md:gap-1.5 md:border-t-0 ${
+              className={`relative flex w-full min-h-[88px] items-center gap-4 border-t border-navy/12 px-6 py-5 text-left transition-colors md:flex-col md:items-stretch md:justify-center md:gap-1.5 md:border-t-0 ${
                 i > 0 ? "md:border-l md:border-l-navy/10" : ""
               } ${
                 on
