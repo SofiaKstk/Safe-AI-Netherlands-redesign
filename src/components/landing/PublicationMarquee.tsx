@@ -26,7 +26,11 @@ const ROW_ONE = publications.slice(0, 8);
    stay wider than the viewport — otherwise the loop shows a gap. */
 const ROW_TWO = [...publications.slice(8), ...publications.slice(0, 4)];
 
-function Chip({ paper }: { paper: Publication }) {
+/* The row renders its papers twice so the -50% translate loops without a seam.
+   Only the first copy is real: the second is scenery, so it is taken out of the
+   accessibility tree and out of the tab order rather than read and tabbed
+   through a second time. */
+function Chip({ paper, duplicate = false }: { paper: Publication; duplicate?: boolean }) {
   return (
     <a
       className="pub-chip"
@@ -34,6 +38,8 @@ function Chip({ paper }: { paper: Publication }) {
       target="_blank"
       rel="noopener noreferrer"
       title={`${paper.title} — ${paper.authors}`}
+      aria-hidden={duplicate || undefined}
+      tabIndex={duplicate ? -1 : undefined}
     >
       <span className="whitespace-nowrap font-sans text-[13px] font-medium leading-[18px] text-navy">
         {paper.venueShort}
@@ -42,6 +48,7 @@ function Chip({ paper }: { paper: Publication }) {
       <span className="whitespace-nowrap font-serif text-[15px] leading-5 text-navy/80">
         {paper.chipTitle}
       </span>
+      <span className="sr-only"> (opens in a new tab)</span>
     </a>
   );
 }
@@ -55,7 +62,11 @@ function Row({ papers, direction }: { papers: Publication[]; direction: "left" |
       }`}
     >
       {[...papers, ...papers].map((paper, i) => (
-        <Chip key={`${paper.link}-${i}`} paper={paper} />
+        <Chip
+          key={`${paper.link}-${i}`}
+          paper={paper}
+          duplicate={i >= papers.length}
+        />
       ))}
     </div>
   );

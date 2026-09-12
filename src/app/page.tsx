@@ -148,6 +148,7 @@ export default function Home() {
                 className="btn-accent"
               >
                 Join the SAIN Community - Free
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
           </Reveal>
@@ -213,6 +214,7 @@ export default function Home() {
                   className="btn-accent"
                 >
                   Join the community
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </div>
             </div>
@@ -272,6 +274,7 @@ export default function Home() {
               </ul>
               <a href={COMMUNITY_JOIN_URL} target="_blank" rel="noopener noreferrer" className="btn-accent">
                 Join the SAIN Community - Free
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
           </div>
@@ -287,7 +290,7 @@ export default function Home() {
               <h2 className="max-w-[560px] font-serif text-heading">The SAIN Research Hub</h2>
               <p className="max-w-[590px] text-[16.5px] leading-[27px] text-white/75">SAIN connects researchers with supervisors and supports collaborative AI Safety projects. Work on interpretability, evaluations, control, or governance, with access to mentorship, compute, and a national research community.</p>
               <div className="mt-2 flex flex-wrap items-center gap-6">
-                <a href="https://forms.gle/na3wbBR4V1YVHAnFA" target="_blank" rel="noopener noreferrer" className="btn-accent">Join as a researcher</a>
+                <a href="https://forms.gle/na3wbBR4V1YVHAnFA" target="_blank" rel="noopener noreferrer" className="btn-accent">Join as a researcher<span className="sr-only"> (opens in a new tab)</span></a>
                 <Link href="/research/handbook" className="text-[14px] text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white">Read the research handbook →</Link>
               </div>
               <p className="text-[13px] leading-5 text-white/55">Open to students, researchers, and people without formal affiliation. Apply at any time; remote participation is welcome.</p>
@@ -426,7 +429,9 @@ export default function Home() {
               us about helping run one.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link href="/get-involved#courses" className="btn-accent px-[22px] text-sm">
+              {/* The funnel's widest band already means the section on this
+                  page; the close has to mean the same thing. */}
+              <Link href="#courses" className="btn-accent px-[22px] text-sm">
                 Join a course
               </Link>
               <Link href="/get-involved" className="btn-ghost-inverse px-[22px]">
