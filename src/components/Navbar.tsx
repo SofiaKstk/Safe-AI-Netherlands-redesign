@@ -1,14 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { hasOpenPositions } from "@/data/openPositions";
-import { List, X } from "@phosphor-icons/react/dist/ssr";
+import { CaretDown, List, X } from "@phosphor-icons/react/dist/ssr";
 
 /* The authorship shell: a civic broadcast strip, then the header. The strip
    scrolls away once read; the header pins to the top for the rest of the page.
    Nav is a flat row of routes — no filled active pill, no desktop hamburger. */
+
+/* The three chapters, in the order the landing lists them. Community is the
+   only route that fans out: the city is what people are actually looking for,
+   so the nav hands it over directly instead of routing through an anchor.
+   City names only — a description of each track is the chapter page's job. */
+const chapters = [
+  { city: "Utrecht", href: "/chapters/utrecht" },
+  { city: "Groningen", href: "/chapters/groningen" },
+  { city: "Amsterdam", href: "/chapters/amsterdam" },
+];
 
 const navigation: {
   name: string;
@@ -44,11 +54,36 @@ const navigation: {
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [chaptersOpen, setChaptersOpen] = useState(false);
+  const chaptersRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     setMobileOpen(false);
+    setChaptersOpen(false);
   }, [pathname]);
+
+  /* Escape closes the menu wherever focus sits, and a press anywhere outside
+     dismisses it — the two exits people try before reaching for the trigger. */
+  useEffect(() => {
+    if (!chaptersOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setChaptersOpen(false);
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (!chaptersRef.current?.contains(event.target as Node)) {
+        setChaptersOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [chaptersOpen]);
 
   return (
     <>
@@ -100,16 +135,84 @@ export default function Navbar() {
             >
               {navigation.map((item) => {
                 const active = item.isActive(pathname);
+                const underline = active
+                  ? "border-navy"
+                  : "border-transparent hover:border-navy/40";
+
+                /* Community opens the chapter list rather than jumping to the
+                   landing anchor. The menu carries that anchor as its first
+                   row, so nothing that used to be reachable is lost. */
+                if (item.name === "Community") {
+                  return (
+                    <div
+                      key={item.name}
+                      ref={chaptersRef}
+                      className="relative"
+                      onMouseEnter={() => setChaptersOpen(true)}
+                      onMouseLeave={() => setChaptersOpen(false)}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setChaptersOpen((open) => !open)}
+                        aria-expanded={chaptersOpen}
+                        aria-haspopup="true"
+                        aria-controls="chapters-menu"
+                        aria-current={active ? "page" : undefined}
+                        className={`flex items-center gap-1.5 border-b py-0.5 font-sans text-sm leading-5 text-navy transition-colors ${underline}`}
+                      >
+                        {item.name}
+                        <CaretDown
+                          size={11}
+                          weight="bold"
+                          aria-hidden="true"
+                          className={`transition-transform duration-200 ${
+                            chaptersOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+
+                      {chaptersOpen && (
+                        /* The 14px gap between trigger and panel sits inside
+                           this wrapper's padding, so the pointer can travel
+                           down without the menu closing underneath it. */
+                        <div
+                          id="chapters-menu"
+                          className="absolute left-0 top-full pt-3.5"
+                        >
+                          <div className="w-[186px] border border-navy/12 bg-white">
+                            {chapters.map((chapter) => (
+                              <Link
+                                key={chapter.city}
+                                href={chapter.href}
+                                onClick={() => setChaptersOpen(false)}
+                                aria-current={
+                                  pathname === chapter.href ? "page" : undefined
+                                }
+                                className="block px-5 py-2.5 font-sans text-sm leading-5 text-navy transition-colors hover:bg-cream"
+                              >
+                                {chapter.city}
+                              </Link>
+                            ))}
+                            <Link
+                              href="/#chapters"
+                              onClick={() => setChaptersOpen(false)}
+                              className="block border-t border-navy/10 px-5 py-2.5 font-sans text-[13px] leading-[18px] text-navy/60 transition-colors hover:bg-cream hover:text-navy"
+                            >
+                              All chapters
+                            </Link>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`border-b py-0.5 font-sans text-sm leading-5 text-navy transition-colors ${
-                      active
-                        ? "border-navy"
-                        : "border-transparent hover:border-navy/40"
-                    }`}
+                    className={`border-b py-0.5 font-sans text-sm leading-5 text-navy transition-colors ${underline}`}
                   >
                     {item.name}
                   </Link>
@@ -151,14 +254,31 @@ export default function Navbar() {
           >
             <div className="shell flex flex-col gap-1 py-4">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="py-2 font-sans text-sm leading-5 text-navy"
-                >
-                  {item.name}
-                </Link>
+                <div key={item.name}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-2 font-sans text-sm leading-5 text-navy"
+                  >
+                    {item.name}
+                  </Link>
+                  {/* No disclosure here: three rows are cheaper to read than a
+                      toggle that hides them behind a second tap. */}
+                  {item.name === "Community" && (
+                    <div className="mb-1 ml-4 flex flex-col border-l border-navy/12">
+                      {chapters.map((chapter) => (
+                        <Link
+                          key={chapter.city}
+                          href={chapter.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="py-1.5 pl-4 font-sans text-[13.5px] leading-[18px] text-navy/70"
+                        >
+                          {chapter.city}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
               <Link
                 href="/contact"
