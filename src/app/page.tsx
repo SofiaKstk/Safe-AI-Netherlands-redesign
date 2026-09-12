@@ -456,7 +456,8 @@ export default function Home() {
           </Reveal>
 
         </div>
-        <div id="output" className="research-publications scroll-mt-36 border-t border-white/15 pb-20 pt-16 text-white">
+        <div className="shell"><div className="border-t border-white/15" /></div>
+        <div id="output" className="research-publications scroll-mt-36 pb-20 pt-16 text-white">
           <div className="shell">
             <Reveal className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-16">
               <div className="max-w-[600px]">
