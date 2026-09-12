@@ -377,36 +377,32 @@ export default function Home() {
         <div className="shell"><div className="border-t border-navy/14" /></div>
         <div className="shell flex flex-col gap-12 py-14 md:gap-16 md:py-[72px]">
           <Reveal><CommunityPrints /></Reveal>
-          <div>
-            {/* One stacked block, not a headline-left / body-right split. The
-                photographs above are this section's evidence; the type only
-                has to make the claim and ask for the join.
-
-                The bulleted list that used to sit here restated three things
-                the page already says in their own sections: the chapters band
-                is the three cities, the course tabs say "drop in" four times,
-                and the paragraph itself already says people find friends and
-                collaborators. It is now one line of logistics. */}
-            <div className="flex max-w-[620px] flex-col items-start gap-5">
+          <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,620px)] lg:gap-16">
+            <div className="flex flex-col gap-4">
               <p className="kicker text-[17px] leading-6 text-navy/55">Community</p>
-              <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] text-navy">
+              <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] max-w-[480px] text-navy">
                 The community is how SAIN works.
               </h2>
-              <p className="font-sans text-[16.5px] leading-[27px] text-navy/74">
+            </div>
+            <div className="flex flex-col items-start gap-6">
+              <p className="max-w-[600px] font-sans text-[16.5px] leading-[27px] text-navy/74">
                 Weekly sessions, hackathons, and the evenings after. People find friends here,
                 collaborators, and often the next step in AI Safety. That network is not an extra.
                 It is a central part of the organisation.
               </p>
-              <p className="font-sans text-[14.5px] leading-[22px] text-navy/62">
-                Weekly sessions in Utrecht, Groningen and Amsterdam. Free, and open without an
-                application.
-              </p>
-              <a
-                href={COMMUNITY_JOIN_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-accent mt-1"
-              >
+              <ul className="flex flex-col gap-2.5 font-sans text-[15px] leading-[22px] text-navy">
+                {[
+                  "Friends who are in the same work",
+                  "A network across Utrecht, Groningen, and Amsterdam",
+                  "Events you can walk into",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="h-0.5 w-4 shrink-0 bg-orange" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <a href={COMMUNITY_JOIN_URL} target="_blank" rel="noopener noreferrer" className="btn-accent">
                 Join the SAIN Community - Free
               </a>
             </div>
