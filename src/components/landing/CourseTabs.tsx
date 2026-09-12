@@ -253,7 +253,7 @@ export default function CourseTabs() {
               <span className="flex min-w-0 flex-1 flex-col gap-1.5 md:contents">
                 <span
                   className={`font-sans text-index tracking-normal ${
-                    on ? "text-orange" : "text-navy/65"
+                    on ? "text-orange-ink" : "text-navy/65"
                   }`}
                 >
                   {active.index}
@@ -324,7 +324,7 @@ export default function CourseTabs() {
                       key={item}
                       className="flex items-baseline gap-3 border-t border-navy/10 py-[7px]"
                     >
-                      <span className="w-[22px] shrink-0 font-sans text-xs text-orange">
+                      <span className="w-[22px] shrink-0 font-sans text-xs text-orange-ink">
                         {i + 1}
                       </span>
                       {item}

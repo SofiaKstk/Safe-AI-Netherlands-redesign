@@ -89,7 +89,12 @@ const BANDS: Band[] = [
     href: "#careers",
     label: "Work full-time in AI Safety",
     labelCqw: 3.24,
-    labelClass: "max-w-[78%] text-center leading-[1.29] text-white",
+    /* Navy, not white. design.md sets this label in white, but white on the
+       solid #FF6025 terminus is 3.02:1, and the clamp below floors it at 11px
+       on a phone -- the smallest, faintest text on the page would be the one
+       word the whole diagram narrows toward. Navy on the same orange is
+       5.45:1, and the trail's terminus card already does exactly this. */
+    labelClass: "max-w-[78%] text-center leading-[1.29] text-navy",
     photo: "/landing/funnel-05.jpg",
     objectPosition: "50% 40%",
     fill: "#FF6025",

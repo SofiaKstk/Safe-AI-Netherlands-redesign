@@ -18,6 +18,17 @@
   --color-orange-hover: #e75b22;
   --color-cream: #f7f5f2;
 
+  /* Orange for text on a light ground, and only there.
+
+     design.md puts course-outline numbers and active indices in the orange
+     budget, but #FF6025 on white is 3.02:1 and on cream 2.78:1 -- fine for a
+     26px stroke icon at the 3:1 non-text threshold, not for a numeral that is
+     the only list marker the row has. This is the same hue (16deg) carried
+     down to 5.27:1 on white and 4.84:1 on cream, so a numeral still reads as
+     orange and still clears AA. The fill orange is untouched: identity stays
+     #FF6025 everywhere it is a surface rather than a letterform. */
+  --color-orange-ink: #c13f10;
+
   /* Legacy scale, still referenced by pages awaiting redesign. */
   --color-navy-500: #4070b0;
   --color-navy-600: #2d5594;
