@@ -301,7 +301,7 @@ export default function Home() {
           band already reads "Join a free course", so explaining the pipeline
           and opening its first step is a single argument — splitting it across
           two surfaces made the reader start over halfway through. */}
-      <section className="border-t border-navy/10 bg-cream">
+      <section className="border-t border-navy/10 bg-white">
         <div id="mission" className="shell scroll-mt-36 pt-[88px]">
           <div className="flex w-full flex-col items-center justify-between gap-12 lg:flex-row lg:items-center">
             <div className="flex w-full max-w-[760px] flex-col gap-[22px] lg:shrink-0">
