@@ -464,10 +464,6 @@ export default function Home() {
         </div>
 
         <PublicationMarquee />
-
-        <p className="shell mt-4 font-sans text-[13px] leading-[18px] text-white/55">
-          Each title opens the paper in a new tab.
-        </p>
       </section>
 
       {/* Careers. Paper band: a quote, then the destinations as hairline rows. */}
