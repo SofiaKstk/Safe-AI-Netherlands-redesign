@@ -135,7 +135,7 @@ const TERMINUS =
 
 export default function TalentFunnel() {
   return (
-    <div className="flex w-full max-w-[436px] shrink-0 flex-col items-center overflow-visible drop-shadow-[0_2px_16px_#00000033]">
+    <div className="flex w-full max-w-[436px] flex-col items-center overflow-visible drop-shadow-[0_2px_16px_#00000033]">
       {/* Origin: a dot and an arrow into the mouth of the funnel. */}
       <div className="flex flex-col items-center">
         <span className="size-[7px] rounded-full bg-orange" />

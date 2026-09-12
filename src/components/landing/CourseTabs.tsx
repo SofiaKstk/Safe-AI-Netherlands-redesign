@@ -224,7 +224,7 @@ export default function CourseTabs() {
             role="tabpanel"
             aria-labelledby={`tab-${active.id}`}
             tabIndex={active.id === activeId ? 0 : -1}
-            className={`grid lg:grid-cols-[minmax(0,720px)_minmax(0,1fr)] ${
+            className={`grid xl:grid-cols-[minmax(0,720px)_minmax(0,1fr)] ${
               active.id === activeId ? "" : "pointer-events-none"
             }`}
           >
@@ -241,7 +241,7 @@ export default function CourseTabs() {
                 duration: reduce || active.id !== activeId ? 0 : 0.2,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="flex flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9"
+              className="flex w-full max-w-[860px] flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9 xl:max-w-none"
             >
               <p className="max-w-[640px] font-sans text-[15.5px] leading-[25px] text-navy/78">
                 {active.summary}
@@ -299,7 +299,7 @@ export default function CourseTabs() {
               initial={false}
               animate={{ opacity: active.id === activeId ? 1 : 0 }}
               transition={{ duration: reduce ? 0 : 0.3, ease: "linear" }}
-              className="relative min-h-[280px] overflow-hidden lg:min-h-[587px]"
+              className="relative min-h-[280px] overflow-hidden xl:min-h-[587px]"
             >
               <img
                 src={active.photo}

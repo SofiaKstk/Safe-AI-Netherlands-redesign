@@ -128,7 +128,7 @@ export default function Home() {
             <path d="M167 80 Q168 87 174 88 Q168 89 167 96 Q166 89 160 88 Q166 87 167 80Z" fill="currentColor" />
           </svg>
         </div>
-        <div className="shell grid min-h-[60vh] items-center gap-12 pb-[76px] pt-[84px] lg:grid-cols-[minmax(0,700px)_minmax(0,1fr)]">
+        <div className="shell grid min-h-[60vh] items-center gap-12 pb-[76px] pt-[84px] lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] xl:grid-cols-[minmax(0,700px)_minmax(0,1fr)]">
           <Reveal hero className="flex min-w-0 flex-col gap-6">
             <h1 className="font-serif text-[36px] leading-[1.08] tracking-[-0.02em] text-navy md:text-[48px] md:leading-[51px]">
               Your AI Safety career starts here.
@@ -159,8 +159,8 @@ export default function Home() {
 
       {/* Chapters. A thin index band: cities as peers, left hairline, no cards. */}
       <section id="chapters" className="scroll-mt-28 border-t border-navy/10 bg-cream">
-        <div className="shell flex flex-col gap-8 py-[46px] md:flex-row md:items-start">
-          <h2 className="kicker w-[300px] shrink-0 pt-0.5 text-[17px] leading-6 text-navy/55">
+        <div className="shell flex flex-col gap-8 py-[46px] lg:flex-row lg:items-start">
+          <h2 className="kicker pt-0.5 text-[17px] leading-6 text-navy/55 lg:w-[300px] lg:shrink-0">
             Local chapters
           </h2>
           <div className="grid flex-1 gap-6 sm:grid-cols-3">
@@ -188,8 +188,8 @@ export default function Home() {
       <section className="relative isolate overflow-hidden border-t border-navy/10 bg-white">
         <SectionOrbits className="-left-20 top-6 h-[400px] w-[300px] md:-left-12" />
         <div id="mission" className="shell relative isolate scroll-mt-36 pt-[88px]">
-          <div className="flex w-full flex-col items-center justify-between gap-12 lg:flex-row lg:items-center">
-            <div className="flex w-full max-w-[760px] flex-col gap-[22px] lg:shrink-0">
+          <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] xl:grid-cols-[minmax(0,1fr)_minmax(0,436px)]">
+            <div className="flex w-full min-w-0 max-w-[760px] flex-col gap-[22px]">
               <h2 className="font-serif text-[28.5px] leading-[33px] tracking-[-0.012em] md:text-[34.5px] md:leading-[39px] max-w-[640px] text-navy">
                 How SAIN is upskilling the next wave of AI Safety experts in the Netherlands.
               </h2>
@@ -217,7 +217,7 @@ export default function Home() {
               </div>
             </div>
 
-            <Reveal delay={0.08} className="w-full max-w-[436px] shrink-0"><TalentFunnel /></Reveal>
+            <Reveal delay={0.08} className="mx-auto w-full min-w-0 max-w-[436px]"><TalentFunnel /></Reveal>
           </div>
         </div>
 
@@ -281,7 +281,7 @@ export default function Home() {
       {/* One research story: the invitation, the people, and the work they publish. */}
       <section id="research" className="scroll-mt-36 bg-navy text-white">
         <div className="shell py-20 md:py-28">
-          <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,650px)_1fr] lg:gap-24">
+          <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:gap-12 xl:grid-cols-[minmax(0,650px)_minmax(0,1fr)] xl:gap-24">
             <div className="flex flex-col items-start gap-6">
 
               <h2 className="max-w-[560px] font-serif text-[28.5px] leading-[33px] md:text-[34.5px] md:leading-[39px]">The SAIN Research Hub</h2>
@@ -379,7 +379,7 @@ export default function Home() {
             {careerTracks.map((track) => (
               <div
                 key={track.title}
-                className="flex flex-col gap-4 border-t border-navy/10 px-[22px] py-[18px] md:flex-row md:items-center md:gap-6"
+                className="flex flex-col gap-4 border-t border-navy/10 px-[22px] py-[18px] lg:flex-row lg:items-center lg:gap-6"
               >
                 <track.Icon
                   size={26}
@@ -387,13 +387,13 @@ export default function Home() {
                   className="shrink-0 text-orange"
                   aria-hidden="true"
                 />
-                <h3 className="w-[240px] shrink-0 font-serif text-[19px] leading-6 text-navy">
+                <h3 className="font-serif text-[19px] leading-6 text-navy lg:w-[200px] lg:shrink-0 xl:w-[240px]">
                   {track.title}
                 </h3>
                 <p className="flex-1 font-sans text-[14.5px] leading-[23px] text-navy/68">
                   {track.description}
                 </p>
-                <p className="flex w-40 shrink-0 items-center gap-[7px] font-sans text-[13.5px] leading-[18px] text-navy/60">
+                <p className="flex items-center gap-[7px] font-sans text-[13.5px] leading-[18px] text-navy/60 lg:w-[140px] lg:shrink-0 xl:w-40">
                   <track.DestinationIcon
                     size={16}
                     weight="light"
