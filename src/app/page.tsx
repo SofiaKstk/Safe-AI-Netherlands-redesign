@@ -386,14 +386,13 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-start gap-6">
               <p className="max-w-[600px] font-sans text-[16.5px] leading-[27px] text-navy/74">
-                Weekly sessions, hackathons, and the evenings after. People find friends here,
-                collaborators, and often the next step in AI Safety. That network is not an extra.
-                It is a central part of the organisation.
+                Weekly sessions, hackathons, and the evenings after. People meet friends and
+                collaborators here, and often find their next step in AI Safety.
               </p>
               <ul className="flex flex-col gap-2.5 font-sans text-[15px] leading-[22px] text-navy">
                 {[
-                  "Friends who are in the same work",
-                  "A network across Utrecht, Groningen, and Amsterdam",
+                  "Friends working on the same problems",
+                  "A network across Utrecht, Groningen and Amsterdam",
                   "Events you can walk into",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3">
