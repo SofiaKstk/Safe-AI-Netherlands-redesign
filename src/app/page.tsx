@@ -397,7 +397,11 @@ export default function Home() {
                   "Events you can walk into",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3">
-                    <span className="h-0.5 w-4 shrink-0 bg-orange" aria-hidden="true" />
+                    {/* Navy, not orange. design.md reserves orange for joining,
+                        hiring and active state: "If a page uses orange only as
+                        a bullet dot, it is not SAIN." The CTA below is where
+                        the orange belongs. */}
+                    <span className="h-px w-4 shrink-0 bg-navy/30" aria-hidden="true" />
                     {item}
                   </li>
                 ))}
