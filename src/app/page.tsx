@@ -327,7 +327,10 @@ export default function Home() {
             <Reveal className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-16">
               <div className="max-w-[600px]">
                 <h3 className="font-serif text-heading-sm">Research publications</h3>
-                <p className="mt-4 text-[15px] leading-6 text-white/70">Work from the hub has appeared at NeurIPS and ICLR. Explore the papers and projects below.</p>
+                <p className="mt-4 text-[15px] leading-6 text-white/70">
+                  Work from the hub has appeared at NeurIPS and ICLR.
+                  <span className="hidden md:inline"> Explore the papers and projects below.</span>
+                </p>
               </div>
               <p className="flex flex-wrap gap-7 text-[13px] leading-5 text-white/65"><span>6+ active projects</span><span>20+ researchers</span><span>12+ publications</span></p>
             </Reveal>

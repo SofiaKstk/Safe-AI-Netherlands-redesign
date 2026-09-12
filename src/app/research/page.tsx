@@ -293,8 +293,9 @@ export default function ResearchPage() {
         </div>
       </section>
 
-      {/* Publications */}
-      <section className="section-padding bg-white">
+      {/* Publications. The landing's inverse band links here on a phone
+          instead of carrying the whole index itself. */}
+      <section id="publications" className="scroll-mt-28 section-padding bg-white">
         <div className="section-container">
           <FadeIn>
             <div className="text-center mb-16">

@@ -1,4 +1,5 @@
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 
 import { publications, type Publication } from "@/data/research";
 
@@ -12,10 +13,12 @@ import { publications, type Publication } from "@/data/research";
  * control that stops them is a hover a thumb cannot perform. A drifting target
  * is the worst possible way to offer a link.
  *
- * So below md the same papers stop being a ticker and become what they
- * actually are: an index. Every one of them, in the order the data ranks them,
- * at a size you can read and on a row you can hit. The marquee is a desktop
- * pleasure and it stays on the desktop.
+ * The first answer was to spell the index out below md, every paper as its own
+ * row. That read well and was far too long: twelve rows of bibliography is a
+ * reference page's job, and this band only has to be evidence that the work
+ * lands. So the phone gets the claim, the count, and one way through to the
+ * Research Hub, which is where the full list already lives. The marquee is a
+ * desktop pleasure and it stays on the desktop.
  */
 
 const ROW_ONE = publications.slice(0, 8);
@@ -58,40 +61,26 @@ function Row({ papers, direction }: { papers: Publication[]; direction: "left" |
   );
 }
 
-/* One row per paper, hairline-ruled, the whole row a link. The venue leads
-   because it is what the reader is weighing; the arrow sits at the right so
-   every row ends on the same mark and the destination is named without a
-   second line of copy. */
-function PublicationIndex() {
+/* Ruled top and bottom so it reads as the index closing rather than a button
+   dropped under a heading, and counted from the data so the number cannot
+   drift away from the list it promises. */
+function PublicationsLink() {
   return (
     <div className="shell md:hidden">
-      <ol className="mt-9">
-        {publications.map((paper) => (
-          <li key={paper.link}>
-            <a
-              href={paper.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-start justify-between gap-5 border-t border-white/16 py-[15px]"
-            >
-              <span className="flex min-w-0 flex-col gap-1">
-                <span className="font-sans text-[12.5px] leading-4 text-white/55">
-                  {paper.venueShort}
-                </span>
-                <span className="font-serif text-[17px] leading-[23px] text-white">
-                  {paper.chipTitle}
-                </span>
-              </span>
-              <ArrowUpRight
-                size={14}
-                weight="light"
-                aria-hidden="true"
-                className="mt-1 shrink-0 text-white/40"
-              />
-            </a>
-          </li>
-        ))}
-      </ol>
+      <Link
+        href="/research#publications"
+        className="mt-8 flex items-center justify-between gap-5 border-y border-white/16 py-[18px]"
+      >
+        <span className="font-serif text-[17px] leading-[23px] text-white">
+          All {publications.length} publications in the Research Hub
+        </span>
+        <ArrowRight
+          size={15}
+          weight="light"
+          aria-hidden="true"
+          className="shrink-0 text-white/50"
+        />
+      </Link>
     </div>
   );
 }
@@ -99,7 +88,7 @@ function PublicationIndex() {
 export default function PublicationMarquee() {
   return (
     <>
-      <PublicationIndex />
+      <PublicationsLink />
       <div className="mt-10 hidden flex-col gap-3 overflow-hidden py-2 md:flex">
         <Row papers={ROW_ONE} direction="left" />
         <Row papers={ROW_TWO} direction="right" />
