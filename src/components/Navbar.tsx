@@ -312,17 +312,20 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+              {/* The header keeps both calls to action from sm up, so the sheet
+                  only carries them on the narrowest screens -- otherwise the
+                  same two buttons show twice between sm and lg. */}
               <Link
                 href="/get-involved"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 flex min-h-[44px] items-center justify-center border border-navy/20 px-4 text-center font-sans text-[13.5px] leading-[18px] text-navy"
+                className="mt-2 flex min-h-[44px] items-center justify-center border border-navy/20 px-4 text-center font-sans text-[13.5px] leading-[18px] text-navy sm:hidden"
               >
                 Volunteer
               </Link>
               <Link
                 href="/get-involved#courses"
                 onClick={() => setMobileOpen(false)}
-                className="flex min-h-[44px] items-center justify-center bg-navy px-4 text-center font-sans text-[13.5px] leading-[18px] text-white"
+                className="flex min-h-[44px] items-center justify-center bg-navy px-4 text-center font-sans text-[13.5px] leading-[18px] text-white sm:hidden"
               >
                 Join a free course
               </Link>
