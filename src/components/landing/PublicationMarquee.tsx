@@ -2,7 +2,7 @@ import { publications, type Publication } from "@/data/research";
 
 /**
  * Two rows of venue-and-title chips drifting in opposite directions on the
- * inverse ground. The rest state is the static Paper landing: hovering pauses
+ * paper ground. The rest state is the static Paper landing: hovering pauses
  * the row, and prefers-reduced-motion stops both outright.
  */
 
@@ -20,11 +20,11 @@ function Chip({ paper }: { paper: Publication }) {
       rel="noopener noreferrer"
       title={`${paper.title} — ${paper.authors}`}
     >
-      <span className="whitespace-nowrap font-sans text-[13px] font-medium leading-[18px] text-orange">
+      <span className="whitespace-nowrap font-sans text-[13px] font-medium leading-[18px] text-navy">
         {paper.venueShort}
       </span>
-      <span className="block h-3.5 w-px bg-white/20" aria-hidden="true" />
-      <span className="whitespace-nowrap font-serif text-[15px] leading-5 text-white">
+      <span className="block h-3.5 w-px bg-navy/20" aria-hidden="true" />
+      <span className="whitespace-nowrap font-serif text-[15px] leading-5 text-navy/80">
         {paper.chipTitle}
       </span>
     </a>

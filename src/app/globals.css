@@ -268,7 +268,7 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Publication chip. Inverse ground only.
+   Publication chip. Navy ink on paper.
 ----------------------------------------------------------------------------- */
 
 @utility pub-chip {
@@ -277,13 +277,13 @@
   flex-shrink: 0;
   gap: 12px;
   padding: 14px 18px;
-  background: #ffffff14;
-  border: 1px solid #ffffff29;
+  background: #ffffff66;
+  border: 1px solid rgb(2 28 77 / 16%);
   text-decoration: none;
   transition: background-color 200ms ease;
 
   &:hover {
-    background: #ffffff22;
+    background: rgb(2 28 77 / 6%);
   }
 }
 

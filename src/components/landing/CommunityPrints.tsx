@@ -1,75 +1,30 @@
-/**
- * A table of photographs, not a gallery component. Each print gets a white 8px
- * mat, a small rotation, and a navy-tinted shadow, so the section reads as
- * evidence someone laid out by hand. The centre print sits slightly proud.
- */
+import Image from "next/image";
 
-type Print = {
-  src: string;
-  alt: string;
-  objectPosition: string;
-  /** Positioning is deliberately hand-placed; there is no grid here. */
-  frame: string;
-  image: string;
-};
-
-const PRINTS: Print[] = [
-  {
-    src: "/landing/print-lecture.jpg",
-    alt: "A SAIN lecture filling a university auditorium",
-    objectPosition: "58% 36%",
-    frame: "left-[18px] top-8 w-[140px] rotate-[-11deg] sm:w-[188px] lg:top-16",
-    image: "h-[176px] sm:h-[236px]",
-  },
-  {
-    src: "/landing/print-indoor.jpg",
-    alt: "A group session indoors",
-    objectPosition: "64% 40%",
-    frame: "right-2 top-4 w-[170px] rotate-[8deg] sm:left-[318px] sm:right-auto sm:w-[248px] lg:top-[42px]",
-    image: "h-[110px] sm:h-[160px]",
-  },
-  {
-    src: "/landing/print-rooftop.jpg",
-    alt: "A rooftop gathering after a session",
-    objectPosition: "32% 62%",
-    frame: "bottom-8 left-4 w-[180px] rotate-[-7deg] sm:w-[268px] lg:bottom-auto lg:left-9 lg:top-72",
-    image: "h-[116px] sm:h-[172px]",
-  },
-  {
-    src: "/landing/print-circle.jpg",
-    alt: "An outdoor gathering in a circle",
-    objectPosition: "50% 48%",
-    frame: "bottom-6 right-0 w-[150px] rotate-[6deg] sm:left-[338px] sm:right-auto sm:w-[228px] lg:bottom-auto lg:top-[292px]",
-    image: "h-[96px] sm:h-[144px]",
-  },
+/** A loose row of prints: shared work, conversations, and time together. */
+const PRINTS = [
+  { src: "/landing/print-rooftop.jpg", alt: "A rooftop gathering after a SAIN session", position: "32% 62%", frame: "rotate-[-5deg] md:translate-y-4", crop: "aspect-[4/3]" },
+  { src: "/landing/print-lecture.jpg", alt: "A SAIN lecture filling a university auditorium", position: "58% 36%", frame: "rotate-[3deg] md:-translate-y-2", crop: "aspect-[4/5]" },
+  { src: "/landing/print-hackathon.jpg", alt: "People working together at a table during a hackathon", position: "48% 80%", frame: "z-10 rotate-[-2deg] md:scale-110", crop: "aspect-[4/3]" },
+  { src: "/landing/print-circle.jpg", alt: "An outdoor community gathering in a circle", position: "50% 48%", frame: "rotate-[5deg] md:translate-y-5", crop: "aspect-[4/3]" },
+  { src: "/landing/print-indoor.jpg", alt: "A SAIN group session indoors", position: "64% 40%", frame: "col-span-2 mx-auto w-2/3 rotate-[-4deg] md:col-span-1 md:w-full md:-translate-y-2", crop: "aspect-[4/3]" },
 ];
 
 export default function CommunityPrints() {
   return (
-    <div className="relative h-[420px] w-full max-w-[640px] lg:h-[540px] lg:w-[640px] lg:shrink-0">
+    <div className="grid w-full grid-cols-2 items-center gap-5 px-2 py-6 md:grid-cols-5 md:gap-3 md:py-8">
       {PRINTS.map((print) => (
-        <figure
-          key={print.src}
-          className={`absolute bg-white p-2 shadow-[0_12px_28px_#021C4D29] ${print.frame}`}
-        >
-          <img
+        <figure key={print.src} className={`relative bg-white p-2 shadow-[0_7px_22px_#021C4D1F] ${print.frame}`}>
+          <Image
             src={print.src}
             alt={print.alt}
-            loading="lazy"
-            className={`w-full object-cover ${print.image}`}
-            style={{ objectPosition: print.objectPosition }}
+            width={480}
+            height={360}
+            sizes="(min-width: 768px) 20vw, 45vw"
+            className={`w-full object-cover ${print.crop}`}
+            style={{ objectPosition: print.position }}
           />
         </figure>
       ))}
-
-      <figure className="absolute left-[22%] top-[28%] z-10 w-[210px] rotate-[-2.5deg] bg-white p-2 shadow-[0_14px_32px_#021C4D33] sm:left-[168px] sm:w-[312px] lg:top-[150px]">
-        <img
-          src="/landing/print-hackathon.jpg"
-          alt="People working together at a table during a hackathon"
-          className="h-[142px] w-full object-cover sm:h-[212px]"
-          style={{ objectPosition: "48% 80%" }}
-        />
-      </figure>
     </div>
   );
 }

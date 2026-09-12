@@ -6,6 +6,8 @@ import CourseTabs from "@/components/landing/CourseTabs";
 import HeroChart from "@/components/landing/HeroChart";
 import PathwayTrail from "@/components/landing/PathwayTrail";
 import PublicationMarquee from "@/components/landing/PublicationMarquee";
+import SectionStars from "@/components/landing/SectionStars";
+import SectionOrbits from "@/components/landing/SectionOrbits";
 import TalentFunnel from "@/components/landing/TalentFunnel";
 import { RESEARCH_EMAIL, supervisors } from "@/data/research";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
@@ -235,17 +237,36 @@ export default function Home() {
       {/* Hero. The claim on the left, the evidence on the right. The white
           ground fades into paper in the last 5% — a seam, not a sky. */}
       <section
+        className="relative isolate overflow-hidden"
         style={{
           backgroundImage:
             "linear-gradient(in oklab 180deg, white 0%, white 95.31%, #f7f5f2 100%)",
         }}
       >
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+          <div
+            className="absolute -left-8 -top-20 h-[400px] w-[200px] opacity-[0.07] md:-left-4 md:-top-12 md:h-[440px] md:w-[260px] md:opacity-[0.12]"
+            style={{
+              backgroundImage: "url('/illustrations/hero-orbits.svg')",
+              backgroundSize: "260px 440px",
+              backgroundRepeat: "no-repeat",
+              maskImage: "linear-gradient(to right, black 15%, transparent 100%)",
+            }}
+          />
+          <svg
+            className="absolute -bottom-10 -right-10 h-[190px] w-[190px] -scale-x-100 text-navy opacity-[0.06] md:h-[230px] md:w-[230px] md:opacity-[0.09]"
+            viewBox="0 0 230 230" fill="none"
+          >
+            <g stroke="currentColor" strokeWidth="1">
+              <circle cx="0" cy="230" r="85" />
+              <circle cx="0" cy="230" r="119" />
+              <circle cx="0" cy="230" r="153" />
+            </g>
+            <path d="M167 80 Q168 87 174 88 Q168 89 167 96 Q166 89 160 88 Q166 87 167 80Z" fill="currentColor" />
+          </svg>
+        </div>
         <div className="shell grid min-h-[60vh] items-center gap-12 pb-[76px] pt-[84px] lg:grid-cols-[minmax(0,700px)_minmax(0,1fr)]">
           <div className="flex min-w-0 flex-col gap-6">
-            <div className="flex items-center gap-[11px]">
-              <span className="size-[7px] shrink-0 bg-orange" aria-hidden="true" />
-              <p className="kicker text-base leading-[22px] text-navy/55">Safe AI Netherlands</p>
-            </div>
             <h1 className="font-serif text-[40px] leading-[1.12] tracking-[-0.015em] text-navy md:text-[46px] md:leading-[52px]">
               Your AI Safety career starts here.
             </h1>
@@ -301,11 +322,13 @@ export default function Home() {
           band already reads "Join a free course", so explaining the pipeline
           and opening its first step is a single argument — splitting it across
           two surfaces made the reader start over halfway through. */}
-      <section className="border-t border-navy/10 bg-white">
-        <div id="mission" className="shell scroll-mt-36 pt-[88px]">
+      <section className="relative isolate overflow-hidden border-t border-navy/10 bg-white">
+        <SectionOrbits className="-left-20 top-6 h-[400px] w-[300px] md:-left-12" />
+        <div id="mission" className="shell relative isolate scroll-mt-36 pt-[88px]">
+          <SectionStars section="mission" />
           <div className="flex w-full flex-col items-center justify-between gap-12 lg:flex-row lg:items-center">
             <div className="flex w-full max-w-[760px] flex-col gap-[22px] lg:shrink-0">
-              <h2 className="sain-heading max-w-[640px] text-navy">
+              <h2 className="font-serif text-[38px] leading-[44px] tracking-[-0.012em] md:text-[46px] md:leading-[52px] max-w-[640px] text-navy">
                 How SAIN is upskilling the next wave of AI Safety experts in the Netherlands.
               </h2>
               <div className="max-w-[720px] space-y-[27px] font-sans text-[16.5px] leading-[27px] text-navy/74">
@@ -336,9 +359,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="courses" className="shell scroll-mt-36 pb-14 pt-10">
-          <div className="mb-7 max-w-[820px]">
-            <h2 className="sain-heading text-navy">Start with a free course</h2>
+        <div className="shell mt-10" aria-hidden="true">
+          <div className="border-t border-navy/14" />
+        </div>
+        <div id="courses" className="shell relative isolate scroll-mt-36 pb-14 pt-10">
+          <SectionStars section="courses" />
+          <div className="mx-auto mb-10 max-w-[640px] text-center">
+            <h2 className="font-serif text-[38px] leading-[44px] tracking-[-0.012em] md:text-[46px] md:leading-[52px] text-navy">Start with a free course</h2>
             <p className="mt-2.5 font-sans text-[16.5px] leading-[26px] text-navy/74">
               Pick a track. Every programme is free and taught in person. What you join, and how it
               runs, depends on the chapter.
@@ -348,69 +375,67 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Community. A photograph with a caption in type. */}
-      <section
-        id="community"
-        className="scroll-mt-36 overflow-hidden border-t border-navy/10 bg-white"
-      >
-        <div className="shell flex flex-col items-center justify-between gap-14 py-16 lg:h-[700px] lg:flex-row lg:py-0">
-          <div className="flex w-full max-w-[620px] shrink-0 flex-col gap-[22px]">
-            <p className="kicker text-[17px] leading-6 text-navy/55">Community</p>
-            <h2 className="sain-heading max-w-[580px] text-navy">
-              The community is how SAIN works.
-            </h2>
-            <p className="max-w-[560px] font-sans text-[16.5px] leading-[27px] text-navy/74">
-              Weekly sessions, hackathons, and the evenings after. People find friends here,
-              collaborators, and often the next step in AI Safety. That network is not an extra. It
-              is a central part of the organisation.
-            </p>
-            <ul className="flex max-w-[560px] flex-col gap-2.5 pt-1 font-sans text-[15px] leading-[22px] text-navy">
-              {[
-                "Friends who are in the same work",
-                "A network across Utrecht, Groningen, and Amsterdam",
-                "Events you can walk into",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <span className="h-0.5 w-4 shrink-0 bg-orange" aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <a
-              href={COMMUNITY_JOIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-accent w-max"
-            >
-              Join the SAIN Community - Free
-            </a>
-          </div>
-
+      {/* Show the community first, then explain how to join it. */}
+      <section id="community" className="relative isolate scroll-mt-36 overflow-hidden bg-white">
+        <SectionStars section="community" />
+        <SectionOrbits className="-bottom-32 -left-20 h-[500px] w-[375px] rotate-[-20deg] md:-left-12" />
+        <div className="shell"><div className="border-t border-navy/14" /></div>
+        <div className="shell flex flex-col gap-12 py-14 md:gap-16 md:py-[72px]">
           <CommunityPrints />
+          <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,620px)] lg:gap-16">
+            <div className="flex flex-col gap-4">
+              <p className="kicker text-[17px] leading-6 text-navy/55">Community</p>
+              <h2 className="sain-heading max-w-[480px] text-navy">
+                The community is how SAIN works.
+              </h2>
+            </div>
+            <div className="flex flex-col items-start gap-6">
+              <p className="max-w-[600px] font-sans text-[16.5px] leading-[27px] text-navy/74">
+                Weekly sessions, hackathons, and the evenings after. People find friends here,
+                collaborators, and often the next step in AI Safety. That network is not an extra.
+                It is a central part of the organisation.
+              </p>
+              <ul className="flex flex-col gap-2.5 font-sans text-[15px] leading-[22px] text-navy">
+                {[
+                  "Friends who are in the same work",
+                  "A network across Utrecht, Groningen, and Amsterdam",
+                  "Events you can walk into",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="h-0.5 w-4 shrink-0 bg-orange" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <a href={COMMUNITY_JOIN_URL} target="_blank" rel="noopener noreferrer" className="btn-accent">
+                Join the SAIN Community - Free
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Research hub. How it works, and who supervises. */}
-      <section id="research" className="scroll-mt-36 border-t border-navy/10 bg-white">
+      <section id="research" className="scroll-mt-36 bg-navy">
         <div className="shell flex flex-col gap-11 py-[88px]">
           <div className="flex max-w-[760px] flex-col gap-[22px]">
-            <h2 className="sain-heading text-navy">Research hub</h2>
-            <p className="font-sans text-[16.5px] leading-[27px] text-navy/74">
+            <h2 className="sain-heading text-white">Research hub</h2>
+            <p className="font-sans text-[16.5px] leading-[27px] text-white/78">
               A national programme that matches researchers with PhD+ supervisors, and supports open
               collaboration. Open to students, researchers, and people with no formal affiliation,
               from every chapter. Apply at any time.
             </p>
-            <Link href="/research" className="btn-outline-ink self-start px-5 py-[13px] text-sm">
+            <Link href="/research" className="btn-ghost-inverse self-start px-5 py-[13px] text-sm">
               Read the call for applications
             </Link>
           </div>
 
           <div className="grid items-start gap-16 pt-2 lg:grid-cols-[minmax(0,1fr)_minmax(280px,560px)]">
             <div className="flex min-w-0 flex-col gap-[22px]">
-              <h3 className="kicker text-[17px] leading-6 text-navy/55">How it works</h3>
-              <ul className="font-sans text-[15px] leading-6 text-navy/74">
+              <h3 className="kicker text-[17px] leading-6 text-white/60">How it works</h3>
+              <ul className="font-sans text-[15px] leading-6 text-white/78">
                 {hubSteps.map((step) => (
-                  <li key={step} className="flex items-start gap-3 border-t border-navy/10 py-2.5">
+                  <li key={step} className="flex items-start gap-3 border-t border-white/16 py-2.5">
                     <span
                       className="mt-2 size-[5px] shrink-0 rounded-full bg-orange"
                       aria-hidden="true"
@@ -421,24 +446,24 @@ export default function Home() {
               </ul>
             </div>
 
-            <div className="w-full flex-1 lg:border-l lg:border-navy/14 lg:pl-8">
-              <h3 className="kicker pb-3 text-[17px] leading-6 text-navy/55">Supervisors</h3>
+            <div className="w-full flex-1 lg:border-l lg:border-white/16 lg:pl-8">
+              <h3 className="kicker pb-3 text-[17px] leading-6 text-white/60">Supervisors</h3>
               {supervisors.map((supervisor) => (
                 <div
                   key={supervisor.name}
-                  className="flex flex-col gap-0.5 border-t border-navy/10 py-[11px] sm:flex-row sm:items-baseline sm:gap-5"
+                  className="flex flex-col gap-0.5 border-t border-white/16 py-[11px] sm:flex-row sm:items-baseline sm:gap-5"
                 >
-                  <span className="w-[196px] shrink-0 font-serif text-base leading-[22px] text-navy">
+                  <span className="w-[196px] shrink-0 font-serif text-base leading-[22px] text-white">
                     {supervisor.name}
                   </span>
-                  <span className="min-w-0 font-sans text-[14.5px] leading-[22px] text-navy/72">
+                  <span className="min-w-0 font-sans text-[14.5px] leading-[22px] text-white/78">
                     {supervisor.positionShort}
                   </span>
                 </div>
               ))}
               <a
                 href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`}
-                className="btn-outline-ink mt-[18px] px-5 py-[13px] text-sm"
+                className="btn-ghost-inverse mt-[18px] px-5 py-[13px] text-sm"
               >
                 Become a supervisor
               </a>
@@ -447,16 +472,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Output. Inverse, because this band is presenting proof. */}
-      <section id="output" className="scroll-mt-36 bg-navy pb-14 pt-[72px]">
+      {/* Output. Publication evidence on a quiet paper ground. */}
+      <section id="output" className="scroll-mt-36 bg-cream pb-14 pt-[72px]">
         <div className="shell flex flex-col gap-[18px]">
-          <p className="kicker text-[17px] leading-6 text-white/60">Output</p>
-          <h2 className="sain-heading text-white">Already in the literature</h2>
-          <p className="max-w-[720px] font-sans text-[16.5px] leading-[27px] text-white/78">
+          <p className="kicker text-[17px] leading-6 text-navy/60">Output</p>
+          <h2 className="sain-heading text-navy">Already in the literature</h2>
+          <p className="max-w-[720px] font-sans text-[16.5px] leading-[27px] text-navy/74">
             Researchers in the hub have published at NeurIPS and ICLR. SAIN helps with submissions
             and presentations. The list below is the current backlog.
           </p>
-          <p className="flex flex-wrap gap-7 pt-2 font-sans text-sm leading-5 text-white/64">
+          <p className="flex flex-wrap gap-7 pt-2 font-sans text-sm leading-5 text-navy/66">
             <span>6+ active projects</span>
             <span>20+ researchers</span>
             <span>12+ publications</span>
@@ -465,7 +490,7 @@ export default function Home() {
 
         <PublicationMarquee />
 
-        <p className="shell mt-4 font-sans text-[13px] leading-[18px] text-white/55">
+        <p className="shell mt-4 font-sans text-[13px] leading-[18px] text-navy/60">
           Each title opens the paper in a new tab.
         </p>
       </section>
