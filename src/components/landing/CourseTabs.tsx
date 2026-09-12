@@ -79,7 +79,8 @@ const TRACKS: Track[] = [
       },
       {
         city: "Amsterdam",
-        detail: "BlueDot Technical AI Safety. 6 weeks, on-site, application-based.",
+        detail:
+          "BlueDot Technical AI Safety. 6 weeks, on-site, application-based.",
       },
     ],
     cta: { label: "Join a technical track", href: "/get-involved#courses" },
@@ -104,7 +105,10 @@ const TRACKS: Track[] = [
       "Pathways — policy fellowships, ministries, standards bodies",
     ],
     cities: [
-      { city: "Utrecht", detail: "Weekly AI Governance & Policy discussion group." },
+      {
+        city: "Utrecht",
+        detail: "Weekly AI Governance & Policy discussion group.",
+      },
       {
         city: "Groningen",
         detail: "Governance track of AI Safety, Ethics, and Society. On-site.",
@@ -130,7 +134,8 @@ export default function CourseTabs() {
 
   /* Arrow keys move between tabs, as a tablist is expected to. */
   const onKeyDown = (event: React.KeyboardEvent) => {
-    const delta = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+    const delta =
+      event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
     if (!delta) return;
     event.preventDefault();
     const next = (activeIndex + delta + TRACKS.length) % TRACKS.length;
@@ -171,8 +176,16 @@ export default function CourseTabs() {
                   : "border-b-[3px] border-b-transparent hover:bg-cream"
               }`}
             >
-              {on && <motion.span layoutId="course-tab-indicator" className="absolute inset-x-0 -bottom-[3px] h-[3px] bg-orange"
-                transition={{ duration: reduce ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }} />}
+              {on && (
+                <motion.span
+                  layoutId="course-tab-indicator"
+                  className="absolute inset-x-0 -bottom-[3px] h-[3px] bg-orange"
+                  transition={{
+                    duration: reduce ? 0 : 0.3,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                />
+              )}
               <span
                 className={`font-sans text-[11px] leading-[14px] tracking-normal ${
                   on ? "text-orange" : "text-navy/55"
@@ -194,83 +207,110 @@ export default function CourseTabs() {
       </div>
 
       <div className="grid">
-      {TRACKS.map((active) => (
-      <motion.div
-        key={active.id}
-        initial={false}
-        animate={{ opacity: active.id === activeId ? 1 : 0 }}
-        /* A cross-dissolve, so linear: both panels are on screen at once and
-           their opacities have to sum to roughly one the whole way across. The
-           strong ease-out that suits an arrival put 54% of the change into the
-           first two frames here, which is what read as a snap. 300ms because
-           the mass being dissolved is a full-height photograph. */
-        transition={{ duration: reduce ? 0 : 0.3, ease: "linear" }}
-        aria-hidden={active.id !== activeId}
-        /* `inert`, not `visibility: hidden`. Hiding the outgoing panel took it
+        {TRACKS.map((active) => (
+          <motion.div
+            key={active.id}
+            initial={false}
+            aria-hidden={active.id !== activeId}
+            /* `inert`, not `visibility: hidden`. Hiding the outgoing panel took it
            off screen on the first frame, so nothing ever crossfaded; inert
            keeps it painted while it fades but out of the tab order and the
            accessibility tree. */
-        {...(active.id === activeId ? {} : ({ inert: "" } as Record<string, string>))}
-        style={{ gridArea: "1 / 1" }}
-        id={`panel-${active.id}`}
-        role="tabpanel"
-        aria-labelledby={`tab-${active.id}`}
-        tabIndex={active.id === activeId ? 0 : -1}
-        className={`grid lg:grid-cols-[minmax(0,720px)_minmax(0,1fr)] ${
-          active.id === activeId ? "" : "pointer-events-none"
-        }`}
-      >
-        <div className="flex flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9">
-          <p className="max-w-[640px] font-sans text-[15.5px] leading-[25px] text-navy/78">
-            {active.summary}
-          </p>
+            {...(active.id === activeId
+              ? {}
+              : ({ inert: "" } as Record<string, string>))}
+            style={{ gridArea: "1 / 1" }}
+            id={`panel-${active.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${active.id}`}
+            tabIndex={active.id === activeId ? 0 : -1}
+            className={`grid lg:grid-cols-[minmax(0,720px)_minmax(0,1fr)] ${
+              active.id === activeId ? "" : "pointer-events-none"
+            }`}
+          >
+            <motion.div
+              /* Fade through, not across: the outgoing column is gone before the
+             incoming one starts, so the two never overlap. Photographs
+             cross-dissolve well because they are continuous tone; text does
+             not, and the overlap is what read as dizzying. */
+              initial={false}
+              animate={{ opacity: active.id === activeId ? 1 : 0 }}
+              transition={{
+                duration: reduce ? 0 : active.id === activeId ? 0.15 : 0.1,
+                delay: reduce ? 0 : active.id === activeId ? 0.1 : 0,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="flex flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9"
+            >
+              <p className="max-w-[640px] font-sans text-[15.5px] leading-[25px] text-navy/78">
+                {active.summary}
+              </p>
 
-          <div>
-            <p className="kicker pb-2 text-[15px] leading-5 text-navy/50">{active.outlineTitle}</p>
-            <ol className="font-sans text-[14.5px] leading-5 text-navy">
-              {active.outline.map((item, i) => (
-                <li key={item} className="flex items-baseline gap-3 border-t border-navy/10 py-[7px]">
-                  <span className="w-[22px] shrink-0 font-sans text-xs text-orange">{i + 1}</span>
-                  {item}
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div>
-            <p className="kicker pb-2 text-[15px] leading-5 text-navy/50">Where you can attend</p>
-            {active.cities.map((entry) => (
-              <div
-                key={entry.city}
-                className="flex flex-col gap-1 border-t border-navy/10 py-2 sm:flex-row sm:items-baseline sm:gap-4"
-              >
-                <span className="w-[108px] shrink-0 font-serif text-base leading-[22px] text-navy">
-                  {entry.city}
-                </span>
-                <span className="font-sans text-[14.5px] leading-[22px] text-navy/72">
-                  {entry.detail}
-                </span>
+              <div>
+                <p className="kicker pb-2 text-[15px] leading-5 text-navy/50">
+                  {active.outlineTitle}
+                </p>
+                <ol className="font-sans text-[14.5px] leading-5 text-navy">
+                  {active.outline.map((item, i) => (
+                    <li
+                      key={item}
+                      className="flex items-baseline gap-3 border-t border-navy/10 py-[7px]"
+                    >
+                      <span className="w-[22px] shrink-0 font-sans text-xs text-orange">
+                        {i + 1}
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ol>
               </div>
-            ))}
-          </div>
 
-          <Link href={active.cta.href} className="btn-ink mt-auto self-start px-5 py-[13px] text-sm leading-5">
-            {active.cta.label}
-          </Link>
-        </div>
+              <div>
+                <p className="kicker pb-2 text-[15px] leading-5 text-navy/50">
+                  Where you can attend
+                </p>
+                {active.cities.map((entry) => (
+                  <div
+                    key={entry.city}
+                    className="flex flex-col gap-1 border-t border-navy/10 py-2 sm:flex-row sm:items-baseline sm:gap-4"
+                  >
+                    <span className="w-[108px] shrink-0 font-serif text-base leading-[22px] text-navy">
+                      {entry.city}
+                    </span>
+                    <span className="font-sans text-[14.5px] leading-[22px] text-navy/72">
+                      {entry.detail}
+                    </span>
+                  </div>
+                ))}
+              </div>
 
-        <div className="relative min-h-[280px] overflow-hidden lg:min-h-[587px]">
-          <img
-            src={active.photo}
-            alt={active.photoAlt}
-            className="absolute inset-0 size-full object-cover object-center"
-          />
-          <p className="kicker absolute inset-x-0 bottom-0 bg-navy/88 px-5 py-2.5 text-[15px] leading-5 text-white">
-            {active.caption}
-          </p>
-        </div>
-      </motion.div>
-      ))}
+              <Link
+                href={active.cta.href}
+                className="btn-ink mt-auto self-start px-5 py-[13px] text-sm leading-5"
+              >
+                {active.cta.label}
+              </Link>
+            </motion.div>
+
+            {/* The photograph keeps its cross-dissolve, so the largest mass on the
+            panel never blanks while the text is swapping underneath it. */}
+            <motion.div
+              initial={false}
+              animate={{ opacity: active.id === activeId ? 1 : 0 }}
+              transition={{ duration: reduce ? 0 : 0.3, ease: "linear" }}
+              className="relative min-h-[280px] overflow-hidden lg:min-h-[587px]"
+            >
+              <img
+                src={active.photo}
+                alt={active.photoAlt}
+                className="absolute inset-0 size-full object-cover object-center"
+              />
+              <p className="kicker absolute inset-x-0 bottom-0 bg-navy/88 px-5 py-2.5 text-[15px] leading-5 text-white">
+                {active.caption}
+              </p>
+            </motion.div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
