@@ -20,6 +20,13 @@ const chapters = [
   { city: "Amsterdam", href: "/chapters/amsterdam" },
 ];
 
+/* Not a fourth city but the way to add one, so it sits below the list behind a
+   rule rather than reading as somewhere you can already go. */
+const startChapter = {
+  name: "Start a chapter",
+  href: "/get-involved#start-chapter",
+};
+
 const navigation: {
   name: string;
   href: string;
@@ -198,6 +205,13 @@ export default function Navbar() {
                                 {chapter.city}
                               </Link>
                             ))}
+                            <Link
+                              href={startChapter.href}
+                              onClick={() => setChaptersOpen(false)}
+                              className="block border-t border-navy/12 px-5 py-2.5 font-sans text-sm leading-5 text-navy transition-colors hover:bg-cream"
+                            >
+                              {startChapter.name}
+                            </Link>
                           </div>
                         </div>
                       )}
@@ -295,6 +309,13 @@ export default function Navbar() {
                               {chapter.city}
                             </Link>
                           ))}
+                          <Link
+                            href={startChapter.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="flex min-h-[44px] items-center pl-3 font-sans text-[13.5px] leading-[18px] text-navy/70"
+                          >
+                            {startChapter.name}
+                          </Link>
                         </div>
                       )}
                     </div>
