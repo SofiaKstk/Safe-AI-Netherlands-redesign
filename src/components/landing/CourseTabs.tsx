@@ -198,19 +198,27 @@ export default function CourseTabs() {
       <motion.div
         key={active.id}
         initial={false}
-        animate={{
-          opacity: active.id === activeId ? 1 : 0,
-          transform:
-            reduce || active.id === activeId ? "translateY(0px)" : "translateY(6px)",
-        }}
-        transition={{ duration: reduce ? 0 : 0.24, ease: [0.16, 1, 0.3, 1] }}
+        animate={{ opacity: active.id === activeId ? 1 : 0 }}
+        /* A cross-dissolve, so linear: both panels are on screen at once and
+           their opacities have to sum to roughly one the whole way across. The
+           strong ease-out that suits an arrival put 54% of the change into the
+           first two frames here, which is what read as a snap. 300ms because
+           the mass being dissolved is a full-height photograph. */
+        transition={{ duration: reduce ? 0 : 0.3, ease: "linear" }}
         aria-hidden={active.id !== activeId}
-        style={{ visibility: active.id === activeId ? "visible" : "hidden", gridArea: "1 / 1" }}
+        /* `inert`, not `visibility: hidden`. Hiding the outgoing panel took it
+           off screen on the first frame, so nothing ever crossfaded; inert
+           keeps it painted while it fades but out of the tab order and the
+           accessibility tree. */
+        {...(active.id === activeId ? {} : ({ inert: "" } as Record<string, string>))}
+        style={{ gridArea: "1 / 1" }}
         id={`panel-${active.id}`}
         role="tabpanel"
         aria-labelledby={`tab-${active.id}`}
         tabIndex={active.id === activeId ? 0 : -1}
-        className="grid lg:grid-cols-[minmax(0,720px)_minmax(0,1fr)]"
+        className={`grid lg:grid-cols-[minmax(0,720px)_minmax(0,1fr)] ${
+          active.id === activeId ? "" : "pointer-events-none"
+        }`}
       >
         <div className="flex flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9">
           <p className="max-w-[640px] font-sans text-[15.5px] leading-[25px] text-navy/78">
