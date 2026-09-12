@@ -451,3 +451,21 @@
     transform: none;
   }
 }
+
+/* Larger landing CTAs: real padding and type, so hit areas grow with the label. */
+#main :is(.btn-accent, .btn-ink, .btn-ghost, .btn-outline-ink, .btn-ghost-inverse) {
+  font-size: 16.1px;
+  line-height: 23px;
+  padding: 15px 23px;
+}
+#main .btn-accent {
+  font-size: 16.675px;
+  padding: 16.1px 27.6px;
+}
+.research-publications .pub-chip {
+  background: rgb(255 255 255 / 4%);
+  border-color: rgb(255 255 255 / 18%);
+}
+.research-publications .pub-chip span { color: rgb(255 255 255 / 80%); }
+.research-publications .pub-chip span[aria-hidden] { background: rgb(255 255 255 / 20%); }
+.research-publications .pub-chip:hover { background: rgb(255 255 255 / 9%); }

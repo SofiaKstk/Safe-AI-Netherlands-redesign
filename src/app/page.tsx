@@ -4,13 +4,14 @@ import Link from "next/link";
 import CommunityPrints from "@/components/landing/CommunityPrints";
 import CourseTabs from "@/components/landing/CourseTabs";
 import Reveal from "@/components/landing/Reveal";
+import ResearchPeople from "@/components/landing/ResearchPeople";
 import ResearchIllustration from "@/components/landing/ResearchIllustration";
 import HeroChart from "@/components/landing/HeroChart";
 import PathwayTrail from "@/components/landing/PathwayTrail";
 import PublicationMarquee from "@/components/landing/PublicationMarquee";
 import SectionOrbits from "@/components/landing/SectionOrbits";
 import TalentFunnel from "@/components/landing/TalentFunnel";
-import { RESEARCH_EMAIL, supervisors } from "@/data/research";
+import { RESEARCH_EMAIL } from "@/data/research";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 
 /* No `title` here on purpose: the landing falls through to the root layout's
@@ -212,13 +213,7 @@ const careerTracks = [
   },
 ];
 
-const hubSteps = [
-  "Two ways in. You are matched with a PhD+ supervisor, or you lead an open collaboration.",
-  "You work on interpretability, model evaluations, control, or governance. Projects are scoped with your supervisor.",
-  "You produce a paper, a replication or a policy brief. SAIN helps you submit and present at conferences.",
-  "SAIN supplies compute and the national network across every chapter.",
-  "What we ask: a background in computer science, mathematics, law or public policy; a weekly commitment set per project; you can join from any chapter, including remotely.",
-];
+
 
 function Arrow() {
   return (
@@ -415,83 +410,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Research hub. How it works, and who supervises. */}
-      <section id="research" className="scroll-mt-36 bg-navy">
-        <div className="shell flex flex-col gap-11 py-[88px]">
-          <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,760px)_1fr]">
-          <div className="flex max-w-[760px] flex-col gap-[22px]">
-            <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] text-white">Research hub</h2>
-            <p className="font-sans text-[16.5px] leading-[27px] text-white/78">
-              A national programme that matches researchers with PhD+ supervisors, and supports open
-              collaboration. Open to students, researchers, and people with no formal affiliation,
-              from every chapter. Apply at any time.
-            </p>
-            <Link href="/research" className="btn-ghost-inverse self-start px-5 py-[13px] text-sm">
-              Read the call for applications
-            </Link>
-          </div>
+      {/* One research story: the invitation, the people, and the work they publish. */}
+      <section id="research" className="scroll-mt-36 bg-navy text-white">
+        <div className="shell py-20 md:py-28">
+          <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,650px)_1fr] lg:gap-24">
+            <div className="flex flex-col items-start gap-6">
+              <p className="kicker text-[17px] text-white/60">Research hub</p>
+              <h2 className="max-w-[560px] font-serif text-[28.5px] leading-[33px] md:text-[34.5px] md:leading-[39px]">Turn a good question into research that matters.</h2>
+              <p className="max-w-[590px] text-[16.5px] leading-[27px] text-white/75">Work with experienced supervisors on interpretability, evaluations, control, or governance. SAIN brings the mentorship, compute, and community to help you make a contribution.</p>
+              <Link href="/research" className="btn-accent mt-2">Explore the research programme</Link>
+              <p className="text-[13px] leading-5 text-white/55">Open applications · Every chapter · Remote participation welcome</p>
+            </div>
             <ResearchIllustration />
           </Reveal>
 
-          <div className="grid items-start gap-16 pt-2 lg:grid-cols-[minmax(0,1fr)_minmax(280px,560px)]">
-            <div className="flex min-w-0 flex-col gap-[22px]">
-              <h3 className="kicker text-[17px] leading-6 text-white/60">How it works</h3>
-              <ul className="font-sans text-[15px] leading-6 text-white/78">
-                {hubSteps.map((step) => (
-                  <li key={step} className="flex items-start gap-3 border-t border-white/16 py-2.5">
-                    <span
-                      className="mt-2 size-[5px] shrink-0 rounded-full bg-orange"
-                      aria-hidden="true"
-                    />
-                    {step}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <Reveal className="mt-20 grid gap-9 md:mt-24 md:grid-cols-3 md:gap-12">
+            {[
+              { number: "01", title: "Find your question", description: "Join a supervisor’s project or lead an open collaboration. Scope a question together." },
+              { number: "02", title: "Do the work, together", description: "Build on your background in computing, mathematics, law, or policy—with guidance and a weekly commitment agreed per project." },
+              { number: "03", title: "Share what you discover", description: "Produce a paper, replication, or policy brief. We help with submissions and conference presentations." },
+            ].map((step) => (
+              <div key={step.number} className="border-t border-white/20 pt-5">
+                <span className="font-mono text-xs text-orange">{step.number}</span>
+                <h3 className="mb-3 mt-4 font-serif text-[23px] leading-7">{step.title}</h3>
+                <p className="max-w-[360px] text-[15px] leading-6 text-white/65">{step.description}</p>
+              </div>
+            ))}
+          </Reveal>
 
-            <div className="w-full flex-1 lg:border-l lg:border-white/16 lg:pl-8">
-              <h3 className="kicker pb-3 text-[17px] leading-6 text-white/60">Supervisors</h3>
-              {supervisors.map((supervisor) => (
-                <div
-                  key={supervisor.name}
-                  className="flex flex-col gap-0.5 border-t border-white/16 py-[11px] sm:flex-row sm:items-baseline sm:gap-5"
-                >
-                  <span className="w-[196px] shrink-0 font-serif text-base leading-[22px] text-white">
-                    {supervisor.name}
-                  </span>
-                  <span className="min-w-0 font-sans text-[14.5px] leading-[22px] text-white/78">
-                    {supervisor.positionShort}
-                  </span>
-                </div>
-              ))}
-              <a
-                href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`}
-                className="btn-ghost-inverse mt-[18px] px-5 py-[13px] text-sm"
-              >
-                Become a supervisor
-              </a>
+          <Reveal className="mt-24 md:mt-32">
+            <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h3 className="font-serif text-[28.5px] leading-9">People to think alongside.</h3>
+                <p className="mt-3 max-w-[530px] text-[15px] leading-6 text-white/65">Meet the supervisors who help turn promising ideas into rigorous work.</p>
+              </div>
+              <a href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`} className="self-start text-[14px] text-white/75 underline decoration-white/30 underline-offset-4 hover:text-white">Become a supervisor →</a>
             </div>
+            <ResearchPeople />
+          </Reveal>
+
+          <div id="output" className="scroll-mt-36 border-t border-white/20 pt-16 md:pt-20">
+            <Reveal className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-16">
+              <div className="max-w-[600px]">
+                <p className="kicker mb-3 text-[17px] text-white/55">From questions to publications</p>
+                <h3 className="font-serif text-[28.5px] leading-9">Already in the literature.</h3>
+                <p className="mt-4 text-[15px] leading-6 text-white/65">Work from the hub has appeared at NeurIPS and ICLR. Explore the papers and projects below.</p>
+              </div>
+              <p className="flex gap-7 text-[13px] leading-5 text-white/60"><span>6+ active projects</span><span>20+ researchers</span><span>12+ publications</span></p>
+            </Reveal>
           </div>
         </div>
-      </section>
-
-      {/* Output. Publication evidence on a quiet paper ground. */}
-      <section id="output" className="scroll-mt-36 bg-cream pb-14 pt-[72px]">
-        <div className="shell flex flex-col gap-[18px]">
-          <p className="kicker text-[17px] leading-6 text-navy/60">Output</p>
-          <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] text-navy">Already in the literature</h2>
-          <p className="max-w-[720px] font-sans text-[16.5px] leading-[27px] text-navy/74">
-            Researchers in the hub have published at NeurIPS and ICLR. SAIN helps with submissions
-            and presentations. The list below is the current backlog.
-          </p>
-          <p className="flex flex-wrap gap-7 pt-2 font-sans text-sm leading-5 text-navy/66">
-            <span>6+ active projects</span>
-            <span>20+ researchers</span>
-            <span>12+ publications</span>
-          </p>
-        </div>
-
-        <PublicationMarquee />
+        <div className="research-publications -mt-14 pb-20"><PublicationMarquee /></div>
       </section>
 
       {/* Careers. Paper band: a quote, then the destinations as hairline rows. */}
