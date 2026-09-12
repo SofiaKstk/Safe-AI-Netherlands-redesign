@@ -31,10 +31,9 @@
   --color-dutch-orange-50: #fff5ed;
   --color-dutch-orange-100: #ffe4cc;
 
-  /* IBM Plex Serif is the voice, Archivo is the work, Plex Mono is the instrument. */
+  /* IBM Plex Serif for editorial text; Archivo for body copy and interface labels. */
   --font-serif: var(--font-plex-serif), Georgia, serif;
   --font-sans: var(--font-archivo), system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
   --font-display: var(--font-plex-serif), Georgia, serif;
 
   /* Published type roles. */

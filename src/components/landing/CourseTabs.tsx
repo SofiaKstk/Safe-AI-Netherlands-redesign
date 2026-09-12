@@ -174,7 +174,7 @@ export default function CourseTabs() {
               {on && <motion.span layoutId="course-tab-indicator" className="absolute inset-x-0 -bottom-[3px] h-[3px] bg-orange"
                 transition={{ duration: reduce ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }} />}
               <span
-                className={`font-mono text-[11px] leading-[14px] tracking-[0.1em] ${
+                className={`font-sans text-[11px] leading-[14px] tracking-normal ${
                   on ? "text-orange" : "text-navy/55"
                 }`}
               >
@@ -218,7 +218,7 @@ export default function CourseTabs() {
             <ol className="font-sans text-[14.5px] leading-5 text-navy">
               {active.outline.map((item, i) => (
                 <li key={item} className="flex items-baseline gap-3 border-t border-navy/10 py-[7px]">
-                  <span className="w-[22px] shrink-0 font-mono text-xs text-orange">{i + 1}</span>
+                  <span className="w-[22px] shrink-0 font-sans text-xs text-orange">{i + 1}</span>
                   {item}
                 </li>
               ))}

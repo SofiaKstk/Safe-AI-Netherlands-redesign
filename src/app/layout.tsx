@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono, IBM_Plex_Serif } from "next/font/google";
+import { Archivo, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -18,14 +18,6 @@ const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo",
   display: "swap",
-});
-
-/* IBM Plex Mono is an instrument, not a voice. It indexes: 01, 02, 03. */
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-plex-mono",
-  display: "swap",
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -114,7 +106,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`scroll-smooth ${plexSerif.variable} ${archivo.variable} ${plexMono.variable}`}
+      className={`scroll-smooth ${plexSerif.variable} ${archivo.variable}`}
     >
       <head>
         <link rel="prefetch" href="/about" />

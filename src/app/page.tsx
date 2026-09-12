@@ -438,7 +438,7 @@ export default function Home() {
               { number: "03", title: "Publish your findings", description: "Produce a paper, replication, or policy brief. We help with submissions and conference presentations." },
             ].map((step) => (
               <div key={step.number} className="border-t border-white/20 pt-5">
-                <span className="font-mono text-xs text-orange">{step.number}</span>
+                <span className="font-sans text-xs text-orange">{step.number}</span>
                 <h3 className="mb-3 mt-4 font-serif text-[23px] leading-7">{step.title}</h3>
                 <p className="max-w-[360px] text-[15px] leading-6 text-white/65">{step.description}</p>
               </div>

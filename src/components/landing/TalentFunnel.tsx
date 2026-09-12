@@ -194,7 +194,7 @@ export default function TalentFunnel() {
                 />
               </div>
 
-              <p className={`relative font-serif ${band.labelClass}`}>
+              <p className={`relative font-sans ${band.labelClass}`}>
                 {band.label}
               </p>
             </a>
