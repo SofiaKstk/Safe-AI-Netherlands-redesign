@@ -24,13 +24,13 @@ export default function ResearchPeople() {
           rel="noopener noreferrer"
           className="group flex flex-col items-center text-center last:col-span-2 sm:last:col-span-1"
         >
-          <span className="block size-[88px] overflow-hidden rounded-full border border-white/25 transition-[scale,border-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-white/60 motion-safe:group-hover:scale-[1.04] md:size-[104px]">
+          <span className="block size-[110px] overflow-hidden rounded-full border border-white/25 transition-[scale,border-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-white/60 motion-safe:group-hover:scale-[1.04] md:size-[130px]">
             <Image
               src={person.imageSmall}
               alt=""
               width={312}
               height={312}
-              sizes="104px"
+              sizes="130px"
               className="size-full object-cover"
             />
           </span>
