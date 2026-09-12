@@ -476,7 +476,7 @@ export default function Home() {
       </section>
 
       {/* Output. Publication evidence on a quiet paper ground. */}
-      <section id="output" className="scroll-mt-36 bg-cream pb-14 pt-[72px]">
+      <section id="output" className="scroll-mt-36 bg-white pb-14 pt-[72px]">
         <div className="shell flex flex-col gap-[18px]">
           <p className="kicker text-[17px] leading-6 text-navy/60">Output</p>
           <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] text-navy">Already in the literature</h2>

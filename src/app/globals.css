@@ -296,13 +296,15 @@
   flex-shrink: 0;
   gap: 12px;
   padding: 14px 18px;
-  background: #ffffff66;
+  /* Paper chips on the white sheet. The old translucent white only read as a
+     fill over the cream ground; on white it left the chip border-only. */
+  background: var(--color-cream);
   border: 1px solid rgb(2 28 77 / 16%);
   text-decoration: none;
   transition: background-color 200ms ease;
 
   &:hover {
-    background: rgb(2 28 77 / 6%);
+    background: rgb(2 28 77 / 7%);
   }
 }
 
