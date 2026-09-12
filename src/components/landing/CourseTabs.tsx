@@ -382,7 +382,7 @@ export default function CourseTabs() {
 
               <Link
                 href={active.cta.href}
-                className="btn-ink mt-auto self-start px-5 py-[13px] text-sm leading-5"
+                className="btn-ink mt-auto self-start"
               >
                 {active.cta.label}
               </Link>

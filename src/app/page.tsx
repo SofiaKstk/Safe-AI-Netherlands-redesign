@@ -370,7 +370,7 @@ export default function Home() {
               </p>
               <Link
                 href="/open-positions"
-                className="btn-outline-ink self-start px-5 py-[13px] text-sm"
+                className="btn-outline-ink self-start"
               >
                 See open positions
               </Link>
@@ -445,10 +445,10 @@ export default function Home() {
             <div className="flex flex-wrap gap-3">
               {/* The funnel's widest band already means the section on this
                   page; the close has to mean the same thing. */}
-              <Link href="#courses" className="btn-accent px-[22px] text-sm">
+              <Link href="#courses" className="btn-accent">
                 Start with a free course
               </Link>
-              <Link href="/get-involved" className="btn-ghost-inverse px-[22px]">
+              <Link href="/get-involved" className="btn-ghost-inverse">
                 Volunteer
               </Link>
             </div>

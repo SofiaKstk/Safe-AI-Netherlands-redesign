@@ -41,11 +41,14 @@ function Chip({ paper, duplicate = false }: { paper: Publication; duplicate?: bo
       aria-hidden={duplicate || undefined}
       tabIndex={duplicate ? -1 : undefined}
     >
-      <span className="whitespace-nowrap font-sans text-footnote font-medium text-navy">
+      {/* Written for the inverse band it always sits on. The venue keeps the
+          accent design.md allocates it -- orange on navy is 5.45:1 -- and it is
+          the only thing distinguishing a venue from a title at a glance. */}
+      <span className="whitespace-nowrap font-sans text-footnote font-medium text-orange">
         {paper.venueShort}
       </span>
-      <span className="block h-3.5 w-px bg-navy/20" aria-hidden="true" />
-      <span className="whitespace-nowrap font-serif text-kicker-sm text-navy/80">
+      <span className="block h-3.5 w-px bg-white/20" aria-hidden="true" />
+      <span className="whitespace-nowrap font-serif text-kicker-sm text-white">
         {paper.chipTitle}
       </span>
       <span className="sr-only"> (opens in a new tab)</span>

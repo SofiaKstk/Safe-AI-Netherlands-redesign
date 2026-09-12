@@ -645,7 +645,15 @@
   }
 }
 
-/* Larger landing CTAs: real padding and type, so hit areas grow with the label. */
+/* Larger landing CTAs: real padding and type, so hit areas grow with the label.
+
+   These four rules sit outside every cascade layer, and unlayered declarations
+   beat layered ones whatever their specificity -- so inside #main they win over
+   any Tailwind padding or size utility, which all live in @layer utilities.
+   Writing `px-5 py-[13px] text-sm` on a btn-* here does nothing; four call
+   sites were carrying classes that had never applied. Size a landing button by
+   editing these rules, not by adding a utility that will be silently dropped.
+   Note the header sits outside #main and is deliberately unaffected. */
 #main :is(.btn-accent, .btn-ink, .btn-ghost, .btn-outline-ink, .btn-ghost-inverse) {
   font-size: 16.1px;
   line-height: 23px;
@@ -674,7 +682,5 @@
   background: rgb(255 255 255 / 4%);
   border-color: rgb(255 255 255 / 18%);
 }
-.research-publications .pub-chip span { color: rgb(255 255 255 / 80%); }
-.research-publications .pub-chip span[aria-hidden] { background: rgb(255 255 255 / 20%); }
 .research-publications .pub-chip:hover,
 .research-publications .pub-chip:focus-visible { background: rgb(255 255 255 / 9%); }
