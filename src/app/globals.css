@@ -310,12 +310,14 @@
   }
 }
 
+/* Slow enough to read a title in passing. The two rows keep their original
+   48:56 ratio so they stay out of phase with each other. */
 .marquee-left {
-  animation: marquee-left 48s linear infinite;
+  animation: marquee-left 90s linear infinite;
 }
 
 .marquee-right {
-  animation: marquee-right 56s linear infinite;
+  animation: marquee-right 105s linear infinite;
 }
 
 .marquee-track:hover {
