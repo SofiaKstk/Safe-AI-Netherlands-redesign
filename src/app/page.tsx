@@ -336,7 +336,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="courses" className="shell scroll-mt-36 pb-14 pt-[88px]">
+        <div id="courses" className="shell scroll-mt-36 pb-14 pt-10">
           <div className="mb-7 max-w-[820px]">
             <h2 className="sain-heading text-navy">Join a free course</h2>
             <p className="mt-2.5 font-sans text-[16.5px] leading-[26px] text-navy/74">
