@@ -18,6 +18,7 @@ import {
   openNationalPostings,
   recruitingChapters,
 } from "@/data/openPositions";
+import { Briefcase, Check, Plus } from "@phosphor-icons/react/dist/ssr";
 
 const INFO_EMAIL = "info@safeainetherlands.org";
 
@@ -118,15 +119,7 @@ function RoleCard({
           aria-hidden
           className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-transform group-open:rotate-45 group-open:border-dutch-orange/40 group-open:text-dutch-orange"
         >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
-          </svg>
+          <Plus className="h-4 w-4" weight="light" aria-hidden="true" />
         </span>
       </summary>
 
@@ -245,20 +238,7 @@ function RoleCard({
                       key={item}
                       className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
                     >
-                      <svg
-                        className="mt-0.5 h-4 w-4 shrink-0 text-dutch-orange"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        />
-                      </svg>
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-dutch-orange" weight="light" aria-hidden="true" />
                       {item}
                     </li>
                   ))}
@@ -442,20 +422,7 @@ export default function OpenPositionsPage() {
           <FadeIn delay={0.25}>
             <div className="mb-8 inline-flex flex-wrap items-center gap-3 rounded-2xl border border-dutch-orange/30 bg-dutch-orange/5 px-5 py-3">
               <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 3.75H6.912a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859M12 3v8.25m0 0-3-3m3 3 3-3"
-                  />
-                </svg>
+                <Briefcase className="h-5 w-5" weight="light" aria-hidden="true" />
               </span>
               <div className="text-sm leading-snug">
                 <p className="font-semibold uppercase tracking-wider text-dutch-orange">
@@ -536,19 +503,7 @@ export default function OpenPositionsPage() {
                     "Optional: LinkedIn or portfolio link",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-2">
-                      <svg
-                        className="mt-0.5 h-4 w-4 shrink-0 text-dutch-orange"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        />
-                      </svg>
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-dutch-orange" weight="light" aria-hidden="true" />
                       <span>{item}</span>
                     </li>
                   ))}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import FadeIn from "./FadeIn";
+import { Check, Clock, MapPin } from "@phosphor-icons/react/dist/ssr";
 
 interface ChapterPlaceholderProps {
   city: string;
@@ -49,9 +50,7 @@ export default function ChapterPlaceholder({
           </FadeIn>
           <FadeIn delay={0.2}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-sm text-amber-700">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
+              <Clock className="w-4 h-4" weight="light" aria-hidden="true" />
               Coming Soon
             </div>
           </FadeIn>
@@ -64,10 +63,7 @@ export default function ChapterPlaceholder({
           <div className="max-w-2xl mx-auto text-center">
             <FadeIn>
               <div className="w-20 h-20 rounded-2xl bg-dutch-orange/10 flex items-center justify-center mx-auto mb-8">
-                <svg className="w-10 h-10 text-dutch-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                </svg>
+                <MapPin className="w-10 h-10 text-dutch-orange" weight="light" aria-hidden="true" />
               </div>
             </FadeIn>
 
@@ -108,9 +104,7 @@ export default function ChapterPlaceholder({
                     "Local community building",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-2.5 text-sm text-slate-600">
-                      <svg className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                      </svg>
+                      <Check className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5" weight="light" aria-hidden="true" />
                       {item}
                     </div>
                   ))}

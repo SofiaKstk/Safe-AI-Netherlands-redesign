@@ -8,6 +8,7 @@ import {
   COURSE_APPLICATION_URL,
   courseApplicationFor,
 } from "@/data/courseApplications";
+import { CaretRight, Check, GraduationCap } from "@phosphor-icons/react/dist/ssr";
 
 const utrechtIsRecruiting = isChapterRecruiting("Utrecht");
 
@@ -235,20 +236,7 @@ export default function UtrechtPage() {
               <div className="flex flex-col gap-5 rounded-2xl border border-dutch-orange/30 bg-dutch-orange/5 p-6 shadow-xs md:flex-row md:items-center md:justify-between md:p-7">
                 <div className="flex items-start gap-4">
                   <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={1.8}
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
-                      />
-                    </svg>
+                    <GraduationCap className="h-6 w-6" weight="light" aria-hidden="true" />
                   </span>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-dutch-orange">
@@ -428,19 +416,7 @@ export default function UtrechtPage() {
                             <span className="font-display font-medium text-navy-900 group-hover:text-dutch-orange transition-colors text-sm md:text-base flex-1">
                               {event.name}
                             </span>
-                            <svg
-                              className="w-4 h-4 text-slate-300 group-hover:text-dutch-orange transition-colors shrink-0"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 5l7 7-7 7"
-                              />
-                            </svg>
+                            <CaretRight className="w-4 h-4 text-slate-300 group-hover:text-dutch-orange transition-colors shrink-0" weight="light" aria-hidden="true" />
                           </a>
                         </li>
                       ))}
@@ -1037,19 +1013,7 @@ export default function UtrechtPage() {
                       key={item}
                       className="flex items-start gap-2.5 text-sm text-slate-600"
                     >
-                      <svg
-                        className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        />
-                      </svg>
+                      <Check className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5" weight="light" aria-hidden="true" />
                       {item}
                     </li>
                   ))}

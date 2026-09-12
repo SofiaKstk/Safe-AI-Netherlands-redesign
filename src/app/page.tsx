@@ -13,6 +13,17 @@ import SectionOrbits from "@/components/landing/SectionOrbits";
 import TalentFunnel from "@/components/landing/TalentFunnel";
 import { RESEARCH_EMAIL } from "@/data/research";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
+import {
+  ArrowRight,
+  Bank,
+  Broadcast,
+  Buildings,
+  Flask,
+  PencilSimpleLine,
+  ShieldCheck,
+  Stack,
+  UsersThree,
+} from "@phosphor-icons/react/dist/ssr";
 
 /* No `title` here on purpose: the landing falls through to the root layout's
    `title.default`, so the tab reads "Safe AI Netherlands" and nothing more.
@@ -40,176 +51,38 @@ const chapters = [
   },
 ];
 
-/* Career destinations. A 26px orange stroke icon, a 240px serif title, a
-   description that grows, and a 160px destination — one shared rhythm, so the
-   rows read as a list rather than four cards. */
+/* Career destinations. A 26px orange icon, a 240px serif title, a description
+   that grows, and a 160px destination: one shared rhythm, so the rows read as
+   a list rather than four cards. Phosphor at light weight is the closest match
+   to the 1.4 stroke the rest of the page draws with. */
 const careerTracks = [
   {
     title: "Technical research",
     description: "Interpretability, evaluations and control research at labs and institutes.",
     destination: "Labs and institutes",
-    icon: (
-      <>
-        <path
-          d="M9.5 3.5h5"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M10.5 3.5v6.2L6.4 17.2A3.4 3.4 0 0 0 9.4 22h5.2a3.4 3.4 0 0 0 3-4.8L13.5 9.7V3.5"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
-    destinationIcon: (
-      <>
-        <path d="M4 20.5h16" fill="none" stroke="rgb(2 28 77 / 45%)" strokeWidth="1.4" />
-        <path
-          d="M6 20.5V10h4v10.5M14 20.5V7h4v13.5"
-          fill="none"
-          stroke="rgb(2 28 77 / 45%)"
-          strokeWidth="1.4"
-        />
-      </>
-    ),
+    Icon: Flask,
+    DestinationIcon: Buildings,
   },
   {
     title: "Governance and policy",
     description: "Advising ministries, regulators and standards bodies on frontier AI.",
     destination: "Public sector",
-    icon: (
-      <>
-        <path
-          d="M14.5 5.5l5 5-8.5 8.5H6v-5z"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12.8 7.2l4 4"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M6 20.5h12"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
-    destinationIcon: (
-      <>
-        <path
-          d="M3 20.5h18"
-          fill="none"
-          stroke="rgb(2 28 77 / 45%)"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-        <path
-          d="M5 20.5V10.5l7-5.5 7 5.5v10"
-          fill="none"
-          stroke="rgb(2 28 77 / 45%)"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-      </>
-    ),
+    Icon: PencilSimpleLine,
+    DestinationIcon: Bank,
   },
   {
     title: "Field building",
     description: "Running programmes, chapters and communications for the Dutch ecosystem.",
     destination: "Community",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="2.2" fill="none" stroke="#FF6025" strokeWidth="1.4" />
-        <path
-          d="M12 5.2v2.2M12 16.6v2.2M5.2 12h2.2M16.6 12h2.2"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-        <path
-          d="M7.1 7.1l1.6 1.6M15.3 15.3l1.6 1.6M16.9 7.1l-1.6 1.6M8.7 15.3l-1.6 1.6"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-      </>
-    ),
-    destinationIcon: (
-      <>
-        <circle cx="8" cy="8.5" r="2" fill="none" stroke="rgb(2 28 77 / 45%)" strokeWidth="1.4" />
-        <circle cx="16" cy="8.5" r="2" fill="none" stroke="rgb(2 28 77 / 45%)" strokeWidth="1.4" />
-        <circle cx="12" cy="14.8" r="2" fill="none" stroke="rgb(2 28 77 / 45%)" strokeWidth="1.4" />
-      </>
-    ),
+    Icon: Broadcast,
+    DestinationIcon: UsersThree,
   },
   {
     title: "Security and compute",
     description: "Model security, compute governance and assurance engineering.",
     destination: "Industry",
-    icon: (
-      <>
-        <path
-          d="M12 3.5l8 3.2v5.6c0 4.5-3.2 7.6-8 9.2-4.8-1.6-8-4.7-8-9.2V6.7z"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M9 12.2l2.1 2.1L15.4 10"
-          fill="none"
-          stroke="#FF6025"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </>
-    ),
-    destinationIcon: (
-      <>
-        <rect
-          x="4"
-          y="6"
-          width="16"
-          height="5"
-          rx="1"
-          fill="none"
-          stroke="rgb(2 28 77 / 45%)"
-          strokeWidth="1.4"
-        />
-        <rect
-          x="4"
-          y="13"
-          width="16"
-          height="5"
-          rx="1"
-          fill="none"
-          stroke="rgb(2 28 77 / 45%)"
-          strokeWidth="1.4"
-        />
-      </>
-    ),
+    Icon: ShieldCheck,
+    DestinationIcon: Stack,
   },
 ];
 
@@ -217,15 +90,7 @@ const careerTracks = [
 
 function Arrow() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-      <path
-        d="M2 6h8M7 3l3 3-3 3"
-        fill="none"
-        stroke="#021C4D"
-        strokeWidth="1.25"
-        strokeLinecap="square"
-      />
-    </svg>
+    <ArrowRight size={12} weight="light" aria-hidden="true" />
   );
 }
 
@@ -516,9 +381,12 @@ export default function Home() {
                 key={track.title}
                 className="flex flex-col gap-4 border-t border-navy/10 px-[22px] py-[18px] md:flex-row md:items-center md:gap-6"
               >
-                <svg width="26" height="26" viewBox="0 0 24 24" className="shrink-0" aria-hidden="true">
-                  {track.icon}
-                </svg>
+                <track.Icon
+                  size={26}
+                  weight="light"
+                  className="shrink-0 text-orange"
+                  aria-hidden="true"
+                />
                 <h3 className="w-[240px] shrink-0 font-serif text-[19px] leading-6 text-navy">
                   {track.title}
                 </h3>
@@ -526,9 +394,12 @@ export default function Home() {
                   {track.description}
                 </p>
                 <p className="flex w-40 shrink-0 items-center gap-[7px] font-sans text-[13.5px] leading-[18px] text-navy/60">
-                  <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-                    {track.destinationIcon}
-                  </svg>
+                  <track.DestinationIcon
+                    size={16}
+                    weight="light"
+                    className="shrink-0 text-navy/45"
+                    aria-hidden="true"
+                  />
                   {track.destination}
                 </p>
               </div>

@@ -13,6 +13,7 @@
     "fetch-luma-events-utrecht": "node --use-system-ca scripts/fetch-luma-events-utrecht.mjs"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "framer-motion": "^11.11.0",
     "motion": "^13.2.0",
     "next": "^14.2.15",

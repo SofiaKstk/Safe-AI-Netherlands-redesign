@@ -6,6 +6,7 @@ import FadeIn from "@/components/FadeIn";
 import ScrollCue from "@/components/ScrollCue";
 import { leadership } from "@/data/leadership";
 import { sainDocuments } from "@/data/sainDocuments";
+import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
 
 const advisors = [
   {
@@ -297,19 +298,7 @@ export default function AboutPage() {
                     </p>
                     <span className="mt-auto text-sm font-semibold text-dutch-orange flex items-center gap-1">
                       Read document
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                        />
-                      </svg>
+                      <ArrowRight className="w-4 h-4" weight="light" aria-hidden="true" />
                     </span>
                   </Link>
                 </FadeIn>
@@ -403,19 +392,7 @@ export default function AboutPage() {
                         key={item}
                         className="flex items-start gap-2.5 text-sm text-slate-300"
                       >
-                        <svg
-                          className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M4.5 12.75l6 6 9-13.5"
-                          />
-                        </svg>
+                        <Check className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5" weight="light" aria-hidden="true" />
                         {item}
                       </li>
                     ))}

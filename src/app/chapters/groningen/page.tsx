@@ -10,6 +10,7 @@ import {
   COURSE_APPLICATION_URL,
   courseApplicationFor,
 } from "@/data/courseApplications";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 const groningenIsRecruiting = isChapterRecruiting("Groningen");
 
@@ -494,9 +495,7 @@ export default function GroningenPage() {
                 className="text-sm font-semibold text-dutch-orange hover:text-dutch-orange-dark transition-colors flex items-center gap-1"
               >
                 View full Research Hub
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
+                <ArrowRight className="w-4 h-4" weight="light" aria-hidden="true" />
               </Link>
             </div>
           </FadeIn>
