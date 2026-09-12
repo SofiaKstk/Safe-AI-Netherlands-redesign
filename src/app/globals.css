@@ -310,7 +310,8 @@
   padding: 14px 24px;
   transition: background-color 200ms ease;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background: var(--color-orange-hover);
   }
 }
@@ -329,7 +330,8 @@
     background-color 200ms ease,
     color 200ms ease;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background: var(--color-orange);
     color: var(--color-navy);
   }
@@ -351,7 +353,8 @@
     color 200ms ease,
     border-color 200ms ease;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background: var(--color-navy);
     border-color: var(--color-navy);
     color: #ffffff;
@@ -373,7 +376,8 @@
     background-color 200ms ease,
     color 200ms ease;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background: var(--color-navy);
     color: #ffffff;
   }
@@ -392,7 +396,8 @@
   padding: 14px 22px;
   transition: border-color 200ms ease;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     border-color: #ffffff;
   }
 }
@@ -414,7 +419,8 @@
   text-decoration: none;
   transition: background-color 200ms ease;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background: rgb(2 28 77 / 7%);
   }
 }
@@ -587,6 +593,15 @@
     transform: translateY(-2px);
   }
 }
+/* Outside the pointer query on purpose: a keyboard is not a fine pointer, and
+   the lift is half of what tells you a button is the one you are on. The ring
+   stays either way -- a 2px shift is not a focus indicator by itself. */
+.btn-accent:focus-visible,
+.btn-ink:focus-visible,
+.btn-ghost:focus-visible,
+.btn-ghost-inverse:focus-visible {
+  transform: translateY(-2px);
+}
 .btn-accent:active, .btn-ink:active, .btn-ghost:active, .btn-ghost-inverse:active {
   transform: scale(0.98);
 }
@@ -594,6 +609,8 @@
   html { scroll-behavior: auto !important; }
   .community-print:hover img,
   .btn-accent:hover, .btn-ink:hover, .btn-ghost:hover, .btn-ghost-inverse:hover,
+  .btn-accent:focus-visible, .btn-ink:focus-visible,
+  .btn-ghost:focus-visible, .btn-ghost-inverse:focus-visible,
   .btn-accent:active, .btn-ink:active, .btn-ghost:active, .btn-ghost-inverse:active {
     transform: none;
   }
@@ -630,4 +647,5 @@
 }
 .research-publications .pub-chip span { color: rgb(255 255 255 / 80%); }
 .research-publications .pub-chip span[aria-hidden] { background: rgb(255 255 255 / 20%); }
-.research-publications .pub-chip:hover { background: rgb(255 255 255 / 9%); }
+.research-publications .pub-chip:hover,
+.research-publications .pub-chip:focus-visible { background: rgb(255 255 255 / 9%); }

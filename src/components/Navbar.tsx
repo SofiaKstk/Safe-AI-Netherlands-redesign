@@ -114,7 +114,7 @@ export default function Navbar() {
           />
           <Link
             href="/open-positions"
-            className="font-sans text-[13.5px] leading-[18px] text-navy underline decoration-navy/45 underline-offset-4 transition-colors hover:decoration-navy"
+            className="font-sans text-[13.5px] leading-[18px] text-navy underline decoration-navy/45 underline-offset-4 transition-colors hover:decoration-navy focus-visible:decoration-navy"
           >
             See open positions
           </Link>
@@ -151,7 +151,7 @@ export default function Navbar() {
                 const active = item.isActive(pathname);
                 const underline = active
                   ? "border-navy"
-                  : "border-transparent hover:border-navy/40";
+                  : "border-transparent hover:border-navy/40 focus-visible:border-navy/40";
 
                 /* Community opens the chapter list rather than jumping to the
                    landing anchor — three cities, nothing else. The anchor is
@@ -202,7 +202,7 @@ export default function Navbar() {
                                 aria-current={
                                   pathname === chapter.href ? "page" : undefined
                                 }
-                                className="block px-5 py-2.5 font-sans text-sm leading-5 text-navy transition-colors hover:bg-cream"
+                                className="block px-5 py-2.5 font-sans text-sm leading-5 text-navy transition-colors hover:bg-cream focus-visible:bg-cream"
                               >
                                 {chapter.city}
                               </Link>
@@ -210,7 +210,7 @@ export default function Navbar() {
                             <Link
                               href={startChapter.href}
                               onClick={() => setChaptersOpen(false)}
-                              className="block border-t border-navy/12 px-5 py-2.5 font-sans text-sm leading-5 text-navy transition-colors hover:bg-cream"
+                              className="block border-t border-navy/12 px-5 py-2.5 font-sans text-sm leading-5 text-navy transition-colors hover:bg-cream focus-visible:bg-cream"
                             >
                               {startChapter.name}
                             </Link>

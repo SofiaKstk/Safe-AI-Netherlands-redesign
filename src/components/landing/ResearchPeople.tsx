@@ -12,7 +12,13 @@ import { supervisors } from "@/data/research";
    Tailwind v4 already gates `hover:` behind `@media (hover: hover)`, so none of
    this fires from a tap on a touch screen. The two transforms sit behind
    `motion-safe:`; the colour changes survive reduced motion because they carry
-   the affordance and do not move anything. */
+   the affordance and do not move anything.
+
+   Every cue is paired with `group-focus-visible:` as well. A keyboard never
+   fires `:hover`, so a reader tabbing through the supervisors used to get the
+   focus ring and nothing else — none of the three cues this card was built
+   around. The ring stays on top of them: an orange name is an affordance, not
+   a statement about where focus is. */
 export default function ResearchPeople() {
   return (
     <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-8">
@@ -24,7 +30,7 @@ export default function ResearchPeople() {
           rel="noopener noreferrer"
           className="group flex flex-col items-center text-center last:col-span-2 sm:last:col-span-1"
         >
-          <span className="block size-[110px] overflow-hidden rounded-full border border-white/25 transition-[scale,border-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-white/60 motion-safe:group-hover:scale-[1.04] md:size-[130px]">
+          <span className="block size-[110px] overflow-hidden rounded-full border border-white/25 transition-[scale,border-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-white/60 group-focus-visible:border-white/60 motion-safe:group-hover:scale-[1.04] motion-safe:group-focus-visible:scale-[1.04] md:size-[130px]">
             <Image
               src={person.imageSmall}
               alt=""
@@ -38,11 +44,11 @@ export default function ResearchPeople() {
           <h4 className="mt-4 font-serif text-[18px] leading-6 text-white">
             {/* inline-block so the rule below hugs the name rather than the
                 full width of the grid column. */}
-            <span className="relative inline-block transition-colors duration-200 group-hover:text-orange">
+            <span className="relative inline-block transition-colors duration-200 group-hover:text-orange group-focus-visible:text-orange">
               {person.name}
               <span
                 aria-hidden="true"
-                className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-orange transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+                className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-orange transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
               />
             </span>
           </h4>

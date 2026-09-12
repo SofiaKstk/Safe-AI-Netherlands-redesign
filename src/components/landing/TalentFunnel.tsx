@@ -201,7 +201,7 @@ export default function TalentFunnel() {
                   alt=""
                   loading="lazy"
                   decoding="async"
-                  className="size-full scale-100 object-cover opacity-[var(--rest)] transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] group-hover:opacity-[var(--hover)]"
+                  className="size-full scale-100 object-cover opacity-[var(--rest)] transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] group-hover:opacity-[var(--hover)] group-focus-visible:scale-[1.06] group-focus-visible:opacity-[var(--hover)]"
                   style={
                     {
                       objectPosition: band.objectPosition,

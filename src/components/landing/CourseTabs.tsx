@@ -235,7 +235,7 @@ export default function CourseTabs() {
                        along, and the rule reads as the seam between a header
                        and the panel it just opened, so it is drawn plainly. */
                     "border-b-[3px] border-b-orange md:border-b-transparent"
-                  : "border-b-[3px] border-b-transparent hover:bg-cream"
+                  : "border-b-[3px] border-b-transparent hover:bg-cream focus-visible:bg-cream"
               } ${TAB_CELL[i]} md:row-start-1`}
             >
               {on && (

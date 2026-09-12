@@ -48,7 +48,7 @@ const documents: FooterLink[] = [
 
 function FooterAnchor({ link }: { link: FooterLink }) {
   const className =
-    "font-sans text-sm leading-5 text-white/78 transition-colors hover:text-white";
+    "font-sans text-sm leading-5 text-white/78 transition-colors hover:text-white focus-visible:text-white";
 
   if (link.external) {
     return (
@@ -85,7 +85,7 @@ export default function Footer() {
             </p>
             <a
               href="mailto:info@safeainetherlands.org"
-              className="font-sans text-sm leading-5 text-white/78 transition-colors hover:text-white"
+              className="font-sans text-sm leading-5 text-white/78 transition-colors hover:text-white focus-visible:text-white"
             >
               info@safeainetherlands.org
             </a>
@@ -112,7 +112,7 @@ export default function Footer() {
               <Link
                 key={document.name}
                 href={document.href}
-                className="font-sans text-[13px] leading-[18px] text-white/60 transition-colors hover:text-white"
+                className="font-sans text-[13px] leading-[18px] text-white/60 transition-colors hover:text-white focus-visible:text-white"
               >
                 {document.name}
               </Link>
