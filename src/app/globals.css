@@ -432,6 +432,37 @@
   }
 }
 
+/* -----------------------------------------------------------------------------
+   Reveal. The hidden state lives here rather than in the component's initial
+   props, so the prerendered page is the visible one. The hero runs from CSS,
+   which needs no script; the rest is armed by Reveal once it is running, and
+   only for blocks still below the fold.
+
+   `both` matters under reduced motion: the block above collapses every
+   animation to 0.01ms, so a fill-mode of `both` lands the element on its end
+   state immediately instead of leaving it at opacity 0.
+----------------------------------------------------------------------------- */
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-hero,
+.reveal-in {
+  animation: reveal-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reveal-armed {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
 /* Slow enough to read a title in passing. The two rows keep their original
    48:56 ratio so they stay out of phase with each other. */
 .marquee-left {
