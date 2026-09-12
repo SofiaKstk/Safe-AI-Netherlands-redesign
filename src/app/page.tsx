@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import CommunityPrints from "@/components/landing/CommunityPrints";
 import CourseTabs from "@/components/landing/CourseTabs";
+import Reveal from "@/components/landing/Reveal";
+import ResearchIllustration from "@/components/landing/ResearchIllustration";
 import HeroChart from "@/components/landing/HeroChart";
 import PathwayTrail from "@/components/landing/PathwayTrail";
 import PublicationMarquee from "@/components/landing/PublicationMarquee";
@@ -267,7 +269,7 @@ export default function Home() {
           </svg>
         </div>
         <div className="shell grid min-h-[60vh] items-center gap-12 pb-[76px] pt-[84px] lg:grid-cols-[minmax(0,700px)_minmax(0,1fr)]">
-          <div className="flex min-w-0 flex-col gap-6">
+          <Reveal hero className="flex min-w-0 flex-col gap-6">
             <h1 className="font-serif text-[36px] leading-[1.08] tracking-[-0.02em] text-navy md:text-[48px] md:leading-[51px]">
               Your AI Safety career starts here.
             </h1>
@@ -288,10 +290,10 @@ export default function Home() {
                 Join the SAIN Community - Free
               </a>
             </div>
-          </div>
-          <div className="flex min-w-0 items-center justify-end">
+          </Reveal>
+          <Reveal hero delay={0.08} className="flex min-w-0 items-center justify-end">
             <HeroChart />
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -355,7 +357,7 @@ export default function Home() {
               </div>
             </div>
 
-            <TalentFunnel />
+            <Reveal delay={0.08} className="w-full max-w-[436px] shrink-0"><TalentFunnel /></Reveal>
           </div>
         </div>
 
@@ -370,7 +372,7 @@ export default function Home() {
               runs, depends on the chapter.
             </p>
           </div>
-          <CourseTabs />
+          <Reveal><CourseTabs /></Reveal>
         </div>
       </section>
 
@@ -379,7 +381,7 @@ export default function Home() {
         <SectionOrbits className="-bottom-32 -left-20 h-[500px] w-[375px] rotate-[-20deg] md:-left-12" />
         <div className="shell"><div className="border-t border-navy/14" /></div>
         <div className="shell flex flex-col gap-12 py-14 md:gap-16 md:py-[72px]">
-          <CommunityPrints />
+          <Reveal><CommunityPrints /></Reveal>
           <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,620px)] lg:gap-16">
             <div className="flex flex-col gap-4">
               <p className="kicker text-[17px] leading-6 text-navy/55">Community</p>
@@ -416,6 +418,7 @@ export default function Home() {
       {/* Research hub. How it works, and who supervises. */}
       <section id="research" className="scroll-mt-36 bg-navy">
         <div className="shell flex flex-col gap-11 py-[88px]">
+          <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,760px)_1fr]">
           <div className="flex max-w-[760px] flex-col gap-[22px]">
             <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] text-white">Research hub</h2>
             <p className="font-sans text-[16.5px] leading-[27px] text-white/78">
@@ -427,6 +430,8 @@ export default function Home() {
               Read the call for applications
             </Link>
           </div>
+            <ResearchIllustration />
+          </Reveal>
 
           <div className="grid items-start gap-16 pt-2 lg:grid-cols-[minmax(0,1fr)_minmax(280px,560px)]">
             <div className="flex min-w-0 flex-col gap-[22px]">

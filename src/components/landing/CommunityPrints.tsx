@@ -13,7 +13,8 @@ export default function CommunityPrints() {
   return (
     <div className="grid w-full grid-cols-2 items-center gap-5 px-2 py-6 md:grid-cols-5 md:gap-3 md:py-8">
       {PRINTS.map((print) => (
-        <figure key={print.src} className={`relative bg-white p-2 shadow-[0_7px_22px_#021C4D1F] ${print.frame}`}>
+        <figure key={print.src} className={`community-print relative bg-white p-2 shadow-[0_7px_22px_#021C4D1F] ${print.frame}`}>
+          <div className="overflow-hidden">
           <Image
             src={print.src}
             alt={print.alt}
@@ -23,6 +24,7 @@ export default function CommunityPrints() {
             className={`w-full object-cover ${print.crop}`}
             style={{ objectPosition: print.position }}
           />
+          </div>
         </figure>
       ))}
     </div>

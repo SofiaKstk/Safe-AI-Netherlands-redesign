@@ -419,3 +419,31 @@
     letter-spacing: -0.012em;
   }
 }
+
+/* Motion feedback: keep movement local and preserve the surrounding layout. */
+.community-print img {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-accent, .btn-ink, .btn-ghost, .btn-ghost-inverse {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .community-print:hover img { transform: scale(1.06); }
+  .btn-accent:hover, .btn-ink:hover, .btn-ghost:hover, .btn-ghost-inverse:hover {
+    transform: translateY(-2px);
+  }
+}
+.btn-accent:active, .btn-ink:active, .btn-ghost:active, .btn-ghost-inverse:active {
+  transform: scale(0.98);
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .community-print:hover img,
+  .btn-accent:hover, .btn-ink:hover, .btn-ghost:hover, .btn-ghost-inverse:hover,
+  .btn-accent:active, .btn-ink:active, .btn-ghost:active, .btn-ghost-inverse:active {
+    transform: none;
+  }
+}

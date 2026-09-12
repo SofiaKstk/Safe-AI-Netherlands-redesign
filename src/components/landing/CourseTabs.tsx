@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
 
 /**
  * Three square tabs over one panel. The active tab is white, carries a 3px
@@ -125,7 +126,7 @@ export default function CourseTabs() {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const activeIndex = TRACKS.findIndex((track) => track.id === activeId);
-  const active = TRACKS[activeIndex];
+  const reduce = useReducedMotion();
 
   /* Arrow keys move between tabs, as a tablist is expected to. */
   const onKeyDown = (event: React.KeyboardEvent) => {
@@ -162,14 +163,16 @@ export default function CourseTabs() {
               onClick={() => setActiveId(track.id)}
               /* The divider belongs to the gap between two tabs, not to either
                  tab's state — hanging it off `on` made it blink on selection. */
-              className={`flex min-h-[88px] flex-col justify-center gap-1.5 px-6 py-5 text-left transition-colors ${
+              className={`relative flex min-h-[88px] flex-col justify-center gap-1.5 px-6 py-5 text-left transition-colors ${
                 i > 0 ? "md:border-l md:border-l-navy/10" : ""
               } ${
                 on
-                  ? "border-b-[3px] border-b-orange"
-                  : "border-b border-b-navy/12 hover:bg-cream"
+                  ? "border-b-[3px] border-b-transparent"
+                  : "border-b-[3px] border-b-transparent hover:bg-cream"
               }`}
             >
+              {on && <motion.span layoutId="course-tab-indicator" className="absolute inset-x-0 -bottom-[3px] h-[3px] bg-orange"
+                transition={{ duration: reduce ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }} />}
               <span
                 className={`font-mono text-[11px] leading-[14px] tracking-[0.1em] ${
                   on ? "text-orange" : "text-navy/55"
@@ -190,12 +193,20 @@ export default function CourseTabs() {
         })}
       </div>
 
-      <div
+      <div className="grid">
+      {TRACKS.map((active) => (
+      <motion.div
+        key={active.id}
+        initial={false}
+        animate={{ opacity: active.id === activeId ? 1 : 0 }}
+        transition={{ duration: reduce ? 0 : 0.2 }}
+        aria-hidden={active.id !== activeId}
+        style={{ visibility: active.id === activeId ? "visible" : "hidden", gridArea: "1 / 1" }}
         id={`panel-${active.id}`}
         role="tabpanel"
         aria-labelledby={`tab-${active.id}`}
-        tabIndex={0}
-        className="grid lg:grid-cols-[720px_1fr]"
+        tabIndex={active.id === activeId ? 0 : -1}
+        className="grid lg:grid-cols-[minmax(0,720px)_minmax(0,1fr)]"
       >
         <div className="flex flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9">
           <p className="max-w-[640px] font-sans text-[15.5px] leading-[25px] text-navy/78">
@@ -231,7 +242,7 @@ export default function CourseTabs() {
             ))}
           </div>
 
-          <Link href={active.cta.href} className="btn-ink self-start px-5 py-[13px] text-sm leading-5">
+          <Link href={active.cta.href} className="btn-ink mt-auto self-start px-5 py-[13px] text-sm leading-5">
             {active.cta.label}
           </Link>
         </div>
@@ -246,6 +257,8 @@ export default function CourseTabs() {
             {active.caption}
           </p>
         </div>
+      </motion.div>
+      ))}
       </div>
     </div>
   );
