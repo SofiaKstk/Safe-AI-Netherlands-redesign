@@ -104,6 +104,7 @@ export default function Home() {
       {/* Hero. The claim on the left, the evidence on the right. The white
           ground fades into paper in the last 5% — a seam, not a sky. */}
       <section
+        aria-labelledby="hero-heading"
         className="relative isolate overflow-hidden"
         style={{
           backgroundImage:
@@ -134,7 +135,7 @@ export default function Home() {
         </div>
         <div className="shell band-hero grid min-h-[60dvh] items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] xl:grid-cols-[minmax(0,700px)_minmax(0,1fr)]">
           <Reveal hero className="flex min-w-0 flex-col gap-6">
-            <h1 className="font-serif text-display text-navy">
+            <h1 id="hero-heading" className="font-serif text-display text-navy">
               Your AI Safety career starts here.
             </h1>
             <p className="max-w-[620px] font-sans text-body text-navy/72">
@@ -163,9 +164,9 @@ export default function Home() {
       </section>
 
       {/* Chapters. A thin index band: cities as peers, left hairline, no cards. */}
-      <section id="chapters" className="scroll-mt-36 border-t border-navy/10 bg-cream">
+      <section id="chapters" aria-labelledby="chapters-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
         <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
-          <h2 className="kicker pt-0.5 text-kicker text-navy/65 lg:w-[300px] lg:shrink-0">
+          <h2 id="chapters-heading" className="kicker pt-0.5 text-kicker text-navy/65 lg:w-[300px] lg:shrink-0">
             Local chapters
           </h2>
           <div className="grid flex-1 gap-6 sm:grid-cols-3">
@@ -190,12 +191,12 @@ export default function Home() {
           band already reads "Join a free course", so explaining the pipeline
           and opening its first step is a single argument — splitting it across
           two surfaces made the reader start over halfway through. */}
-      <section className="relative isolate overflow-hidden border-t border-navy/10 bg-white">
+      <section aria-labelledby="mission-heading" className="relative isolate overflow-hidden border-t border-navy/10 bg-white">
         <SectionOrbits className="-left-20 top-6 h-[400px] w-[300px] md:-left-12" />
         <div id="mission" className="shell band-section-top relative isolate scroll-mt-36">
           <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] xl:grid-cols-[minmax(0,1fr)_minmax(0,436px)]">
             <div className="flex w-full min-w-0 max-w-[760px] flex-col gap-[22px]">
-              <h2 className="max-w-[640px] font-serif text-heading text-navy">
+              <h2 id="mission-heading" className="max-w-[640px] font-serif text-heading text-navy">
                 How SAIN is upskilling the next wave of AI Safety experts in the Netherlands.
               </h2>
               <div className="max-w-[720px] space-y-[27px] font-sans text-body text-navy/74">
@@ -230,9 +231,9 @@ export default function Home() {
         <div className="shell mt-10" aria-hidden="true">
           <div className="border-t border-navy/14" />
         </div>
-        <div id="courses" className="shell relative isolate scroll-mt-36 pb-14 pt-10">
+        <section id="courses" aria-labelledby="courses-heading" className="shell relative isolate scroll-mt-36 pb-14 pt-10">
           <div className="mx-auto mb-10 max-w-[640px] text-center">
-            <h2 className="font-serif text-heading text-navy">Start with a free course</h2>
+            <h2 id="courses-heading" className="font-serif text-heading text-navy">Start with a free course</h2>
             <p className="mt-2.5 font-sans text-body leading-[26px] text-navy/74">
               Pick a track. Every programme is free and taught in person. What you join, and how it
               runs, depends on the chapter.
@@ -248,11 +249,11 @@ export default function Home() {
             )}
           </div>
           <Reveal><CourseTabs /></Reveal>
-        </div>
+        </section>
       </section>
 
       {/* Show the community first, then explain how to join it. */}
-      <section id="community" className="relative isolate scroll-mt-36 overflow-hidden bg-white">
+      <section id="community" aria-labelledby="community-heading" className="relative isolate scroll-mt-36 overflow-hidden bg-white">
         <SectionOrbits className="-bottom-32 -left-20 h-[500px] w-[375px] rotate-[-20deg] md:-left-12" />
         <div className="shell"><div className="border-t border-navy/14" /></div>
         <div className="shell band-community flex flex-col gap-12 md:gap-16">
@@ -260,7 +261,7 @@ export default function Home() {
           <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,620px)] xl:gap-16">
             <div className="flex flex-col gap-4">
               <p className="kicker text-kicker text-navy/65">Community</p>
-              <h2 className="max-w-[480px] font-serif text-heading-sm text-navy">
+              <h2 id="community-heading" className="max-w-[480px] font-serif text-heading-sm text-navy">
                 The community is how SAIN works.
               </h2>
             </div>
@@ -295,12 +296,12 @@ export default function Home() {
       </section>
 
       {/* One research story: the invitation, the people, and the work they publish. */}
-      <section id="research" className="scroll-mt-36 bg-navy text-white">
+      <section id="research" aria-labelledby="research-heading" className="scroll-mt-36 bg-navy text-white">
         <div className="shell band-research">
           <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:gap-12 xl:grid-cols-[minmax(0,650px)_minmax(0,1fr)] xl:gap-24">
             <div className="flex flex-col items-start gap-6">
 
-              <h2 className="max-w-[560px] font-serif text-heading">The SAIN Research Hub</h2>
+              <h2 id="research-heading" className="max-w-[560px] font-serif text-heading">The SAIN Research Hub</h2>
               <p className="max-w-[590px] text-body text-white/75">SAIN connects researchers with supervisors and supports collaborative AI Safety projects. Work on interpretability, evaluations, control, or governance, with access to mentorship, compute, and a national research community.</p>
               <div className="mt-2 flex flex-wrap items-center gap-6">
                 <a href="https://forms.gle/na3wbBR4V1YVHAnFA" target="_blank" rel="noopener noreferrer" className="btn-accent">Join as a researcher<span className="sr-only"> (opens in a new tab)</span></a>
@@ -338,11 +339,11 @@ export default function Home() {
 
         </div>
         <div className="shell"><div className="border-t border-white/15" /></div>
-        <div id="output" className="research-publications scroll-mt-36 pb-20 pt-16 text-white">
+        <section id="output" aria-labelledby="output-heading" className="research-publications scroll-mt-36 pb-20 pt-16 text-white">
           <div className="shell">
             <Reveal className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-16">
               <div className="max-w-[600px]">
-                <h3 className="font-serif text-heading-sm">Research publications</h3>
+                <h3 id="output-heading" className="font-serif text-heading-sm">Research publications</h3>
                 <p className="mt-4 text-kicker-sm leading-6 text-white/70">
                   Work from the hub has appeared at NeurIPS and ICLR.
                   <span className="hidden md:inline"> Explore the papers and projects below.</span>
@@ -352,16 +353,16 @@ export default function Home() {
             </Reveal>
           </div>
           <PublicationMarquee />
-        </div>
+        </section>
       </section>
 
       {/* Careers. Paper band: a quote, then the destinations as hairline rows. */}
-      <section id="careers" className="scroll-mt-36 border-t border-navy/10 bg-cream">
+      <section id="careers" aria-labelledby="careers-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
         <div className="shell band-section flex flex-col gap-9">
           <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] xl:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
             <div className="flex min-w-0 flex-col gap-[22px]">
               <p className="kicker text-kicker text-navy/65">Careers</p>
-              <h2 className="max-w-[620px] font-serif text-heading-sm text-navy">Build an AI Safety career</h2>
+              <h2 id="careers-heading" className="max-w-[620px] font-serif text-heading-sm text-navy">Build an AI Safety career</h2>
               <p className="max-w-[720px] font-sans text-body text-navy/74">
                 Most people who end up working on AI Safety did not plan for it. We shorten that
                 path with mentorship, funding advice, and introductions to the labs, institutes and
@@ -430,11 +431,11 @@ export default function Home() {
       </section>
 
       {/* Get involved. Inverse, because this band asks for a decision. */}
-      <section id="involved" className="scroll-mt-36 bg-navy">
+      <section id="involved" aria-labelledby="involved-heading" className="scroll-mt-36 bg-navy">
         <div className="shell band-close grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] xl:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
           <div className="flex min-w-0 flex-col gap-[22px]">
             <p className="kicker text-kicker text-white/60">Get involved</p>
-            <h2 className="max-w-[580px] font-serif text-closing text-white">
+            <h2 id="involved-heading" className="max-w-[580px] font-serif text-closing text-white">
               The next decade is being decided now
             </h2>
             <p className="font-sans text-body text-white/78">

@@ -196,17 +196,21 @@ export default function CourseTabs() {
     if (!compact && activeId === null) setActiveId(TRACKS[0].id);
   }, [compact, activeId]);
 
-  const activeIndex = TRACKS.findIndex((track) => track.id === activeId);
   const reduce = useReducedMotion();
 
-  /* Arrow keys still move between headers. Worth keeping: on desktop they are
-     a single focus row, and nothing on a phone sends an arrow key. */
-  const onKeyDown = (event: React.KeyboardEvent) => {
+  /* Arrow keys move between headers, and only between headers.
+
+     This used to hang off the group wrapper, which also contains the open
+     panel: an arrow key pressed on a link inside that panel switched the track
+     and pulled focus back up to the header strip, with preventDefault()
+     swallowing the scroll the key would otherwise have done. Bound to the
+     header itself, the panel keeps its own keys. */
+  const onHeaderKeyDown = (index: number) => (event: React.KeyboardEvent) => {
     const delta =
       event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
     if (!delta) return;
     event.preventDefault();
-    const next = (activeIndex + delta + TRACKS.length) % TRACKS.length;
+    const next = (index + delta + TRACKS.length) % TRACKS.length;
     setActiveId(TRACKS[next].id);
     tabRefs.current[next]?.focus();
   };
@@ -216,7 +220,6 @@ export default function CourseTabs() {
       className="bg-white md:grid md:grid-cols-3"
       role="group"
       aria-label="Course tracks"
-      onKeyDown={onKeyDown}
     >
       {TRACKS.map((active, i) => {
         const on = active.id === activeId;
@@ -231,6 +234,7 @@ export default function CourseTabs() {
               aria-expanded={on}
               aria-controls={`panel-${active.id}`}
               onClick={() => toggle(active.id)}
+              onKeyDown={onHeaderKeyDown(i)}
               /* The divider belongs to the gap between two tabs, not to either
                  tab's state — hanging it off `on` made it blink on selection.
                  Stacked, that rule runs above each header instead. */

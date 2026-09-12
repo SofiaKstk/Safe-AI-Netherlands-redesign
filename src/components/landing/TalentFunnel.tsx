@@ -218,8 +218,13 @@ export default function TalentFunnel() {
                 />
               </div>
 
+              {/* Underlined at rest, not only on hover. Five bands that look
+                  like diagram and behave like links taught the reader nothing,
+                  and the close draws near-identical cards that are inert -- so
+                  the affordance has to be visible standing still. Same idiom as
+                  every other text link on the page, so it reads as one system. */}
               <p
-                className={`relative font-sans ${band.labelClass}`}
+                className={`relative font-sans underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover:decoration-navy group-focus-visible:decoration-navy ${band.labelClass}`}
                 /* Floored so the last band stays legible on a narrow phone,
                    capped at what it measures on the 432 canvas. */
                 style={{
