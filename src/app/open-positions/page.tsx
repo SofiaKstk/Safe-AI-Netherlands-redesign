@@ -78,7 +78,7 @@ function RoleCard({
   
     return (
     <details className="group rounded-2xl border border-slate-200 bg-white open:border-dutch-orange/40 open:shadow-md">
-      <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-5 md:p-6">
+      <summary className="flex list-none items-start justify-between gap-4 p-5 md:p-6">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
             <h4 className="font-display text-lg font-semibold text-navy-900">

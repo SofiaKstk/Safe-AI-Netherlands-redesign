@@ -130,6 +130,35 @@
     border-radius: 0;
   }
 
+  /* Anything that responds to a click says so under the pointer. Tailwind v4's
+     preflight follows the browser and leaves <button> on the arrow, which reads
+     as dead text on a flat design like this one — so the pointer is restored
+     here, once, for every control rather than per component. `a` without an
+     href is an anchor target, not a link, hence `a[href]`. */
+  a[href],
+  button,
+  summary,
+  label[for],
+  select,
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='submit'],
+  input[type='button'],
+  input[type='file']::file-selector-button,
+  [role='button'],
+  [role='tab'],
+  [role='option'] {
+    cursor: pointer;
+  }
+
+  /* A control that cannot act should not invite the click. */
+  button:disabled,
+  select:disabled,
+  input:disabled,
+  [aria-disabled='true'] {
+    cursor: default;
+  }
+
   :focus-visible {
     outline: 2px solid var(--color-navy);
     outline-offset: 3px;
