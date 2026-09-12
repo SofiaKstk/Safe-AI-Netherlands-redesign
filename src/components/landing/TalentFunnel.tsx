@@ -10,6 +10,8 @@ import type { CSSProperties } from "react";
 type Band = {
   /** Trapezoid width at the top, in the 432px design canvas. */
   width: number;
+  /** Label size as a fraction of the funnel's width, so it scales with it. */
+  labelCqw: number;
   /** Bottom edge inset, as a percentage of the band width. */
   inset: number;
   /** The section of this page that describes the step. */
@@ -30,7 +32,8 @@ const BANDS: Band[] = [
     inset: 8.8,
     href: "#courses",
     label: "Join a free course",
-    labelClass: "text-base leading-5 text-navy",
+    labelCqw: 3.7,
+    labelClass: "max-w-[78%] text-center leading-[1.25] text-navy",
     photo: "/landing/funnel-01.jpg",
     objectPosition: "38% 34%",
     fill: "#021C4D0B",
@@ -43,8 +46,8 @@ const BANDS: Band[] = [
     inset: 9,
     href: "#community",
     label: "Participate in SAIN's community",
-    labelClass:
-      "max-w-[280px] text-center text-[15px] leading-[19px] text-navy",
+    labelCqw: 3.47,
+    labelClass: "max-w-[78%] text-center leading-[1.27] text-navy",
     photo: "/landing/funnel-02.jpg",
     objectPosition: "72% 42%",
     fill: "#021C4D0B",
@@ -57,7 +60,8 @@ const BANDS: Band[] = [
     inset: 8.9,
     href: "#research",
     label: "Contribute and collaborate on research or projects",
-    labelClass: "max-w-[230px] text-center text-sm leading-[18px] text-navy",
+    labelCqw: 3.24,
+    labelClass: "max-w-[78%] text-center leading-[1.29] text-navy",
     photo: "/landing/funnel-03.jpg",
     objectPosition: "82% 30%",
     fill: "#021C4D0D",
@@ -70,8 +74,8 @@ const BANDS: Band[] = [
     inset: 9.2,
     href: "#careers",
     label: "Undertake a fellowship or internship in AI Safety",
-    labelClass:
-      "max-w-[190px] text-center text-[13px] leading-[17px] text-navy",
+    labelCqw: 3.01,
+    labelClass: "max-w-[78%] text-center leading-[1.31] text-navy",
     photo: "/landing/funnel-04.jpg",
     objectPosition: "42% 48%",
     fill: "#021C4D0E",
@@ -84,7 +88,8 @@ const BANDS: Band[] = [
     inset: 10.2,
     href: "#careers",
     label: "Work full-time in AI Safety",
-    labelClass: "max-w-[150px] text-center text-sm leading-[18px] text-white",
+    labelCqw: 3.24,
+    labelClass: "max-w-[78%] text-center leading-[1.29] text-white",
     photo: "/landing/funnel-05.jpg",
     objectPosition: "50% 40%",
     fill: "#FF6025",
@@ -153,7 +158,8 @@ export default function TalentFunnel() {
 
       {/* The bands sit in a box exactly as wide as the widest band, so the
           silhouette drawn over them lines up with their geometry. */}
-      <div className="relative w-full max-w-[432px]">
+      {/* The containment context every cqw below is measured against. */}
+      <div className="@container relative w-full max-w-[432px]">
         {BANDS.map((band) => {
           const bottom = band.width - (band.inset / 100) * band.width * 2;
           const offset = (band.inset / 100) * band.width;
@@ -162,7 +168,9 @@ export default function TalentFunnel() {
             <a
               key={band.label}
               href={band.href}
-              className="group relative mx-auto flex h-[86px] items-center justify-center outline-offset-2 focus-visible:outline-2 focus-visible:outline-navy"
+              /* 86 of the 432 canvas. The height has to scale with the width
+                 or the funnel stops being the shape the outline draws over. */
+              className="group relative mx-auto flex h-[19.907cqw] items-center justify-center outline-offset-2 focus-visible:outline-2 focus-visible:outline-navy"
               style={{ width: `${(band.width / WIDEST) * 100}%` }}
             >
               {/* Fill only. The outline is drawn once, over the whole funnel. */}
@@ -205,7 +213,14 @@ export default function TalentFunnel() {
                 />
               </div>
 
-              <p className={`relative font-sans ${band.labelClass}`}>
+              <p
+                className={`relative font-sans ${band.labelClass}`}
+                /* Floored so the last band stays legible on a narrow phone,
+                   capped at what it measures on the 432 canvas. */
+                style={{
+                  fontSize: `clamp(11px, ${band.labelCqw}cqw, ${((band.labelCqw / 100) * WIDEST).toFixed(1)}px)`,
+                }}
+              >
                 {band.label}
               </p>
             </a>

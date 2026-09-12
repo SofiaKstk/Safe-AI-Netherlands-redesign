@@ -15,14 +15,14 @@ import { supervisors } from "@/data/research";
    the affordance and do not move anything. */
 export default function ResearchPeople() {
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-4 md:grid-cols-5 md:gap-x-8">
+    <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-8">
       {supervisors.map((person) => (
         <a
           key={person.name}
           href={person.agenda}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex flex-col items-center text-center last:col-span-2 last:md:col-span-1"
+          className="group flex flex-col items-center text-center last:col-span-2 sm:last:col-span-1"
         >
           <span className="block size-[88px] overflow-hidden rounded-full border border-white/25 transition-[scale,border-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-white/60 motion-safe:group-hover:scale-[1.04] md:size-[104px]">
             <Image

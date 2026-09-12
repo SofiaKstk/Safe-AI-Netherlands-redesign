@@ -70,7 +70,7 @@ export default function Footer() {
     <footer className="border-t border-white/16 bg-navy">
       <div className="shell pb-10 pt-[52px]">
         <div className="flex flex-col gap-8 lg:flex-row">
-          <div className="flex w-full max-w-[420px] flex-col gap-3.5 lg:shrink-0">
+          <div className="flex w-full max-w-[420px] flex-col gap-3.5 lg:max-w-[300px] lg:shrink-0 xl:max-w-[420px]">
             <img
               src="/landing/logo-light-113.png"
               srcSet="/landing/logo-light-113.png 1x, /landing/logo-light-226.png 2x, /landing/logo-light-339.png 3x"

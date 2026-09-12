@@ -38,7 +38,9 @@ export default function PathwayTrail() {
   return (
     <div className="relative w-full min-w-0 max-w-[520px] justify-self-end pt-2">
       <span
-        className="absolute left-1/2 top-12 hidden h-[424px] w-px -translate-x-1/2 bg-white/20 md:block"
+        /* Anchored to both ends rather than a fixed 424px, because the cards
+           below are free to grow now. */
+        className="absolute bottom-12 left-1/2 top-12 hidden w-px -translate-x-1/2 bg-white/20 md:block"
         aria-hidden="true"
       />
       <ol className="flex flex-col gap-1.5">
@@ -48,7 +50,7 @@ export default function PathwayTrail() {
 
           const card = (
             <div
-              className={`relative flex h-[92px] items-center overflow-hidden rounded-[3px] border px-4 py-3.5 ${
+              className={`relative flex min-h-[92px] items-center overflow-hidden rounded-[3px] border px-4 py-3.5 ${
                 last ? "border-orange bg-orange" : "border-white/16 bg-white/8"
               }`}
             >

@@ -36,7 +36,22 @@
   --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-display: var(--font-plex-serif), Georgia, serif;
 
-  /* Published type roles. */
+  /* Published type roles.
+
+     Reading sizes are fixed. Body at 16.5 is already right on a phone, and
+     scaling it with the viewport only makes it wrong at one end.
+
+     The four display roles are ramps, not px values with a jump at one
+     breakpoint. design.md gives both ends ("Display 36/40. Heading 32/36"
+     below md), so each clamp interpolates between a 375px phone and a 1280px
+     laptop, then holds. Written in rem rather than px so the ramp still
+     answers to a reader who has changed their default font size.
+
+     The maxima are what the landing ships, which has drifted from the table
+     in design.md: Display is 48/51 here against the published 46/52, and
+     Heading is 34.5/39 against 38/43. Preserved rather than corrected --
+     that is a typographic decision to make deliberately, not a side effect
+     of making the page responsive. */
   --text-index: 11px;
   --text-footnote: 13px;
   --text-caption: 13.5px;
@@ -46,9 +61,26 @@
   --text-kicker: 17px;
   --text-title-sm: 19px;
   --text-title: 21px;
-  --text-heading: 38px;
-  --text-closing: 42px;
-  --text-display: 46px;
+
+  /* 28.5 -> 34.5. Section turns. */
+  --text-heading: clamp(1.781rem, 0.66vw + 1.625rem, 2.156rem);
+  --text-heading--line-height: 1.14;
+  --text-heading--letter-spacing: -0.012em;
+
+  /* 24 -> 28.5. The quieter turns: community, careers, research subsections. */
+  --text-heading-sm: clamp(1.5rem, 0.5vw + 1.381rem, 1.781rem);
+  --text-heading-sm--line-height: 1.14;
+  --text-heading-sm--letter-spacing: -0.012em;
+
+  /* 27 -> 31.5. Get-involved claim only. */
+  --text-closing: clamp(1.6875rem, 0.5vw + 1.57rem, 1.969rem);
+  --text-closing--line-height: 1.1;
+  --text-closing--letter-spacing: -0.014em;
+
+  /* 36 -> 48. One hero claim per page. */
+  --text-display: clamp(2.25rem, 1.33vw + 1.94rem, 3rem);
+  --text-display--line-height: 1.07;
+  --text-display--letter-spacing: -0.02em;
 
   --container-copy-narrow: 620px;
   --container-copy: 720px;
@@ -190,6 +222,34 @@
   @media (width >= 768px) {
     padding-inline: 48px;
   }
+}
+
+/* Band padding. design.md keeps these uneven on purpose ("Do not normalise
+   these to one stack gap"), so each band carries its own ramp rather than a
+   shared spacing step. The maximum is the figure from the table in design.md,
+   measured on the 1440 canvas; the minimum is what that becomes on a 375px
+   phone, where 88px of air between sections is most of a screen. */
+@utility band-hero {
+  padding-block: clamp(3.5rem, 3.09vw + 2.78rem, 5.25rem)
+    clamp(3rem, 3.09vw + 2.28rem, 4.75rem);
+}
+@utility band-index {
+  padding-block: clamp(2rem, 1.55vw + 1.64rem, 2.875rem);
+}
+@utility band-section {
+  padding-block: clamp(3.5rem, 3.54vw + 2.67rem, 5.5rem);
+}
+@utility band-section-top {
+  padding-block-start: clamp(3.5rem, 3.54vw + 2.67rem, 5.5rem);
+}
+@utility band-community {
+  padding-block: clamp(3rem, 2.65vw + 2.38rem, 4.5rem);
+}
+@utility band-research {
+  padding-block: clamp(4rem, 5.3vw + 2.76rem, 7rem);
+}
+@utility band-close {
+  padding-block: clamp(3.75rem, 3.54vw + 2.92rem, 5.75rem);
 }
 
 /* The Square Kicker Rule: IBM Plex Serif italic, never tracked, never uppercase. */
@@ -491,6 +551,20 @@
 #main .btn-accent {
   font-size: 16.675px;
   padding: 16.1px 27.6px;
+}
+
+/* Below 384px the longest label ("Join the SAIN Community - Free") is wider
+   than the shell and wraps to two lines inside the button. Give back the
+   padding the override added rather than let the label break. */
+@media (width < 24rem) {
+  #main :is(.btn-accent, .btn-ink, .btn-ghost, .btn-outline-ink, .btn-ghost-inverse) {
+    font-size: 15px;
+    padding: 14px 17px;
+  }
+  #main .btn-accent {
+    font-size: 15.2px;
+    padding: 15px 19px;
+  }
 }
 
 .research-publications .pub-chip {

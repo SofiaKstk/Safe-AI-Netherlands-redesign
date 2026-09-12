@@ -226,7 +226,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileOpen((open) => !open)}
-              className="inline-flex size-10 items-center justify-center border border-navy/20 lg:hidden"
+              className="inline-flex size-11 items-center justify-center border border-navy/20 lg:hidden"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -252,7 +252,7 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block py-2 font-sans text-sm leading-5 text-navy"
+                    className="flex min-h-[44px] items-center font-sans text-sm leading-5 text-navy"
                   >
                     {item.name}
                   </Link>
@@ -265,7 +265,7 @@ export default function Navbar() {
                           key={chapter.city}
                           href={chapter.href}
                           onClick={() => setMobileOpen(false)}
-                          className="py-1.5 pl-4 font-sans text-[13.5px] leading-[18px] text-navy/70"
+                          className="flex min-h-[44px] items-center pl-4 font-sans text-[13.5px] leading-[18px] text-navy/70"
                         >
                           {chapter.city}
                         </Link>
@@ -277,21 +277,21 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="py-2 font-sans text-sm leading-5 text-navy"
+                className="flex min-h-[44px] items-center font-sans text-sm leading-5 text-navy"
               >
                 Contact
               </Link>
               <Link
                 href="/get-involved"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 border border-navy/20 px-4 py-2.5 text-center font-sans text-[13.5px] leading-[18px] text-navy"
+                className="mt-2 flex min-h-[44px] items-center justify-center border border-navy/20 px-4 text-center font-sans text-[13.5px] leading-[18px] text-navy"
               >
                 Volunteer
               </Link>
               <Link
                 href="/get-involved#courses"
                 onClick={() => setMobileOpen(false)}
-                className="bg-navy px-4 py-2.5 text-center font-sans text-[13.5px] leading-[18px] text-white"
+                className="flex min-h-[44px] items-center justify-center bg-navy px-4 text-center font-sans text-[13.5px] leading-[18px] text-white"
               >
                 Join a free course
               </Link>
