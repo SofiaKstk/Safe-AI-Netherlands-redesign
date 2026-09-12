@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Archivo:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+<style>
+  body { margin: 0; background: #ffffff; -webkit-font-smoothing: antialiased; }
+  a { color: #021c4d; text-decoration: none; }
+  a:hover { color: #ff6025; }
+  ::selection { background: #ff6025; color: #fff; }
+</style>
+</helmet>
+
+<div style="font-family: Archivo, Helvetica, sans-serif; color: #021c4d; background: #ffffff; font-size: 16px">
+
+  <sc-if value="{{ showAnnouncement }}" hint-placeholder-val="{{ true }}">
+    <div style="background: #ff6025; color: #fff">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 10px 48px; display: flex; align-items: center; justify-content: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase">
+        <span style="opacity: 0.78">We are hiring</span>
+        <span style="width: 24px; height: 1px; background: rgba(255,255,255,0.5)"></span>
+        <a href="#positions" style="color: #fff; border-bottom: 1px solid rgba(255,255,255,0.45)" style-hover="color: #fff">See open positions</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <header style="position: sticky; top: 0; z-index: 60; background: rgba(255,255,255,0.93); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 14px 48px; min-height: 70px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 36px">
+      <a href="#top" style="display: flex; align-items: center">
+        <img src="assets/sain-logo.png" alt="Safe AI Netherlands" style="height: 30px; width: auto; display: block" />
+      </a>
+      <nav style="display: flex; align-items: center; gap: 30px; font-size: 14px">
+        <a href="#community" style="padding: 3px 0; border-bottom: 1px solid #021c4d">Community</a>
+        <a href="#research" style="padding: 3px 0; border-bottom: 1px solid transparent" style-hover="border-bottom-color: #ff6025">Research Hub</a>
+        <a href="#mission" style="padding: 3px 0; border-bottom: 1px solid transparent" style-hover="border-bottom-color: #ff6025">About</a>
+        <a href="#career" style="padding: 3px 0; border-bottom: 1px solid transparent" style-hover="border-bottom-color: #ff6025">Careers</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <a href="#volunteer" style="font-size: 13.5px; padding: 10px 16px; white-space: nowrap; border: 1px solid rgba(2,28,77,0.2)" style-hover="border-color: #021c4d; color: #021c4d">Volunteer</a>
+        <a href="#courses" style="font-size: 13.5px; padding: 11px 18px; white-space: nowrap; background: #021c4d; color: #fff" style-hover="background: #ff6025; color: #fff">Join a free course</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="top" style="background: #ffffff">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 84px 48px 76px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: center">
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 26px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(2,28,77,0.55); display: flex; align-items: center; gap: 11px">
+          <span style="width: 7px; height: 7px; background: #ff6025; display: block"></span>
+          <span>Safe AI Netherlands</span>
+        </div>
+        <h1 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 50px; line-height: 1.08; font-weight: 400; letter-spacing: -0.015em; text-wrap: balance">Preparing the Netherlands for advanced AI</h1>
+        <p style="margin: 0; max-width: 46ch; font-size: 16.5px; line-height: 1.62; color: rgba(2,28,77,0.72); text-wrap: pretty">Artificial intelligence is improving faster than the institutions meant to govern it. SAIN builds the Dutch community of researchers, engineers and policy thinkers working to keep these systems under human control — through free courses, a national research hub and career support.</p>
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 16px 20px; padding-top: 4px">
+          <a href="#courses" style="font-size: 14.5px; padding: 14px 24px; white-space: nowrap; background: #ff6025; color: #fff" style-hover="background: #021c4d; color: #fff">Join the AI safety movement — free</a>
+          <a href="#mission" style="font-size: 14.5px; padding: 14px 22px; white-space: nowrap; border: 1px solid rgba(2,28,77,0.22)" style-hover="border-color: #021c4d">What we do</a>
+        </div>
+      </div>
+
+      <figure style="grid-column: 8 / span 5; margin: 0; display: flex; flex-direction: column; gap: 14px">
+        <sain-viz variant="progress" style="display: block; width: 100%; height: 400px"></sain-viz>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(2,28,77,0.45); border-top: 1px solid rgba(2,28,77,0.1); padding-top: 10px; display: flex; justify-content: space-between; gap: 16px">
+          <span>Fig. 01 — Frontier capability, 2018–2030</span>
+          <span>Compute-scaled benchmarks</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="community" style="background: #f6f4f1; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 46px 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: baseline">
+      <span style="grid-column: span 3; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(2,28,77,0.5)">Local chapters</span>
+      <div style="grid-column: 4 / span 9; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+        <sc-for list="{{ chapters }}" as="ch" hint-placeholder-count="3">
+          <a href="#community" style="display: flex; flex-direction: column; gap: 7px; border-left: 1px solid rgba(2,28,77,0.14); padding: 2px 0 2px 18px" style-hover="border-left-color: #ff6025">
+            <span style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 400">{{ ch.city }}</span>
+            <span style="font-size: 14px; color: rgba(2,28,77,0.66)">{{ ch.next }}</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; white-space: nowrap; color: rgba(2,28,77,0.45)">{{ ch.meta }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="mission" style="background: #ffffff; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 88px 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 22px">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(2,28,77,0.5)">01 — The mission</span>
+        <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.12; font-weight: 400; letter-spacing: -0.012em; max-width: 26ch">SAIN is preparing the Netherlands for AGI</h2>
+        <p style="margin: 0; max-width: 62ch; font-size: 16.5px; line-height: 1.66; color: rgba(2,28,77,0.74)">The Netherlands has the universities, the engineering talent and the policy weight to matter in the transition to advanced AI. The people working on it are scattered across faculties, ministries and companies that rarely meet. We connect them, and we train the next group.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 40px; padding-top: 12px">
+          <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="4">
+            <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid rgba(2,28,77,0.14); padding-top: 16px">
+              <span style="font-size: 15.5px; font-weight: 500">{{ p.title }}</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgba(2,28,77,0.68)">{{ p.body }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <a href="#mission" style="align-self: flex-start; margin-top: 14px; font-size: 14px; padding: 13px 20px; white-space: nowrap; border: 1px solid #021c4d" style-hover="background: #021c4d; color: #fff">Read our approach</a>
+      </div>
+
+      <figure style="grid-column: 9 / span 4; margin: 0; display: flex; flex-direction: column; gap: 12px; justify-content: center">
+        <sain-viz variant="pathway" style="display: block; width: 100%; height: 340px"></sain-viz>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(2,28,77,0.45); border-top: 1px solid rgba(2,28,77,0.1); padding-top: 10px">Fig. 02 — From first course to full-time impact</figcaption>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 6px">
+          <sc-for list="{{ pathway }}" as="s" hint-placeholder-count="3">
+            <div style="display: grid; grid-template-columns: 26px 1fr; gap: 10px; font-size: 14.5px; color: rgba(2,28,77,0.7)">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #ff6025; padding-top: 3px">{{ s.n }}</span>
+              <span>{{ s.title }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section id="courses" style="background: #f6f4f1; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 88px 48px">
+      <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: baseline; border-bottom: 1px solid rgba(2,28,77,0.14); padding-bottom: 28px">
+        <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 18px">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(2,28,77,0.5)">02 — Learn</span>
+          <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.12; font-weight: 400; letter-spacing: -0.012em">Join a course</h2>
+        </div>
+        <p style="grid-column: 7 / span 5; margin: 0; font-size: 16px; line-height: 1.66; color: rgba(2,28,77,0.72)">Every programme is free and taught by people working in the field. Start with the fundamentals cohort, or come to a reading group and see whether it is for you.</p>
+        <a href="#courses" style="grid-column: 11 / span 2; justify-self: end; font-size: 13.5px; padding: 12px 18px; white-space: nowrap; border: 1px solid #021c4d" style-hover="background: #021c4d; color: #fff">All activities</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: rgba(2,28,77,0.14)">
+        <sc-for list="{{ courses }}" as="c" hint-placeholder-count="3">
+          <a href="#courses" style="background: #f6f4f1; padding: 26px 24px; display: flex; flex-direction: column; gap: 12px; min-height: 190px" style-hover="background: #ffffff">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: #ff6025">{{ c.format }}</span>
+            <span style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 400; line-height: 1.2">{{ c.name }}</span>
+            <span style="font-size: 14.5px; line-height: 1.58; color: rgba(2,28,77,0.68)">{{ c.detail }}</span>
+            <span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: rgba(2,28,77,0.45)">{{ c.when }}</span>
+          </a>
+        </sc-for>
+      </div>
+      <blockquote style="margin: 44px 0 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: start">
+        <p style="grid-column: 2 / span 7; margin: 0; font-family: Newsreader, Georgia, serif; font-size: 26px; line-height: 1.42; font-weight: 300; letter-spacing: -0.008em; text-wrap: pretty">“I came to the intro course with a physics background and no idea where I fit. Four months later I was writing evaluations for a lab in London.”</p>
+        <footer style="grid-column: 10 / span 3; display: flex; flex-direction: column; gap: 4px; border-top: 1px solid rgba(2,28,77,0.14); padding-top: 12px">
+          <span style="font-size: 14px; font-weight: 500">Marijke de Vries</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: rgba(2,28,77,0.5)">Alumna, Utrecht chapter</span>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <section id="research" style="background: #ffffff; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 88px 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px">
+      <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 20px">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(2,28,77,0.5)">03 — Research</span>
+        <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.12; font-weight: 400; letter-spacing: -0.012em">Research hub</h2>
+        <sain-viz variant="lattice" style="display: block; width: 100%; height: 230px; margin-top: 6px"></sain-viz>
+        <a href="#research" style="align-self: flex-start; font-size: 14px; padding: 13px 20px; white-space: nowrap; border: 1px solid #021c4d" style-hover="background: #021c4d; color: #fff">Call for applications</a>
+      </div>
+
+      <div style="grid-column: 6 / span 4; display: flex; flex-direction: column; gap: 16px">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(2,28,77,0.45); border-top: 1px solid rgba(2,28,77,0.14); padding-top: 12px">What it is</span>
+        <p style="margin: 0; font-size: 16px; line-height: 1.66; color: rgba(2,28,77,0.76)">A supervised research programme for Dutch students and professionals working on interpretability, evaluations and governance. Twelve weeks, part time, mentored by researchers from Dutch universities and frontier labs.</p>
+        <p style="margin: 0; font-size: 16px; line-height: 1.66; color: rgba(2,28,77,0.76)">Cohorts run twice a year from Utrecht, with two on-site weekends and weekly supervision online. Output is a paper, a replication or a policy memo — reviewed by the mentor and published in our archive.</p>
+      </div>
+
+      <div style="grid-column: 10 / span 3; display: flex; flex-direction: column; gap: 14px">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(2,28,77,0.45); border-top: 1px solid rgba(2,28,77,0.14); padding-top: 12px">Requirements</span>
+        <sc-for list="{{ requirements }}" as="r" hint-placeholder-count="3">
+          <span style="display: grid; grid-template-columns: 13px 1fr; gap: 10px; font-size: 14.5px; line-height: 1.56; color: rgba(2,28,77,0.72)">
+            <span style="width: 4px; height: 4px; background: #ff6025; margin-top: 8px; display: block"></span>
+            <span>{{ r }}</span>
+          </span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="career" style="background: #f6f4f1; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 88px 48px">
+      <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: center; margin-bottom: 44px">
+        <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 20px">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(2,28,77,0.5)">04 — Careers</span>
+          <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.12; font-weight: 400; letter-spacing: -0.012em">Build an AI safety career</h2>
+          <p style="margin: 0; max-width: 52ch; font-size: 16px; line-height: 1.66; color: rgba(2,28,77,0.72)">Most people who end up working on AI safety did not plan for it. We shorten that path: mentorship, funding advice, and introductions to the labs, institutes and ministries hiring in Europe right now.</p>
+          <a id="positions" href="#positions" style="align-self: flex-start; font-size: 14px; padding: 13px 20px; white-space: nowrap; border: 1px solid #021c4d" style-hover="background: #021c4d; color: #fff">Open positions</a>
+        </div>
+        <figure style="grid-column: 8 / span 5; margin: 0; display: flex; flex-direction: column; gap: 12px">
+          <sain-viz variant="network" style="display: block; width: 100%; height: 300px"></sain-viz>
+          <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(2,28,77,0.45); border-top: 1px solid rgba(2,28,77,0.1); padding-top: 10px">Fig. 03 — The Dutch AI safety network, 2026</figcaption>
+        </figure>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; border-top: 1px solid rgba(2,28,77,0.14); padding-top: 26px">
+        <sc-for list="{{ careerTracks }}" as="t" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 9px">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: #ff6025">{{ t.tag }}</span>
+            <span style="font-size: 16px; font-weight: 500">{{ t.title }}</span>
+            <span style="font-size: 14.5px; line-height: 1.58; color: rgba(2,28,77,0.68)">{{ t.body }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #ffffff; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 72px 48px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="2">
+        <figure style="margin: 0; display: flex; flex-direction: column; gap: 20px">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(2,28,77,0.45)">{{ t.kicker }}</span>
+          <blockquote style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.48; font-weight: 300; text-wrap: pretty">{{ t.quote }}</blockquote>
+          <figcaption style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid rgba(2,28,77,0.14); padding-top: 12px">
+            <span style="font-size: 14px; font-weight: 500">{{ t.name }}</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: rgba(2,28,77,0.5)">{{ t.role }}</span>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="volunteer" style="background: #021c4d; color: #fff">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 92px 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: end">
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 22px">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.55)">Get involved</span>
+        <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 42px; line-height: 1.1; font-weight: 400; letter-spacing: -0.014em; max-width: 24ch">The next decade is being decided now</h2>
+      </div>
+      <div style="grid-column: 8 / span 5; display: flex; flex-direction: column; gap: 22px">
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.66; color: rgba(255,255,255,0.78)">Every SAIN programme is free and run by volunteers. Start with a course, or write to us about helping run one.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <a href="#courses" style="font-size: 14px; padding: 14px 22px; white-space: nowrap; background: #ff6025; color: #fff" style-hover="background: #fff; color: #021c4d">Join a course</a>
+          <a href="#volunteer" style="font-size: 14px; padding: 14px 22px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.32); color: #fff" style-hover="border-color: #fff; color: #fff">Volunteer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #021c4d; color: rgba(255,255,255,0.7); border-top: 1px solid rgba(255,255,255,0.16)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 52px 48px 40px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px">
+      <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 16px">
+        <img src="assets/sain-logo-navy.png" alt="Safe AI Netherlands" style="height: 42px; width: auto; display: block; margin-left: -5px" />
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: rgba(255,255,255,0.45)">Stichting Safe AI Netherlands · KvK 00000000</span>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div style="grid-column: span 2; display: flex; flex-direction: column; gap: 12px">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(255,255,255,0.45)">{{ col.title }}</span>
+          <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="4">
+            <a href="#top" style="font-size: 14px; color: rgba(255,255,255,0.78)" style-hover="color: #ff6025">{{ l }}</a>
+          </sc-for>
+        </div>
+      </sc-for>
+      <div style="grid-column: span 12; border-top: 1px solid rgba(255,255,255,0.16); margin-top: 26px; padding-top: 18px; display: flex; justify-content: space-between; gap: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4)">
+        <span>© 2026 Safe AI Netherlands</span>
+        <span>Utrecht · Groningen · Amsterdam</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAnnouncement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    if (!document.getElementById('sain-viz-loader')) {
+      const boot = () => {
+        const s = document.createElement('script');
+        s.id = 'sain-viz-loader';
+        s.src = 'sain-viz.js';
+        document.head.appendChild(s);
+      };
+      if (window.THREE) boot();
+      else {
+        this._t = setInterval(() => { if (window.THREE) { clearInterval(this._t); boot(); } }, 60);
+      }
+    }
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+  renderVals() {
+    const p = this.props;
+    return {
+      showAnnouncement: p.showAnnouncement ?? true,
+      chapters: [
+        { city: 'Utrecht', next: 'Fundamentals cohort, reading group, monthly social', meta: '14 events / yr' },
+        { city: 'Groningen', next: 'Technical track and university seminar series', meta: '9 events / yr' },
+        { city: 'Amsterdam', next: 'Policy circle, career workshops, lab visits', meta: '18 events / yr' }
+      ],
+      pillars: [
+        { title: 'Current systems', body: 'Models already pass the bar exam, write production code and fold proteins. Capability is outrunning oversight.' },
+        { title: 'Why it matters here', body: 'Dutch ministries, regulators and universities all now make decisions that need technical grounding.' },
+        { title: 'What we run', body: 'Free courses, a supervised research hub, three local chapters and a career programme.' },
+        { title: 'How we work', body: 'Volunteer-led, non-partisan, funded by philanthropy. Everything we teach is public.' }
+      ],
+      pathway: [
+        { n: '01', title: 'Join a free course' },
+        { n: '02', title: 'Contribute to research or a chapter' },
+        { n: '03', title: 'Move into full-time impact' }
+      ],
+      courses: [
+        { name: 'AI Safety Fundamentals', detail: 'Alignment, evaluations and governance from first principles.', format: 'Cohort', when: '8 weeks · next intake Oct' },
+        { name: 'Technical Alignment Track', detail: 'Interpretability and RL, implemented from scratch in PyTorch.', format: 'Cohort', when: '10 weeks · next intake Nov' },
+        { name: 'Policy Reading Group', detail: 'The EU AI Act and its Dutch implementation, read closely.', format: 'Open', when: 'Fortnightly · Utrecht' }
+      ],
+      requirements: [
+        'A background in computer science, mathematics, law or public policy.',
+        'Ten hours per week for twelve weeks.',
+        'Based in the Netherlands, or able to attend two on-site weekends.'
+      ],
+      careerTracks: [
+        { title: 'Technical research', tag: 'Lab track', body: 'Interpretability, evaluations and control research at labs and institutes.' },
+        { title: 'Governance and policy', tag: 'Public track', body: 'Advising ministries, regulators and standards bodies on frontier AI.' },
+        { title: 'Field building', tag: 'Community', body: 'Running programmes, chapters and communications for the Dutch ecosystem.' },
+        { title: 'Security and infrastructure', tag: 'Industry', body: 'Model security, compute governance and assurance engineering.' }
+      ],
+      testimonials: [
+        { kicker: 'Research hub, cohort 3', quote: '“The supervision was the difference. I had read the papers for a year; in twelve weeks I produced something a reviewer took seriously.”', name: 'Daan Kuipers', role: 'PhD candidate, TU Delft' },
+        { kicker: 'Careers programme', quote: '“SAIN introduced me to the three people who ended up shaping my career. That network did not exist in the Netherlands two years ago.”', name: 'Eline Brouwer', role: 'Policy officer, The Hague' }
+      ],
+      footerCols: [
+        { title: 'Community', links: ['Chapters', 'Events', 'Volunteer', 'Newsletter'] },
+        { title: 'Programmes', links: ['Courses', 'Research hub', 'Careers', 'Mentorship'] },
+        { title: 'Organisation', links: ['About', 'Team', 'Open positions', 'Contact'] }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

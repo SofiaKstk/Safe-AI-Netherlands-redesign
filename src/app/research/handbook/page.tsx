@@ -18,7 +18,7 @@ export default async function ResearchHubHandbookPage() {
 
   return (
     <>
-      <section className="pt-36 pb-16 md:pt-44 md:pb-20 bg-slate-50">
+      <section className="pb-16 pt-16 md:pb-20 md:pt-20 bg-slate-50">
         <div className="section-container">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-6 text-sm">

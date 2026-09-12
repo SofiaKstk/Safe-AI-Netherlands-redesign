@@ -1,0 +1,226 @@
+/* Safe AI Netherlands brand foundation.
+   Tokens match the Paper file (Desktop — Landing) and design.md.
+   Agents: load this stylesheet. Do not invent type sizes, hex values, or radii. */
+
+:root {
+  --color-canvas: #FFFFFF;
+  --color-canvas-soft: #F7F5F2;
+  --color-canvas-inverse: #021C4D;
+  --color-canvas-header: #FFFFFFF0;
+  --color-ink: #021C4D;
+  --color-ink-body: #021C4DBD;
+  --color-ink-secondary: #021C4DA8;
+  --color-ink-kicker: #021C4D8C;
+  --color-ink-meta: #021C4D94;
+  --color-hairline: #021C4D1A;
+  --color-hairline-strong: #021C4D33;
+  --color-rule: #021C4D24;
+  --color-on-inverse: #FFFFFF;
+  --color-on-inverse-body: #FFFFFFC7;
+  --color-on-inverse-kicker: #FFFFFF99;
+  --color-on-inverse-meta: #FFFFFF80;
+  --color-on-inverse-hairline: #FFFFFF29;
+  --color-on-inverse-fill: #FFFFFF14;
+  --color-on-inverse-ghost: #FFFFFF52;
+  --color-on-accent: #FFFFFF;
+  --color-primary: var(--color-ink);
+  --color-accent: #FF6025;
+  --color-accent-hover: #E65620;
+  --color-accent-muted: #FF602580;
+
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-sans: "Archivo", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --text-index: 11px;
+  --text-footnote: 13px;
+  --text-caption: 13.5px;
+  --text-label: 14px;
+  --text-ui: 14.5px;
+  --text-body: 16.5px;
+  --text-kicker: 17px;
+  --text-title-sm: 19px;
+  --text-title: 21px;
+  --text-heading: 38px;
+  --text-closing: 42px;
+  --text-display: 46px;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  --tracking-index: 0.1em;
+  --tracking-heading: -0.012em;
+  --tracking-closing: -0.014em;
+  --tracking-display: -0.015em;
+
+  --leading-index: 14px;
+  --leading-caption: 18px;
+  --leading-label: 20px;
+  --leading-kicker: 24px;
+  --leading-body: 27px;
+  --leading-title: 26px;
+  --leading-quote: 31px;
+  --leading-heading: 43px;
+  --leading-closing: 46px;
+  --leading-display: 52px;
+
+  --breakpoint-sm: 390px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1440px;
+
+  --container-page: 1440px;
+  --container-copy-narrow: 620px;
+  --container-copy: 720px;
+  --container-copy-wide: 760px;
+
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-7: 48px;
+  --spacing-9: 88px;
+
+  --radius-none: 0px;
+  --radius-hair: 3px;
+  --radius-full: 9999px;
+}
+
+.sain-page {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  -webkit-font-smoothing: antialiased;
+}
+
+.sain-display {
+  font-family: var(--font-serif);
+  font-size: var(--text-display);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+}
+
+.sain-heading {
+  font-family: var(--font-serif);
+  font-size: var(--text-heading);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  color: var(--color-ink);
+}
+
+.sain-kicker {
+  font-family: var(--font-serif);
+  font-size: var(--text-kicker);
+  font-style: italic;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-kicker);
+  color: var(--color-ink-kicker);
+}
+
+.sain-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-body);
+  color: var(--color-ink-body);
+  max-width: var(--container-copy);
+}
+
+.sain-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radius-none);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+}
+
+.sain-button-accent {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--text-ui);
+  line-height: var(--leading-label);
+  padding: 14px 24px;
+}
+
+.sain-button-accent:hover,
+.sain-button-accent:focus-visible {
+  background: var(--color-accent-hover);
+}
+
+.sain-button-ink {
+  background: var(--color-primary);
+  color: var(--color-on-inverse);
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  padding: 11px 18px;
+}
+
+.sain-button-ink:hover,
+.sain-button-ink:focus-visible {
+  background: var(--color-accent);
+}
+
+.sain-button-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-hairline-strong);
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  padding: 10px 16px;
+}
+
+.sain-button-ghost:hover,
+.sain-button-ghost:focus-visible {
+  background: var(--color-ink);
+  color: var(--color-on-inverse);
+}
+
+.sain-button:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.sain-section {
+  padding: var(--spacing-9) var(--spacing-7);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.sain-band-paper {
+  background: var(--color-canvas-soft);
+}
+
+.sain-band-inverse {
+  background: var(--color-canvas-inverse);
+  color: var(--color-on-inverse);
+  border-top-color: var(--color-on-inverse-hairline);
+}
+
+.sain-band-inverse .sain-heading,
+.sain-band-inverse .sain-display {
+  color: var(--color-on-inverse);
+}
+
+.sain-band-inverse .sain-kicker {
+  color: var(--color-on-inverse-kicker);
+}
+
+.sain-band-inverse .sain-body {
+  color: var(--color-on-inverse-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

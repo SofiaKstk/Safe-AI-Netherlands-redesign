@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function GroningenEventsArchivePage() {
   return (
     <>
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden bg-navy-950 text-white">
+      <section className="relative pb-16 pt-16 md:pb-20 md:pt-20 overflow-hidden bg-navy-950 text-white">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{ backgroundImage: `url(/photos/cities/groningen-hero.jpg)` }}

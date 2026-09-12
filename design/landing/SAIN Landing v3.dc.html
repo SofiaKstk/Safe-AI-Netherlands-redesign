@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Archivo:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css" />
+<script src="https://unpkg.com/pixi.js@7.4.0/dist/pixi.min.js"></script>
+<script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+<style>
+  body { margin: 0; background: #ffffff; -webkit-font-smoothing: antialiased; }
+  a { color: #021c4d; text-decoration: none; }
+  a:hover { color: #ff6025; }
+  ::selection { background: #ff6025; color: #fff; }
+</style>
+</helmet>
+
+<div style="font-family: Archivo, Helvetica, sans-serif; color: #021c4d; background: #ffffff; font-size: 16px; position: relative; overflow-x: hidden">
+
+  <div style="position: fixed; inset: 0; z-index: 200; pointer-events: none; mix-blend-mode: multiply; opacity: 0.5; background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27140%27%20height=%27140%27%3E%3Cfilter%20id=%27n%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%270.85%27%20numOctaves=%272%27/%3E%3C/filter%3E%3Crect%20width=%27140%27%20height=%27140%27%20filter=%27url(%23n)%27%20opacity=%270.18%27/%3E%3C/svg%3E)"></div>
+
+  <sc-if value="{{ showAnnouncement }}" hint-placeholder-val="{{ true }}">
+    <div style="background: #ff6025; color: #fff">
+      <div style="max-width: 1360px; margin: 0 auto; padding: 11px 48px; display: flex; align-items: center; justify-content: center; gap: 12px; font-family: Newsreader, Georgia, serif; font-size: 15px; font-style: italic">
+        <span style="opacity: 0.85">We are hiring</span>
+        <span style="width: 22px; height: 1px; background: rgba(255,255,255,0.5)"></span>
+        <a href="#positions" style="color: #fff; font-style: normal; font-family: Archivo, sans-serif; font-size: 13.5px; border-bottom: 1px solid rgba(255,255,255,0.45)" style-hover="color: #fff">See open positions</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <header style="position: sticky; top: 0; z-index: 60; background: rgba(255,255,255,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 14px 48px; min-height: 70px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 36px">
+      <a href="#top" style="display: flex; align-items: center">
+        <img src="assets/sain-logo.png" alt="Safe AI Netherlands" style="height: 30px; width: auto; display: block" />
+      </a>
+      <nav style="display: flex; align-items: center; gap: 30px; font-size: 14px">
+        <a href="#community" style="padding: 3px 0; border-bottom: 1px solid #021c4d">Community</a>
+        <a href="#research" style="padding: 3px 0; border-bottom: 1px solid transparent" style-hover="border-bottom-color: #ff6025">Research hub</a>
+        <a href="#mission" style="padding: 3px 0; border-bottom: 1px solid transparent" style-hover="border-bottom-color: #ff6025">About</a>
+        <a href="#career" style="padding: 3px 0; border-bottom: 1px solid transparent" style-hover="border-bottom-color: #ff6025">Careers</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <a href="#volunteer" style="font-size: 13.5px; padding: 10px 16px; white-space: nowrap; border: 1px solid rgba(2,28,77,0.2)" style-hover="border-color: #021c4d; color: #021c4d">Volunteer</a>
+        <a href="#courses" style="font-size: 13.5px; padding: 11px 18px; white-space: nowrap; background: #021c4d; color: #fff" style-hover="background: #ff6025; color: #fff">Join a free course</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="top" style="background: #ffffff">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 84px 48px 76px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: center">
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 24px">
+        <div style="display: flex; align-items: center; gap: 11px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 16px; color: rgba(2,28,77,0.55)">
+          <span style="width: 7px; height: 7px; background: #ff6025; display: block"></span>
+          <span>Safe AI Netherlands</span>
+        </div>
+        <h1 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 50px; line-height: 1.08; font-weight: 400; letter-spacing: -0.015em; text-wrap: balance">Preparing the Netherlands for advanced AI</h1>
+        <p style="margin: 0; max-width: 46ch; font-size: 16.5px; line-height: 1.62; color: rgba(2,28,77,0.72); text-wrap: pretty">Artificial intelligence is improving faster than the institutions meant to govern it. SAIN builds the Dutch community of researchers, engineers and policy thinkers working to keep these systems under human control — through free courses, a national research hub and career support.</p>
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 16px 20px; padding-top: 4px">
+          <a href="#courses" style="font-size: 14.5px; padding: 14px 24px; white-space: nowrap; background: #ff6025; color: #fff" style-hover="background: #021c4d; color: #fff">Join the AI safety movement — free</a>
+          <a href="#mission" style="font-size: 14.5px; padding: 14px 22px; white-space: nowrap; border: 1px solid rgba(2,28,77,0.22)" style-hover="border-color: #021c4d">What we do</a>
+        </div>
+      </div>
+      <div style="grid-column: 8 / span 5; position: relative">
+        <sain-viz variant="progress" style="display: block; width: calc(100% + 96px); height: 430px; margin: 0 -46px 0 -50px"></sain-viz>
+      </div>
+    </div>
+  </section>
+
+  <section id="community" style="background: #f7f5f2; background-image: radial-gradient(rgba(2,28,77,0.06) 1px, transparent 1px); background-size: 22px 22px; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 46px 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: baseline">
+      <span style="grid-column: span 3; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: rgba(2,28,77,0.55)">Local chapters</span>
+      <div style="grid-column: 4 / span 9; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+        <sc-for list="{{ chapters }}" as="ch" hint-placeholder-count="3">
+          <a href="#community" style="display: flex; flex-direction: column; gap: 8px; border-left: 1px solid rgba(2,28,77,0.14); padding: 2px 0 2px 18px" style-hover="border-left-color: #ff6025">
+            <span style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 400">{{ ch.city }}</span>
+            <span style="font-size: 14px; color: rgba(2,28,77,0.66)">{{ ch.next }}</span>
+            <span style="display: flex; align-items: center; gap: 7px; font-size: 13.5px; color: rgba(2,28,77,0.55)">
+              <i class="ph-light ph-calendar-blank" style="font-size: 16px; color: rgba(2,28,77,0.45)"></i>
+              <span>{{ ch.meta }}</span>
+            </span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="mission" style="background: #ffffff; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 88px 48px">
+      <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: start">
+        <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 22px">
+          <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: rgba(2,28,77,0.55)">The mission</span>
+          <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.12; font-weight: 400; letter-spacing: -0.012em; max-width: 26ch">SAIN is preparing the Netherlands for AGI</h2>
+          <p style="margin: 0; max-width: 62ch; font-size: 16.5px; line-height: 1.66; color: rgba(2,28,77,0.74)">The Netherlands has the universities, the engineering talent and the policy weight to matter in the transition to advanced AI. The people working on it are scattered across faculties, ministries and companies that rarely meet. We connect them, and we train the next group.</p>
+          <a href="#mission" style="align-self: flex-start; margin-top: 4px; font-size: 14px; padding: 13px 20px; white-space: nowrap; border: 1px solid #021c4d" style-hover="background: #021c4d; color: #fff">Read our approach</a>
+        </div>
+        <div style="grid-column: 9 / span 4">
+          <sain-plate variant="funnel" style="display: block; width: 100%; height: 320px"></sain-plate>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 44px">
+        <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="4">
+          <div style="border: 1px solid rgba(2,28,77,0.12); background: #fcfbfa; padding: 26px 22px 24px; display: flex; flex-direction: column; gap: 14px" style-hover="border-color: rgba(2,28,77,0.28)">
+            <i class="{{ p.icon }}" style="font-size: 26px; color: #ff6025; line-height: 1"></i>
+            <span style="font-family: Newsreader, Georgia, serif; font-size: 19px; font-weight: 400; line-height: 1.25">{{ p.title }}</span>
+            <span style="font-size: 14.5px; line-height: 1.6; color: rgba(2,28,77,0.68)">{{ p.body }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="courses" style="background: #f7f5f2; background-image: radial-gradient(rgba(2,28,77,0.06) 1px, transparent 1px); background-size: 22px 22px; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 88px 48px">
+      <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: start">
+        <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 22px">
+          <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: rgba(2,28,77,0.55)">Learn</span>
+          <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.12; font-weight: 400; letter-spacing: -0.012em; max-width: 26ch">Join a course</h2>
+          <p style="margin: 0; max-width: 62ch; font-size: 16.5px; line-height: 1.66; color: rgba(2,28,77,0.74)">Every programme is free and taught by people working in the field. Start with the fundamentals cohort, or come to a reading group first and see whether it is for you. No prior background in machine learning is assumed.</p>
+          <a href="#courses" style="align-self: flex-start; margin-top: 4px; font-size: 14px; padding: 13px 20px; white-space: nowrap; border: 1px solid #021c4d" style-hover="background: #021c4d; color: #fff">See all activities</a>
+        </div>
+        <figure style="grid-column: 9 / span 4; margin: 0; display: flex; flex-direction: column; gap: 16px; border-left: 1px solid rgba(2,28,77,0.14); padding-left: 26px">
+          <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 16px; color: rgba(2,28,77,0.5)">Alumna, Utrecht chapter</span>
+          <blockquote style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.45; font-weight: 300; text-wrap: pretty">“I came to the intro course with a physics background and no idea where I fit. Four months later I was writing evaluations for a lab in London.”</blockquote>
+          <figcaption style="font-size: 14px; font-weight: 500">Marijke de Vries</figcaption>
+        </figure>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 44px">
+        <sc-for list="{{ courses }}" as="c" hint-placeholder-count="3">
+          <a href="#courses" style="border: 1px solid rgba(2,28,77,0.12); background: #ffffff; padding: 26px 22px 24px; display: flex; flex-direction: column; gap: 14px" style-hover="border-color: rgba(2,28,77,0.3)">
+            <i class="{{ c.icon }}" style="font-size: 26px; color: #ff6025; line-height: 1"></i>
+            <span style="font-family: Newsreader, Georgia, serif; font-size: 19px; font-weight: 400; line-height: 1.25">{{ c.name }}</span>
+            <span style="font-size: 14.5px; line-height: 1.6; color: rgba(2,28,77,0.68)">{{ c.detail }}</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 6px">
+              <sc-for list="{{ c.meta }}" as="m" hint-placeholder-count="2">
+                <span style="display: flex; align-items: center; gap: 7px; font-size: 13.5px; color: rgba(2,28,77,0.6)">
+                  <i class="{{ m.icon }}" style="font-size: 16px; color: rgba(2,28,77,0.45)"></i>
+                  <span>{{ m.text }}</span>
+                </span>
+              </sc-for>
+            </span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" style="background: #ffffff; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 88px 48px">
+      <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: start">
+        <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 22px">
+          <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.12; font-weight: 400; letter-spacing: -0.012em; max-width: 26ch">Research hub</h2>
+          <p style="margin: 0; max-width: 62ch; font-size: 16.5px; line-height: 1.66; color: rgba(2,28,77,0.74)">A supervised research programme for Dutch students and professionals working on interpretability, evaluations and governance. Twelve weeks, part time, mentored by researchers from Dutch universities and frontier labs. Cohorts run twice a year from Utrecht.</p>
+          <a href="#research" style="align-self: flex-start; margin-top: 4px; font-size: 14px; padding: 13px 20px; white-space: nowrap; border: 1px solid #021c4d" style-hover="background: #021c4d; color: #fff">Read the call for applications</a>
+        </div>
+        <div style="grid-column: 9 / span 4">
+          <sain-viz variant="mark" style="display: block; width: 100%; height: 260px"></sain-viz>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 44px">
+        <sc-for list="{{ researchCards }}" as="r" hint-placeholder-count="3">
+          <div style="border: 1px solid rgba(2,28,77,0.12); background: #fcfbfa; padding: 26px 22px 24px; display: flex; flex-direction: column; gap: 14px">
+            <i class="{{ r.icon }}" style="font-size: 26px; color: #ff6025; line-height: 1"></i>
+            <span style="font-family: Newsreader, Georgia, serif; font-size: 19px; font-weight: 400; line-height: 1.25">{{ r.title }}</span>
+            <span style="font-size: 14.5px; line-height: 1.6; color: rgba(2,28,77,0.68)">{{ r.body }}</span>
+            <sc-if value="{{ r.hasList }}" hint-placeholder-val="{{ false }}">
+              <span style="display: flex; flex-direction: column; gap: 9px; margin-top: 2px">
+                <sc-for list="{{ r.list }}" as="li" hint-placeholder-count="3">
+                  <span style="display: grid; grid-template-columns: 12px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: rgba(2,28,77,0.68)">
+                    <span style="width: 4px; height: 4px; background: #ff6025; margin-top: 8px; display: block"></span>
+                    <span>{{ li }}</span>
+                  </span>
+                </sc-for>
+              </span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="career" style="background: #f7f5f2; background-image: radial-gradient(rgba(2,28,77,0.06) 1px, transparent 1px); background-size: 22px 22px; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 88px 48px">
+      <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: start">
+        <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 22px">
+          <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: rgba(2,28,77,0.55)">Careers</span>
+          <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.12; font-weight: 400; letter-spacing: -0.012em; max-width: 26ch">Build an AI safety career</h2>
+          <p style="margin: 0; max-width: 62ch; font-size: 16.5px; line-height: 1.66; color: rgba(2,28,77,0.74)">Most people who end up working on AI safety did not plan for it. We shorten that path with mentorship, funding advice, and introductions to the labs, institutes and ministries hiring in Europe right now.</p>
+          <a id="positions" href="#positions" style="align-self: flex-start; margin-top: 4px; font-size: 14px; padding: 13px 20px; white-space: nowrap; border: 1px solid #021c4d" style-hover="background: #021c4d; color: #fff">See open positions</a>
+        </div>
+        <div style="grid-column: 9 / span 4">
+          <sain-viz variant="network" style="display: block; width: 100%; height: 280px"></sain-viz>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 44px">
+        <sc-for list="{{ careerTracks }}" as="t" hint-placeholder-count="4">
+          <div style="border: 1px solid rgba(2,28,77,0.12); background: #ffffff; padding: 26px 22px 24px; display: flex; flex-direction: column; gap: 14px">
+            <i class="{{ t.icon }}" style="font-size: 26px; color: #ff6025; line-height: 1"></i>
+            <span style="font-family: Newsreader, Georgia, serif; font-size: 19px; font-weight: 400; line-height: 1.25; min-height: 48px">{{ t.title }}</span>
+            <span style="font-size: 14.5px; line-height: 1.6; color: rgba(2,28,77,0.68)">{{ t.body }}</span>
+            <span style="display: flex; align-items: center; gap: 7px; margin-top: 6px; font-size: 13.5px; color: rgba(2,28,77,0.6)">
+              <i class="{{ t.tagIcon }}" style="font-size: 16px; color: rgba(2,28,77,0.45)"></i>
+              <span>{{ t.tag }}</span>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #ffffff; border-top: 1px solid rgba(2,28,77,0.1)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 72px 48px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="2">
+        <figure style="margin: 0; display: flex; flex-direction: column; gap: 18px">
+          <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 16px; color: rgba(2,28,77,0.5)">{{ t.kicker }}</span>
+          <blockquote style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.48; font-weight: 300; text-wrap: pretty">{{ t.quote }}</blockquote>
+          <figcaption style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid rgba(2,28,77,0.14); padding-top: 12px">
+            <span style="font-size: 14px; font-weight: 500">{{ t.name }}</span>
+            <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: rgba(2,28,77,0.55)">{{ t.role }}</span>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="volunteer" style="background: #021c4d; color: #fff">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 92px 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; align-items: end">
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 20px">
+        <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: rgba(255,255,255,0.6)">Get involved</span>
+        <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 42px; line-height: 1.1; font-weight: 400; letter-spacing: -0.014em; max-width: 24ch">The next decade is being decided now</h2>
+      </div>
+      <div style="grid-column: 8 / span 5; display: flex; flex-direction: column; gap: 22px">
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.66; color: rgba(255,255,255,0.78)">Every SAIN programme is free and run by volunteers. Start with a course, or write to us about helping run one.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <a href="#courses" style="font-size: 14px; padding: 14px 22px; white-space: nowrap; background: #ff6025; color: #fff" style-hover="background: #fff; color: #021c4d">Join a course</a>
+          <a href="#volunteer" style="font-size: 14px; padding: 14px 22px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.32); color: #fff" style-hover="border-color: #fff; color: #fff">Volunteer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #021c4d; color: rgba(255,255,255,0.7); border-top: 1px solid rgba(255,255,255,0.16)">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 52px 48px 40px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px">
+      <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 14px">
+        <img src="assets/sain-logo-navy.png" alt="Safe AI Netherlands" style="height: 42px; width: auto; display: block; margin-left: -5px" />
+        <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: rgba(255,255,255,0.5)">Stichting Safe AI Netherlands · KvK 00000000</span>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div style="grid-column: span 2; display: flex; flex-direction: column; gap: 11px">
+          <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: rgba(255,255,255,0.5)">{{ col.title }}</span>
+          <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="4">
+            <a href="#top" style="font-size: 14px; color: rgba(255,255,255,0.78)" style-hover="color: #ff6025">{{ l }}</a>
+          </sc-for>
+        </div>
+      </sc-for>
+      <div style="grid-column: span 12; border-top: 1px solid rgba(255,255,255,0.16); margin-top: 26px; padding-top: 18px; display: flex; justify-content: space-between; gap: 20px; font-size: 13px; color: rgba(255,255,255,0.45)">
+        <span>© 2026 Safe AI Netherlands</span>
+        <span>Utrecht · Groningen · Amsterdam</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAnnouncement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const load = (id, src) => {
+      if (document.getElementById(id)) return;
+      const s = document.createElement('script');
+      s.id = id;
+      s.src = src;
+      document.head.appendChild(s);
+    };
+    const boot = () => { load('sain-plate-loader', 'sain-plate.js'); load('sain-viz-loader', 'sain-viz.js'); };
+    if (window.PIXI && window.THREE) boot();
+    else this._t = setInterval(() => { if (window.PIXI && window.THREE) { clearInterval(this._t); boot(); } }, 60);
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+  renderVals() {
+    const p = this.props;
+    return {
+      showAnnouncement: p.showAnnouncement ?? true,
+      chapters: [
+        { city: 'Utrecht', next: 'Fundamentals cohort, reading group, monthly social', meta: '14 events a year' },
+        { city: 'Groningen', next: 'Technical track and university seminar series', meta: '9 events a year' },
+        { city: 'Amsterdam', next: 'Policy circle, career workshops, lab visits', meta: '18 events a year' }
+      ],
+      pillars: [
+        { icon: 'ph-light ph-cpu', title: 'Current systems', body: 'Models already pass the bar exam, write production code and fold proteins. Capability is outrunning oversight.' },
+        { icon: 'ph-light ph-bank', title: 'Why it matters here', body: 'Dutch ministries, regulators and universities now make decisions that need technical grounding.' },
+        { icon: 'ph-light ph-books', title: 'What we run', body: 'Free courses, a supervised research hub, three local chapters and a career programme.' },
+        { icon: 'ph-light ph-users-three', title: 'How we work', body: 'Volunteer-led, non-partisan, funded by philanthropy. Everything we teach is public.' }
+      ],
+      courses: [
+        {
+          icon: 'ph-light ph-compass', name: 'AI Safety Fundamentals',
+          detail: 'Alignment, evaluations and governance from first principles.',
+          meta: [{ icon: 'ph-light ph-clock', text: '8 weeks' }, { icon: 'ph-light ph-fast-forward', text: 'Opens in October' }]
+        },
+        {
+          icon: 'ph-light ph-brain', name: 'Technical Alignment Track',
+          detail: 'Interpretability and RL, implemented from scratch in PyTorch.',
+          meta: [{ icon: 'ph-light ph-clock', text: '10 weeks' }, { icon: 'ph-light ph-fast-forward', text: 'Opens in November' }]
+        },
+        {
+          icon: 'ph-light ph-scales', name: 'Policy Reading Group',
+          detail: 'The EU AI Act and its Dutch implementation, read closely.',
+          meta: [{ icon: 'ph-light ph-arrows-clockwise', text: 'Every two weeks' }, { icon: 'ph-light ph-map-pin', text: 'Utrecht' }]
+        }
+      ],
+      researchCards: [
+        { icon: 'ph-light ph-microscope', title: 'What you work on', body: 'Interpretability, model evaluations, control, or the governance questions that follow from them. Projects are scoped with your mentor in week one.', hasList: false, list: [] },
+        { icon: 'ph-light ph-file-text', title: 'What you produce', body: 'A paper, a replication or a policy memo — reviewed by your mentor and published in the SAIN archive.', hasList: false, list: [] },
+        {
+          icon: 'ph-light ph-check-square', title: 'What we ask', body: '', hasList: true,
+          list: [
+            'A background in computer science, mathematics, law or public policy.',
+            'Ten hours a week for twelve weeks.',
+            'Based in the Netherlands, or able to attend two weekends on site.'
+          ]
+        }
+      ],
+      careerTracks: [
+        { icon: 'ph-light ph-flask', title: 'Technical research', tag: 'Labs and institutes', tagIcon: 'ph-light ph-buildings', body: 'Interpretability, evaluations and control research at labs and institutes.' },
+        { icon: 'ph-light ph-gavel', title: 'Governance and policy', tag: 'Public sector', tagIcon: 'ph-light ph-bank', body: 'Advising ministries, regulators and standards bodies on frontier AI.' },
+        { icon: 'ph-light ph-broadcast', title: 'Field building', tag: 'Community', tagIcon: 'ph-light ph-users-three', body: 'Running programmes, chapters and communications for the Dutch ecosystem.' },
+        { icon: 'ph-light ph-shield-check', title: 'Security and compute', tag: 'Industry', tagIcon: 'ph-light ph-hard-drives', body: 'Model security, compute governance and assurance engineering.' }
+      ],
+      testimonials: [
+        { kicker: 'Research hub, cohort 3', quote: '“The supervision was the difference. I had read the papers for a year; in twelve weeks I produced something a reviewer took seriously.”', name: 'Daan Kuipers', role: 'PhD candidate, TU Delft' },
+        { kicker: 'Careers programme', quote: '“SAIN introduced me to the three people who ended up shaping my career. That network did not exist in the Netherlands two years ago.”', name: 'Eline Brouwer', role: 'Policy officer, The Hague' }
+      ],
+      footerCols: [
+        { title: 'Community', links: ['Chapters', 'Events', 'Volunteer', 'Newsletter'] },
+        { title: 'Programmes', links: ['Courses', 'Research hub', 'Careers', 'Mentorship'] },
+        { title: 'Organisation', links: ['About', 'Team', 'Open positions', 'Contact'] }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

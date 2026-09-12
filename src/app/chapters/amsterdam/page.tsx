@@ -61,7 +61,7 @@ export default function AmsterdamPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-navy-950 overflow-hidden">
+      <section className="relative pb-20 pt-16 md:pb-28 md:pt-20 bg-navy-950 overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{ backgroundImage: `url(/photos/cities/amsterdam-hero.jpg)` }}

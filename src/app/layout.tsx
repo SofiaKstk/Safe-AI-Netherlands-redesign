@@ -1,21 +1,32 @@
 import type { Metadata } from "next";
-import { League_Spartan, Poppins } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const poppins = Poppins({
+/* Newsreader is the voice. Optical sizing is requested explicitly so the
+   46px hero and the 15px caption are not the same drawing scaled. */
+const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-poppins",
+  variable: "--font-newsreader",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
 });
 
-const leagueSpartan = League_Spartan({
+/* Archivo is the work: everything you read as a sentence of interface. */
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-league-spartan",
+  variable: "--font-archivo",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+/* IBM Plex Mono is an instrument, not a voice. It indexes: 01, 02, 03. */
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-plex-mono",
+  display: "swap",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +39,7 @@ export const metadata: Metadata = {
     template: "%s | SAIN",
   },
   description:
-    "The Netherlands' national initiative for AI Safety, uniting research, education, and community to ensure AI benefits everyone.",
+    "SAIN provides the community, courses and resources to help students and professionals join the AI Safety field in the Netherlands. Every programme is free.",
   keywords: [
     "AI Safety",
     "Netherlands",
@@ -67,7 +78,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Safe AI Netherlands",
     description:
-      "The Netherlands' national initiative for AI Safety, uniting research, education, and community to ensure AI benefits everyone.",
+      "SAIN provides the community, courses and resources to help students and professionals join the AI Safety field in the Netherlands. Every programme is free.",
     url: "https://safeainetherlands.org",
     siteName: "Safe AI Netherlands",
     images: [
@@ -102,20 +113,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${poppins.variable} ${leagueSpartan.variable}`}>
+    <html
+      lang="en"
+      className={`scroll-smooth ${newsreader.variable} ${archivo.variable} ${plexMono.variable}`}
+    >
       <head>
         <link rel="prefetch" href="/about" />
         <link rel="prefetch" href="/get-involved" />
       </head>
-      <body className="flex min-h-screen flex-col font-sans antialiased">
+      <body className="flex min-h-screen flex-col bg-white font-sans text-navy antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
           }}
         />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-100 focus:bg-white focus:px-4 focus:py-2 focus:text-navy focus:outline focus:outline-2 focus:outline-navy"
+        >
+          Skip to content
+        </a>
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

@@ -1,25 +1,59 @@
 @import 'tailwindcss' source(none);
 @source '../../src/**/*.{js,ts,jsx,tsx,mdx}';
 
+/* -----------------------------------------------------------------------------
+   Safe AI Netherlands brand foundation.
+
+   Tokens mirror design/sain-brand.css and design/design.md (Paper file,
+   "Desktop - Landing"). Navy is ink, orange is action, paper is the printed
+   programme. Corners are square because this is print, not product.
+
+   Do not invent a type size, a hex value, or a radius that is not here.
+----------------------------------------------------------------------------- */
+
 @theme {
+  /* Brand surfaces and ink */
+  --color-navy: #021c4d;
+  --color-orange: #ff6025;
+  --color-orange-hover: #e65620;
+  --color-cream: #f7f5f2;
+
+  /* Legacy scale, still referenced by pages awaiting redesign. */
   --color-navy-500: #4070b0;
   --color-navy-600: #2d5594;
   --color-navy-700: #1a4080;
   --color-navy-800: #0a2f6e;
   --color-navy-900: #021c4d;
-  --color-navy-950: #010e28;
-
+  --color-navy-950: #021c4d;
   --color-dutch-orange: #ff6025;
   --color-dutch-orange-light: #ffb966;
-  --color-dutch-orange-dark: #e54d15;
+  --color-dutch-orange-dark: #e65620;
   --color-dutch-orange-50: #fff5ed;
   --color-dutch-orange-100: #ffe4cc;
 
-  --font-sans:
-    var(--font-poppins), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display:
-    var(--font-league-spartan), var(--font-poppins), ui-sans-serif, system-ui,
-    sans-serif;
+  /* Newsreader is the voice, Archivo is the work, Plex Mono is the instrument. */
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-display: var(--font-newsreader), Georgia, serif;
+
+  /* Published type roles. */
+  --text-index: 11px;
+  --text-footnote: 13px;
+  --text-caption: 13.5px;
+  --text-label: 14px;
+  --text-ui: 14.5px;
+  --text-body: 16.5px;
+  --text-kicker: 17px;
+  --text-title-sm: 19px;
+  --text-title: 21px;
+  --text-heading: 38px;
+  --text-closing: 42px;
+  --text-display: 46px;
+
+  --container-copy-narrow: 620px;
+  --container-copy: 720px;
+  --container-copy-wide: 760px;
 
   --animate-fade-in: fadeIn 0.6s ease-out forwards;
   --animate-slide-up: slideUp 0.6s ease-out forwards;
@@ -44,26 +78,277 @@
   }
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-navy-900, currentcolor);
+    border-style: solid;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-navy);
+    font-family: var(--font-sans);
+    font-synthesis: none;
+    overflow-x: hidden;
+  }
+
+  /* Square is the default. A pill button is a category error. */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    border-radius: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-navy);
+    outline-offset: 3px;
+  }
+
+  .bg-navy :focus-visible,
+  .bg-orange :focus-visible {
+    outline-color: #ffffff;
+  }
+
+  ::selection {
+    background-color: var(--color-orange);
+    color: #ffffff;
   }
 }
 
+/* -----------------------------------------------------------------------------
+   Shared primitives
+----------------------------------------------------------------------------- */
+
+/* Page gutter: 24px on small screens, 48px from md up, inside a 1440 canvas. */
+@utility shell {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  box-sizing: border-box;
+
+  @media (width >= 768px) {
+    padding-inline: 48px;
+  }
+}
+
+/* The Square Kicker Rule: Newsreader italic, never tracked, never uppercase. */
+@utility kicker {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Section turns. 32/38px, one Display per page (the hero h1). */
+@utility sain-heading {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+
+  @media (width >= 768px) {
+    font-size: 38px;
+    line-height: 43px;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Buttons. Square. Archivo. No shadow.
+----------------------------------------------------------------------------- */
+
+/* Orange is the identity of joining. Never invert it to navy on hover. */
+@utility btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-orange);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 20px;
+  padding: 14px 24px;
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background: var(--color-orange-hover);
+  }
+}
+
+@utility btn-ink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-navy);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 18px;
+  padding: 11px 18px;
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background: var(--color-orange);
+  }
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-navy);
+  border: 1px solid rgb(2 28 77 / 20%);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 18px;
+  padding: 10px 16px;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+
+  &:hover {
+    background: var(--color-navy);
+    border-color: var(--color-navy);
+    color: #ffffff;
+  }
+}
+
+@utility btn-outline-ink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-navy);
+  border: 1px solid var(--color-navy);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  padding: 13px 20px;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+
+  &:hover {
+    background: var(--color-navy);
+    color: #ffffff;
+  }
+}
+
+@utility btn-ghost-inverse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgb(255 255 255 / 32%);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  padding: 14px 22px;
+  transition: border-color 200ms ease;
+
+  &:hover {
+    border-color: #ffffff;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Publication chip. Inverse ground only.
+----------------------------------------------------------------------------- */
+
+@utility pub-chip {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 12px;
+  padding: 14px 18px;
+  background: #ffffff14;
+  border: 1px solid #ffffff29;
+  text-decoration: none;
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background: #ffffff22;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Marquee. Two rows, opposite directions, paused on hover, off when the
+   reader has asked for less motion.
+----------------------------------------------------------------------------- */
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.marquee-left {
+  animation: marquee-left 48s linear infinite;
+}
+
+.marquee-right {
+  animation: marquee-right 56s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .marquee-left,
+  .marquee-right {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Legacy utilities. Pages not yet redesigned still compile against these, so
+   they are kept — but restyled toward the brand (serif at 400, square corners,
+   no shadow) so the site reads as one system while the rest is ported over.
+----------------------------------------------------------------------------- */
+
 @utility section-container {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  @apply max-w-7xl mx-auto px-6 lg:px-12;
 }
 
 @utility section-padding {
@@ -71,79 +356,49 @@
 }
 
 @utility heading-xl {
-  @apply font-display font-extrabold text-5xl md:text-6xl lg:text-7xl;
-  letter-spacing: 0.01em;
+  @apply font-serif font-normal text-4xl md:text-5xl lg:text-[46px] lg:leading-[52px];
+  letter-spacing: -0.015em;
 }
 
 @utility heading-lg {
-  @apply font-display font-bold text-4xl md:text-5xl;
-  letter-spacing: 0.01em;
+  @apply font-serif font-normal text-[32px] leading-[1.15] md:text-[38px] md:leading-[43px];
+  letter-spacing: -0.012em;
 }
 
 @utility heading-md {
-  @apply font-display font-semibold text-3xl md:text-4xl;
-  letter-spacing: 0.01em;
+  @apply font-serif font-normal text-2xl md:text-[28px] md:leading-[34px];
+  letter-spacing: -0.01em;
 }
 
 @utility btn-primary {
-  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
-           bg-dutch-orange text-white font-semibold text-sm
-           hover:bg-dutch-orange-dark transition-all duration-200
-           shadow-lg shadow-dutch-orange/25 hover:shadow-xl hover:shadow-dutch-orange/30
-           hover:-translate-y-0.5 active:translate-y-0;
+  @apply btn-accent;
 }
 
 @utility btn-secondary {
-  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
-           bg-white/10 text-white font-semibold text-sm border border-white/20
-           hover:bg-white/20 transition-all duration-200
-           hover:-translate-y-0.5 active:translate-y-0;
+  @apply btn-ghost-inverse;
 }
 
 @utility btn-outline {
-  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
-           bg-transparent text-navy-900 font-semibold text-sm
-           border-2 border-navy-900/20
-           hover:border-dutch-orange hover:text-dutch-orange
-           transition-all duration-200;
+  @apply btn-outline-ink;
 }
 
 @utility card {
-  @apply bg-white rounded-2xl border border-slate-200/80
-           shadow-xs hover:shadow-md transition-all duration-300
-           hover:-translate-y-1;
+  @apply bg-white border border-navy/10;
 }
 
 @utility gradient-text {
-  @apply bg-clip-text text-transparent bg-linear-to-r
-           from-dutch-orange to-dutch-orange-light;
+  @apply text-orange;
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    @apply bg-white text-slate-800 font-sans;
-  }
-
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-display;
-    letter-spacing: 0.01em;
-  }
-
-  /* Readable on both light pages and dark (navy) sections */
-  ::selection {
-    background-color: #f97316;
-      /* dutch-orange-ish */
-      color: #ffffff;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.012em;
   }
 }

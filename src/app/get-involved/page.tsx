@@ -120,7 +120,7 @@ export default function GetInvolvedPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-white overflow-hidden">
+      <section className="relative pb-20 pt-16 md:pb-28 md:pt-20 bg-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]">
           <div
             className="absolute inset-0"

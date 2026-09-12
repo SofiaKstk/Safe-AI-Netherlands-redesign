@@ -326,7 +326,7 @@ function RoleCard({
 function StandingApplication() {
   return (
     <>
-      <section className="relative overflow-hidden bg-white pb-20 pt-32 md:pb-28 md:pt-40">
+      <section className="relative overflow-hidden bg-white pb-20 pt-16 md:pb-28 md:pt-20">
         <div className="absolute inset-0 opacity-[0.04]">
           <div
             className="absolute inset-0"
@@ -408,7 +408,7 @@ export default function OpenPositionsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-white pb-20 pt-32 md:pb-28 md:pt-40">
+      <section className="relative overflow-hidden bg-white pb-20 pt-16 md:pb-28 md:pt-20">
         <div className="absolute inset-0 opacity-[0.04]">
           <div
             className="absolute inset-0"

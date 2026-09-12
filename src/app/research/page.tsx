@@ -8,126 +8,15 @@ import {
   isNationalRoleOpen,
   nationalPosting,
 } from "@/data/openPositions";
+import {
+  publications,
+  supervisors,
+  RESEARCH_EMAIL,
+  RESEARCH_INTEREST_FORM_URL,
+} from "@/data/research";
 
 /** Shows the hiring banner only while the Research Operations Lead role is open. */
 const researchLeadIsOpen = isNationalRoleOpen("research-operations-lead");
-
-const publications = [
-  {
-    title: "The Anatomy of Alignment: Decomposing Preference Optimization by Steering Sparse Features",
-    venue: "NeurIPS 2025 Spotlight",
-    authors: "Jeremias Ferrao, Matthijs van der Lende, Ilija Lichkovski",
-    link: "https://arxiv.org/abs/2509.12934",
-  },
-  {
-    title: "Self-Ablating Transformers: More Interpretability, Less Sparsity",
-    venue: "ICLR 2025",
-    authors: "Jeremias Ferrao",
-    link: "https://openreview.net/pdf?id=QcmEb490bK",
-  },
-  {
-    title: "EU-Agent-Bench: Measuring Illegal Behavior of LLM Agents Under EU Law",
-    venue: "NeurIPS 2025",
-    authors: "Ilija Lichkovski, Alexander Müller, Mariam Ibrahim, Tiwai Mhundwa",
-    link: "https://arxiv.org/abs/2510.21524",
-  },
-  {
-    title: "Contextual Sparsity as a Tool for Mechanistic Understanding of Retrieval in Hybrid Foundation Models",
-    venue: "ICLR 2025",
-    authors: "Davide Zani, Felix Michalak, Steven Abreu",
-    link: "https://openreview.net/pdf?id=TGWzg86kYv",
-  },
-  {
-    title: "Steering Large Language Models using Conceptors",
-    venue: "NeurIPS 2024",
-    authors: "Joris Postmus, Steven Abreu",
-    link: "https://jorispos.github.io/conceptor_steering/",
-  },
-  {
-    title: "AutoSteer: Weight-Preserving Reinforcement Learning for Interpretable Model Control",
-    venue: "1st Place, Apart Research Hackathon",
-    authors: "Jeremias Ferrao",
-    link: "https://www.apartresearch.com/project/autosteer-weight-preserving-reinforcement-learning-for-interpretable-model-control",
-  },
-  {
-    title: "Local Learning Coefficients Predict Developmental Milestones During GRPO",
-    venue: "3rd Place, Apart Research Hackathon",
-    authors: "Jeremias Ferrao, Ilija Lichkovski",
-    link: "https://apartresearch.com/project/local-learning-coefficients-predict-developmental-milestones-during-group-relative-policy-optimization-2te2",
-  },
-  {
-    title: "Collective Deliberation for Safer CBRN Decisions: A Multi-Agent LLM Debate Pipeline",
-    venue: "4th Place, Apart Research Hackathon",
-    authors: "Alexander Müller, Arsenijs Golicins, Galina Lesnic",
-    link: "https://apartresearch.com/project/collective-deliberation-for-safer-cbrn-decisions-a-multi-agent-llm-debate-pipeline-3w8q",
-  },
-  {
-    title: "Sandbagging LLMs using Activation Steering",
-    venue: "Apart Research",
-    authors: "Jeremias Ferrao, Davide Zani",
-    link: "https://www.apartresearch.com/project/sandbagging-llms-using-activation-steering",
-  },
-  {
-    title: "Cybersecurity Persistence Benchmark",
-    venue: "Apart Research",
-    authors: "Davide Zani, Felix Michalak, Jeremias Ferrao",
-    link: "https://www.apartresearch.com/project/cybersecurity-persistence-benchmark",
-  },
-  {
-    title: "Playing with Perception: Fooling Traffic Sign Classifiers via Copy-Paste Manipulation",
-    venue: "Research Project",
-    authors: "Davide Zani, Alexandru Dimofte",
-    link: "https://drive.google.com/file/d/1JvhstWaLIHB9QPI-cg5S-1ASexhmqLSN/view",
-  },
-  {
-    title: "AI Misinformation and Threats to Democratic Rights",
-    venue: "Apart Research",
-    authors: "Davide Zani, Mariam Ibrahim, Tiwai Mhundwa, Felix Michalak, Andrei Avram",
-    link: "https://www.apartresearch.com/project/ai-misinformation-and-threats-to-democratic-rights",
-  },
-];
-
-const supervisors = [
-  {
-    name: "Steven Abreu",
-    position: "Research Scientist, MakerMaker",
-    image: "/photos/supervisors/steven.webp",
-    agenda:
-      "https://docs.google.com/document/d/1UIGpTGYUk9nGvH1H5l5oHclRfNT4pCJ7ArQoIIdDNT4/edit?usp=sharing",
-  },
-  {
-    name: "Fatih Turkmen",
-    position: "Associate Professor of Computer Science, University of Groningen",
-    image: "/photos/supervisors/Fatih_3.png",
-    agenda:
-      "https://docs.google.com/document/d/15UNTtMQYEfO0WQjNKC3QyXHdYW1S2TtITbU94ZltZOc/edit?usp=sharing",
-  },
-  {
-    name: "Jobst Heitzig",
-    position:
-      "Working Group Leader, Senior Scientist, Potsdam Institute for Climate Impact Research",
-    image: "/photos/supervisors/Jobst.png",
-    agenda:
-      "https://docs.google.com/document/d/1jGBETx0wVUSAZhk4RK6Rett4FVRwTgdUna7Wi2aMg_k/edit?usp=sharing",
-  },
-  {
-    name: "Guillaume Pourcel",
-    position: "PhD AI Candidate, University of Groningen",
-    image: "/photos/supervisors/Guillame.jpg",
-    agenda:
-      "https://docs.google.com/document/d/1kr-lo1Qr_k7Yq3C1eoPg9gwFKlJ9PflTWqGrexA8Nxc/edit?usp=sharing",
-  },
-  {
-    name: "Ana Lucic",
-    position: "Assistant professor, University of Amsterdam",
-    image: "/photos/supervisors/Ana_Lucic.png",
-    agenda:
-      "https://docs.google.com/document/d/1IhPnQWQEN6ykshxW9B6xWehtfPwSl0B4T5HzrKyMnn8/edit?usp=sharing",
-  },
-];
-
-const RESEARCH_EMAIL = "research@safeainetherlands.org";
-const RESEARCH_INTEREST_FORM_URL = "https://forms.gle/na3wbBR4V1YVHAnFA";
 
 const hubFeatures = [
   {
@@ -172,7 +61,7 @@ export default function ResearchPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-white overflow-hidden">
+      <section className="relative pb-20 pt-16 md:pb-28 md:pt-20 bg-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]">
           <div
             className="absolute inset-0"
