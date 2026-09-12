@@ -67,11 +67,11 @@ export default function Navbar() {
             <img
               src="/landing/logo-navy.png"
               alt="Safe AI Netherlands"
-              /* 40px is the largest lockup that still leaves the header at its
-                 70px minimum, so the bar does not grow to carry it. */
-              className="h-10 w-auto"
-              width={97}
-              height={40}
+              /* 50px. Past 42px the lockup no longer fits the 70px header, so
+                 the bar grows with it rather than cropping the mark. */
+              className="h-[50px] w-auto"
+              width={121}
+              height={50}
             />
           </Link>
 
