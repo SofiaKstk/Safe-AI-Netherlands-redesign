@@ -140,8 +140,8 @@ export default function Navbar() {
                   : "border-transparent hover:border-navy/40";
 
                 /* Community opens the chapter list rather than jumping to the
-                   landing anchor. The menu carries that anchor as its first
-                   row, so nothing that used to be reachable is lost. */
+                   landing anchor — three cities, nothing else. The anchor is
+                   still what the mobile row points at. */
                 if (item.name === "Community") {
                   return (
                     <div
@@ -193,13 +193,6 @@ export default function Navbar() {
                                 {chapter.city}
                               </Link>
                             ))}
-                            <Link
-                              href="/#chapters"
-                              onClick={() => setChaptersOpen(false)}
-                              className="block border-t border-navy/10 px-5 py-2.5 font-sans text-[13px] leading-[18px] text-navy/60 transition-colors hover:bg-cream hover:text-navy"
-                            >
-                              All chapters
-                            </Link>
                           </div>
                         </div>
                       )}
