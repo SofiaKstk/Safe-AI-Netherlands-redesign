@@ -71,11 +71,11 @@ function PublicationsLink() {
         href="/research#publications"
         className="mt-8 flex items-center justify-between gap-5 border-y border-white/16 py-[18px]"
       >
-        <span className="font-serif text-[17px] leading-[23px] text-white">
+        <span className="font-serif text-[15.5px] leading-[21px] text-white">
           All {publications.length} publications
         </span>
         <ArrowRight
-          size={15}
+          size={14}
           weight="light"
           aria-hidden="true"
           className="shrink-0 text-white/50"
