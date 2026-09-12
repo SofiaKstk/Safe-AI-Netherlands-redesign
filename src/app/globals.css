@@ -88,11 +88,15 @@
     border-style: solid;
   }
 
+  /* `clip`, not `hidden`. `overflow-x: hidden` forces the browser to compute
+     `overflow-y: auto` on the same element, which makes <html> a scroll
+     container and stops the sticky header from sticking. `clip` trims the same
+     horizontal overflow without creating a scrollport. */
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
@@ -100,7 +104,7 @@
     color: var(--color-navy);
     font-family: var(--font-sans);
     font-synthesis: none;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Balance short titles; keep prose naturally ragged without trailing orphans.

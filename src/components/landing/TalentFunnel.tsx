@@ -19,7 +19,6 @@ type Band = {
   photo: string;
   objectPosition: string;
   fill: string;
-  stroke: string;
   restOpacity: number;
   hoverOpacity: number;
   blend: "multiply" | "luminosity";
@@ -35,7 +34,6 @@ const BANDS: Band[] = [
     photo: "/landing/funnel-01.jpg",
     objectPosition: "38% 34%",
     fill: "#021C4D0B",
-    stroke: "#021C4D4D",
     restOpacity: 0.1,
     hoverOpacity: 0.26,
     blend: "multiply",
@@ -45,11 +43,11 @@ const BANDS: Band[] = [
     inset: 9,
     href: "#community",
     label: "Participate in SAIN's community",
-    labelClass: "max-w-[280px] text-center text-[15px] leading-[19px] text-navy",
+    labelClass:
+      "max-w-[280px] text-center text-[15px] leading-[19px] text-navy",
     photo: "/landing/funnel-02.jpg",
     objectPosition: "72% 42%",
     fill: "#021C4D0B",
-    stroke: "#021C4D4D",
     restOpacity: 0.14,
     hoverOpacity: 0.26,
     blend: "multiply",
@@ -63,7 +61,6 @@ const BANDS: Band[] = [
     photo: "/landing/funnel-03.jpg",
     objectPosition: "82% 30%",
     fill: "#021C4D0D",
-    stroke: "#021C4D52",
     restOpacity: 0.1,
     hoverOpacity: 0.26,
     blend: "multiply",
@@ -73,11 +70,11 @@ const BANDS: Band[] = [
     inset: 9.2,
     href: "#careers",
     label: "Undertake a fellowship or internship in AI Safety",
-    labelClass: "max-w-[190px] text-center text-[13px] leading-[17px] text-navy",
+    labelClass:
+      "max-w-[190px] text-center text-[13px] leading-[17px] text-navy",
     photo: "/landing/funnel-04.jpg",
     objectPosition: "42% 48%",
     fill: "#021C4D0E",
-    stroke: "#021C4D57",
     restOpacity: 0.1,
     hoverOpacity: 0.26,
     blend: "multiply",
@@ -91,7 +88,6 @@ const BANDS: Band[] = [
     photo: "/landing/funnel-05.jpg",
     objectPosition: "50% 40%",
     fill: "#FF6025",
-    stroke: "#FF6025",
     restOpacity: 0.12,
     hoverOpacity: 0.32,
     blend: "luminosity",
@@ -99,6 +95,43 @@ const BANDS: Band[] = [
 ];
 
 const WIDEST = BANDS[0].width;
+const BAND_HEIGHT = 86;
+const LAST = BANDS.length - 1;
+
+/**
+ * Left-edge x at every horizontal rule, accumulated from the band insets. The
+ * funnel is concave rather than a straight cone — each band tapers less
+ * sharply than the one above it — so the side is a polyline, and it has to be
+ * drawn as one path. Five separate trapezoid outlines gave every junction two
+ * stacked horizontal rules and five independent stroke runs, which is what
+ * made the bands read as stacked shapes instead of one funnel.
+ */
+const EDGES = BANDS.reduce<number[]>(
+  (acc, band) => [
+    ...acc,
+    acc[acc.length - 1] + (band.inset / 100) * band.width,
+  ],
+  [0],
+);
+
+const y = (i: number) => i * BAND_HEIGHT;
+const right = (i: number) => WIDEST - EDGES[i];
+
+/* Top edge, then the right side down to the orange band, then the left side. */
+const SILHOUETTE =
+  `M 0 0 L ${WIDEST} 0` +
+  Array.from({ length: LAST }, (_, i) => ` L ${right(i + 1)} ${y(i + 1)}`).join(
+    "",
+  ) +
+  ` M 0 0` +
+  Array.from({ length: LAST }, (_, i) => ` L ${EDGES[i + 1]} ${y(i + 1)}`).join(
+    "",
+  );
+
+/* The terminus keeps its own closed outline, because it is orange, not navy. */
+const TERMINUS =
+  `M ${EDGES[LAST]} ${y(LAST)} L ${right(LAST)} ${y(LAST)}` +
+  ` L ${right(LAST + 1)} ${y(LAST + 1)} L ${EDGES[LAST + 1]} ${y(LAST + 1)} Z`;
 
 export default function TalentFunnel() {
   return (
@@ -112,65 +145,91 @@ export default function TalentFunnel() {
         </svg>
       </div>
 
-      {BANDS.map((band) => {
-        const bottom = band.width - (band.inset / 100) * band.width * 2;
-        const offset = (band.inset / 100) * band.width;
+      {/* The bands sit in a box exactly as wide as the widest band, so the
+          silhouette drawn over them lines up with their geometry. */}
+      <div className="relative w-full max-w-[432px]">
+        {BANDS.map((band) => {
+          const bottom = band.width - (band.inset / 100) * band.width * 2;
+          const offset = (band.inset / 100) * band.width;
 
-        return (
-          <a
-            key={band.label}
-            href={band.href}
-            className="group relative flex h-[86px] items-center justify-center outline-offset-2 focus-visible:outline-2 focus-visible:outline-navy"
-            style={{
-              width: `${(band.width / WIDEST) * 100}%`,
-              maxWidth: `${band.width}px`,
-            }}
-          >
-            <svg
-              className="absolute inset-0 size-full"
-              viewBox={`0 0 ${band.width} 86`}
-              preserveAspectRatio="none"
-              aria-hidden="true"
+          return (
+            <a
+              key={band.label}
+              href={band.href}
+              className="group relative mx-auto flex h-[86px] items-center justify-center outline-offset-2 focus-visible:outline-2 focus-visible:outline-navy"
+              style={{ width: `${(band.width / WIDEST) * 100}%` }}
             >
-              {/* The outline spans the full 0..86 box rather than sitting
-                  0.5px inside it. Each band's side has its own slope, so an
-                  inset left a 1px dead zone at every junction, and a gap at a
-                  slope change reads as a rounded corner. Non-scaling stroke
-                  keeps the hairline at 1px once the funnel is scaled down. */}
-              <polygon
-                points={`0,0 ${band.width},0 ${offset + bottom},86 ${offset},86`}
-                fill={band.fill}
-                stroke={band.stroke}
-                vectorEffect="non-scaling-stroke"
-              />
-            </svg>
+              {/* Fill only. The outline is drawn once, over the whole funnel. */}
+              <svg
+                className="absolute inset-0 size-full"
+                viewBox={`0 0 ${band.width} ${BAND_HEIGHT}`}
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <polygon
+                  points={`0,0 ${band.width},0 ${offset + bottom},${BAND_HEIGHT} ${offset},${BAND_HEIGHT}`}
+                  fill={band.fill}
+                />
+              </svg>
 
-            <div
-              className="absolute inset-0 overflow-hidden"
-              style={{
-                clipPath: `polygon(0 0, 100% 0, ${100 - band.inset}% 100%, ${band.inset}% 100%)`,
-              }}
-            >
-              <img
-                src={band.photo}
-                alt=""
-                loading="lazy"
-                className="size-full scale-100 object-cover opacity-[var(--rest)] transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] group-hover:opacity-[var(--hover)]"
-                style={
-                  {
-                    objectPosition: band.objectPosition,
-                    mixBlendMode: band.blend,
-                    "--rest": band.restOpacity,
-                    "--hover": band.hoverOpacity,
-                  } as CSSProperties
-                }
-              />
-            </div>
+              <div
+                className="absolute inset-0 overflow-hidden"
+                style={{
+                  clipPath: `polygon(0 0, 100% 0, ${100 - band.inset}% 100%, ${band.inset}% 100%)`,
+                }}
+              >
+                <img
+                  src={band.photo}
+                  alt=""
+                  loading="lazy"
+                  className="size-full scale-100 object-cover opacity-[var(--rest)] transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] group-hover:opacity-[var(--hover)]"
+                  style={
+                    {
+                      objectPosition: band.objectPosition,
+                      mixBlendMode: band.blend,
+                      "--rest": band.restOpacity,
+                      "--hover": band.hoverOpacity,
+                    } as CSSProperties
+                  }
+                />
+              </div>
 
-            <p className={`relative font-serif ${band.labelClass}`}>{band.label}</p>
-          </a>
-        );
-      })}
+              <p className={`relative font-serif ${band.labelClass}`}>
+                {band.label}
+              </p>
+            </a>
+          );
+        })}
+
+        {/* One outline for the whole funnel, so the sides are continuous
+            through every slope change and no junction carries a doubled rule.
+            The rules between bands are deliberately quieter than the
+            silhouette: the funnel is one object, subdivided. */}
+        <svg
+          className="pointer-events-none absolute inset-0 size-full"
+          viewBox={`0 0 ${WIDEST} ${y(BANDS.length)}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <g stroke="#021C4D26" vectorEffect="non-scaling-stroke">
+            {Array.from({ length: LAST - 1 }, (_, i) => i + 1).map((i) => (
+              <line key={i} x1={EDGES[i]} y1={y(i)} x2={right(i)} y2={y(i)} />
+            ))}
+          </g>
+          <path
+            d={SILHOUETTE}
+            fill="none"
+            stroke="#021C4D52"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d={TERMINUS}
+            fill="none"
+            stroke="#FF6025"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
 
       {/* Terminus: a short stem and a dot, so the diagram ends rather than stops. */}
       <div className="flex flex-col items-center pt-0.5">
