@@ -283,14 +283,14 @@ export default function Navbar() {
                       {mobileChaptersOpen && (
                         <div
                           id="mobile-chapters"
-                          className="mb-1 ml-4 flex flex-col border-l border-navy/12"
+                          className="mb-1 ml-2 flex flex-col border-l border-navy/12"
                         >
                           {chapters.map((chapter) => (
                             <Link
                               key={chapter.city}
                               href={chapter.href}
                               onClick={() => setMobileOpen(false)}
-                              className="flex min-h-[44px] items-center pl-4 font-sans text-[13.5px] leading-[18px] text-navy/70"
+                              className="flex min-h-[44px] items-center pl-3 font-sans text-[13.5px] leading-[18px] text-navy/70"
                             >
                               {chapter.city}
                             </Link>
