@@ -6,7 +6,6 @@ import CourseTabs from "@/components/landing/CourseTabs";
 import HeroChart from "@/components/landing/HeroChart";
 import PathwayTrail from "@/components/landing/PathwayTrail";
 import PublicationMarquee from "@/components/landing/PublicationMarquee";
-import SectionStars from "@/components/landing/SectionStars";
 import SectionOrbits from "@/components/landing/SectionOrbits";
 import TalentFunnel from "@/components/landing/TalentFunnel";
 import { RESEARCH_EMAIL, supervisors } from "@/data/research";
@@ -269,7 +268,7 @@ export default function Home() {
         </div>
         <div className="shell grid min-h-[60vh] items-center gap-12 pb-[76px] pt-[84px] lg:grid-cols-[minmax(0,700px)_minmax(0,1fr)]">
           <div className="flex min-w-0 flex-col gap-6">
-            <h1 className="font-serif text-[40px] leading-[1.12] tracking-[-0.015em] text-navy md:text-[46px] md:leading-[52px]">
+            <h1 className="font-serif text-[48px] leading-[1.08] tracking-[-0.02em] text-navy md:text-[64px] md:leading-[68px]">
               Your AI Safety career starts here.
             </h1>
             <p className="max-w-[620px] font-sans text-[16.5px] leading-[27px] text-navy/72">
@@ -327,7 +326,6 @@ export default function Home() {
       <section className="relative isolate overflow-hidden border-t border-navy/10 bg-white">
         <SectionOrbits className="-left-20 top-6 h-[400px] w-[300px] md:-left-12" />
         <div id="mission" className="shell relative isolate scroll-mt-36 pt-[88px]">
-          <SectionStars section="mission" />
           <div className="flex w-full flex-col items-center justify-between gap-12 lg:flex-row lg:items-center">
             <div className="flex w-full max-w-[760px] flex-col gap-[22px] lg:shrink-0">
               <h2 className="font-serif text-[38px] leading-[44px] tracking-[-0.012em] md:text-[46px] md:leading-[52px] max-w-[640px] text-navy">
@@ -365,7 +363,6 @@ export default function Home() {
           <div className="border-t border-navy/14" />
         </div>
         <div id="courses" className="shell relative isolate scroll-mt-36 pb-14 pt-10">
-          <SectionStars section="courses" />
           <div className="mx-auto mb-10 max-w-[640px] text-center">
             <h2 className="font-serif text-[38px] leading-[44px] tracking-[-0.012em] md:text-[46px] md:leading-[52px] text-navy">Start with a free course</h2>
             <p className="mt-2.5 font-sans text-[16.5px] leading-[26px] text-navy/74">
@@ -379,7 +376,6 @@ export default function Home() {
 
       {/* Show the community first, then explain how to join it. */}
       <section id="community" className="relative isolate scroll-mt-36 overflow-hidden bg-white">
-        <SectionStars section="community" />
         <SectionOrbits className="-bottom-32 -left-20 h-[500px] w-[375px] rotate-[-20deg] md:-left-12" />
         <div className="shell"><div className="border-t border-navy/14" /></div>
         <div className="shell flex flex-col gap-12 py-14 md:gap-16 md:py-[72px]">
