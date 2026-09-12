@@ -229,15 +229,16 @@ export default function CourseTabs() {
             }`}
           >
             <motion.div
-              /* Fade through, not across: the outgoing column is gone before the
-             incoming one starts, so the two never overlap. Photographs
-             cross-dissolve well because they are continuous tone; text does
-             not, and the overlap is what read as dizzying. */
+              /* Fade in only. The outgoing column leaves instantly, so no frame
+                 ever holds two sets of glyphs on top of each other, and there is
+                 no empty gap to sit through either: this ease-out front-loads,
+                 putting the incoming text past 60% opacity in roughly 40ms. The
+                 fade-out and the wait between the two were what read as abrupt.
+                 The photograph crossfading underneath carries the continuity. */
               initial={false}
               animate={{ opacity: active.id === activeId ? 1 : 0 }}
               transition={{
-                duration: reduce ? 0 : active.id === activeId ? 0.15 : 0.1,
-                delay: reduce ? 0 : active.id === activeId ? 0.1 : 0,
+                duration: reduce || active.id !== activeId ? 0 : 0.2,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="flex flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9"
