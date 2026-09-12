@@ -103,6 +103,21 @@
     overflow-x: hidden;
   }
 
+  /* Balance short titles; keep prose naturally ragged without trailing orphans.
+     Tailwind text-wrap utilities can override these defaults for long-form copy. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  figcaption,
+  blockquote {
+    text-wrap: pretty;
+  }
+
   /* Square is the default. A pill button is a category error. */
   button,
   a,
