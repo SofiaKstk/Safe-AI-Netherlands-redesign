@@ -36,7 +36,7 @@ export default function ContactPage() {
             }}
           />
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
         <div className="section-container relative z-10">
           <FadeIn>
@@ -88,7 +88,7 @@ export default function ContactPage() {
                   <p className="text-sm text-slate-500 leading-relaxed mb-4">
                     {contact.detail}
                   </p>
-                  <div className="mt-auto min-w-0 w-full overflow-x-auto [scrollbar-width:thin]">
+                  <div className="mt-auto min-w-0 w-full overflow-x-auto scrollbar-thin">
                     <span className="inline-block text-sm font-medium text-navy-900 whitespace-nowrap">
                       {contact.email}
                     </span>
@@ -198,7 +198,7 @@ export default function ContactPage() {
                         className="grid grid-cols-1 md:grid-cols-[minmax(0,max-content)_minmax(0,1fr)] gap-x-4 gap-y-1 py-3 items-start min-w-0"
                       >
                         <span className="text-slate-500 shrink-0">{row.label}</span>
-                        <div className="min-w-0 md:flex md:justify-end md:overflow-x-auto md:[scrollbar-width:thin]">
+                        <div className="min-w-0 md:flex md:justify-end md:overflow-x-auto md:scrollbar-thin">
                           <a
                             href={`mailto:${row.email}`}
                             className="inline-block font-medium text-navy-900 hover:text-dutch-orange transition-colors whitespace-nowrap"

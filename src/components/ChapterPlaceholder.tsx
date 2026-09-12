@@ -27,7 +27,7 @@ export default function ChapterPlaceholder({
             }}
           />
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
         <div className="section-container relative z-10">
           <FadeIn>
@@ -108,7 +108,7 @@ export default function ChapterPlaceholder({
                     "Local community building",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-2.5 text-sm text-slate-600">
-                      <svg className="w-4 h-4 text-dutch-orange flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <svg className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                       </svg>
                       {item}

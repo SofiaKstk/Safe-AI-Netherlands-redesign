@@ -67,7 +67,7 @@ export default function AmsterdamPage() {
           style={{ backgroundImage: `url(/photos/cities/amsterdam-hero.jpg)` }}
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/70 to-navy-950/50" />
+        <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-navy-950/70 to-navy-950/50" />
 
         <div className="section-container relative z-10">
           <FadeIn>
@@ -161,9 +161,9 @@ export default function AmsterdamPage() {
         <section className="bg-white">
           <div className="section-container pt-8 md:pt-10">
             <FadeIn>
-              <div className="flex flex-col gap-5 rounded-2xl border border-dutch-orange/30 bg-dutch-orange/5 p-6 shadow-sm md:flex-row md:items-center md:justify-between md:p-7">
+              <div className="flex flex-col gap-5 rounded-2xl border border-dutch-orange/30 bg-dutch-orange/5 p-6 shadow-xs md:flex-row md:items-center md:justify-between md:p-7">
                 <div className="flex items-start gap-4">
-                  <span className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
                     <svg
                       className="h-6 w-6"
                       fill="none"
@@ -191,7 +191,7 @@ export default function AmsterdamPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-shrink-0 flex-wrap gap-3 md:justify-end">
+                <div className="flex shrink-0 flex-wrap gap-3 md:justify-end">
                   <Link
                     href="/open-positions#chapter-amsterdam"
                     className="btn-primary"
@@ -301,14 +301,14 @@ export default function AmsterdamPage() {
                             rel="noopener noreferrer"
                             className="flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-colors group"
                           >
-                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 w-20 flex-shrink-0">
+                            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 w-20 shrink-0">
                               {formatEventDate(event.startAt)}
                             </span>
                             <span className="font-display font-medium text-navy-900 group-hover:text-dutch-orange transition-colors text-sm md:text-base flex-1">
                               {event.name}
                             </span>
                             <svg
-                              className="w-4 h-4 text-slate-300 group-hover:text-dutch-orange transition-colors flex-shrink-0"
+                              className="w-4 h-4 text-slate-300 group-hover:text-dutch-orange transition-colors shrink-0"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -724,7 +724,7 @@ export default function AmsterdamPage() {
                 <a
                   key={row.email}
                   href={`mailto:${row.email}?subject=${encodeURIComponent(`SAIN Amsterdam: ${row.label}`)}`}
-                  className="inline-flex flex-col items-start rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-left text-sm text-white hover:bg-white/10 hover:border-white/35 transition-colors min-w-[10.5rem]"
+                  className="inline-flex flex-col items-start rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-left text-sm text-white hover:bg-white/10 hover:border-white/35 transition-colors min-w-42"
                   aria-label={`Email ${row.label} to contact SAIN Amsterdam`}
                 >
                   <span className="text-[0.65rem] font-semibold uppercase tracking-wider text-slate-400">

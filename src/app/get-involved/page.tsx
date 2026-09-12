@@ -130,7 +130,7 @@ export default function GetInvolvedPage() {
             }}
           />
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
         <div className="section-container relative z-10">
           <FadeIn>
@@ -252,7 +252,7 @@ export default function GetInvolvedPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2">
                       <div className="flex items-start gap-4 mb-4">
-                        <div className="w-14 h-14 rounded-2xl bg-dutch-orange/10 text-dutch-orange flex items-center justify-center flex-shrink-0">
+                        <div className="w-14 h-14 rounded-2xl bg-dutch-orange/10 text-dutch-orange flex items-center justify-center shrink-0">
                           {activity.icon}
                         </div>
                         <div>
@@ -274,7 +274,7 @@ export default function GetInvolvedPage() {
                             className="flex items-start gap-2 text-sm text-slate-500"
                           >
                             <svg
-                              className="w-4 h-4 text-dutch-orange flex-shrink-0 mt-0.5"
+                              className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -445,7 +445,7 @@ export default function GetInvolvedPage() {
                       className="flex items-start gap-2.5 text-sm text-slate-600"
                     >
                       <svg
-                        className="w-4 h-4 text-dutch-orange flex-shrink-0 mt-0.5"
+                        className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -479,7 +479,7 @@ export default function GetInvolvedPage() {
                       key={step}
                       className="flex items-start gap-3 text-sm text-slate-600"
                     >
-                      <span className="w-6 h-6 rounded-full bg-dutch-orange/10 text-dutch-orange text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="w-6 h-6 rounded-full bg-dutch-orange/10 text-dutch-orange text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                         {i + 1}
                       </span>
                       {step}

@@ -1,6 +1,123 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss' source(none);
+@source '../../src/**/*.{js,ts,jsx,tsx,mdx}';
+
+@theme {
+  --color-navy-500: #4070b0;
+  --color-navy-600: #2d5594;
+  --color-navy-700: #1a4080;
+  --color-navy-800: #0a2f6e;
+  --color-navy-900: #021c4d;
+  --color-navy-950: #010e28;
+
+  --color-dutch-orange: #ff6025;
+  --color-dutch-orange-light: #ffb966;
+  --color-dutch-orange-dark: #e54d15;
+  --color-dutch-orange-50: #fff5ed;
+  --color-dutch-orange-100: #ffe4cc;
+
+  --font-sans:
+    var(--font-poppins), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display:
+    var(--font-league-spartan), var(--font-poppins), ui-sans-serif, system-ui,
+    sans-serif;
+
+  --animate-fade-in: fadeIn 0.6s ease-out forwards;
+  --animate-slide-up: slideUp 0.6s ease-out forwards;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility section-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+@utility section-padding {
+  @apply py-20 md:py-28;
+}
+
+@utility heading-xl {
+  @apply font-display font-extrabold text-5xl md:text-6xl lg:text-7xl;
+  letter-spacing: 0.01em;
+}
+
+@utility heading-lg {
+  @apply font-display font-bold text-4xl md:text-5xl;
+  letter-spacing: 0.01em;
+}
+
+@utility heading-md {
+  @apply font-display font-semibold text-3xl md:text-4xl;
+  letter-spacing: 0.01em;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
+           bg-dutch-orange text-white font-semibold text-sm
+           hover:bg-dutch-orange-dark transition-all duration-200
+           shadow-lg shadow-dutch-orange/25 hover:shadow-xl hover:shadow-dutch-orange/30
+           hover:-translate-y-0.5 active:translate-y-0;
+}
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
+           bg-white/10 text-white font-semibold text-sm border border-white/20
+           hover:bg-white/20 transition-all duration-200
+           hover:-translate-y-0.5 active:translate-y-0;
+}
+
+@utility btn-outline {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
+           bg-transparent text-navy-900 font-semibold text-sm
+           border-2 border-navy-900/20
+           hover:border-dutch-orange hover:text-dutch-orange
+           transition-all duration-200;
+}
+
+@utility card {
+  @apply bg-white rounded-2xl border border-slate-200/80
+           shadow-xs hover:shadow-md transition-all duration-300
+           hover:-translate-y-1;
+}
+
+@utility gradient-text {
+  @apply bg-clip-text text-transparent bg-linear-to-r
+           from-dutch-orange to-dutch-orange-light;
+}
 
 @layer base {
   html {
@@ -28,70 +145,5 @@
     background-color: #f97316;
       /* dutch-orange-ish */
       color: #ffffff;
-  }
-}
-
-@layer components {
-  .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  .section-padding {
-    @apply py-20 md:py-28;
-  }
-
-  .heading-xl {
-    @apply font-display font-extrabold text-5xl md:text-6xl lg:text-7xl;
-    letter-spacing: 0.01em;
-  }
-
-  .heading-lg {
-    @apply font-display font-bold text-4xl md:text-5xl;
-    letter-spacing: 0.01em;
-  }
-
-  .heading-md {
-    @apply font-display font-semibold text-3xl md:text-4xl;
-    letter-spacing: 0.01em;
-  }
-
-  .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
-           bg-dutch-orange text-white font-semibold text-sm
-           hover:bg-dutch-orange-dark transition-all duration-200
-           shadow-lg shadow-dutch-orange/25 hover:shadow-xl hover:shadow-dutch-orange/30
-           hover:-translate-y-0.5 active:translate-y-0;
-  }
-
-  .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
-           bg-white/10 text-white font-semibold text-sm border border-white/20
-           hover:bg-white/20 transition-all duration-200
-           hover:-translate-y-0.5 active:translate-y-0;
-  }
-
-  .btn-outline {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
-           bg-transparent text-navy-900 font-semibold text-sm
-           border-2 border-navy-900/20
-           hover:border-dutch-orange hover:text-dutch-orange
-           transition-all duration-200;
-  }
-
-  .card {
-    @apply bg-white rounded-2xl border border-slate-200/80
-           shadow-sm hover:shadow-md transition-all duration-300
-           hover:-translate-y-1;
-  }
-
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r
-           from-dutch-orange to-dutch-orange-light;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
   }
 }

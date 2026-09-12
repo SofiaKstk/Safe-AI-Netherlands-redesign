@@ -23,7 +23,7 @@ export default function GroningenEventsArchivePage() {
           aria-hidden="true"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/75 to-navy-950/55"
+          className="absolute inset-0 bg-linear-to-t from-navy-950 via-navy-950/75 to-navy-950/55"
           aria-hidden="true"
         />
 
@@ -85,8 +85,8 @@ export default function GroningenEventsArchivePage() {
                         key={`${event.title}-${event.date}`}
                         delay={Math.min(index * 0.03, 0.18)}
                       >
-                        <article className="h-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
-                          <div className="relative aspect-[16/10] overflow-hidden bg-slate-200">
+                        <article className="h-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xs transition-shadow hover:shadow-md">
+                          <div className="relative aspect-16/10 overflow-hidden bg-slate-200">
                             <Image
                               src={event.image}
                               alt=""

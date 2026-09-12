@@ -110,7 +110,7 @@ export default function GroningenPage() {
             <source src="/videos/groningen-hero.mp4" type="video/mp4" />
           </video>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/70 to-navy-950/50" />
+        <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-navy-950/70 to-navy-950/50" />
 
         <div className="section-container relative z-10">
           <FadeIn>
@@ -219,7 +219,7 @@ export default function GroningenPage() {
                 </div>
                 <Link
                   href="/open-positions#chapter-groningen"
-                  className="btn-primary flex-shrink-0"
+                  className="btn-primary shrink-0"
                 >
                   See open roles
                 </Link>
@@ -636,7 +636,7 @@ export default function GroningenPage() {
                 <a
                   key={row.email}
                   href={`mailto:${row.email}?subject=${encodeURIComponent(`SAIN Groningen: ${row.label}`)}`}
-                  className="inline-flex flex-col items-start rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-left text-sm text-white hover:bg-white/10 hover:border-white/35 transition-colors min-w-[10.5rem]"
+                  className="inline-flex flex-col items-start rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-left text-sm text-white hover:bg-white/10 hover:border-white/35 transition-colors min-w-42"
                   aria-label={`Email ${row.label} to contact SAIN Groningen`}
                 >
                   <span className="text-[0.65rem] font-semibold uppercase tracking-wider text-slate-400">

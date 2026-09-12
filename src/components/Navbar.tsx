@@ -141,7 +141,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md" : "bg-transparent"
+        scrolled ? "border-b border-slate-100 bg-white/95 shadow-xs backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <nav className="section-container flex h-28 items-center justify-between md:h-32">

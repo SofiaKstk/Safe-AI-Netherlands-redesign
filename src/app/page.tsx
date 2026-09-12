@@ -113,7 +113,7 @@ export default function Home() {
       {/* Flowing gradient wrapper covers hero, metrics, and pathways */}
       <div className="relative">
         {/* Orange gradient that flows across the top sections */}
-        <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-dutch-orange/15 via-dutch-orange/5 to-transparent pointer-events-none" />
+        <div className="absolute top-0 right-0 w-2/3 h-full bg-linear-to-l from-dutch-orange/15 via-dutch-orange/5 to-transparent pointer-events-none" />
         {/* Dot pattern across the top sections */}
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
           <div
@@ -168,9 +168,9 @@ export default function Home() {
         <section className="relative z-10 pb-6 md:pb-8">
           <div className="section-container">
             <FadeIn>
-              <div className="flex flex-col gap-5 rounded-2xl border border-dutch-orange/30 bg-white/80 p-6 shadow-sm backdrop-blur-sm md:flex-row md:items-center md:justify-between md:p-7">
+              <div className="flex flex-col gap-5 rounded-2xl border border-dutch-orange/30 bg-white/80 p-6 shadow-xs backdrop-blur-xs md:flex-row md:items-center md:justify-between md:p-7">
                 <div className="flex items-start gap-4">
-                  <span className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
                     <svg
                       className="h-6 w-6"
                       fill="none"
@@ -198,7 +198,7 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-shrink-0 flex-wrap gap-3 md:justify-end">
+                <div className="flex shrink-0 flex-wrap gap-3 md:justify-end">
                   <Link href="/open-positions" className="btn-primary">
                     See open positions
                   </Link>
@@ -307,7 +307,7 @@ export default function Home() {
             backgroundPosition: "center",
           }}
         />
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-dutch-orange/30 to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-dutch-orange/30 to-transparent" />
 
         <div className="section-container relative z-10 text-center">
           <FadeIn>

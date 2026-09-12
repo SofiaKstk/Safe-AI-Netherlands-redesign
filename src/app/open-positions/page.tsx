@@ -116,7 +116,7 @@ function RoleCard({
         </div>
         <span
           aria-hidden
-          className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-transform group-open:rotate-45 group-open:border-dutch-orange/40 group-open:text-dutch-orange"
+          className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-transform group-open:rotate-45 group-open:border-dutch-orange/40 group-open:text-dutch-orange"
         >
           <svg
             className="h-4 w-4"
@@ -143,7 +143,7 @@ function RoleCard({
                     key={item}
                     className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
                   >
-                    <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-dutch-orange" />
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-dutch-orange" />
                     {item}
                   </li>
                 ))}
@@ -160,7 +160,7 @@ function RoleCard({
                       key={item}
                       className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
                     >
-                      <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-dutch-orange" />
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-dutch-orange" />
                       {item}
                     </li>
                   ))}
@@ -178,7 +178,7 @@ function RoleCard({
                       key={item}
                       className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
                     >
-                      <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-slate-300" />
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300" />
                       {item}
                     </li>
                   ))}
@@ -246,7 +246,7 @@ function RoleCard({
                       className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
                     >
                       <svg
-                        className="mt-0.5 h-4 w-4 flex-shrink-0 text-dutch-orange"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-dutch-orange"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -284,7 +284,7 @@ function RoleCard({
             <ol className="mt-3 space-y-3">
               {role.applicationProcess.map((step, i) => (
                 <li key={step} className="flex gap-3">
-                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-dutch-orange/10 text-xs font-bold text-dutch-orange">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-dutch-orange/10 text-xs font-bold text-dutch-orange">
                     {i + 1}
                   </span>
                   <span className="text-sm leading-relaxed text-slate-600">
@@ -336,7 +336,7 @@ function StandingApplication() {
             }}
           />
         </div>
-        <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
         <div className="section-container relative z-10">
           <FadeIn>
@@ -418,7 +418,7 @@ export default function OpenPositionsPage() {
             }}
           />
         </div>
-        <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
         <div className="section-container relative z-10">
           <FadeIn>
@@ -441,7 +441,7 @@ export default function OpenPositionsPage() {
           </FadeIn>
           <FadeIn delay={0.25}>
             <div className="mb-8 inline-flex flex-wrap items-center gap-3 rounded-2xl border border-dutch-orange/30 bg-dutch-orange/5 px-5 py-3">
-              <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
+              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -537,7 +537,7 @@ export default function OpenPositionsPage() {
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-2">
                       <svg
-                        className="mt-0.5 h-4 w-4 flex-shrink-0 text-dutch-orange"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-dutch-orange"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -581,7 +581,7 @@ export default function OpenPositionsPage() {
                 <ol className="space-y-5">
                   {APPLICATION_TIMELINE.map((step, i) => (
                     <li key={step.label} className="flex gap-4">
-                      <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-dutch-orange/10 text-sm font-bold text-dutch-orange">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dutch-orange/10 text-sm font-bold text-dutch-orange">
                         {i + 1}
                       </span>
                       <div>
@@ -609,7 +609,7 @@ export default function OpenPositionsPage() {
         >
           <div className="section-container">
             <FadeIn>
-              <div className="rounded-3xl border border-dutch-orange/30 bg-gradient-to-br from-dutch-orange/[0.06] to-transparent p-6 md:p-10">
+              <div className="rounded-3xl border border-dutch-orange/30 bg-linear-to-br from-dutch-orange/6 to-transparent p-6 md:p-10">
                 <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                   <div className="max-w-2xl">
                     <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-dutch-orange">
@@ -622,7 +622,7 @@ export default function OpenPositionsPage() {
                       {nationalPosting.blurb}
                     </p>
                   </div>
-                  <div className="flex flex-shrink-0 flex-wrap gap-3">
+                  <div className="flex shrink-0 flex-wrap gap-3">
                     <a
                       href={`mailto:${nationalPosting.inboxEmail}?subject=National open positions at SAIN`}
                       className="btn-outline"
@@ -677,7 +677,7 @@ export default function OpenPositionsPage() {
                     </p>
                   </div>
                   {isRecruiting ? (
-                    <div className="flex flex-shrink-0 flex-wrap gap-3">
+                    <div className="flex shrink-0 flex-wrap gap-3">
                       <a
                         href={buildApplicationUrl({
                           chapter: chapter.chapterSlug,
@@ -741,7 +741,7 @@ export default function OpenPositionsPage() {
                         </h3>
                         <span className="h-px flex-1 bg-slate-200" />
                       </div>
-                      <div className="rounded-2xl border border-dutch-orange/30 bg-gradient-to-br from-dutch-orange/[0.05] to-transparent p-5 md:p-6">
+                      <div className="rounded-2xl border border-dutch-orange/30 bg-linear-to-br from-dutch-orange/5 to-transparent p-5 md:p-6">
                         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                           <div className="max-w-2xl">
                             <h4 className="font-display text-lg font-semibold text-navy-900">
@@ -766,7 +766,7 @@ export default function OpenPositionsPage() {
                             })}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="btn-primary flex-shrink-0"
+                            className="btn-primary shrink-0"
                           >
                             Apply
                           </a>

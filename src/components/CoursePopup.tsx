@@ -98,9 +98,9 @@ export default function CoursePopup() {
   return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
           <motion.div
-            className="absolute inset-0 bg-navy-950/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-navy-950/50 backdrop-blur-xs"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -115,7 +115,7 @@ export default function CoursePopup() {
             aria-labelledby="course-popup-title"
             aria-describedby="course-popup-description"
             tabIndex={-1}
-            className="relative max-h-[calc(100dvh-3rem)] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl outline-none"
+            className="relative max-h-[calc(100dvh-3rem)] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl outline-hidden"
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}

@@ -182,7 +182,7 @@ export default function ResearchPage() {
             }}
           />
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
         <div className="section-container relative z-10">
           <FadeIn>
@@ -238,9 +238,9 @@ export default function ResearchPage() {
         <section className="bg-white pt-10">
           <div className="section-container">
             <FadeIn>
-              <div className="flex flex-col gap-5 rounded-2xl border border-dutch-orange/30 bg-gradient-to-br from-dutch-orange/[0.06] to-transparent p-6 md:flex-row md:items-center md:justify-between md:p-7">
+              <div className="flex flex-col gap-5 rounded-2xl border border-dutch-orange/30 bg-linear-to-br from-dutch-orange/6 to-transparent p-6 md:flex-row md:items-center md:justify-between md:p-7">
                 <div className="flex items-start gap-4">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
                     <svg
                       className="h-5 w-5"
                       fill="none"
@@ -270,7 +270,7 @@ export default function ResearchPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-shrink-0 flex-wrap gap-3 md:justify-end">
+                <div className="flex shrink-0 flex-wrap gap-3 md:justify-end">
                   <Link
                     href={`/open-positions#${nationalPosting.slug}`}
                     className="btn-primary"
@@ -346,7 +346,7 @@ export default function ResearchPage() {
             {supervisors.map((supervisor, i) => (
               <FadeIn key={supervisor.name} delay={i * 0.1}>
                 <div className="card p-5 h-full flex flex-col">
-                  <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden mb-4 bg-slate-100">
+                  <div className="relative w-full aspect-4/5 rounded-xl overflow-hidden mb-4 bg-slate-100">
                     <Image
                       src={supervisor.image}
                       alt={supervisor.name}

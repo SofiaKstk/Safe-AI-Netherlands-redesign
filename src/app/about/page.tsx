@@ -119,7 +119,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section
         id="mission"
-        className="relative flex min-h-[100svh] items-center overflow-hidden bg-white scroll-mt-28"
+        className="relative flex min-h-svh items-center overflow-hidden bg-white scroll-mt-28"
       >
         <div className="absolute inset-0 opacity-[0.04]">
           <div
@@ -130,7 +130,7 @@ export default function AboutPage() {
             }}
           />
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
         <div className="section-container relative z-10 w-full">
           <p className="mx-auto max-w-4xl text-center text-xl font-bold leading-relaxed text-navy-900 md:text-2xl">
@@ -158,7 +158,7 @@ export default function AboutPage() {
                 rel="noopener noreferrer"
                 className="card group flex h-full flex-col p-4"
               >
-                <div className="relative mb-4 aspect-[4/5] w-full overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative mb-4 aspect-4/5 w-full overflow-hidden rounded-xl bg-slate-100">
                   <Image
                     src={person.image}
                     alt={person.name}
@@ -200,7 +200,7 @@ export default function AboutPage() {
                       rel="noopener noreferrer"
                       className="card w-full p-5 text-center sm:w-[calc(50%-0.5rem)] lg:w-64"
                     >
-                      <div className="relative mb-4 aspect-[4/5] w-full overflow-hidden rounded-xl bg-slate-100">
+                      <div className="relative mb-4 aspect-4/5 w-full overflow-hidden rounded-xl bg-slate-100">
                         {advisor.image ? (
                           <Image
                             src={advisor.image}
@@ -211,7 +211,7 @@ export default function AboutPage() {
                             className="object-cover"
                           />
                         ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-navy-800 to-navy-900 font-display text-2xl font-semibold text-white">
+                          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-navy-800 to-navy-900 font-display text-2xl font-semibold text-white">
                             {advisor.name
                               .split(" ")
                               .map((n) => n[0])
@@ -250,7 +250,7 @@ export default function AboutPage() {
                   <div className="relative flex gap-6 pb-12 last:pb-0">
                     {i < timeline.length - 1 && (
                       <div
-                        className="absolute left-6 top-[3rem] z-0 h-[calc(100%-3rem)] w-px -translate-x-1/2 bg-slate-200"
+                        className="absolute left-6 top-12 z-0 h-[calc(100%-3rem)] w-px -translate-x-1/2 bg-slate-200"
                         aria-hidden
                       />
                     )}
@@ -404,7 +404,7 @@ export default function AboutPage() {
                         className="flex items-start gap-2.5 text-sm text-slate-300"
                       >
                         <svg
-                          className="w-4 h-4 text-dutch-orange flex-shrink-0 mt-0.5"
+                          className="w-4 h-4 text-dutch-orange shrink-0 mt-0.5"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
