@@ -337,7 +337,24 @@ export default function Home() {
         </div>
 
         <div id="courses" className="shell scroll-mt-36 pb-14 pt-10">
-          <div className="mb-7 max-w-[820px]">
+          <div className="relative mb-7 max-w-[820px]">
+            <svg
+              className="pointer-events-none absolute -top-10 left-0 text-orange"
+              width="88"
+              height="40"
+              viewBox="0 0 88 40"
+              fill="none"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M78 4 C80 20 47 10 25 19 C16 23 12 29 14 35 M7 26 L14 35 L23 28"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
             <h2 className="sain-heading text-navy">Join a free course</h2>
             <p className="mt-2.5 font-sans text-[16.5px] leading-[26px] text-navy/74">
               Pick a track. Every programme is free and taught in person. What you join, and how it
