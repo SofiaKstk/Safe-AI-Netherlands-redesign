@@ -12,6 +12,8 @@ type Band = {
   width: number;
   /** Bottom edge inset, as a percentage of the band width. */
   inset: number;
+  /** The section of this page that describes the step. */
+  href: string;
   label: string;
   labelClass: string;
   photo: string;
@@ -27,6 +29,7 @@ const BANDS: Band[] = [
   {
     width: 432,
     inset: 8.8,
+    href: "#courses",
     label: "Join a free course",
     labelClass: "text-base leading-5 text-navy",
     photo: "/landing/funnel-01.jpg",
@@ -40,6 +43,7 @@ const BANDS: Band[] = [
   {
     width: 356,
     inset: 9,
+    href: "#community",
     label: "Participate in SAIN's community",
     labelClass: "max-w-[280px] text-center text-[15px] leading-[19px] text-navy",
     photo: "/landing/funnel-02.jpg",
@@ -53,6 +57,7 @@ const BANDS: Band[] = [
   {
     width: 292,
     inset: 8.9,
+    href: "#research",
     label: "Contribute and collaborate on research or projects",
     labelClass: "max-w-[230px] text-center text-sm leading-[18px] text-navy",
     photo: "/landing/funnel-03.jpg",
@@ -66,6 +71,7 @@ const BANDS: Band[] = [
   {
     width: 240,
     inset: 9.2,
+    href: "#careers",
     label: "Undertake a fellowship or internship in AI Safety",
     labelClass: "max-w-[190px] text-center text-[13px] leading-[17px] text-navy",
     photo: "/landing/funnel-04.jpg",
@@ -79,6 +85,7 @@ const BANDS: Band[] = [
   {
     width: 196,
     inset: 10.2,
+    href: "#careers",
     label: "Work full-time in AI Safety",
     labelClass: "max-w-[150px] text-center text-sm leading-[18px] text-white",
     photo: "/landing/funnel-05.jpg",
@@ -110,9 +117,10 @@ export default function TalentFunnel() {
         const offset = (band.inset / 100) * band.width;
 
         return (
-          <div
+          <a
             key={band.label}
-            className="group relative flex h-[86px] items-center justify-center"
+            href={band.href}
+            className="group relative flex h-[86px] items-center justify-center outline-offset-2 focus-visible:outline-2 focus-visible:outline-navy"
             style={{
               width: `${(band.width / WIDEST) * 100}%`,
               maxWidth: `${band.width}px`,
@@ -124,10 +132,16 @@ export default function TalentFunnel() {
               preserveAspectRatio="none"
               aria-hidden="true"
             >
+              {/* The outline spans the full 0..86 box rather than sitting
+                  0.5px inside it. Each band's side has its own slope, so an
+                  inset left a 1px dead zone at every junction, and a gap at a
+                  slope change reads as a rounded corner. Non-scaling stroke
+                  keeps the hairline at 1px once the funnel is scaled down. */}
               <polygon
-                points={`0,0.5 ${band.width},0.5 ${offset + bottom},85.5 ${offset},85.5`}
+                points={`0,0 ${band.width},0 ${offset + bottom},86 ${offset},86`}
                 fill={band.fill}
                 stroke={band.stroke}
+                vectorEffect="non-scaling-stroke"
               />
             </svg>
 
@@ -154,7 +168,7 @@ export default function TalentFunnel() {
             </div>
 
             <p className={`relative font-serif ${band.labelClass}`}>{band.label}</p>
-          </div>
+          </a>
         );
       })}
 
