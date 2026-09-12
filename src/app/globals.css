@@ -15,7 +15,7 @@
   /* Brand surfaces and ink */
   --color-navy: #021c4d;
   --color-orange: #ff6025;
-  --color-orange-hover: #e65620;
+  --color-orange-hover: #e75b22;
   --color-cream: #f7f5f2;
 
   /* Legacy scale, still referenced by pages awaiting redesign. */
@@ -196,14 +196,16 @@
     outline-offset: 3px;
   }
 
-  .bg-navy :focus-visible,
-  .bg-orange :focus-visible {
+  /* White rings belong on navy. On orange the navy ring from the rule above is
+     both more legible (5.45:1 against white's 3.02:1) and consistent with the
+     navy labels those grounds now carry. */
+  .bg-navy :focus-visible {
     outline-color: #ffffff;
   }
 
   ::selection {
     background-color: var(--color-orange);
-    color: #ffffff;
+    color: var(--color-navy);
   }
 }
 
@@ -290,13 +292,18 @@
    Buttons. Square. Archivo. No shadow.
 ----------------------------------------------------------------------------- */
 
-/* Orange is the identity of joining. Never invert it to navy on hover. */
+/* Orange is the identity of joining. Never invert the fill to navy on hover.
+
+   The label is navy because white on #FF6025 is 3.02:1 -- the one element the
+   page exists to get clicked was the hardest thing on it to read. Navy on the
+   same orange is 5.45:1, and 4.64:1 on the hover tint, so the fill keeps its
+   identity in every state and the text clears AA. White never sits on orange. */
 @utility btn-accent {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: var(--color-orange);
-  color: #ffffff;
+  color: var(--color-navy);
   font-family: var(--font-sans);
   font-size: 14.5px;
   line-height: 20px;
@@ -318,10 +325,13 @@
   font-size: 13.5px;
   line-height: 18px;
   padding: 11px 18px;
-  transition: background-color 200ms ease;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 
   &:hover {
     background: var(--color-orange);
+    color: var(--color-navy);
   }
 }
 
@@ -473,7 +483,10 @@
   animation: marquee-right 105s linear infinite;
 }
 
-.marquee-track:hover {
+/* A chip is a focusable link. Pausing on hover alone left a keyboard reader
+   chasing a target that was still moving (WCAG 2.2.2). */
+.marquee-track:hover,
+.marquee-track:focus-within {
   animation-play-state: paused;
 }
 

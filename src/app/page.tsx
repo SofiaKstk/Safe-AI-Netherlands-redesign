@@ -160,7 +160,7 @@ export default function Home() {
       {/* Chapters. A thin index band: cities as peers, left hairline, no cards. */}
       <section id="chapters" className="scroll-mt-28 border-t border-navy/10 bg-cream">
         <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
-          <h2 className="kicker pt-0.5 text-[17px] leading-6 text-navy/55 lg:w-[300px] lg:shrink-0">
+          <h2 className="kicker pt-0.5 text-[17px] leading-6 text-navy/65 lg:w-[300px] lg:shrink-0">
             Local chapters
           </h2>
           <div className="grid flex-1 gap-6 sm:grid-cols-3">
@@ -244,7 +244,7 @@ export default function Home() {
           <Reveal><CommunityPrints /></Reveal>
           <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,620px)] xl:gap-16">
             <div className="flex flex-col gap-4">
-              <p className="kicker text-[17px] leading-6 text-navy/55">Community</p>
+              <p className="kicker text-[17px] leading-6 text-navy/65">Community</p>
               <h2 className="max-w-[480px] font-serif text-heading-sm text-navy">
                 The community is how SAIN works.
               </h2>
@@ -344,7 +344,7 @@ export default function Home() {
         <div className="shell band-section flex flex-col gap-9">
           <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] xl:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
             <div className="flex min-w-0 flex-col gap-[22px]">
-              <p className="kicker text-[17px] leading-6 text-navy/55">Careers</p>
+              <p className="kicker text-[17px] leading-6 text-navy/65">Careers</p>
               <h2 className="max-w-[620px] font-serif text-heading-sm text-navy">Build an AI Safety career</h2>
               <p className="max-w-[720px] font-sans text-[16.5px] leading-[27px] text-navy/74">
                 Most people who end up working on AI Safety did not plan for it. We shorten that
@@ -360,7 +360,7 @@ export default function Home() {
             </div>
 
             <blockquote className="flex min-w-0 flex-col gap-[18px]">
-              <p className="kicker text-base leading-[22px] text-navy/50">
+              <p className="kicker text-base leading-[22px] text-navy/65">
                 Internship · Existential Risk Observatory
               </p>
               <p className="font-serif text-[21px] font-light leading-[31px] text-navy">
@@ -371,7 +371,7 @@ export default function Home() {
                 <cite className="block font-sans text-sm font-medium not-italic leading-5 text-navy">
                   Stefano Zuffi
                 </cite>
-                <p className="kicker mt-1 text-[15px] leading-5 text-navy/55">
+                <p className="kicker mt-1 text-[15px] leading-5 text-navy/65">
                   Mapping research on AI alignment techniques and government interventions
                 </p>
               </footer>
@@ -398,7 +398,7 @@ export default function Home() {
                 <p className="flex-1 font-sans text-[14.5px] leading-[23px] text-navy/68">
                   {track.description}
                 </p>
-                <p className="flex items-center gap-[7px] font-sans text-[13.5px] leading-[18px] text-navy/60 lg:w-[140px] lg:shrink-0 xl:w-40">
+                <p className="flex items-center gap-[7px] font-sans text-[13.5px] leading-[18px] text-navy/65 lg:w-[140px] lg:shrink-0 xl:w-40">
                   <track.DestinationIcon
                     size={16}
                     weight="light"

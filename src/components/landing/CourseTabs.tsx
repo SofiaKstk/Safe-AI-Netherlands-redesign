@@ -253,7 +253,7 @@ export default function CourseTabs() {
               <span className="flex min-w-0 flex-1 flex-col gap-1.5 md:contents">
                 <span
                   className={`font-sans text-[11px] leading-[14px] tracking-normal ${
-                    on ? "text-orange" : "text-navy/55"
+                    on ? "text-orange" : "text-navy/65"
                   }`}
                 >
                   {active.index}
@@ -263,7 +263,7 @@ export default function CourseTabs() {
                 >
                   {active.title}
                 </span>
-                <span className="font-sans text-[13.5px] leading-[18px] text-navy/58">
+                <span className="font-sans text-[13.5px] leading-[18px] text-navy/65">
                   {active.tagline}
                 </span>
               </span>
@@ -315,7 +315,7 @@ export default function CourseTabs() {
               </p>
 
               <div>
-                <p className="kicker pb-2 text-[15px] leading-5 text-navy/50">
+                <p className="kicker pb-2 text-[15px] leading-5 text-navy/65">
                   {active.outlineTitle}
                 </p>
                 <ol className="font-sans text-[14.5px] leading-5 text-navy">
@@ -334,7 +334,7 @@ export default function CourseTabs() {
               </div>
 
               <div>
-                <p className="kicker pb-2 text-[15px] leading-5 text-navy/50">
+                <p className="kicker pb-2 text-[15px] leading-5 text-navy/65">
                   Where you can attend
                 </p>
                 {active.cities.map((entry) => (

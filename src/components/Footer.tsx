@@ -103,7 +103,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-[26px] flex flex-col justify-between gap-3 border-t border-white/16 pt-[18px] sm:flex-row sm:items-center">
-          <p className="font-sans text-[13px] leading-[18px] text-white/45">
+          <p className="font-sans text-[13px] leading-[18px] text-white/60">
             &copy; {new Date().getFullYear()} Safe AI Netherlands
           </p>
           <div className="flex flex-wrap gap-5">
@@ -111,13 +111,13 @@ export default function Footer() {
               <Link
                 key={document.name}
                 href={document.href}
-                className="font-sans text-[13px] leading-[18px] text-white/45 transition-colors hover:text-white/80"
+                className="font-sans text-[13px] leading-[18px] text-white/60 transition-colors hover:text-white"
               >
                 {document.name}
               </Link>
             ))}
           </div>
-          <p className="font-sans text-[13px] leading-[18px] text-white/45">
+          <p className="font-sans text-[13px] leading-[18px] text-white/60">
             Utrecht &middot; Groningen &middot; Amsterdam
           </p>
         </div>
