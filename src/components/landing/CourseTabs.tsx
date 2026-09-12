@@ -14,8 +14,6 @@ type Track = {
   index: string;
   title: string;
   tagline: string;
-  /** Omitted where a track has nothing concrete to state up front. */
-  meta?: string[];
   summary: string;
   outlineTitle: string;
   outline: string[];
@@ -32,7 +30,6 @@ const TRACKS: Track[] = [
     index: "01",
     title: "AI Safety Fundamentals",
     tagline: "First principles. Drop in any week.",
-    meta: ["6 weeks", "~60 min", "Drop in any week"],
     summary:
       "A weekly series on risks, technical safety and governance, taught so newcomers can drop in. Three editions in Utrecht have reached more than 100 students, researchers, engineers and public-sector people.",
     outlineTitle: "Weekly themes",
@@ -60,7 +57,6 @@ const TRACKS: Track[] = [
     index: "02",
     title: "Technical Alignment",
     tagline: "ARENA, CAIS or BlueDot, by city.",
-    meta: ["4–6 weeks", "On-site", "Curriculum differs by city"],
     summary:
       "Each chapter runs a technical track, with a different curriculum. Utrecht teaches from ARENA. Groningen uses the Center for AI Safety course. Amsterdam uses BlueDot.",
     outlineTitle: "Utrecht ARENA",
@@ -202,17 +198,6 @@ export default function CourseTabs() {
         className="grid lg:grid-cols-[720px_1fr]"
       >
         <div className="flex flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9">
-          {active.meta && (
-            <p className="flex flex-wrap items-center gap-2.5 font-sans text-[13.5px] leading-[18px] text-navy/62">
-              {active.meta.map((item, i) => (
-                <span key={item} className="flex items-center gap-2.5">
-                  {i > 0 && <span className="inline-block h-px w-3 bg-navy/22" aria-hidden="true" />}
-                  {item}
-                </span>
-              ))}
-            </p>
-          )}
-
           <p className="max-w-[640px] font-sans text-[15.5px] leading-[25px] text-navy/78">
             {active.summary}
           </p>
