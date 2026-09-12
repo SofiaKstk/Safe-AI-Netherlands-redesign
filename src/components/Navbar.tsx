@@ -20,7 +20,7 @@ const navigation: {
     isActive: (p) => p === "/get-involved",
   },
   {
-    name: "Chapters",
+    name: "Community",
     href: "/#chapters",
     isActive: (p) => p.startsWith("/chapters"),
   },
