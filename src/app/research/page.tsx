@@ -234,7 +234,12 @@ export default function ResearchPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {supervisors.map((supervisor, i) => (
               <FadeIn key={supervisor.name} delay={i * 0.1}>
-                <div className="card p-5 h-full flex flex-col">
+                <a
+                  href={supervisor.agenda}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="card group p-5 h-full flex flex-col transition-[translate,border-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-navy-900/30 motion-safe:hover:-translate-y-0.5"
+                >
                   <div className="relative w-full aspect-4/5 rounded-xl overflow-hidden mb-4 bg-slate-100">
                     <Image
                       src={supervisor.image}
@@ -244,34 +249,16 @@ export default function ResearchPage() {
                       className="object-cover"
                     />
                   </div>
-                  <h3 className="font-display font-semibold text-navy-900">
+                  <h3 className="font-display font-semibold text-navy-900 transition-colors group-hover:text-dutch-orange">
                     {supervisor.name}
                   </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mt-1 mb-5">
+                  <p className="text-sm text-slate-500 leading-relaxed mt-1">
                     {supervisor.position}
                   </p>
-                  <a
-                    href={supervisor.agenda}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-auto text-sm font-semibold text-dutch-orange hover:text-dutch-orange-dark transition-colors flex items-center gap-1"
-                  >
-                    Research Agenda
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                      />
-                    </svg>
-                  </a>
-                </div>
+                  {/* The card itself is the link now, so the destination has to
+                      be named for anyone who cannot see the hover state. */}
+                  <span className="sr-only">Research agenda (opens in a new tab)</span>
+                </a>
               </FadeIn>
             ))}
           </div>
