@@ -72,7 +72,7 @@ function PublicationsLink() {
         className="mt-8 flex items-center justify-between gap-5 border-y border-white/16 py-[18px]"
       >
         <span className="font-serif text-[17px] leading-[23px] text-white">
-          All {publications.length} publications in the Research Hub
+          All {publications.length} publications
         </span>
         <ArrowRight
           size={15}
