@@ -1,4 +1,14 @@
-import Image from "next/image";
+/* Plain <img>, not next/image: with `images.unoptimized` the wrapper emits no
+   srcset, so the `sizes` below would have been inert. The rungs come from
+   scripts/generate-responsive-images.mjs. */
+const PHOTO_WIDTHS = [320, 640, 900];
+const srcSet = (src: string) =>
+  PHOTO_WIDTHS.map((w) => `${src.replace(/\.jpg$/, `-${w}.jpg`)} ${w}w`).join(", ");
+
+/* Five columns inside a 1344 shell come to 256 CSS each; two columns below md
+   come to roughly half the viewport less the gutters and gap. */
+const SIZES =
+  "(min-width: 1440px) 256px, (min-width: 768px) calc(20vw - 32px), calc(50vw - 42px)";
 
 /** A loose row of prints: shared work, conversations, and time together. */
 const PRINTS = [
@@ -15,12 +25,15 @@ export default function CommunityPrints() {
       {PRINTS.map((print) => (
         <figure key={print.src} className={`community-print relative bg-white p-2 shadow-[0_7px_22px_#021C4D1F] ${print.frame}`}>
           <div className="overflow-hidden">
-          <Image
-            src={print.src}
+          <img
+            src={print.src.replace(/\.jpg$/, "-320.jpg")}
+            srcSet={srcSet(print.src)}
+            sizes={SIZES}
             alt={print.alt}
             width={480}
-            height={360}
-            sizes="(min-width: 768px) 20vw, 45vw"
+            height={print.crop === "aspect-[4/5]" ? 600 : 360}
+            loading="lazy"
+            decoding="async"
             className={`w-full object-cover ${print.crop}`}
             style={{ objectPosition: print.position }}
           />

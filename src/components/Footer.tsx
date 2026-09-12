@@ -72,7 +72,8 @@ export default function Footer() {
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="flex w-full max-w-[420px] flex-col gap-3.5 lg:shrink-0">
             <img
-              src="/landing/logo-light.png"
+              src="/landing/logo-light-113.png"
+              srcSet="/landing/logo-light-113.png 1x, /landing/logo-light-226.png 2x, /landing/logo-light-339.png 3x"
               alt="Safe AI Netherlands"
               className="h-12 w-auto self-start"
               width={113}

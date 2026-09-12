@@ -119,7 +119,8 @@ export default function Navbar() {
               aria-label="Safe AI Netherlands home"
             >
               <img
-                src="/landing/logo-navy.png"
+                src="/landing/logo-navy-121.png"
+                srcSet="/landing/logo-navy-121.png 1x, /landing/logo-navy-242.png 2x, /landing/logo-navy-363.png 3x"
                 alt="Safe AI Netherlands"
                 /* 50px. Past 42px the lockup no longer fits the 70px header, so
                  the bar grows with it rather than cropping the mark. */

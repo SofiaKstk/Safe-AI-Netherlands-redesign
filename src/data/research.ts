@@ -123,7 +123,10 @@ export type Supervisor = {
   position: string;
   /** Trimmed to fit the landing's 196px name column plus affiliation. */
   positionShort: string;
+  /** The /research card, up to ~336 CSS wide. */
   image: string;
+  /** The landing circle, 88-104 CSS. Written by `npm run images`. */
+  imageSmall: string;
   agenda: string;
 };
 
@@ -132,7 +135,8 @@ export const supervisors: Supervisor[] = [
     name: "Steven Abreu",
     position: "Research Scientist, MakerMaker",
     positionShort: "Research Scientist, MakerMaker",
-    image: "/photos/supervisors/steven.webp",
+    image: "/photos/supervisors/steven-800.webp",
+    imageSmall: "/photos/supervisors/steven-312.webp",
     agenda:
       "https://docs.google.com/document/d/1UIGpTGYUk9nGvH1H5l5oHclRfNT4pCJ7ArQoIIdDNT4/edit?usp=sharing",
   },
@@ -141,6 +145,7 @@ export const supervisors: Supervisor[] = [
     position: "Associate Professor of Computer Science, University of Groningen",
     positionShort: "Associate Professor, University of Groningen",
     image: "/photos/supervisors/Fatih_3.png",
+    imageSmall: "/photos/supervisors/Fatih_3-312.png",
     agenda:
       "https://docs.google.com/document/d/15UNTtMQYEfO0WQjNKC3QyXHdYW1S2TtITbU94ZltZOc/edit?usp=sharing",
   },
@@ -150,6 +155,7 @@ export const supervisors: Supervisor[] = [
       "Working Group Leader, Senior Scientist, Potsdam Institute for Climate Impact Research",
     positionShort: "Senior Scientist, Potsdam Institute",
     image: "/photos/supervisors/Jobst.png",
+    imageSmall: "/photos/supervisors/Jobst-312.png",
     agenda:
       "https://docs.google.com/document/d/1jGBETx0wVUSAZhk4RK6Rett4FVRwTgdUna7Wi2aMg_k/edit?usp=sharing",
   },
@@ -158,6 +164,7 @@ export const supervisors: Supervisor[] = [
     position: "PhD AI Candidate, University of Groningen",
     positionShort: "PhD AI Candidate, University of Groningen",
     image: "/photos/supervisors/Guillame.jpg",
+    imageSmall: "/photos/supervisors/Guillame-312.jpg",
     agenda:
       "https://docs.google.com/document/d/1kr-lo1Qr_k7Yq3C1eoPg9gwFKlJ9PflTWqGrexA8Nxc/edit?usp=sharing",
   },
@@ -165,7 +172,8 @@ export const supervisors: Supervisor[] = [
     name: "Ana Lucic",
     position: "Assistant professor, University of Amsterdam",
     positionShort: "Assistant professor, University of Amsterdam",
-    image: "/photos/supervisors/Ana_Lucic.png",
+    image: "/photos/supervisors/Ana_Lucic-800.png",
+    imageSmall: "/photos/supervisors/Ana_Lucic-312.png",
     agenda:
       "https://docs.google.com/document/d/1IhPnQWQEN6ykshxW9B6xWehtfPwSl0B4T5HzrKyMnn8/edit?usp=sharing",
   },

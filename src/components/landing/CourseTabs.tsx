@@ -21,6 +21,8 @@ type Track = {
   cities: { city: string; detail: string }[];
   cta: { label: string; href: string };
   photo: string;
+  /** Rungs on disk for `photo`. See scripts/generate-responsive-images.mjs. */
+  photoWidths: number[];
   photoAlt: string;
   caption: string;
 };
@@ -50,6 +52,7 @@ const TRACKS: Track[] = [
     ],
     cta: { label: "Join the fundamentals series", href: "/chapters/utrecht" },
     photo: "/landing/course-fundamentals.jpg",
+    photoWidths: [640, 960, 1280, 1920],
     photoAlt: "SAIN Utrecht cohort at graduation",
     caption: "Cohort graduation · SAIN Utrecht",
   },
@@ -85,6 +88,7 @@ const TRACKS: Track[] = [
     ],
     cta: { label: "Join a technical track", href: "/get-involved#courses" },
     photo: "/landing/course-technical.jpg",
+    photoWidths: [640, 960, 1280, 1920],
     photoAlt: "Technical alignment workshop in progress",
     caption: "Week 1 · Transformers and interpretability",
   },
@@ -120,6 +124,7 @@ const TRACKS: Track[] = [
     ],
     cta: { label: "Join a governance track", href: "/get-involved#courses" },
     photo: "/landing/course-policy.jpg",
+    photoWidths: [640],
     photoAlt: "Governance and policy discussion group around a table",
     caption: "Discussion group · Utrecht",
   },
@@ -302,8 +307,17 @@ export default function CourseTabs() {
               className="relative min-h-[280px] overflow-hidden xl:min-h-[587px]"
             >
               <img
-                src={active.photo}
+                src={active.photo.replace(/\.jpg$/, `-${active.photoWidths[0]}.jpg`)}
+                srcSet={active.photoWidths
+                  .map((w) => `${active.photo.replace(/\.jpg$/, `-${w}.jpg`)} ${w}w`)
+                  .join(", ")}
+                /* Full shell width while the panel is stacked; the right-hand
+                   column once it splits at xl, which caps at 624 in the 1440
+                   canvas. */
+                sizes="(min-width: 1440px) 624px, (min-width: 1280px) calc(100vw - 816px), 100vw"
                 alt={active.photoAlt}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 size-full object-cover object-center"
               />
               <p className="kicker absolute inset-x-0 bottom-0 bg-navy/88 px-5 py-2.5 text-[15px] leading-5 text-white">

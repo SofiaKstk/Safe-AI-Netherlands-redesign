@@ -28,6 +28,12 @@ const STOPS = [
   },
 ];
 
+/* Same photographs as the funnel, same rungs. See
+   scripts/generate-responsive-images.mjs. */
+const PHOTO_WIDTHS = [320, 640, 768, 1040];
+const srcSet = (photo: string) =>
+  PHOTO_WIDTHS.map((w) => `${photo.replace(/\.jpg$/, `-${w}.jpg`)} ${w}w`).join(", ");
+
 export default function PathwayTrail() {
   return (
     <div className="relative w-full min-w-0 max-w-[520px] justify-self-end pt-2">
@@ -47,9 +53,13 @@ export default function PathwayTrail() {
               }`}
             >
               <img
-                src={stop.photo}
+                src={stop.photo.replace(/\.jpg$/, "-320.jpg")}
+                srcSet={srcSet(stop.photo)}
+                /* Half of a 520px trail at md, the whole of it below. */
+                sizes="(min-width: 768px) 250px, (min-width: 568px) 520px, calc(100vw - 48px)"
                 alt=""
                 loading="lazy"
+                decoding="async"
                 className={`absolute inset-0 size-full object-cover mix-blend-luminosity ${
                   last ? "opacity-[0.14]" : "opacity-[0.22]"
                 }`}

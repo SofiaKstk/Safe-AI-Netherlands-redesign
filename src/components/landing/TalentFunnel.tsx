@@ -94,6 +94,12 @@ const BANDS: Band[] = [
   },
 ];
 
+/* The rungs `npm run images` writes. These and the widths in
+   scripts/generate-responsive-images.mjs have to agree. */
+const PHOTO_WIDTHS = [320, 640, 768, 1040];
+const srcSet = (photo: string) =>
+  PHOTO_WIDTHS.map((w) => `${photo.replace(/\.jpg$/, `-${w}.jpg`)} ${w}w`).join(", ");
+
 const WIDEST = BANDS[0].width;
 const BAND_HEIGHT = 86;
 const LAST = BANDS.length - 1;
@@ -179,9 +185,14 @@ export default function TalentFunnel() {
                 }}
               >
                 <img
-                  src={band.photo}
+                  src={band.photo.replace(/\.jpg$/, "-320.jpg")}
+                  srcSet={srcSet(band.photo)}
+                  /* Each band is a fraction of a container that is 436 wide at
+                     xl, 340 at lg, and the shell below that. */
+                  sizes={`(min-width: 1280px) ${band.width}px, (min-width: 1024px) ${Math.round((band.width / WIDEST) * 340)}px, (min-width: 512px) ${band.width}px, calc(${Math.round((band.width / WIDEST) * 100)}vw - ${Math.round((band.width / WIDEST) * 48)}px)`}
                   alt=""
                   loading="lazy"
+                  decoding="async"
                   className="size-full scale-100 object-cover opacity-[var(--rest)] transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] group-hover:opacity-[var(--hover)]"
                   style={
                     {
