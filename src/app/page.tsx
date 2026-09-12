@@ -268,7 +268,7 @@ export default function Home() {
         </div>
         <div className="shell grid min-h-[60vh] items-center gap-12 pb-[76px] pt-[84px] lg:grid-cols-[minmax(0,700px)_minmax(0,1fr)]">
           <div className="flex min-w-0 flex-col gap-6">
-            <h1 className="font-serif text-[48px] leading-[1.08] tracking-[-0.02em] text-navy md:text-[64px] md:leading-[68px]">
+            <h1 className="font-serif text-[36px] leading-[1.08] tracking-[-0.02em] text-navy md:text-[48px] md:leading-[51px]">
               Your AI Safety career starts here.
             </h1>
             <p className="max-w-[620px] font-sans text-[16.5px] leading-[27px] text-navy/72">
@@ -328,7 +328,7 @@ export default function Home() {
         <div id="mission" className="shell relative isolate scroll-mt-36 pt-[88px]">
           <div className="flex w-full flex-col items-center justify-between gap-12 lg:flex-row lg:items-center">
             <div className="flex w-full max-w-[760px] flex-col gap-[22px] lg:shrink-0">
-              <h2 className="font-serif text-[38px] leading-[44px] tracking-[-0.012em] md:text-[46px] md:leading-[52px] max-w-[640px] text-navy">
+              <h2 className="font-serif text-[28.5px] leading-[33px] tracking-[-0.012em] md:text-[34.5px] md:leading-[39px] max-w-[640px] text-navy">
                 How SAIN is upskilling the next wave of AI Safety experts in the Netherlands.
               </h2>
               <div className="max-w-[720px] space-y-[27px] font-sans text-[16.5px] leading-[27px] text-navy/74">
@@ -364,7 +364,7 @@ export default function Home() {
         </div>
         <div id="courses" className="shell relative isolate scroll-mt-36 pb-14 pt-10">
           <div className="mx-auto mb-10 max-w-[640px] text-center">
-            <h2 className="font-serif text-[38px] leading-[44px] tracking-[-0.012em] md:text-[46px] md:leading-[52px] text-navy">Start with a free course</h2>
+            <h2 className="font-serif text-[28.5px] leading-[33px] tracking-[-0.012em] md:text-[34.5px] md:leading-[39px] text-navy">Start with a free course</h2>
             <p className="mt-2.5 font-sans text-[16.5px] leading-[26px] text-navy/74">
               Pick a track. Every programme is free and taught in person. What you join, and how it
               runs, depends on the chapter.
@@ -383,7 +383,7 @@ export default function Home() {
           <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,620px)] lg:gap-16">
             <div className="flex flex-col gap-4">
               <p className="kicker text-[17px] leading-6 text-navy/55">Community</p>
-              <h2 className="sain-heading max-w-[480px] text-navy">
+              <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] max-w-[480px] text-navy">
                 The community is how SAIN works.
               </h2>
             </div>
@@ -417,7 +417,7 @@ export default function Home() {
       <section id="research" className="scroll-mt-36 bg-navy">
         <div className="shell flex flex-col gap-11 py-[88px]">
           <div className="flex max-w-[760px] flex-col gap-[22px]">
-            <h2 className="sain-heading text-white">Research hub</h2>
+            <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] text-white">Research hub</h2>
             <p className="font-sans text-[16.5px] leading-[27px] text-white/78">
               A national programme that matches researchers with PhD+ supervisors, and supports open
               collaboration. Open to students, researchers, and people with no formal affiliation,
@@ -474,7 +474,7 @@ export default function Home() {
       <section id="output" className="scroll-mt-36 bg-cream pb-14 pt-[72px]">
         <div className="shell flex flex-col gap-[18px]">
           <p className="kicker text-[17px] leading-6 text-navy/60">Output</p>
-          <h2 className="sain-heading text-navy">Already in the literature</h2>
+          <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] text-navy">Already in the literature</h2>
           <p className="max-w-[720px] font-sans text-[16.5px] leading-[27px] text-navy/74">
             Researchers in the hub have published at NeurIPS and ICLR. SAIN helps with submissions
             and presentations. The list below is the current backlog.
@@ -495,7 +495,7 @@ export default function Home() {
           <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
             <div className="flex min-w-0 flex-col gap-[22px]">
               <p className="kicker text-[17px] leading-6 text-navy/55">Careers</p>
-              <h2 className="sain-heading max-w-[620px] text-navy">Build an AI Safety career</h2>
+              <h2 className="font-serif text-[24px] leading-[1.15] tracking-[-0.012em] md:text-[28.5px] md:leading-[32.25px] max-w-[620px] text-navy">Build an AI Safety career</h2>
               <p className="max-w-[720px] font-sans text-[16.5px] leading-[27px] text-navy/74">
                 Most people who end up working on AI Safety did not plan for it. We shorten that
                 path with mentorship, funding advice, and introductions to the labs, institutes and
@@ -560,7 +560,7 @@ export default function Home() {
         <div className="shell grid items-center gap-12 py-[92px] lg:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
           <div className="flex min-w-0 flex-col gap-[22px]">
             <p className="kicker text-[17px] leading-6 text-white/60">Get involved</p>
-            <h2 className="max-w-[580px] font-serif text-[36px] leading-[1.12] tracking-[-0.014em] text-white md:text-[42px] md:leading-[46px]">
+            <h2 className="max-w-[580px] font-serif text-[27px] leading-[1.12] tracking-[-0.014em] text-white md:text-[31.5px] md:leading-[34.5px]">
               The next decade is being decided now
             </h2>
             <p className="font-sans text-[16.5px] leading-[27px] text-white/78">
