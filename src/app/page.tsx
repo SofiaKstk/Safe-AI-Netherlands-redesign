@@ -297,9 +297,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mission. The claim, then the diagram that proves the path narrows. */}
-      <section id="mission" className="scroll-mt-36 border-t border-navy/10 bg-white">
-        <div className="shell py-[88px]">
+      {/* Mission and courses are one band on one ground. The funnel's widest
+          band already reads "Join a free course", so explaining the pipeline
+          and opening its first step is a single argument — splitting it across
+          two surfaces made the reader start over halfway through. */}
+      <section className="border-t border-navy/10 bg-cream">
+        <div id="mission" className="shell scroll-mt-36 pt-[88px]">
           <div className="flex w-full flex-col items-center justify-between gap-12 lg:flex-row lg:items-center">
             <div className="flex w-full max-w-[760px] flex-col gap-[22px] lg:shrink-0">
               <h2 className="sain-heading max-w-[640px] text-navy">
@@ -332,13 +335,21 @@ export default function Home() {
             <TalentFunnel />
           </div>
         </div>
-      </section>
 
-      {/* Courses. A paper band, because this part behaves like a schedule. */}
-      <section id="courses" className="scroll-mt-36 border-t border-navy/10 bg-cream">
-        <div className="shell py-14">
+        {/* The funnel's own vocabulary, continued down the page: a stem and an
+            accent dot, so the reader arrives at the first band rather than
+            starting a new section. */}
+        <div className="shell flex flex-col items-start pt-2" aria-hidden="true">
+          <span className="h-24 w-px bg-navy/20" />
+          <span className="-ml-[3px] size-[7px] rounded-full bg-orange" />
+        </div>
+
+        <div id="courses" className="shell scroll-mt-36 pb-14 pt-7">
           <div className="mb-7 max-w-[820px]">
-            <h2 className="sain-heading text-navy">Join a free course</h2>
+            <p className="kicker text-[17px] leading-6 text-navy/55">
+              Where the pipeline starts
+            </p>
+            <h2 className="sain-heading mt-2 text-navy">Join a free course</h2>
             <p className="mt-2.5 font-sans text-[16.5px] leading-[26px] text-navy/74">
               Pick a track. Every programme is free and taught in person. What you join, and how it
               runs, depends on the chapter.
