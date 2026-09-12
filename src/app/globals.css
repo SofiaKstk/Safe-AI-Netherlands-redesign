@@ -252,6 +252,19 @@
   padding-block: clamp(3.75rem, 3.54vw + 2.92rem, 5.75rem);
 }
 
+/* A photo strip pushed with a thumb. The next print showing past the edge is
+   the affordance; a scrollbar laid over the paper is not. `contain` keeps a
+   sideways flick inside the strip rather than handing it to the browser's
+   back gesture. */
+@utility scroll-strip {
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* The Square Kicker Rule: IBM Plex Serif italic, never tracked, never uppercase. */
 @utility kicker {
   font-family: var(--font-serif);

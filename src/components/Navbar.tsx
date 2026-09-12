@@ -55,12 +55,16 @@ const navigation: {
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [chaptersOpen, setChaptersOpen] = useState(false);
+  /* The sheet's Community disclosure, separate from the desktop menu above:
+     the two open on different gestures and must not close each other. */
+  const [mobileChaptersOpen, setMobileChaptersOpen] = useState(false);
   const chaptersRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     setMobileOpen(false);
     setChaptersOpen(false);
+    setMobileChaptersOpen(false);
   }, [pathname]);
 
   /* Escape closes the menu wherever focus sits, and a press anywhere outside
@@ -225,7 +229,10 @@ export default function Navbar() {
 
             <button
               type="button"
-              onClick={() => setMobileOpen((open) => !open)}
+              onClick={() => {
+                setMobileOpen((open) => !open);
+                setMobileChaptersOpen(false);
+              }}
               className="inline-flex size-11 items-center justify-center border border-navy/20 lg:hidden"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
@@ -247,33 +254,64 @@ export default function Navbar() {
             aria-label="Mobile"
           >
             <div className="shell flex flex-col gap-1 py-4">
-              {navigation.map((item) => (
-                <div key={item.name}>
+              {navigation.map((item) => {
+                /* Community is the one route that fans out, so in the sheet it
+                   is a disclosure rather than a link -- the same trigger the
+                   desktop nav uses, so the two behave alike. Collapsed by
+                   default: five routes fit on a phone, eight push the two
+                   buttons below the fold. */
+                if (item.name === "Community") {
+                  return (
+                    <div key={item.name}>
+                      <button
+                        type="button"
+                        onClick={() => setMobileChaptersOpen((open) => !open)}
+                        aria-expanded={mobileChaptersOpen}
+                        aria-controls="mobile-chapters"
+                        className="flex min-h-[44px] w-full items-center justify-between font-sans text-sm leading-5 text-navy"
+                      >
+                        {item.name}
+                        <CaretDown
+                          size={11}
+                          weight="bold"
+                          aria-hidden="true"
+                          className={`transition-transform duration-200 ${
+                            mobileChaptersOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      {mobileChaptersOpen && (
+                        <div
+                          id="mobile-chapters"
+                          className="mb-1 ml-4 flex flex-col border-l border-navy/12"
+                        >
+                          {chapters.map((chapter) => (
+                            <Link
+                              key={chapter.city}
+                              href={chapter.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="flex min-h-[44px] items-center pl-4 font-sans text-[13.5px] leading-[18px] text-navy/70"
+                            >
+                              {chapter.city}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
                   <Link
+                    key={item.name}
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
                     className="flex min-h-[44px] items-center font-sans text-sm leading-5 text-navy"
                   >
                     {item.name}
                   </Link>
-                  {/* No disclosure here: three rows are cheaper to read than a
-                      toggle that hides them behind a second tap. */}
-                  {item.name === "Community" && (
-                    <div className="mb-1 ml-4 flex flex-col border-l border-navy/12">
-                      {chapters.map((chapter) => (
-                        <Link
-                          key={chapter.city}
-                          href={chapter.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="flex min-h-[44px] items-center pl-4 font-sans text-[13.5px] leading-[18px] text-navy/70"
-                        >
-                          {chapter.city}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+                );
+              })}
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}

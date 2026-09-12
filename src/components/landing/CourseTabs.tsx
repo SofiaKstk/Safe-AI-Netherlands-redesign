@@ -1,14 +1,33 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
+import { CaretDown } from "@phosphor-icons/react/dist/ssr";
 
 /**
  * Three square tabs over one panel. The active tab is white, carries a 3px
  * orange underline, and turns its mono index orange — three cues, so colour is
  * never the only sign of state.
+ *
+ * On a phone the strip and the panel were far enough apart that switching
+ * track meant scrolling up to the tabs and back down to read, so the markup
+ * interleaves: header, its panel, header, its panel. Below md that is the
+ * reading order, and each track opens under its own header. From md up the
+ * grid lifts the three headers into row one and drops every panel into row
+ * two, stacked in one cell, which is the strip the desktop already had.
+ *
+ * That interleaving is why this is a disclosure group rather than a tablist:
+ * a tablist owns only tabs, and these headers have their panels between them.
+ * One is always open, so it still behaves the way the tabs did.
  */
+
+/* Row one, one column each. Written out because Tailwind reads class names as
+   literals and cannot see an interpolated column number. */
+const TAB_CELL = ["md:col-start-1", "md:col-start-2", "md:col-start-3"];
+
+/* Row two, spanning all three columns: every panel shares this one cell. */
+const PANEL_CELL = "md:col-start-1 md:col-end-4 md:row-start-2";
 
 type Track = {
   id: string;
@@ -137,7 +156,8 @@ export default function CourseTabs() {
   const activeIndex = TRACKS.findIndex((track) => track.id === activeId);
   const reduce = useReducedMotion();
 
-  /* Arrow keys move between tabs, as a tablist is expected to. */
+  /* Arrow keys still move between headers. Worth keeping: on desktop they are
+     a single focus row, and nothing on a phone sends an arrow key. */
   const onKeyDown = (event: React.KeyboardEvent) => {
     const delta =
       event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
@@ -149,90 +169,97 @@ export default function CourseTabs() {
   };
 
   return (
-    <div className="bg-white">
-      <div
-        className="grid border-b border-navy/12 md:grid-cols-3"
-        role="tablist"
-        aria-label="Course tracks"
-        onKeyDown={onKeyDown}
-      >
-        {TRACKS.map((track, i) => {
-          const on = track.id === activeId;
-          return (
+    <div
+      className="bg-white md:grid md:grid-cols-3"
+      role="group"
+      aria-label="Course tracks"
+      onKeyDown={onKeyDown}
+    >
+      {TRACKS.map((active, i) => {
+        const on = active.id === activeId;
+        return (
+          <Fragment key={active.id}>
             <button
-              key={track.id}
               ref={(node) => {
                 tabRefs.current[i] = node;
               }}
               type="button"
-              role="tab"
-              id={`tab-${track.id}`}
-              aria-selected={on}
-              aria-controls={`panel-${track.id}`}
-              tabIndex={on ? 0 : -1}
-              onClick={() => setActiveId(track.id)}
+              id={`tab-${active.id}`}
+              aria-expanded={on}
+              aria-controls={`panel-${active.id}`}
+              onClick={() => setActiveId(active.id)}
               /* The divider belongs to the gap between two tabs, not to either
-                 tab's state — hanging it off `on` made it blink on selection. */
-              className={`relative flex min-h-[88px] flex-col justify-center gap-1.5 px-6 py-5 text-left transition-colors ${
+                 tab's state — hanging it off `on` made it blink on selection.
+                 Stacked, that rule runs above each header instead. */
+              className={`relative flex min-h-[88px] items-center gap-4 border-t border-navy/12 px-6 py-5 text-left transition-colors md:flex-col md:items-stretch md:justify-center md:gap-1.5 md:border-t-0 ${
                 i > 0 ? "md:border-l md:border-l-navy/10" : ""
               } ${
                 on
-                  ? "border-b-[3px] border-b-transparent"
+                  ? /* The desktop indicator is a shared-layout element that
+                       slides between tabs. Stacked there is nothing to slide
+                       along, and the rule reads as the seam between a header
+                       and the panel it just opened, so it is drawn plainly. */
+                    "border-b-[3px] border-b-orange md:border-b-transparent"
                   : "border-b-[3px] border-b-transparent hover:bg-cream"
-              }`}
+              } ${TAB_CELL[i]} md:row-start-1`}
             >
               {on && (
                 <motion.span
                   layoutId="course-tab-indicator"
-                  className="absolute inset-x-0 -bottom-[3px] h-[3px] bg-orange"
+                  className="absolute inset-x-0 -bottom-[3px] hidden h-[3px] bg-orange md:block"
                   transition={{
                     duration: reduce ? 0 : 0.3,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                 />
               )}
-              <span
-                className={`font-sans text-[11px] leading-[14px] tracking-normal ${
-                  on ? "text-orange" : "text-navy/55"
+              {/* A column of label beside the caret, dissolving back into the
+                  button's own column once the headers become a strip. */}
+              <span className="flex min-w-0 flex-1 flex-col gap-1.5 md:contents">
+                <span
+                  className={`font-sans text-[11px] leading-[14px] tracking-normal ${
+                    on ? "text-orange" : "text-navy/55"
+                  }`}
+                >
+                  {active.index}
+                </span>
+                <span
+                  className={`font-serif text-xl leading-6 ${on ? "text-navy" : "text-navy/72"}`}
+                >
+                  {active.title}
+                </span>
+                <span className="font-sans text-[13.5px] leading-[18px] text-navy/58">
+                  {active.tagline}
+                </span>
+              </span>
+              <CaretDown
+                size={13}
+                weight="bold"
+                aria-hidden="true"
+                className={`shrink-0 text-navy/45 transition-transform duration-200 md:hidden ${
+                  on ? "rotate-180" : ""
                 }`}
-              >
-                {track.index}
-              </span>
-              <span
-                className={`font-serif text-xl leading-6 ${on ? "text-navy" : "text-navy/72"}`}
-              >
-                {track.title}
-              </span>
-              <span className="font-sans text-[13.5px] leading-[18px] text-navy/58">
-                {track.tagline}
-              </span>
+              />
             </button>
-          );
-        })}
-      </div>
 
-      <div className="grid">
-        {TRACKS.map((active) => (
-          <motion.div
-            key={active.id}
-            initial={false}
-            aria-hidden={active.id !== activeId}
-            /* `inert`, not `visibility: hidden`. Hiding the outgoing panel took it
+            <motion.div
+              initial={false}
+              aria-hidden={!on}
+              /* `inert`, not `visibility: hidden`. Hiding the outgoing panel took it
            off screen on the first frame, so nothing ever crossfaded; inert
            keeps it painted while it fades but out of the tab order and the
-           accessibility tree. */
-            {...(active.id === activeId
-              ? {}
-              : ({ inert: "" } as Record<string, string>))}
-            style={{ gridArea: "1 / 1" }}
-            id={`panel-${active.id}`}
-            role="tabpanel"
-            aria-labelledby={`tab-${active.id}`}
-            tabIndex={active.id === activeId ? 0 : -1}
-            className={`grid xl:grid-cols-[minmax(0,720px)_minmax(0,1fr)] ${
-              active.id === activeId ? "" : "pointer-events-none"
-            }`}
-          >
+           accessibility tree. Stacked there is no crossfade to protect, so the
+           closed panel leaves the flow outright and the next header rises to
+           meet the one above it. */
+              {...(on ? {} : ({ inert: "" } as Record<string, string>))}
+              id={`panel-${active.id}`}
+              role="region"
+              aria-labelledby={`tab-${active.id}`}
+              tabIndex={on ? 0 : -1}
+              className={`${on ? "grid" : "hidden md:grid"} ${PANEL_CELL} md:border-t md:border-navy/12 xl:grid-cols-[minmax(0,720px)_minmax(0,1fr)] ${
+                on ? "" : "pointer-events-none"
+              }`}
+            >
             <motion.div
               /* Fade in only. The outgoing column leaves instantly, so no frame
                  ever holds two sets of glyphs on top of each other, and there is
@@ -241,12 +268,12 @@ export default function CourseTabs() {
                  fade-out and the wait between the two were what read as abrupt.
                  The photograph crossfading underneath carries the continuity. */
               initial={false}
-              animate={{ opacity: active.id === activeId ? 1 : 0 }}
+              animate={{ opacity: on ? 1 : 0 }}
               transition={{
-                duration: reduce || active.id !== activeId ? 0 : 0.2,
+                duration: reduce || !on ? 0 : 0.2,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="flex w-full max-w-[860px] flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9 xl:max-w-none"
+              className="flex w-full max-w-[860px] flex-col gap-[18px] px-6 py-8 md:order-none md:px-8 md:pr-9 xl:max-w-none"
             >
               <p className="max-w-[640px] font-sans text-[15.5px] leading-[25px] text-navy/78">
                 {active.summary}
@@ -302,9 +329,9 @@ export default function CourseTabs() {
             panel never blanks while the text is swapping underneath it. */}
             <motion.div
               initial={false}
-              animate={{ opacity: active.id === activeId ? 1 : 0 }}
+              animate={{ opacity: on ? 1 : 0 }}
               transition={{ duration: reduce ? 0 : 0.3, ease: "linear" }}
-              className="relative min-h-[280px] overflow-hidden xl:min-h-[587px]"
+              className="relative order-first min-h-[280px] overflow-hidden md:order-none xl:min-h-[587px]"
             >
               <img
                 src={active.photo.replace(/\.jpg$/, `-${active.photoWidths[0]}.jpg`)}
@@ -325,8 +352,9 @@ export default function CourseTabs() {
               </p>
             </motion.div>
           </motion.div>
-        ))}
-      </div>
+        </Fragment>
+        );
+      })}
     </div>
   );
 }
