@@ -10,8 +10,10 @@ import TalentFunnel from "@/components/landing/TalentFunnel";
 import { RESEARCH_EMAIL, supervisors } from "@/data/research";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 
+/* No `title` here on purpose: the landing falls through to the root layout's
+   `title.default`, so the tab reads "Safe AI Netherlands" and nothing more.
+   The claim still reaches search and link previews via the description. */
 export const metadata: Metadata = {
-  title: "Safe AI Netherlands — Your AI Safety career starts here",
   description:
     "SAIN provides the community, courses and resources to help students and professionals join the AI Safety field in the Netherlands. Every programme is free.",
 };
