@@ -11,7 +11,7 @@ import PathwayTrail from "@/components/landing/PathwayTrail";
 import PublicationMarquee from "@/components/landing/PublicationMarquee";
 import SectionOrbits from "@/components/landing/SectionOrbits";
 import TalentFunnel from "@/components/landing/TalentFunnel";
-import { RESEARCH_EMAIL } from "@/data/research";
+import { publications, RESEARCH_EMAIL } from "@/data/research";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import {
   ArrowRight,
@@ -103,7 +103,7 @@ export default function Home() {
         className="relative isolate overflow-hidden"
         style={{
           backgroundImage:
-            "linear-gradient(in oklab 180deg, white 0%, white 95.31%, #f7f5f2 100%)",
+            "linear-gradient(in oklab 180deg, white 0%, white 95%, #f7f5f2 100%)",
         }}
       >
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
@@ -159,7 +159,7 @@ export default function Home() {
       </section>
 
       {/* Chapters. A thin index band: cities as peers, left hairline, no cards. */}
-      <section id="chapters" className="scroll-mt-28 border-t border-navy/10 bg-cream">
+      <section id="chapters" className="scroll-mt-36 border-t border-navy/10 bg-cream">
         <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
           <h2 className="kicker pt-0.5 text-[17px] leading-6 text-navy/65 lg:w-[300px] lg:shrink-0">
             Local chapters
@@ -171,7 +171,7 @@ export default function Home() {
                 <p className="mt-2 font-sans text-sm leading-5 text-navy/66">{chapter.blurb}</p>
                 <Link
                   href={chapter.href}
-                  className="mt-2.5 inline-flex items-center gap-1.5 font-sans text-sm leading-5 text-navy underline decoration-navy/20 underline-offset-4 transition-colors hover:decoration-navy"
+                  className="mt-2.5 inline-flex items-center gap-1.5 font-sans text-sm leading-5 text-navy underline decoration-navy/20 underline-offset-4 transition-colors hover:decoration-navy focus-visible:decoration-navy"
                 >
                   View courses
                   <Arrow />
@@ -291,7 +291,7 @@ export default function Home() {
               <p className="max-w-[590px] text-[16.5px] leading-[27px] text-white/75">SAIN connects researchers with supervisors and supports collaborative AI Safety projects. Work on interpretability, evaluations, control, or governance, with access to mentorship, compute, and a national research community.</p>
               <div className="mt-2 flex flex-wrap items-center gap-6">
                 <a href="https://forms.gle/na3wbBR4V1YVHAnFA" target="_blank" rel="noopener noreferrer" className="btn-accent">Join as a researcher<span className="sr-only"> (opens in a new tab)</span></a>
-                <Link href="/research/handbook" className="text-[14px] text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white">Read the research handbook →</Link>
+                <Link href="/research/handbook" className="text-[14px] text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white">Read the research handbook →</Link>
               </div>
               <p className="text-[13px] leading-5 text-white/55">Open to students, researchers, and people without formal affiliation. Apply at any time; remote participation is welcome.</p>
             </div>
@@ -318,7 +318,7 @@ export default function Home() {
                 <h3 className="font-serif text-heading-sm">Research supervisors</h3>
                 <p className="mt-3 max-w-[530px] text-[15px] leading-6 text-white/65">Meet our supervisors and explore their research agendas.</p>
               </div>
-              <a href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`} className="self-start text-[14px] text-white/75 underline decoration-white/30 underline-offset-4 hover:text-white">Become a supervisor →</a>
+              <a href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`} className="self-start text-[14px] text-white/75 underline decoration-white/30 underline-offset-4 hover:text-white focus-visible:text-white">Become a supervisor →</a>
             </div>
             <ResearchPeople />
           </Reveal>
@@ -335,7 +335,7 @@ export default function Home() {
                   <span className="hidden md:inline"> Explore the papers and projects below.</span>
                 </p>
               </div>
-              <p className="flex flex-wrap gap-7 text-[13px] leading-5 text-white/65"><span>6+ active projects</span><span>20+ researchers</span><span>12+ publications</span></p>
+              <p className="flex flex-wrap gap-7 text-[13px] leading-5 text-white/65"><span>6+ active projects</span><span>20+ researchers</span><span>{publications.length}+ publications</span></p>
             </Reveal>
           </div>
           <PublicationMarquee />
