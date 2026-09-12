@@ -48,7 +48,7 @@ const TRACKS: Track[] = [
         detail: "Weekly, modular. Drop in for any theme. ~60 min.",
       },
     ],
-    cta: { label: "Drop in this week", href: "/chapters/utrecht" },
+    cta: { label: "Join the fundamentals series", href: "/chapters/utrecht" },
     photo: "/landing/course-fundamentals.jpg",
     photoAlt: "SAIN Utrecht cohort at graduation",
     caption: "Cohort graduation · SAIN Utrecht",
@@ -114,7 +114,7 @@ const TRACKS: Track[] = [
         detail: "BlueDot Frontier AI Governance. On-site, application-based.",
       },
     ],
-    cta: { label: "Join your chapter", href: "/get-involved#courses" },
+    cta: { label: "Join a governance track", href: "/get-involved#courses" },
     photo: "/landing/course-policy.jpg",
     photoAlt: "Governance and policy discussion group around a table",
     caption: "Discussion group · Utrecht",
@@ -198,8 +198,12 @@ export default function CourseTabs() {
       <motion.div
         key={active.id}
         initial={false}
-        animate={{ opacity: active.id === activeId ? 1 : 0 }}
-        transition={{ duration: reduce ? 0 : 0.2 }}
+        animate={{
+          opacity: active.id === activeId ? 1 : 0,
+          transform:
+            reduce || active.id === activeId ? "translateY(0px)" : "translateY(6px)",
+        }}
+        transition={{ duration: reduce ? 0 : 0.24, ease: [0.16, 1, 0.3, 1] }}
         aria-hidden={active.id !== activeId}
         style={{ visibility: active.id === activeId ? "visible" : "hidden", gridArea: "1 / 1" }}
         id={`panel-${active.id}`}
