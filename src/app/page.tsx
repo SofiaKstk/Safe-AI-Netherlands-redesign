@@ -336,20 +336,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* The funnel's own vocabulary, continued down the page: a stem and an
-            accent dot, so the reader arrives at the first band rather than
-            starting a new section. */}
-        <div className="shell flex flex-col items-start pt-2" aria-hidden="true">
-          <span className="h-24 w-px bg-navy/20" />
-          <span className="-ml-[3px] size-[7px] rounded-full bg-orange" />
-        </div>
-
-        <div id="courses" className="shell scroll-mt-36 pb-14 pt-7">
+        <div id="courses" className="shell scroll-mt-36 pb-14 pt-[88px]">
           <div className="mb-7 max-w-[820px]">
-            <p className="kicker text-[17px] leading-6 text-navy/55">
-              Where the pipeline starts
-            </p>
-            <h2 className="sain-heading mt-2 text-navy">Join a free course</h2>
+            <h2 className="sain-heading text-navy">Join a free course</h2>
             <p className="mt-2.5 font-sans text-[16.5px] leading-[26px] text-navy/74">
               Pick a track. Every programme is free and taught in person. What you join, and how it
               runs, depends on the chapter.

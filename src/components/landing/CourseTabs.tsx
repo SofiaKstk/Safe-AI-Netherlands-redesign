@@ -14,7 +14,8 @@ type Track = {
   index: string;
   title: string;
   tagline: string;
-  meta: string[];
+  /** Omitted where a track has nothing concrete to state up front. */
+  meta?: string[];
   summary: string;
   outlineTitle: string;
   outline: string[];
@@ -94,7 +95,6 @@ const TRACKS: Track[] = [
     index: "03",
     title: "Governance & Policy",
     tagline: "Course or discussion group, by city.",
-    meta: ["By city", "Course or discussion group", "See your chapter"],
     summary:
       "Amsterdam runs BlueDot Frontier AI Governance. Groningen runs the governance track of AI Safety, Ethics, and Society. Utrecht hosts a weekly AI Governance & Policy discussion group. Facilitators include researchers, risk consultants, and public-sector people.",
     outlineTitle: "Six-week courses (Groningen and Amsterdam)",
@@ -164,10 +164,14 @@ export default function CourseTabs() {
               aria-controls={`panel-${track.id}`}
               tabIndex={on ? 0 : -1}
               onClick={() => setActiveId(track.id)}
+              /* The divider belongs to the gap between two tabs, not to either
+                 tab's state — hanging it off `on` made it blink on selection. */
               className={`flex min-h-[88px] flex-col justify-center gap-1.5 px-6 py-5 text-left transition-colors ${
+                i > 0 ? "md:border-l md:border-l-navy/10" : ""
+              } ${
                 on
-                  ? "border-b-[3px] border-orange bg-white"
-                  : "border-b border-navy/12 hover:bg-white/60 md:border-l md:border-l-navy/10"
+                  ? "border-b-[3px] border-b-orange"
+                  : "border-b border-b-navy/12 hover:bg-cream"
               }`}
             >
               <span
@@ -198,14 +202,16 @@ export default function CourseTabs() {
         className="grid lg:grid-cols-[720px_1fr]"
       >
         <div className="flex flex-col gap-[18px] px-6 py-8 md:px-8 md:pr-9">
-          <p className="flex flex-wrap items-center gap-2.5 font-sans text-[13.5px] leading-[18px] text-navy/62">
-            {active.meta.map((item, i) => (
-              <span key={item} className="flex items-center gap-2.5">
-                {i > 0 && <span className="inline-block h-px w-3 bg-navy/22" aria-hidden="true" />}
-                {item}
-              </span>
-            ))}
-          </p>
+          {active.meta && (
+            <p className="flex flex-wrap items-center gap-2.5 font-sans text-[13.5px] leading-[18px] text-navy/62">
+              {active.meta.map((item, i) => (
+                <span key={item} className="flex items-center gap-2.5">
+                  {i > 0 && <span className="inline-block h-px w-3 bg-navy/22" aria-hidden="true" />}
+                  {item}
+                </span>
+              ))}
+            </p>
+          )}
 
           <p className="max-w-[640px] font-sans text-[15.5px] leading-[25px] text-navy/78">
             {active.summary}
