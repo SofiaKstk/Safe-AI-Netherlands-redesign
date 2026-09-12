@@ -5,7 +5,7 @@
  */
 
 const STOPS = [
-  { label: "Join a free course", photo: "/landing/funnel-01.jpg", objectPosition: "38% 34%" },
+  { label: "Start with a free course", photo: "/landing/funnel-01.jpg", objectPosition: "38% 34%" },
   {
     label: "Participate in SAIN's community",
     photo: "/landing/funnel-02.jpg",

@@ -31,7 +31,7 @@ const BANDS: Band[] = [
     width: 432,
     inset: 8.8,
     href: "#courses",
-    label: "Join a free course",
+    label: "Start with a free course",
     labelCqw: 3.7,
     labelClass: "max-w-[78%] text-center leading-[1.25] text-navy",
     photo: "/landing/funnel-01.jpg",

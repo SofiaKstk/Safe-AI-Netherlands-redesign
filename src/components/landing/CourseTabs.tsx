@@ -3,7 +3,12 @@
 import { Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { CaretDown } from "@phosphor-icons/react/dist/ssr";
+import { CaretDown, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+
+import {
+  courseApplicationFor,
+  type ChapterName,
+} from "@/data/courseApplications";
 
 /**
  * Three square tabs over one panel. The active tab is white, carries a 3px
@@ -37,7 +42,10 @@ type Track = {
   summary: string;
   outlineTitle: string;
   outline: string[];
-  cities: { city: string; detail: string }[];
+  /* Typed as the chapter name rather than a loose string, so each row can
+     resolve its own route out of courseApplications instead of carrying a
+     second copy of it here. */
+  cities: { city: ChapterName; detail: string }[];
   cta: { label: string; href: string };
   photo: string;
   /** Rungs on disk for `photo`. See scripts/generate-responsive-images.mjs. */
@@ -69,7 +77,7 @@ const TRACKS: Track[] = [
         detail: "Weekly, modular. Drop in for any theme. ~60 min.",
       },
     ],
-    cta: { label: "Join the fundamentals series", href: "/chapters/utrecht" },
+    cta: { label: "Join the fundamentals series", href: "/chapters/utrecht#programs" },
     photo: "/landing/course-fundamentals.jpg",
     photoWidths: [640, 960, 1280, 1920],
     photoAlt: "SAIN Utrecht cohort at graduation",
@@ -105,7 +113,7 @@ const TRACKS: Track[] = [
           "BlueDot Technical AI Safety. 6 weeks, on-site, application-based.",
       },
     ],
-    cta: { label: "Join a technical track", href: "/get-involved#courses" },
+    cta: { label: "See all courses", href: "/get-involved#courses" },
     photo: "/landing/course-technical.jpg",
     photoWidths: [640, 960, 1280, 1920],
     photoAlt: "Technical alignment workshop in progress",
@@ -141,7 +149,7 @@ const TRACKS: Track[] = [
         detail: "BlueDot Frontier AI Governance. On-site, application-based.",
       },
     ],
-    cta: { label: "Join a governance track", href: "/get-involved#courses" },
+    cta: { label: "See all courses", href: "/get-involved#courses" },
     photo: "/landing/course-policy.jpg",
     photoWidths: [640],
     photoAlt: "Governance and policy discussion group around a table",
@@ -337,18 +345,34 @@ export default function CourseTabs() {
                 <p className="kicker pb-2 text-kicker-sm text-navy/65">
                   Where you can attend
                 </p>
+                {/* The row is the route. A track can run a different curriculum
+                    in three cities, so a single CTA underneath could only ever
+                    send all three to the same national page; the reader who has
+                    just read "Groningen uses the Center for AI Safety course"
+                    means that city, not the set. Destination comes from
+                    courseApplications, so this cannot drift from the chapter
+                    pages. */}
                 {active.cities.map((entry) => (
-                  <div
+                  <Link
                     key={entry.city}
-                    className="flex flex-col gap-1 border-t border-navy/10 py-2 sm:flex-row sm:items-baseline sm:gap-4"
+                    href={courseApplicationFor(entry.city).href}
+                    className="group/city flex flex-col gap-1 border-t border-navy/10 py-2.5 transition-colors duration-200 hover:bg-navy/5 focus-visible:bg-navy/5 sm:flex-row sm:items-baseline sm:gap-4"
                   >
-                    <span className="w-[108px] shrink-0 font-serif text-base leading-[22px] text-navy">
-                      {entry.city}
+                    <span className="flex w-[108px] shrink-0 items-baseline gap-1.5 font-serif text-base leading-[22px] text-navy">
+                      <span className="underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover/city:decoration-navy group-focus-visible/city:decoration-navy">
+                        {entry.city}
+                      </span>
+                      <ArrowRight
+                        size={12}
+                        weight="light"
+                        aria-hidden="true"
+                        className="shrink-0 -translate-y-px text-navy/45 transition-transform duration-200 motion-safe:group-hover/city:translate-x-0.5"
+                      />
                     </span>
                     <span className="font-sans text-ui leading-[22px] text-navy/72">
                       {entry.detail}
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </div>
 

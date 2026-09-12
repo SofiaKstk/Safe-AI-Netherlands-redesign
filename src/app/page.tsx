@@ -14,6 +14,10 @@ import TalentFunnel from "@/components/landing/TalentFunnel";
 import { publications, RESEARCH_EMAIL } from "@/data/research";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import {
+  formatCityList,
+  openCourseApplications,
+} from "@/data/courseApplications";
+import {
   ArrowRight,
   Bank,
   Broadcast,
@@ -233,6 +237,15 @@ export default function Home() {
               Pick a track. Every programme is free and taught in person. What you join, and how it
               runs, depends on the chapter.
             </p>
+            {/* Which chapters are taking applications, read from the same file
+                the chapter pages read. A cohort can never be advertised as open
+                here and closed there, and when the last one closes this line
+                removes itself rather than going stale. */}
+            {openCourseApplications.length > 0 && (
+              <p className="mt-3 font-sans text-caption text-navy/65">
+                You can apply now in {formatCityList(openCourseApplications)}.
+              </p>
+            )}
           </div>
           <Reveal><CourseTabs /></Reveal>
         </div>
@@ -432,7 +445,7 @@ export default function Home() {
               {/* The funnel's widest band already means the section on this
                   page; the close has to mean the same thing. */}
               <Link href="#courses" className="btn-accent px-[22px] text-sm">
-                Join a course
+                Start with a free course
               </Link>
               <Link href="/get-involved" className="btn-ghost-inverse px-[22px]">
                 Volunteer
