@@ -81,6 +81,25 @@ const TARGETS = [
   },
 ];
 
+/* Crops, not rungs. The chapters band draws each city's hero as a wash behind
+   a cell about 330x94, and the three full heroes come to 3.8MB to do it. These
+   are the crops it draws instead.
+
+   The band masks its image in from the left, so what a crop keeps on its right
+   is the part that is actually seen. `keep` is the fraction of the source width
+   the window holds, anchored left: Utrecht's tower stands far enough left in
+   the full frame that it sat inside the fade, and dropping the right quarter
+   of the frame walks it out into the open. A city whose subject already sits
+   right of centre wants 1 and nothing else. */
+const CROPS = {
+  size: { width: 720, height: 280 },
+  files: [
+    { src: "photos/cities/utrecht-hero.jpg", out: "photos/cities/utrecht-index.webp", keep: 0.76 },
+    { src: "photos/cities/groningen-hero.jpg", out: "photos/cities/groningen-index.webp", keep: 1 },
+    { src: "photos/cities/amsterdam-hero.jpg", out: "photos/cities/amsterdam-index.webp", keep: 1 },
+  ],
+};
+
 /* Keep the source's format. Switching a transparent PNG to JPEG would fill its
    background with black, and these are only ever resized, never recoded. */
 function encode(pipeline, ext) {
@@ -128,6 +147,32 @@ for (const target of TARGETS) {
       ]);
     }
   }
+}
+
+/* The crops run after the ladders and print into the same table. */
+for (const { src, out, keep } of CROPS.files) {
+  const input = await readFile(pub(src));
+  const meta = await sharp(input).metadata();
+  sourceBytes += input.length;
+
+  const ratio = CROPS.size.width / CROPS.size.height;
+  let width = Math.round(meta.width * keep);
+  let height = Math.round(width / ratio);
+  /* A source shorter than the window can only give a narrower one. */
+  if (height > meta.height) {
+    height = meta.height;
+    width = Math.round(height * ratio);
+  }
+
+  const buffer = await sharp(input)
+    .extract({ left: 0, top: Math.round((meta.height - height) / 2), width, height })
+    .resize(CROPS.size.width, CROPS.size.height, { fit: "cover" })
+    .webp({ quality: 72 })
+    .toBuffer();
+
+  await writeFile(pub(out), buffer);
+  variantBytes += buffer.length;
+  rows.push([out, `keep ${keep}`, `${kb(input.length)} -> ${kb(buffer.length)}`]);
 }
 
 for (const [name, width, size] of rows) {

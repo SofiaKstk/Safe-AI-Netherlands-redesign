@@ -652,21 +652,31 @@
 .btn-accent:active, .btn-ink:active, .btn-ghost:active, .btn-ghost-inverse:active {
   transform: scale(0.98);
 }
-/* Local chapters. At rest the band is an index and nothing more: a name, a
-   hairline, and a way in. The photograph the chapter page opens with is parked
-   behind the cell and brought up on hover, so the city arrives as a picture
-   rather than as a line of copy listing what runs there.
+/* Local chapters. The photograph each chapter page opens with is behind its
+   cell at all times, faint enough that the band still reads as an index, and
+   hover or keyboard focus brings it up to full under a navy wash.
 
-   The name and the link flip to cream in the same beat. They have to: once the
-   navy wash is up, navy-on-navy is the one pairing on this page that cannot be
+   Both states are one device: the image is masked to fade in from the left,
+   so the name and the link sit on clean cream at rest and on flat navy on
+   hover, whatever the crop happens to hold. That also evens out three very
+   different photographs -- a tower against open sky next to a dense row of
+   facades -- which at a flat opacity made the three cells read as unequal.
+
+   The name and the link flip to cream with the wash. They have to: once the
+   navy is up, navy on navy is the one pairing on this page that cannot be
    read. Cream on navy/78 over a photograph clears AA at both sizes.
 
-   Gated on a fine pointer for the same reason the strip arrows are: a tap has
-   no hover to hand back, and a photo latched on after one would sit over the
-   name until the route changed. Focus-within is outside that query on purpose,
-   because a keyboard is not a fine pointer and the reveal is how a tabbing
-   reader sees which chapter they are on. */
+   The fade is gated on a fine pointer for the same reason the strip arrows
+   are: a tap has no hover to hand back. Focus-within sits outside that query
+   on purpose, because a keyboard is not a fine pointer and the reveal is how
+   a tabbing reader sees which chapter they are on. */
 .chapter-cell-photo {
+  opacity: 0.3;
+  mask-image: linear-gradient(to right, transparent 18%, #000 85%);
+  -webkit-mask-image: linear-gradient(to right, transparent 18%, #000 85%);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chapter-cell-scrim {
   opacity: 0;
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -677,6 +687,7 @@
 }
 @media (hover: hover) and (pointer: fine) {
   .chapter-cell:hover .chapter-cell-photo { opacity: 1; }
+  .chapter-cell:hover .chapter-cell-scrim { opacity: 0.78; }
   .chapter-cell:hover h3 { color: var(--color-cream); }
   .chapter-cell:hover a {
     color: var(--color-cream);
@@ -685,6 +696,7 @@
   .chapter-cell:hover a:hover { text-decoration-color: var(--color-cream); }
 }
 .chapter-cell:focus-within .chapter-cell-photo { opacity: 1; }
+.chapter-cell:focus-within .chapter-cell-scrim { opacity: 0.78; }
 .chapter-cell:focus-within h3 { color: var(--color-cream); }
 .chapter-cell:focus-within a {
   color: var(--color-cream);
@@ -693,8 +705,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
-  /* The chapter photo still appears, it just stops fading in. */
+  /* The chapter photo still comes up, it just stops fading. */
   .chapter-cell-photo,
+  .chapter-cell-scrim,
   .chapter-cell h3,
   .chapter-cell a { transition: none; }
   .community-print:hover img,

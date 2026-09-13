@@ -41,8 +41,8 @@ export const metadata: Metadata = {
    chapter is a continuation of the picture the hover already showed. These are
    720x280 crops of those heroes, not the heroes themselves: `output: "export"`
    ships images unoptimized, and the three full-size JPEGs come to 3.8MB for a
-   band that is 118px tall. Regenerate with sharp from `-hero.jpg` if a chapter
-   page changes its photograph. */
+   band this size. `npm run images` writes them; the crop window for each city
+   lives there, next to the reason it is what it is. */
 const chapters = [
   {
     city: "Utrecht",
@@ -181,19 +181,21 @@ export default function Home() {
                 key={chapter.city}
                 className="chapter-cell relative isolate border-l border-navy/14 py-5 pl-[18px] pr-4"
               >
-                {/* The city, held behind the cell and painted in on hover. The
-                    navy wash is what carries the name and the link over a
-                    photograph; without it the cell would be unreadable on the
-                    bright half of every image. */}
-                <span className="chapter-cell-photo pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+                {/* The city is always there, faint, and hover brings it up.
+                    It fades in from the left rather than covering the cell:
+                    the name and the link keep clean cream under them at rest
+                    and flat navy under them on hover, and the photograph gets
+                    the half of the cell that has nothing written on it. */}
+                <span className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
                   <Image
                     src={chapter.photo}
                     alt=""
                     width={720}
                     height={280}
-                    className="h-full w-full object-cover"
+                    loading="eager"
+                    className="chapter-cell-photo h-full w-full object-cover"
                   />
-                  <span className="absolute inset-0 bg-navy/78" />
+                  <span className="chapter-cell-scrim absolute inset-0 bg-navy" />
                 </span>
                 <h3 className="font-serif text-title text-navy">{chapter.city}</h3>
                 <Link
