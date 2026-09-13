@@ -80,7 +80,7 @@ function Row({ papers, direction }: { papers: Publication[]; direction: "left" |
    drift away from the list it promises. */
 function PublicationsLink() {
   return (
-    <div className="shell md:hidden">
+    <div className="md:hidden">
       <Link
         href="/research#publications"
         className="mt-8 flex items-center justify-between gap-5 border-y border-white/16 py-[18px]"
@@ -103,7 +103,7 @@ export default function PublicationMarquee() {
   return (
     <>
       <PublicationsLink />
-      <div className="mt-10 hidden flex-col gap-3 overflow-hidden py-2 md:flex">
+      <div className="mt-6 hidden flex-col gap-3 overflow-hidden py-2 md:flex">
         <Row papers={ROW_ONE} direction="left" />
         <Row papers={ROW_TWO} direction="right" />
       </div>

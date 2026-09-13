@@ -5,13 +5,11 @@ import Link from "next/link";
 import CommunityPrints from "@/components/landing/CommunityPrints";
 import CourseTabs from "@/components/landing/CourseTabs";
 import Reveal from "@/components/landing/Reveal";
-import ResearchPeople from "@/components/landing/ResearchPeople";
+import ResearchSteps from "@/components/landing/ResearchSteps";
 import ResearchIllustration from "@/components/landing/ResearchIllustration";
 import HeroChart from "@/components/landing/HeroChart";
 import PathwayTrail from "@/components/landing/PathwayTrail";
-import PublicationMarquee from "@/components/landing/PublicationMarquee";
 import SectionOrbits from "@/components/landing/SectionOrbits";
-import { publications, RESEARCH_EMAIL } from "@/data/research";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import {
   formatCityList,
@@ -294,58 +292,16 @@ export default function Home() {
             <div className="flex flex-col items-start gap-6">
 
               <h2 id="research-heading" className="max-w-[560px] font-serif text-heading">The SAIN Research Hub</h2>
-              <p className="max-w-[590px] text-body text-white/75">SAIN connects researchers with supervisors and supports collaborative AI Safety projects. Work on interpretability, evaluations, control, or governance, with access to mentorship, compute, and a national research community.</p>
+              <p className="max-w-[590px] text-body text-white/75">Bring your academic expertise to AI Safety. Connect with researchers, develop a focused project, and take your work further with support from SAIN.</p>
               <div className="mt-2 flex flex-wrap items-center gap-6">
                 <a href="https://forms.gle/na3wbBR4V1YVHAnFA" target="_blank" rel="noopener noreferrer" className="btn-accent">Join as a researcher<span className="sr-only"> (opens in a new tab)</span></a>
-                <Link href="/research/handbook" className="text-label text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white">Read the research handbook →</Link>
               </div>
-              <p className="text-footnote leading-5 text-white/55">Open to students, researchers, and people without formal affiliation. Apply at any time; remote participation is welcome.</p>
             </div>
             <ResearchIllustration />
           </Reveal>
 
-          <Reveal className="mt-20 grid gap-9 md:mt-24 md:grid-cols-3 md:gap-12">
-            {[
-              { number: "01", title: "Choose a research project", description: "Join a supervisor’s project or lead an open collaboration. Scope a question together." },
-              { number: "02", title: "Work with support", description: "Build on your background in computing, mathematics, law, or policy—with guidance and a weekly commitment agreed per project." },
-              { number: "03", title: "Publish your findings", description: "Produce a paper, replication, or policy brief. We help with submissions and conference presentations." },
-            ].map((step) => (
-              <div key={step.number} className="border-t border-white/20 pt-5">
-                <span className="font-sans text-xs text-orange">{step.number}</span>
-                <h3 className="mb-3 mt-4 font-serif text-[23px] leading-7">{step.title}</h3>
-                <p className="max-w-[360px] text-kicker-sm leading-6 text-white/65">{step.description}</p>
-              </div>
-            ))}
-          </Reveal>
-
-          <Reveal className="mt-24 md:mt-32">
-            <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <h3 className="font-serif text-heading-sm">Research supervisors</h3>
-                <p className="mt-3 max-w-[530px] text-kicker-sm leading-6 text-white/65">Meet our supervisors and explore their research agendas.</p>
-              </div>
-              <a href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`} className="self-start text-label text-white/75 underline decoration-white/30 underline-offset-4 hover:text-white focus-visible:text-white">Become a supervisor →</a>
-            </div>
-            <ResearchPeople />
-          </Reveal>
-
+          <ResearchSteps />
         </div>
-        <div className="shell"><div className="border-t border-white/15" /></div>
-        <section id="output" aria-labelledby="output-heading" className="research-publications scroll-mt-36 pb-20 pt-16 text-white">
-          <div className="shell">
-            <Reveal className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-16">
-              <div className="max-w-[600px]">
-                <h3 id="output-heading" className="font-serif text-heading-sm">Research publications</h3>
-                <p className="mt-4 text-kicker-sm leading-6 text-white/70">
-                  Work from the hub has appeared at NeurIPS and ICLR.
-                  <span className="hidden md:inline"> Explore the papers and projects below.</span>
-                </p>
-              </div>
-              <p className="flex flex-wrap gap-7 text-footnote leading-5 text-white/65"><span>6+ active projects</span><span>20+ researchers</span><span>{publications.length}+ publications</span></p>
-            </Reveal>
-          </div>
-          <PublicationMarquee />
-        </section>
       </section>
 
       {/* Careers. Paper band: a quote, then the destinations as hairline rows. */}
