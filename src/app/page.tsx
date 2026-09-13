@@ -359,17 +359,25 @@ export default function Home() {
           narrows, and /about is where it is argued.
 
           What is left is what a close needs. The claim on the left, the two
-          ways to act on the right, sharing a bottom edge. No kicker over the
+          ways to act on the right, centred against it. No kicker over the
           heading: a label, a heading and a button row is three things where
-          the band is really saying two. */}
+          the band is really saying two.
+
+          The line under the heading answers the reason people give for not
+          starting. docs/vision.md puts the funnel's first level at "has not
+          encountered AI safety" and says plainly that the people who stop
+          early are worth having; the heading carries the stakes, so this
+          carries the invitation. */}
       <section id="involved" aria-labelledby="involved-heading" className="scroll-mt-36 bg-navy">
-        <div className="shell band-close grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
+        <div className="shell band-close grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
           <div className="min-w-0">
             <h2 id="involved-heading" className="max-w-[620px] font-serif text-closing text-white">
               The next decade is being decided now
             </h2>
             <p className="mt-4 max-w-[560px] font-sans text-body text-white/78">
-              Every SAIN programme is free and run by volunteers.
+              You do not need a background in AI to be useful here. Every SAIN programme is
+              free, run by volunteers, and takes you from curious to contributing, so pick
+              one and begin.
             </p>
           </div>
 
