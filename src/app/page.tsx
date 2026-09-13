@@ -56,43 +56,41 @@ const chapters = [
   },
 ];
 
-/* Career destinations. Four cells in the index band below the courses: a
-   26px orange icon, a serif title, a description, and the destination in the
-   page's serif-italic metadata voice as the cell's last line.
+/* Career destinations. Four cells in the careers band: a 26px orange icon,
+   a serif title, and one line that says what the work is and where it leads.
 
-   One icon per cell. There used to be two -- a topic glyph and a second one
-   in front of the destination -- which put eight icons in a four-item list
-   and gave the destination the same weight as the track itself. A Buildings
-   glyph ahead of the words "Labs and institutes" is the bullet dot design.md
-   warns about: it repeats the label instead of adding to it. For the same
-   reason the first description no longer ends by naming the destination
-   printed under it.
+   The destination used to be a fourth element of its own, set apart in the
+   metadata voice. On a row that worked -- the four of them read down the
+   band's right edge as a column of answers. In a cell it was a loose line
+   under the description repeating a noun the description had already earned,
+   so it is back inside the sentence.
+
+   One icon per cell. There were two once, a topic glyph and a second one in
+   front of the destination, which put eight icons in a four-item list. A
+   Buildings glyph ahead of the words "Labs and institutes" is the bullet dot
+   design.md warns about: it repeats the label instead of adding to it.
 
    Phosphor at light weight is the closest match to the 1.4 stroke the rest of
    the page draws with. */
 const careerTracks = [
   {
     title: "Technical research",
-    description: "Interpretability, evaluations and control research.",
-    destination: "Labs and institutes",
+    description: "Interpretability, evaluations and control research at labs and institutes.",
     Icon: Flask,
   },
   {
     title: "Governance and policy",
     description: "Advising ministries, regulators and standards bodies on frontier AI.",
-    destination: "Public sector",
     Icon: PencilSimpleLine,
   },
   {
     title: "Field building",
-    description: "Running programmes, chapters and communications for the Dutch ecosystem.",
-    destination: "Community",
+    description: "Running programmes, chapters and communications for the Dutch community.",
     Icon: Broadcast,
   },
   {
     title: "Security and compute",
-    description: "Model security, compute governance and assurance engineering.",
-    destination: "Industry",
+    description: "Model security, compute governance and assurance engineering in industry.",
     Icon: ShieldCheck,
   },
 ];
@@ -333,21 +331,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Careers. An index band, built like the communities one above: the
-          label and the voice on the left, the destinations as hairline cells
-          on the right. It used to open with a heading, a paragraph and a
-          button and only then reach the four tracks, which made the tracks
-          the tail of a section rather than the section itself. The tracks are
-          what this band is.
+      {/* Careers. An index band, built like the communities one above it: a
+          rail on the left, hairline cells on the right carrying the chapter
+          cell's own left rule and 18px inset.
 
-          The quote sits under the label now instead of beside a heading it
-          had to be nudged down to meet, so nothing here depends on matching
-          the height of a stack in the other column. */}
+          The rail states the claim and then lets someone else make it. The
+          quote sits under the heading rather than beside it, so nothing here
+          depends on matching the height of a stack in the other column, which
+          is what the hand-set offset it used to carry was for.
+
+          Two columns of cells rather than four. Four made a 130px strip
+          against a 300px rail and left the band lopsided; paired, the cells
+          come down to about the rail's own depth and each line of copy gets a
+          width it can be read at. */}
       <section id="careers" aria-labelledby="careers-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
-        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
+        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
           <div className="flex min-w-0 flex-col gap-[22px] lg:w-[300px] lg:shrink-0">
-            <h2 id="careers-heading" className="kicker pt-0.5 text-kicker text-navy/65">
-              Careers
+            <h2 id="careers-heading" className="font-serif text-heading-sm text-navy">
+              Build an AI Safety career
             </h2>
             <blockquote className="flex min-w-0 flex-col gap-[18px]">
               <p className="kicker text-base leading-[22px] text-navy/65">
@@ -368,10 +369,7 @@ export default function Home() {
             </blockquote>
           </div>
 
-          {/* The chapter cell's own geometry: a left hairline, an 18px inset,
-              and the column stretched to its neighbours so the four rules run
-              the same length. */}
-          <div className="grid flex-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid flex-1 gap-x-6 gap-y-7 sm:grid-cols-2">
             {careerTracks.map((track) => (
               <article
                 key={track.title}
@@ -387,7 +385,6 @@ export default function Home() {
                 <p className="mt-2 font-sans text-ui leading-[23px] text-navy/68">
                   {track.description}
                 </p>
-                <p className="kicker mt-3 text-caption text-navy/65">{track.destination}</p>
               </article>
             ))}
           </div>
