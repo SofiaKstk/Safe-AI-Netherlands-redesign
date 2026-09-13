@@ -9,7 +9,6 @@ import ResearchSteps from "@/components/landing/ResearchSteps";
 import ResearchIllustration from "@/components/landing/ResearchIllustration";
 import ResearchOffer from "@/components/landing/ResearchOffer";
 import HeroChart from "@/components/landing/HeroChart";
-import TalentFunnel from "@/components/TalentFunnel";
 import SectionOrbits from "@/components/landing/SectionOrbits";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import {
@@ -348,43 +347,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Get involved. Inverse, because this band asks for a decision.
+      {/* Get involved. Inverse, because this band asks for a decision, and a
+          banner rather than a column beside a drawing.
 
-          The pipeline is drawn as the funnel here rather than as the trail,
-          in the funnel's inverse tone: white fills, cream labels, the
-          photographs on luminosity, and no drop shadow, because on this
-          ground there is nothing under the diagram to fall on. Same component
-          as /about, drawn straight onto the navy at about five sixths the
-          width, so the five bands come to roughly the height of the column
-          beside them.
+          The funnel stood here and was the reason the band was 400px tall
+          with nothing in most of it: the claim, one sentence and two buttons
+          come to about 235px, so the diagram left eighty pixels of empty navy
+          above and below the words. It also spent the last screen restating
+          the five sections the reader had just scrolled through. design.md
+          asks a diagram to encode a claim; the funnel has one, that the path
+          narrows, and /about is where it is argued.
 
-          The second sentence of the paragraph used to say start with a course
-          or write to us about helping run one, which is what the two buttons
-          underneath it say. */}
+          What is left is what a close needs. The claim on the left, the two
+          ways to act on the right, sharing a bottom edge. No kicker over the
+          heading: a label, a heading and a button row is three things where
+          the band is really saying two. */}
       <section id="involved" aria-labelledby="involved-heading" className="scroll-mt-36 bg-navy">
-        <div className="shell band-close grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:gap-14">
-          <div className="flex min-w-0 flex-col gap-[22px]">
-            <p className="kicker text-kicker text-white/60">Get involved</p>
-            <h2 id="involved-heading" className="max-w-[580px] font-serif text-closing text-white">
+        <div className="shell band-close grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
+          <div className="min-w-0">
+            <h2 id="involved-heading" className="max-w-[620px] font-serif text-closing text-white">
               The next decade is being decided now
             </h2>
-            <p className="max-w-[560px] font-sans text-body text-white/78">
+            <p className="mt-4 max-w-[560px] font-sans text-body text-white/78">
               Every SAIN programme is free and run by volunteers.
             </p>
-            <div className="flex flex-wrap gap-3">
-              {/* The funnel's first band and this button have to mean the same
-                  thing: the course section on this page. */}
-              <Link href="#courses" className="btn-accent">
-                Start with a free course
-              </Link>
-              <Link href="/get-involved" className="btn-ghost-inverse">
-                Volunteer
-              </Link>
-            </div>
           </div>
 
-          <div className="w-full max-w-[360px] justify-self-center lg:justify-self-end">
-            <TalentFunnel tone="inverse" />
+          {/* The first band of the funnel on /about and this button have to
+              mean the same thing: the course section on this page. */}
+          <div className="flex flex-wrap gap-3 lg:shrink-0">
+            <Link href="#courses" className="btn-accent">
+              Start with a free course
+            </Link>
+            <Link href="/get-involved" className="btn-ghost-inverse">
+              Volunteer
+            </Link>
           </div>
         </div>
       </section>
