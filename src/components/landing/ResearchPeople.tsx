@@ -1,66 +1,73 @@
 import Image from "next/image";
 import { supervisors } from "@/data/research";
 
-/* Each supervisor is a link to their research agenda. Since the standalone
-   "Research agenda" link is gone, the hover state is now the only visible sign
-   that the card does anything, so it carries three cues at once: the portrait
-   lifts toward the reader, its ring brightens, and a rule draws under the name
-   from the left. The rule matters beyond decoration. design.md requires colour
-   to be paired with a non-colour cue, so the name turning orange cannot be the
-   whole signal.
-
-   Tailwind v4 already gates `hover:` behind `@media (hover: hover)`, so none of
-   this fires from a tap on a touch screen. The two transforms sit behind
-   `motion-safe:`; the colour changes survive reduced motion because they carry
-   the affordance and do not move anything.
-
-   Every cue is paired with `group-focus-visible:` as well. A keyboard never
-   fires `:hover`, so a reader tabbing through the supervisors used to get the
-   focus ring and nothing else — none of the three cues this card was built
-   around. The ring stays on top of them: an orange name is an affordance, not
-   a statement about where focus is. */
+/* The supervisors, as a left-aligned row of square portraits.
+ *
+ * They were circles with centred captions, which is the stock team-grid and
+ * the only rounded thing on a page whose whole system is square: hairlines,
+ * square tabs, square buttons, square prints. A square also matches the source
+ * photographs exactly, so nobody's face is cropped to fit a frame.
+ *
+ * The captions are left-aligned under the tile now. This page sets everything
+ * from a left margin except one centred section header; five centred captions
+ * in a row put five ragged axes into an editorial layout.
+ *
+ * Fixed 140px tiles in a wrapping flex row rather than five stretched grid
+ * columns. Held at this size the 312px source still lands above 2x on a retina
+ * screen, and the air between the tiles comes from the gap rather than from
+ * columns padding themselves out.
+ *
+ * Hover and focus: the frame holds still and the portrait moves inside it, the
+ * hairline brightens, and an orange rule draws under the name from the left.
+ * design.md asks for colour to be paired with a non-colour cue, which is what
+ * the rule and the zoom are. Tailwind v4 already gates `hover:` behind
+ * `@media (hover: hover)`, so none of it fires from a tap; every cue repeats on
+ * `group-focus-visible:` because a keyboard never fires `:hover`, and the two
+ * transforms sit behind `motion-safe:`.
+ */
 export default function ResearchPeople() {
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-8">
+    <ul role="list" className="flex flex-wrap gap-x-8 gap-y-9 md:gap-x-10">
       {supervisors.map((person) => (
-        <a
-          key={person.name}
-          href={person.agenda}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex flex-col items-center text-center last:col-span-2 sm:last:col-span-1"
-        >
-          <span className="block size-[110px] overflow-hidden rounded-full border border-white/25 transition-[scale,border-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-white/60 group-focus-visible:border-white/60 motion-safe:group-hover:scale-[1.04] motion-safe:group-focus-visible:scale-[1.04] md:size-[130px]">
-            <Image
-              src={person.imageSmall}
-              alt=""
-              width={312}
-              height={312}
-              sizes="130px"
-              className="size-full object-cover"
-            />
-          </span>
-
-          <h4 className="mt-4 font-serif text-[18px] leading-6 text-white">
-            {/* inline-block so the rule below hugs the name rather than the
-                full width of the grid column. */}
-            <span className="relative inline-block transition-colors duration-200 group-hover:text-orange group-focus-visible:text-orange">
-              {person.name}
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-orange transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
+        <li key={person.name} className="w-[140px]">
+          <a
+            href={person.agenda}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block outline-offset-4"
+          >
+            {/* isolate: a scaled child under a clip needs its own stacking
+                context or Safari lets the corners through. */}
+            <span className="block isolate overflow-hidden border border-white/20 transition-colors duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-white/50 group-focus-visible:border-white/50">
+              <Image
+                src={person.imageSmall}
+                alt=""
+                width={312}
+                height={312}
+                className="aspect-square w-full object-cover transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:scale-[1.04] motion-safe:group-focus-visible:scale-[1.04]"
               />
             </span>
-          </h4>
 
-          <p className="mt-2 max-w-[200px] text-footnote leading-5 text-white/70">
-            {person.positionShort}
-          </p>
-          {/* The whole supervisor is the link now, so the destination has to be
-              named for anyone who cannot see the hover state. */}
-          <span className="sr-only">Research agenda (opens in a new tab)</span>
-        </a>
+            <h4 className="mt-3.5 font-serif text-title-sm leading-6 text-white">
+              {/* inline-block so the rule hugs the name rather than the column. */}
+              <span className="relative inline-block">
+                {person.name}
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-orange transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
+                />
+              </span>
+            </h4>
+
+            <p className="mt-1.5 text-footnote leading-5 text-white/70">
+              {person.positionShort}
+            </p>
+            {/* The whole supervisor is the link, so the destination has to be
+                named for anyone who cannot see the hover state. */}
+            <span className="sr-only">Research agenda (opens in a new tab)</span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

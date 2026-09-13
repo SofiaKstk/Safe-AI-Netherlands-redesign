@@ -218,7 +218,7 @@ Good: `That network is not an extra. It is a central part of the organisation.`
 
 Bad: `Empowering the next generation of AI safety leaders.`
 
-Bad: uppercase eyebrows, `Learn more`, `Get started`, `Unlock your potential`.
+Bad: uppercase eyebrows, `Get started`, `Unlock your potential`.
 
 CTAs name the action and, when true, that it is free: `Join the SAIN Community - Free`, `Join a free course`, `Drop in this week`, `Read the call for applications`, `See open positions`, `Become a supervisor`, `Volunteer`.
 

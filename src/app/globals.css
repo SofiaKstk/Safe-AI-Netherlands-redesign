@@ -449,29 +449,6 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Marquee. Two rows, opposite directions, paused on hover, off when the
-   reader has asked for less motion.
------------------------------------------------------------------------------ */
-
-@keyframes marquee-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-right {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-/* -----------------------------------------------------------------------------
    Reveal. The hidden state lives here rather than in the component's initial
    props, so the prerendered page is the visible one. The hero runs from CSS,
    which needs no script; the rest is armed by Reveal once it is running, and
@@ -502,31 +479,9 @@
   transform: translateY(16px);
 }
 
-/* Slow enough to read a title in passing. The two rows keep their original
-   48:56 ratio so they stay out of phase with each other. */
-.marquee-left {
-  animation: marquee-left 90s linear infinite;
-}
-
-.marquee-right {
-  animation: marquee-right 105s linear infinite;
-}
-
-/* A chip is a focusable link. Pausing on hover alone left a keyboard reader
-   chasing a target that was still moving (WCAG 2.2.2). */
-.marquee-track:hover,
-.marquee-track:focus-within {
-  animation-play-state: paused;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .marquee-left,
-  .marquee-right {
-    animation: none;
   }
 
   *,

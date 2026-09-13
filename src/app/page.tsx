@@ -7,6 +7,7 @@ import CourseTabs from "@/components/landing/CourseTabs";
 import Reveal from "@/components/landing/Reveal";
 import ResearchSteps from "@/components/landing/ResearchSteps";
 import ResearchIllustration from "@/components/landing/ResearchIllustration";
+import ResearchOffer from "@/components/landing/ResearchOffer";
 import HeroChart from "@/components/landing/HeroChart";
 import PathwayTrail from "@/components/landing/PathwayTrail";
 import SectionOrbits from "@/components/landing/SectionOrbits";
@@ -290,17 +291,43 @@ export default function Home() {
 
       {/* One research story: the invitation, the people, and the work they publish. */}
       <section id="research" aria-labelledby="research-heading" className="scroll-mt-36 bg-navy text-white">
-        <div className="shell pb-16 pt-12 md:pb-20 md:pt-16">
+        {/* band-research rather than a hand-set pt/pb. Every other band on the
+            page carries its own clamp from globals.css, and this one was
+            running about 30px tighter at 1440 than the bands either side of
+            it while the utility written for it sat unused. */}
+        <div className="shell band-research">
           <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:gap-12 xl:grid-cols-[minmax(0,650px)_minmax(0,1fr)] xl:gap-24">
             <div className="flex flex-col items-start gap-6">
-
               <h2 id="research-heading" className="max-w-[560px] font-serif text-heading">The SAIN Research Hub</h2>
               <p className="max-w-[590px] text-body text-white/75">Bring your academic expertise to AI Safety. Connect with researchers, develop a focused project, and take your work further with support from SAIN.</p>
+              <Link href="/research" className="inline-flex items-center gap-3 text-label leading-6 text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white">
+                Learn more <ArrowRight size={16} aria-hidden="true" />
+              </Link>
             </div>
             <ResearchIllustration />
           </Reveal>
 
-          <ResearchSteps />
+          {/* The offer, then the journey. No kicker above either: the landing
+              already runs three of them across eight sections, which is the
+              ceiling, and the h2 says what this band is without help. */}
+          <Reveal delay={0.05}><ResearchOffer /></Reveal>
+          <Reveal delay={0.05}><ResearchSteps /></Reveal>
+
+          {/* The ask, closing the band rather than trailing the last step. It
+              used to sit inside step three beside "View all publications",
+              where the page's one orange button in this band read as a
+              footnote to publishing. It sends readers to the hub rather than
+              straight into the interest form: the terms of applying are the
+              line beside it, and the page that explains them is one click on.
+              The form itself is on /research, twice. */}
+          <Reveal delay={0.05} className="mt-12 flex flex-col gap-6 border-t border-white/15 pt-8 md:mt-16 md:flex-row md:items-center md:justify-between md:gap-12">
+            <p className="max-w-[520px] font-serif text-title leading-[30px] text-white">
+              Apply any time. Agree your commitment per project. Remote participation welcome.
+            </p>
+            <Link href="/research" className="btn-accent shrink-0 self-start md:self-auto">
+              Read more
+            </Link>
+          </Reveal>
         </div>
       </section>
 
