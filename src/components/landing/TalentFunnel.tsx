@@ -160,7 +160,8 @@ export default function TalentFunnel() {
           silhouette drawn over them lines up with their geometry. */}
       {/* The containment context every cqw below is measured against. */}
       <div className="@container relative w-full max-w-[432px]">
-        {BANDS.map((band) => {
+        {BANDS.map((band, i) => {
+          const last = i === BANDS.length - 1;
           const bottom = band.width - (band.inset / 100) * band.width * 2;
           const offset = (band.inset / 100) * band.width;
 
@@ -217,9 +218,20 @@ export default function TalentFunnel() {
                   like diagram and behave like links taught the reader nothing,
                   and the close draws near-identical cards that are inert -- so
                   the affordance has to be visible standing still. Same idiom as
-                  every other text link on the page, so it reads as one system. */}
+                  every other text link on the page, so it reads as one system.
+
+                  The rule takes the ink of the label above it, because the
+                  terminus is the one band on a solid orange fill and so the one
+                  label set in white; a navy rule under white letters read as
+                  something else on the line rather than as their underline.
+                  White at /45 is the rest value the navbar strip already uses
+                  for a white underline on orange. */}
               <p
-                className={`relative font-sans underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover:decoration-navy group-focus-visible:decoration-navy ${band.labelClass}`}
+                className={`relative font-sans underline underline-offset-4 transition-colors duration-200 ${
+                  last
+                    ? "decoration-white/45 group-hover:decoration-white group-focus-visible:decoration-white"
+                    : "decoration-navy/25 group-hover:decoration-navy group-focus-visible:decoration-navy"
+                } ${band.labelClass}`}
                 /* Floored so the last band stays legible on a narrow phone,
                    capped at what it measures on the 432 canvas. */
                 style={{
