@@ -7,6 +7,7 @@ import ScrollCue from "@/components/ScrollCue";
 import TalentFunnel from "@/components/TalentFunnel";
 import { leadership } from "@/data/leadership";
 import { sainDocuments } from "@/data/sainDocuments";
+import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
 
 const advisors = [
@@ -144,33 +145,52 @@ export default function AboutPage() {
         <ScrollCue href="#pipeline" />
       </section>
 
-      {/* The SAIN Talent Pipeline. The landing makes the claim in one sentence
-          and links here; this is where the shape of it lives. Every band is a
-          link back to the landing section that describes that step, so the
-          diagram is a way into the site rather than a picture of one. */}
-      <section id="pipeline" className="section-padding scroll-mt-32 bg-white">
+      {/* The mission band, moved here off the landing with the funnel it was
+          built around. The copy argues that the path exists and the diagram
+          draws it; they only ever worked as one thing, and the landing now
+          opens on the first step instead of on the explanation. Every band of
+          the funnel links back to the landing section for that step. */}
+      <section
+        id="pipeline"
+        aria-labelledby="pipeline-heading"
+        className="section-padding scroll-mt-32 bg-white"
+      >
         <div className="section-container">
           <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,436px)]">
             <div className="max-w-2xl">
               <FadeIn>
-                <h2 className="heading-lg text-navy-900">The SAIN Talent Pipeline</h2>
+                <h2 id="pipeline-heading" className="heading-lg text-navy-900">
+                  How SAIN is upskilling the next wave of AI Safety experts in the Netherlands.
+                </h2>
               </FadeIn>
               <FadeIn delay={0.1}>
                 <p className="mt-6 text-lg leading-relaxed text-slate-600">
-                  Each band is a step, and each one is open to anyone ready for it: a free
-                  course, a community that keeps meeting once the course ends, research
-                  projects that need hands, and the roles people move on to from there.
+                  Learn about AI Safety from experts working at the frontier. SAIN&rsquo;s courses,
+                  research hub, and community give you a clear way in, whether you&rsquo;re curious
+                  or aiming for a career.
                 </p>
               </FadeIn>
               <FadeIn delay={0.15}>
                 <p className="mt-5 text-lg leading-relaxed text-slate-600">
-                  It narrows because the path narrows. A course is open to everyone, a
-                  full-time role is not. Follow a band to read what that step involves.
+                  The goal is simple: help students and young professionals make a first real
+                  contribution. Then we connect the strongest people onward to organisations,
+                  programmes, and jobs. That&rsquo;s the SAIN Talent Pipeline.
                 </p>
+              </FadeIn>
+              <FadeIn delay={0.2}>
+                <a
+                  href={COMMUNITY_JOIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary mt-8 inline-flex"
+                >
+                  Join the community
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
               </FadeIn>
             </div>
 
-            <FadeIn delay={0.2} direction="none" className="mx-auto w-full min-w-0 max-w-[436px]">
+            <FadeIn delay={0.25} direction="none" className="mx-auto w-full min-w-0 max-w-[436px]">
               <TalentFunnel />
             </FadeIn>
           </div>

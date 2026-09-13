@@ -209,57 +209,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mission and courses are one band on one ground: explaining the
-          pipeline and opening its first step is a single argument, and
-          splitting it across two surfaces made the reader start over halfway
-          through. The funnel that used to sit in the right column now opens
-          /about, so the claim stays here and the diagram is a click away. */}
-      <section aria-labelledby="mission-heading" className="relative isolate overflow-hidden border-t border-navy/10 bg-white">
+      {/* Courses. The mission copy and the funnel it was built around moved
+          to /about, where the argument and the diagram sit together; what is
+          left on this ground is the first step itself. */}
+      <section
+        id="courses"
+        aria-labelledby="courses-heading"
+        className="relative isolate scroll-mt-36 overflow-hidden border-t border-navy/10 bg-white"
+      >
         <SectionOrbits className="-left-20 top-6 h-[400px] w-[300px] md:-left-12" />
-        <div id="mission" className="shell band-section-top relative isolate scroll-mt-36">
-          <div className="w-full">
-            <div className="flex w-full min-w-0 max-w-[760px] flex-col gap-[22px]">
-              <h2 id="mission-heading" className="max-w-[640px] font-serif text-heading text-navy">
-                How SAIN is upskilling the next wave of AI Safety experts in the Netherlands.
-              </h2>
-              <div className="max-w-[720px] space-y-[27px] font-sans text-body text-navy/74">
-                <p>
-                  Learn about AI Safety from experts working at the frontier. SAIN&rsquo;s courses,
-                  research hub, and community give you a clear way in, whether you&rsquo;re curious
-                  or aiming for a career.
-                </p>
-                <p>
-                  The goal is simple: help students and young professionals make a first real
-                  contribution. Then we connect the strongest people onward to organisations,
-                  programmes, and jobs. That&rsquo;s the{" "}
-                  <Link
-                    href="/about#pipeline"
-                    className="text-navy underline decoration-navy/25 underline-offset-4 transition-colors hover:decoration-navy focus-visible:decoration-navy"
-                  >
-                    SAIN Talent Pipeline
-                  </Link>
-                  .
-                </p>
-              </div>
-              <div className="pt-1">
-                <a
-                  href={COMMUNITY_JOIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-accent"
-                >
-                  Join the community
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="shell mt-10" aria-hidden="true">
-          <div className="border-t border-navy/14" />
-        </div>
-        <section id="courses" aria-labelledby="courses-heading" className="shell relative isolate scroll-mt-36 pb-14 pt-10">
+        <div className="shell band-section-top relative isolate pb-14">
           <div className="mx-auto mb-10 max-w-[640px] text-center">
             <h2 id="courses-heading" className="font-serif text-heading text-navy">Start with a free course</h2>
             <p className="mt-2.5 font-sans text-body leading-[26px] text-navy/74">
@@ -277,7 +236,7 @@ export default function Home() {
             )}
           </div>
           <Reveal><CourseTabs /></Reveal>
-        </section>
+        </div>
       </section>
 
       {/* Show the community first, then explain how to join it. */}
@@ -471,8 +430,8 @@ export default function Home() {
               us about helping run one.
             </p>
             <div className="flex flex-wrap gap-3">
-              {/* The funnel's widest band already means the section on this
-                  page; the close has to mean the same thing. */}
+              {/* The trail's first stop and this button have to mean the same
+                  thing: the course section on this page. */}
               <Link href="#courses" className="btn-accent">
                 Start with a free course
               </Link>
