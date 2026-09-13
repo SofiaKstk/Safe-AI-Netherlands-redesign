@@ -187,7 +187,7 @@ Photographs are evidence. They are people in rooms that happened: lectures, cert
 Treatments on the landing:
 
 - **Prints.** White 8px mat, rotate between about −11° and 8°, shadow `0 12px 28px #021C4D29`. The centre print is slightly stronger (`0 14px 32px #021C4D33`). This is a table of photographs, not a gallery component.
-- **Multiply in the funnel.** Photo at 8 to 11% opacity, `mix-blend-mode: multiply` (luminosity on the orange terminus), slight grayscale and contrast. The photo is texture inside a diagram, not a hero crop.
+- **Multiply in the funnel.** Photo at 10 to 14% opacity, `mix-blend-mode: multiply` (luminosity on the orange terminus), slight grayscale and contrast. The photo is texture inside a diagram, not a hero crop.
 - **Caption bar.** On a course image, a `--color-ink` bar at 88% (`#021C4DE0`) with IBM Plex Serif italic 15/20 white. `Cohort graduation · SAIN Utrecht`.
 
 Diagrams must encode a claim. The funnel narrows because the path narrows. The chart rises because the underlying quantity rises. If you find yourself drawing a network of dots "to feel like community", stop and use photographs.
@@ -199,7 +199,7 @@ The Paper landing is still. Encode that as the default.
 Allowed in implementation:
 
 - Orange and ink button hover (see Components).
-- Funnel band hover from the HTML companion: photo opacity 0.08 → 0.21 (up to 0.26 on the terminus), transform 700ms `cubic-bezier(0.22, 1, 0.36, 1)`. The band is the hit target.
+- Funnel band hover from the HTML companion: photo opacity 0.10 → 0.26 (up to 0.32 on the terminus), transform 700ms `cubic-bezier(0.22, 1, 0.36, 1)`. The band is the hit target.
 - Publication chips may marquee slowly on inverse, two rows in opposite directions, paused on hover, off when `prefers-reduced-motion`. The rest state is the Paper static.
 
 Forbidden: auto-playing video in the hero, parallax, typed headlines, bounce, scroll-jacking, staggered fade-up on every section.
@@ -299,7 +299,7 @@ font: 400 14px/20px var(--font-sans);
 
 **Career row.** Full width, padding 18×22, gap 24px, `border-top: 1px solid var(--color-hairline)`. 26px orange stroke icon (1.4 width, round caps). Do not put the icon in a coloured tile.
 
-**Funnel.** Widths 432, 356, 292, 240, 196. Height 86. Trapezoid SVG stroke navy at about 30 to 34%. Fills navy at about 4 to 5% until the last band, which is solid accent. Origin is a 7px accent dot and an accent arrow. Terminus is a 1×10 `--color-hairline-strong` stem and a 7px accent dot. Container `filter: drop-shadow(0 2px 16px #00000033)`. Labels IBM Plex Serif 16 → 13px, white on the last band.
+**Funnel.** Widths 432, 356, 292, 240, 196. Height 86. Trapezoid SVG stroke navy at about 30 to 34%. Fills navy at about 3.5 to 4.5% until the last band, which is solid accent. Origin is a 7px accent dot and an accent arrow. Terminus is a 1×10 `--color-hairline-strong` stem and a 7px accent dot. Container `filter: drop-shadow(0 2px 16px #00000033)`. Labels IBM Plex Serif 16 → 13px, white on the last band.
 
 **Trail (inverse).** 520px wide. 1px spine white at 20%. Stops alternate left and right. Cards 240×92, radius 3px, fill `--color-on-inverse-fill`, luminosity photo at 22%. Last card and last dot are accent.
 
