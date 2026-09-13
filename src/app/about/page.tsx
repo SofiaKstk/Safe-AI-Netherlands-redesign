@@ -7,7 +7,6 @@ import ScrollCue from "@/components/ScrollCue";
 import TalentFunnel from "@/components/TalentFunnel";
 import { leadership } from "@/data/leadership";
 import { sainDocuments } from "@/data/sainDocuments";
-import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
 
 const advisors = [
@@ -176,17 +175,6 @@ export default function AboutPage() {
                   contribution. Then we connect the strongest people onward to organisations,
                   programmes, and jobs. That&rsquo;s the SAIN Talent Pipeline.
                 </p>
-              </FadeIn>
-              <FadeIn delay={0.2}>
-                <a
-                  href={COMMUNITY_JOIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary mt-8 inline-flex"
-                >
-                  Join the community
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
               </FadeIn>
             </div>
 
