@@ -1,9 +1,16 @@
 import type { CSSProperties } from "react";
 
 /**
- * The SAIN Talent Pipeline. It lives on /about now, so every band points back
- * at the landing section that describes its step rather than at an anchor on
- * its own page.
+ * The SAIN Talent Pipeline. Every band points at the landing section that
+ * describes its step, so the diagram reads the same from /about and from the
+ * landing's own closing band.
+ *
+ * Two tones. On paper the fills are navy at four percent, the labels navy, the
+ * photographs multiplied into the fill, and a drop shadow puts the diagram on
+ * the table. None of that survives on the inverse ground: multiply on navy is
+ * navy. So the fills go to white at low opacity, the labels to cream, the
+ * photographs to luminosity, the rules to white, and the shadow goes, because
+ * there is nothing under it to fall on.
  *
  * The trapezoids narrow because the path narrows:
  * a course is open to anyone, a full-time role is not. The last band is solid
@@ -25,6 +32,8 @@ type Band = {
   photo: string;
   objectPosition: string;
   fill: string;
+  /** The same band on the inverse ground. The terminus is orange on both. */
+  fillInverse: string;
   restOpacity: number;
   hoverOpacity: number;
   blend: "multiply" | "luminosity";
@@ -37,10 +46,11 @@ const BANDS: Band[] = [
     href: "/#courses",
     label: "Start with a free course",
     labelCqw: 3.7,
-    labelClass: "max-w-[78%] text-center leading-[1.25] text-navy",
+    labelClass: "max-w-[78%] text-center leading-[1.25]",
     photo: "/landing/funnel-01.jpg",
     objectPosition: "38% 34%",
     fill: "#021C4D0B",
+    fillInverse: "#FFFFFF0F",
     restOpacity: 0.1,
     hoverOpacity: 0.26,
     blend: "multiply",
@@ -51,10 +61,11 @@ const BANDS: Band[] = [
     href: "/#community",
     label: "Participate in SAIN's community",
     labelCqw: 3.47,
-    labelClass: "max-w-[78%] text-center leading-[1.27] text-navy",
+    labelClass: "max-w-[78%] text-center leading-[1.27]",
     photo: "/landing/funnel-02.jpg",
     objectPosition: "72% 42%",
     fill: "#021C4D0B",
+    fillInverse: "#FFFFFF0F",
     restOpacity: 0.14,
     hoverOpacity: 0.26,
     blend: "multiply",
@@ -65,10 +76,11 @@ const BANDS: Band[] = [
     href: "/#research",
     label: "Contribute and collaborate on research or projects",
     labelCqw: 3.24,
-    labelClass: "max-w-[78%] text-center leading-[1.29] text-navy",
+    labelClass: "max-w-[78%] text-center leading-[1.29]",
     photo: "/landing/funnel-03.jpg",
     objectPosition: "82% 30%",
     fill: "#021C4D0D",
+    fillInverse: "#FFFFFF12",
     restOpacity: 0.1,
     hoverOpacity: 0.26,
     blend: "multiply",
@@ -79,10 +91,11 @@ const BANDS: Band[] = [
     href: "/#careers",
     label: "Undertake a fellowship or internship in AI Safety",
     labelCqw: 3.01,
-    labelClass: "max-w-[78%] text-center leading-[1.31] text-navy",
+    labelClass: "max-w-[78%] text-center leading-[1.31]",
     photo: "/landing/funnel-04.jpg",
     objectPosition: "42% 48%",
     fill: "#021C4D0E",
+    fillInverse: "#FFFFFF14",
     restOpacity: 0.1,
     hoverOpacity: 0.26,
     blend: "multiply",
@@ -93,10 +106,11 @@ const BANDS: Band[] = [
     href: "/#careers",
     label: "Work full-time in AI Safety",
     labelCqw: 3.24,
-    labelClass: "max-w-[78%] text-center leading-[1.29] text-white",
+    labelClass: "max-w-[78%] text-center leading-[1.29]",
     photo: "/landing/funnel-05.jpg",
     objectPosition: "50% 40%",
     fill: "#FF6025",
+    fillInverse: "#FF6025",
     restOpacity: 0.12,
     hoverOpacity: 0.32,
     blend: "luminosity",
@@ -148,9 +162,14 @@ const TERMINUS =
   `M ${EDGES[LAST]} ${y(LAST)} L ${right(LAST)} ${y(LAST)}` +
   ` L ${right(LAST + 1)} ${y(LAST + 1)} L ${EDGES[LAST + 1]} ${y(LAST + 1)} Z`;
 
-export default function TalentFunnel() {
+export default function TalentFunnel({ tone = "paper" }: { tone?: "paper" | "inverse" }) {
+  const inverse = tone === "inverse";
   return (
-    <div className="flex w-full max-w-[436px] flex-col items-center overflow-visible drop-shadow-[0_2px_16px_#00000033]">
+    <div
+      className={`flex w-full max-w-[436px] flex-col items-center overflow-visible ${
+        inverse ? "" : "drop-shadow-[0_2px_16px_#00000033]"
+      }`}
+    >
       {/* Origin: a dot and an arrow into the mouth of the funnel. */}
       <div className="flex flex-col items-center">
         <span className="size-[7px] rounded-full bg-orange" />
@@ -175,7 +194,9 @@ export default function TalentFunnel() {
               href={band.href}
               /* 86 of the 432 canvas. The height has to scale with the width
                  or the funnel stops being the shape the outline draws over. */
-              className="group relative mx-auto flex h-[19.907cqw] items-center justify-center outline-offset-2 focus-visible:outline-2 focus-visible:outline-navy"
+              className={`group relative mx-auto flex h-[19.907cqw] items-center justify-center outline-offset-2 focus-visible:outline-2 ${
+                inverse ? "focus-visible:outline-white" : "focus-visible:outline-navy"
+              }`}
               style={{ width: `${(band.width / WIDEST) * 100}%` }}
             >
               {/* Fill only. The outline is drawn once, over the whole funnel. */}
@@ -187,7 +208,7 @@ export default function TalentFunnel() {
               >
                 <polygon
                   points={`0,0 ${band.width},0 ${offset + bottom},${BAND_HEIGHT} ${offset},${BAND_HEIGHT}`}
-                  fill={band.fill}
+                  fill={inverse ? band.fillInverse : band.fill}
                 />
               </svg>
 
@@ -210,9 +231,9 @@ export default function TalentFunnel() {
                   style={
                     {
                       objectPosition: band.objectPosition,
-                      mixBlendMode: band.blend,
-                      "--rest": band.restOpacity,
-                      "--hover": band.hoverOpacity,
+                      mixBlendMode: inverse ? "luminosity" : band.blend,
+                      "--rest": inverse && !last ? band.restOpacity + 0.06 : band.restOpacity,
+                      "--hover": inverse && !last ? band.hoverOpacity + 0.06 : band.hoverOpacity,
                     } as CSSProperties
                   }
                 />
@@ -232,10 +253,10 @@ export default function TalentFunnel() {
                   for a white underline on orange. */}
               <p
                 className={`relative font-sans underline underline-offset-4 transition-colors duration-200 ${
-                  last
+                  last || inverse
                     ? "decoration-white/45 group-hover:decoration-white group-focus-visible:decoration-white"
                     : "decoration-navy/25 group-hover:decoration-navy group-focus-visible:decoration-navy"
-                } ${band.labelClass}`}
+                } ${last ? "text-white" : inverse ? "text-cream" : "text-navy"} ${band.labelClass}`}
                 /* Floored so the last band stays legible on a narrow phone,
                    capped at what it measures on the 432 canvas. */
                 style={{
@@ -258,7 +279,7 @@ export default function TalentFunnel() {
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <g stroke="#021C4D26" vectorEffect="non-scaling-stroke">
+          <g stroke={inverse ? "#FFFFFF29" : "#021C4D26"} vectorEffect="non-scaling-stroke">
             {Array.from({ length: LAST - 1 }, (_, i) => i + 1).map((i) => (
               <line key={i} x1={EDGES[i]} y1={y(i)} x2={right(i)} y2={y(i)} />
             ))}
@@ -266,7 +287,7 @@ export default function TalentFunnel() {
           <path
             d={SILHOUETTE}
             fill="none"
-            stroke="#021C4D52"
+            stroke={inverse ? "#FFFFFF52" : "#021C4D52"}
             vectorEffect="non-scaling-stroke"
           />
           <path
@@ -280,7 +301,7 @@ export default function TalentFunnel() {
 
       {/* Terminus: a short stem and a dot, so the diagram ends rather than stops. */}
       <div className="flex flex-col items-center pt-0.5">
-        <span className="h-2.5 w-px bg-navy/20" />
+        <span className={inverse ? "h-2.5 w-px bg-white/25" : "h-2.5 w-px bg-navy/20"} />
         <span className="size-[7px] rounded-full bg-orange" />
       </div>
     </div>

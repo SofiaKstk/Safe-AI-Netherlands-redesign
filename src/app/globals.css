@@ -278,7 +278,7 @@
   padding-block: clamp(4rem, 5.3vw + 2.76rem, 7rem);
 }
 @utility band-close {
-  padding-block: clamp(3.75rem, 3.54vw + 2.92rem, 5.75rem);
+  padding-block: clamp(3rem, 2.65vw + 2.38rem, 4.5rem);
 }
 
 /* A photo strip pushed with a thumb. The next print showing past the edge is

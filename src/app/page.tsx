@@ -9,7 +9,7 @@ import ResearchSteps from "@/components/landing/ResearchSteps";
 import ResearchIllustration from "@/components/landing/ResearchIllustration";
 import ResearchOffer from "@/components/landing/ResearchOffer";
 import HeroChart from "@/components/landing/HeroChart";
-import PathwayTrail from "@/components/landing/PathwayTrail";
+import TalentFunnel from "@/components/TalentFunnel";
 import SectionOrbits from "@/components/landing/SectionOrbits";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import {
@@ -348,20 +348,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Get involved. Inverse, because this band asks for a decision. */}
+      {/* Get involved. Inverse, because this band asks for a decision.
+
+          The pipeline is drawn as the funnel here rather than as the trail,
+          in the funnel's inverse tone: white fills, cream labels, the
+          photographs on luminosity, and no drop shadow, because on this
+          ground there is nothing under the diagram to fall on. Same component
+          as /about, drawn straight onto the navy at about five sixths the
+          width, so the five bands come to roughly the height of the column
+          beside them.
+
+          The second sentence of the paragraph used to say start with a course
+          or write to us about helping run one, which is what the two buttons
+          underneath it say. */}
       <section id="involved" aria-labelledby="involved-heading" className="scroll-mt-36 bg-navy">
-        <div className="shell band-close grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] xl:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
+        <div className="shell band-close grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:gap-14">
           <div className="flex min-w-0 flex-col gap-[22px]">
             <p className="kicker text-kicker text-white/60">Get involved</p>
             <h2 id="involved-heading" className="max-w-[580px] font-serif text-closing text-white">
               The next decade is being decided now
             </h2>
-            <p className="font-sans text-body text-white/78">
-              Every SAIN programme is free and run by volunteers. Start with a course, or write to
-              us about helping run one.
+            <p className="max-w-[560px] font-sans text-body text-white/78">
+              Every SAIN programme is free and run by volunteers.
             </p>
             <div className="flex flex-wrap gap-3">
-              {/* The trail's first stop and this button have to mean the same
+              {/* The funnel's first band and this button have to mean the same
                   thing: the course section on this page. */}
               <Link href="#courses" className="btn-accent">
                 Start with a free course
@@ -372,7 +383,9 @@ export default function Home() {
             </div>
           </div>
 
-          <PathwayTrail />
+          <div className="w-full max-w-[360px] justify-self-center lg:justify-self-end">
+            <TalentFunnel tone="inverse" />
+          </div>
         </div>
       </section>
     </>
