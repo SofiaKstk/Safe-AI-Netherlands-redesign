@@ -324,7 +324,13 @@ export default function Home() {
               </Link>
             </div>
 
-            <blockquote className="flex min-w-0 flex-col gap-[18px]">
+            {/* Dropped to the paragraph's first line rather than the band's
+                top edge. Level with "Careers" the quote read as a second
+                heading for the section; level with the prose it reads as part
+                of it. The offset is the left column's own stack -- the kicker's
+                24px line, the heading's line, and the two 22px gaps between
+                them -- so it follows the heading as that clamp grows. */}
+            <blockquote className="flex min-w-0 flex-col gap-[18px] lg:mt-[calc(68px+1.14*var(--text-heading-sm))]">
               <p className="kicker text-base leading-[22px] text-navy/65">
                 Internship · Existential Risk Observatory
               </p>
