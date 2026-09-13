@@ -56,43 +56,16 @@ const chapters = [
   },
 ];
 
-/* Career destinations. Four cells in the careers band: a 26px orange icon,
-   a serif title, and one line that says what the work is and where it leads.
-
-   The destination used to be a fourth element of its own, set apart in the
-   metadata voice. On a row that worked -- the four of them read down the
-   band's right edge as a column of answers. In a cell it was a loose line
-   under the description repeating a noun the description had already earned,
-   so it is back inside the sentence.
-
-   One icon per cell. There were two once, a topic glyph and a second one in
-   front of the destination, which put eight icons in a four-item list. A
-   Buildings glyph ahead of the words "Labs and institutes" is the bullet dot
-   design.md warns about: it repeats the label instead of adding to it.
-
-   Phosphor at light weight is the closest match to the 1.4 stroke the rest of
-   the page draws with. */
+/* The four kinds of work, as an index. Each is a 26px orange icon and a
+   serif title, with no line of description under it: the titles say what the
+   work is, and a sentence apiece turned a four-item index back into a block
+   of prose. Phosphor at light weight is the closest match to the 1.4 stroke
+   the rest of the page draws with. */
 const careerTracks = [
-  {
-    title: "Technical research",
-    description: "Interpretability, evaluations and control research at labs and institutes.",
-    Icon: Flask,
-  },
-  {
-    title: "Governance and policy",
-    description: "Advising ministries, regulators and standards bodies on frontier AI.",
-    Icon: PencilSimpleLine,
-  },
-  {
-    title: "Field building",
-    description: "Running programmes, chapters and communications for the Dutch community.",
-    Icon: Broadcast,
-  },
-  {
-    title: "Security and compute",
-    description: "Model security, compute governance and assurance engineering in industry.",
-    Icon: ShieldCheck,
-  },
+  { title: "Technical research", Icon: Flask },
+  { title: "Governance and policy", Icon: PencilSimpleLine },
+  { title: "Field building", Icon: Broadcast },
+  { title: "Security and compute", Icon: ShieldCheck },
 ];
 
 
@@ -332,23 +305,23 @@ export default function Home() {
       </section>
 
       {/* Careers. An index band, built like the communities one above it: a
-          rail on the left, hairline cells on the right carrying the chapter
-          cell's own left rule and 18px inset.
+          rail on the left, four hairline cells on the right carrying the
+          chapter cell's own left rule and 18px inset.
 
-          The rail states the claim and then lets someone else make it. The
-          quote sits under the heading rather than beside it, so nothing here
-          depends on matching the height of a stack in the other column, which
-          is what the hand-set offset it used to carry was for.
-
-          Two columns of cells rather than four. Four made a 130px strip
-          against a 300px rail and left the band lopsided; paired, the cells
-          come down to about the rail's own depth and each line of copy gets a
-          width it can be read at. */}
+          The rail states the claim and then lets someone else make it, so the
+          quote sits under the heading rather than beside it and nothing here
+          depends on matching the height of a stack in the other column. */}
       <section id="careers" aria-labelledby="careers-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
-        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:gap-12">
           <div className="flex min-w-0 flex-col gap-[22px] lg:w-[300px] lg:shrink-0">
+            {/* The band's own sentence, from the paragraph that used to run
+                under the heading. "Build an AI Safety career" told a reader
+                who already wanted one to go ahead; this tells the reader who
+                thinks they took the wrong degree that almost nobody here
+                planned it either. Stefano, directly underneath, is the
+                instance of it. */}
             <h2 id="careers-heading" className="font-serif text-heading-sm text-navy">
-              Build an AI Safety career
+              Most AI Safety careers were not planned
             </h2>
             <blockquote className="flex min-w-0 flex-col gap-[18px]">
               <p className="kicker text-base leading-[22px] text-navy/65">
@@ -369,7 +342,11 @@ export default function Home() {
             </blockquote>
           </div>
 
-          <div className="grid flex-1 gap-x-6 gap-y-7 sm:grid-cols-2">
+          {/* Four across, and the column is left to stretch, so the four
+              hairlines run the depth of the rail beside them with the titles
+              at the top of each. That is the chapter cell's device: the rule
+              carries the height, the type sits where the eye starts. */}
+          <div className="grid flex-1 gap-x-6 gap-y-7 sm:grid-cols-2 xl:grid-cols-4">
             {careerTracks.map((track) => (
               <article
                 key={track.title}
@@ -382,9 +359,6 @@ export default function Home() {
                   aria-hidden="true"
                 />
                 <h3 className="mt-3 font-serif text-title-sm text-navy">{track.title}</h3>
-                <p className="mt-2 font-sans text-ui leading-[23px] text-navy/68">
-                  {track.description}
-                </p>
               </article>
             ))}
           </div>
