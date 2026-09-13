@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { CaretDown, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { CaretDown } from "@phosphor-icons/react/dist/ssr";
 
 import {
   courseApplicationFor,
@@ -362,25 +362,19 @@ export default function CourseTabs() {
                     href={courseApplicationFor(entry.city).href}
                     className="group/city flex flex-col gap-1 border-t border-navy/10 py-2.5 transition-colors duration-200 hover:bg-navy/5 focus-visible:bg-navy/5 sm:flex-row sm:items-baseline sm:gap-4"
                   >
-                    <span className="flex w-[108px] shrink-0 items-baseline gap-1.5 font-serif text-base leading-[22px] text-navy">
-                      <span className="underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover/city:decoration-navy group-focus-visible/city:decoration-navy">
-                        {entry.city}
-                      </span>
-                      {/* The arrow points, it does not travel. Sliding it was a
-                          fourth cue on a row that already had three -- the
-                          underline is there at rest, it darkens on hover, and
-                          the whole row takes a wash -- and 2px of it eased in
-                          and out over 200ms reads as the glyph lagging the
-                          cursor rather than as a nudge. Every other arrow on
-                          the site is static beside its link, so it deepens with
-                          the underline instead: one gesture, and colour is a
-                          cue reduced motion keeps. */}
-                      <ArrowRight
-                        size={12}
-                        weight="light"
-                        aria-hidden="true"
-                        className="shrink-0 -translate-y-px text-navy/45 transition-colors duration-200 group-hover/city:text-navy group-focus-visible/city:text-navy"
-                      />
+                    {/* No arrow glyph on the row. It was a fourth cue behind
+                        three that already said "link" -- the underline is drawn
+                        at rest, it darkens on hover, and the row takes a wash --
+                        so it carried nothing the others lacked. It also put two
+                        arrow shapes in one block: the caret on the header and
+                        this one here. The caret is md:hidden, so crossing 768px
+                        swapped which of the two was on screen and the pair read
+                        as one arrow changing shape with the viewport. The caret
+                        is the one that stays, because it is a disclosure
+                        control rather than a direction, and it exists only in
+                        the mode where the headers are a disclosure list. */}
+                    <span className="w-[108px] shrink-0 font-serif text-base leading-[22px] text-navy underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover/city:decoration-navy group-focus-visible/city:decoration-navy">
+                      {entry.city}
                     </span>
                     <span className="font-sans text-ui leading-[22px] text-navy/72">
                       {entry.detail}
