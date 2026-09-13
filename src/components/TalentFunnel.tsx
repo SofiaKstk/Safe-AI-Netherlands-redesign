@@ -51,8 +51,8 @@ const BANDS: Band[] = [
     objectPosition: "38% 34%",
     fill: "#021C4D0B",
     fillInverse: "#FFFFFF0F",
-    restOpacity: 0.1,
-    hoverOpacity: 0.26,
+    restOpacity: 0.08,
+    hoverOpacity: 0.208,
     blend: "multiply",
   },
   {
@@ -66,8 +66,8 @@ const BANDS: Band[] = [
     objectPosition: "72% 42%",
     fill: "#021C4D0B",
     fillInverse: "#FFFFFF0F",
-    restOpacity: 0.14,
-    hoverOpacity: 0.26,
+    restOpacity: 0.112,
+    hoverOpacity: 0.208,
     blend: "multiply",
   },
   {
@@ -81,8 +81,8 @@ const BANDS: Band[] = [
     objectPosition: "82% 30%",
     fill: "#021C4D0D",
     fillInverse: "#FFFFFF12",
-    restOpacity: 0.1,
-    hoverOpacity: 0.26,
+    restOpacity: 0.08,
+    hoverOpacity: 0.208,
     blend: "multiply",
   },
   {
@@ -96,8 +96,8 @@ const BANDS: Band[] = [
     objectPosition: "42% 48%",
     fill: "#021C4D0E",
     fillInverse: "#FFFFFF14",
-    restOpacity: 0.1,
-    hoverOpacity: 0.26,
+    restOpacity: 0.08,
+    hoverOpacity: 0.208,
     blend: "multiply",
   },
   {
@@ -111,8 +111,8 @@ const BANDS: Band[] = [
     objectPosition: "50% 40%",
     fill: "#FF6025",
     fillInverse: "#FF6025",
-    restOpacity: 0.12,
-    hoverOpacity: 0.32,
+    restOpacity: 0.096,
+    hoverOpacity: 0.256,
     blend: "luminosity",
   },
 ];
@@ -232,8 +232,8 @@ export default function TalentFunnel({ tone = "paper" }: { tone?: "paper" | "inv
                     {
                       objectPosition: band.objectPosition,
                       mixBlendMode: inverse ? "luminosity" : band.blend,
-                      "--rest": inverse && !last ? band.restOpacity + 0.06 : band.restOpacity,
-                      "--hover": inverse && !last ? band.hoverOpacity + 0.06 : band.hoverOpacity,
+                      "--rest": inverse && !last ? band.restOpacity + 0.048 : band.restOpacity,
+                      "--hover": inverse && !last ? band.hoverOpacity + 0.048 : band.hoverOpacity,
                     } as CSSProperties
                   }
                 />
