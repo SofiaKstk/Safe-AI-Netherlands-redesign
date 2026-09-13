@@ -16,13 +16,7 @@ import {
   formatCityList,
   openCourseApplications,
 } from "@/data/courseApplications";
-import {
-  ArrowRight,
-  Broadcast,
-  Flask,
-  PencilSimpleLine,
-  ShieldCheck,
-} from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 /* No `title` here on purpose: the landing falls through to the root layout's
    `title.default`, so the tab reads "Safe AI Netherlands" and nothing more.
@@ -56,18 +50,15 @@ const chapters = [
   },
 ];
 
-/* The four kinds of work, as an index. Each is a 26px orange icon and a
-   serif title, with no line of description under it: the titles say what the
-   work is, and a sentence apiece turned a four-item index back into a block
-   of prose. Phosphor at light weight is the closest match to the 1.4 stroke
-   the rest of the page draws with. */
+/* The four kinds of work SAIN opens doors into, named once under the claim
+   they belong to. They were four cells with an icon apiece, which gave a
+   passing mention the footprint of a section. */
 const careerTracks = [
-  { title: "Technical research", Icon: Flask },
-  { title: "Governance and policy", Icon: PencilSimpleLine },
-  { title: "Field building", Icon: Broadcast },
-  { title: "Security and compute", Icon: ShieldCheck },
+  "Technical research",
+  "Governance and policy",
+  "Field building",
+  "Security and compute",
 ];
-
 
 
 function Arrow() {
@@ -304,64 +295,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Careers. An index band, built like the communities one above it: a
-          rail on the left, four hairline cells on the right carrying the
-          chapter cell's own left rule and 18px inset.
+      {/* Careers. The claim, the paragraph that argues it, and the four kinds
+          of work named on a closing rule, with the quote alongside.
 
-          The rail states the claim and then lets someone else make it, so the
-          quote sits under the heading rather than beside it and nothing here
-          depends on matching the height of a stack in the other column. */}
+          The four tracks were cells of their own, which is more room than a
+          list of names needs; on one line they read as the range of the thing
+          rather than as four items competing with the paragraph above them.
+
+          The quote starts level with the heading. There is no kicker over it
+          any more, which is what the quote used to collide with and what the
+          hand-set offset here was correcting for. */}
       <section id="careers" aria-labelledby="careers-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
-        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:gap-12">
-          <div className="flex min-w-0 flex-col gap-[22px] lg:w-[300px] lg:shrink-0">
-            {/* The band's own sentence, from the paragraph that used to run
-                under the heading. "Build an AI Safety career" told a reader
-                who already wanted one to go ahead; this tells the reader who
-                thinks they took the wrong degree that almost nobody here
-                planned it either. Stefano, directly underneath, is the
-                instance of it. */}
-            <h2 id="careers-heading" className="font-serif text-heading-sm text-navy">
-              Most AI Safety careers were not planned
+        <div className="shell band-index grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_minmax(280px,420px)]">
+          <div className="flex min-w-0 flex-col gap-[22px]">
+            <h2 id="careers-heading" className="max-w-[620px] font-serif text-heading-sm text-navy">
+              Build an AI Safety career
             </h2>
-            <blockquote className="flex min-w-0 flex-col gap-[18px]">
-              <p className="kicker text-base leading-[22px] text-navy/65">
-                Internship · Existential Risk Observatory
-              </p>
-              <p className="font-serif text-title font-light leading-[31px] text-navy">
-                &ldquo;Without this community I almost certainly wouldn&rsquo;t be where I
-                am.&rdquo;
-              </p>
-              <footer className="border-t border-navy/14 pt-3">
-                <cite className="block font-sans text-sm font-medium not-italic leading-5 text-navy">
-                  Stefano Zuffi
-                </cite>
-                <p className="kicker mt-1 text-kicker-sm text-navy/65">
-                  Mapping research on AI alignment techniques and government interventions
-                </p>
-              </footer>
-            </blockquote>
+            <p className="max-w-[680px] font-sans text-body text-navy/74">
+              Most people who end up working on AI Safety did not plan for it. We shorten that
+              path with mentorship, funding advice, and introductions to the labs, institutes and
+              ministries hiring in Europe right now.
+            </p>
+            {/* The separators are drawn rather than typed, so a screen reader
+                reads four names and not four middots. */}
+            <ul role="list" className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-navy/14 pt-4">
+              {careerTracks.map((track, i) => (
+                <li key={track} className="flex items-center gap-3">
+                  {i > 0 ? <span aria-hidden="true" className="text-navy/25">·</span> : null}
+                  <span className="kicker text-caption text-navy/65">{track}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Four across, and the column is left to stretch, so the four
-              hairlines run the depth of the rail beside them with the titles
-              at the top of each. That is the chapter cell's device: the rule
-              carries the height, the type sits where the eye starts. */}
-          <div className="grid flex-1 gap-x-6 gap-y-7 sm:grid-cols-2 xl:grid-cols-4">
-            {careerTracks.map((track) => (
-              <article
-                key={track.title}
-                className="border-l border-navy/14 py-1 pl-[18px] pr-4"
-              >
-                <track.Icon
-                  size={26}
-                  weight="light"
-                  className="text-orange"
-                  aria-hidden="true"
-                />
-                <h3 className="mt-3 font-serif text-title-sm text-navy">{track.title}</h3>
-              </article>
-            ))}
-          </div>
+          <blockquote className="flex min-w-0 flex-col gap-[18px]">
+            <p className="kicker text-base leading-[22px] text-navy/65">
+              Internship · Existential Risk Observatory
+            </p>
+            <p className="font-serif text-title font-light leading-[31px] text-navy">
+              &ldquo;Without this community I almost certainly wouldn&rsquo;t be where I
+              am.&rdquo;
+            </p>
+            <footer className="border-t border-navy/14 pt-3">
+              <cite className="block font-sans text-sm font-medium not-italic leading-5 text-navy">
+                Stefano Zuffi
+              </cite>
+              <p className="kicker mt-1 text-kicker-sm text-navy/65">
+                Mapping research on AI alignment techniques and government interventions
+              </p>
+            </footer>
+          </blockquote>
         </div>
       </section>
 
