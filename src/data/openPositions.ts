@@ -37,7 +37,7 @@ export const APPLICATION_FORM_URL =
  * National roles do not go through the chapter Google Form: each one has its
  * own form, because the questions are role-specific rather than
  * chapter-and-role shaped. This Airtable form is for the Research Operations
- * Lead and nothing else — give any future national role its own URL rather
+ * Lead and nothing else. Give any future national role its own URL rather
  * than reusing this one.
  */
 export const RESEARCH_OPERATIONS_LEAD_APPLICATION_FORM_URL =
@@ -667,10 +667,22 @@ export type ChapterPosting = {
   /** Slug used in pre-fill (must match the option text in the Google Form). */
   chapterSlug: string;
   chapterName: string;
-  blurb: string;
+  /**
+   * The section heading on /open-positions. It states what the chapter is
+   * doing ("SAIN Amsterdam is building its core team"), so the reader knows
+   * whose schedule they are reading before any role title.
+   */
+  heading: string;
+  /** Body paragraph under the heading while the chapter is recruiting. */
+  blurb?: string;
   inboxEmail: string;
   status: "open" | "closed";
-  closedNote?: string;
+  /**
+   * Body shown instead of `blurb` when the chapter is closed. Rendered as one
+   * sentence with the chapter inbox as an inline link between the two halves,
+   * so a closed chapter is a fact with a door, not a section.
+   */
+  closedNote?: { beforeEmail: string; afterEmail: string };
   /**
    * Each posting references a role id from ROLES. Optionally specify how many
    * positions are open and an override on title or notes for the chapter.
@@ -686,8 +698,9 @@ export const chapterPositions: ChapterPosting[] = [
   {
     chapterSlug: "Amsterdam",
     chapterName: "SAIN Amsterdam",
+    heading: "SAIN Amsterdam is building its core team",
     blurb:
-      "SAIN Amsterdam is building its core team. Co-Directors Ana and Andreea are looking for team leads and team members across all teams. If you want to help shape a chapter from the ground up, this is the moment.",
+      "Co-Directors Ana and Andreea are looking for team leads and team members across all teams. If you want to help shape a chapter from the ground up, this is the moment.",
     inboxEmail: "infoams@safeainetherlands.org",
     status: "open",
     postings: [
@@ -699,8 +712,9 @@ export const chapterPositions: ChapterPosting[] = [
   {
     chapterSlug: "Utrecht",
     chapterName: "SAIN Utrecht",
+    heading: "SAIN Utrecht is growing its team",
     blurb:
-      "SAIN Utrecht is building its core team. Director Riccardo and the current team leads are looking for hands-on contributors who want to grow the chapter.",
+      "Director Riccardo and the current team leads are looking for hands-on contributors who want to grow the chapter.",
     inboxEmail: "infoutr@safeainetherlands.org",
     status: "open",
     postings: [
@@ -712,8 +726,16 @@ export const chapterPositions: ChapterPosting[] = [
   {
     chapterSlug: "Groningen",
     chapterName: "SAIN Groningen",
-    blurb:
-      "A few targeted openings in Groningen for people who want to plug into an established, ambitious chapter. We are selectively hiring to strengthen Communications and to support the national Research Hub.",
+    heading: "SAIN Groningen is at capacity",
+    /* The blurb that stood here claimed selective hiring for Communications
+       and the Research Hub while `postings` was empty, so a reader was told
+       "we are hiring" and then shown nothing to apply for. If Groningen does
+       open something, add the posting; do not revive the claim. */
+    closedNote: {
+      beforeEmail:
+        "The Groningen team is full right now, and we are not listing roles there. If you want to be considered when something opens, write to",
+      afterEmail: "and tell us what you would like to do.",
+    },
     inboxEmail: "infogro@safeainetherlands.org",
     status: "closed",
     postings: [],
@@ -728,6 +750,8 @@ export type NationalPosting = {
   /** Anchor slug used for the section on /open-positions. */
   slug: string;
   name: string;
+  /** The section heading on /open-positions. */
+  heading: string;
   blurb: string;
   inboxEmail: string;
   status: "open" | "closed";
@@ -753,8 +777,9 @@ export type NationalPosting = {
 export const nationalPosting: NationalPosting = {
   slug: "national",
   name: "SAIN Netherlands",
+  heading: "One paid role on the national team",
   blurb:
-    "Some roles belong to SAIN as a whole rather than to a single chapter. Unlike our volunteer positions, these are paid staff roles on the small national team: they work across Amsterdam, Utrecht, and Groningen and report into the national leadership. Each has its own application form and hiring process.",
+    "Most of SAIN runs on volunteers. The Research Operations Lead is the exception: a paid, full-time staff role that works across Amsterdam, Utrecht, and Groningen and reports to the Director. It has its own application form and hiring process, separate from the chapter form below.",
   inboxEmail: "info@safeainetherlands.org",
   status: "open",
   postings: [
@@ -798,6 +823,16 @@ export function isChapterRecruiting(chapterSlug: string): boolean {
 /** Chapters currently recruiting, in the order declared above. */
 export const recruitingChapters: ChapterPosting[] = chapterPositions.filter(
   (c) => isChapterRecruiting(c.chapterSlug),
+);
+
+/**
+ * How many volunteer roles are listed across the recruiting chapters. The
+ * careers hero counts the page rather than restating a number in prose, so
+ * closing a posting changes the sentence without anyone editing it.
+ */
+export const openChapterPostingCount = recruitingChapters.reduce(
+  (total, chapter) => total + (chapter.postings?.length ?? 0),
+  0,
 );
 
 /**
@@ -849,7 +884,7 @@ export const APPLICATION_TIMELINE: TimelineStep[] = [
   {
     label: "First-round response",
     detail:
-      "Within 2 to 3 weeks of applying. Strong candidates are invited to a short intro call with the chapter lead for that team.",
+      "Within two to three weeks of applying. Strong candidates are invited to a short intro call with the chapter lead for that team.",
   },
   {
     label: "Trial conversation",

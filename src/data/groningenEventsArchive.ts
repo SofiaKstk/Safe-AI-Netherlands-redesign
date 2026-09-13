@@ -153,7 +153,7 @@ export const groningenEventsArchive: GroningenArchivedEvent[] = [
     date: "Sunday, May 18, 2025",
     time: "7:00 PM 10:00 PM",
     description:
-      "Connect with fellow AI-safety enthusiasts at our next AISIG Safety Chat! We’ll gather for an informal, thought-provoking discussion on Autonomous Weapons & AI in the Military—from civilian risk and accountability to the future role of human soldiers.",
+      "Connect with fellow AI-safety enthusiasts at our next AISIG Safety Chat! We’ll gather for an informal, thought-provoking discussion on Autonomous Weapons & AI in the Military, from civilian risk and accountability to the future role of human soldiers.",
     image:
       "/photos/events/archive/archive-15.jpg",
     academicYear: "2024-2025",
@@ -213,7 +213,7 @@ export const groningenEventsArchive: GroningenArchivedEvent[] = [
     date: "Sunday, January 12, 2025",
     time: "6:25 PM 10:00 PM",
     description:
-      "Join the AISIG x Vivatam AI Safety Dinner! Engage in an open discussion on critical AI safety questions — from bias and trust to life-or-death decisions. Enjoy thought-provoking conversations over a delicious meal at The Literary Café!",
+      "Join the AISIG x Vivatam AI Safety Dinner! Engage in an open discussion on critical AI safety questions, from bias and trust to life-or-death decisions. Enjoy thought-provoking conversations over a delicious meal at The Literary Café!",
     image:
       "/photos/events/archive/archive-20.jpg",
     academicYear: "2024-2025",

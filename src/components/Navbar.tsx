@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { hasOpenPositions } from "@/data/openPositions";
-import { List, X } from "@phosphor-icons/react/dist/ssr";
+import { ListIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
 
 /* The authorship shell: a civic broadcast strip, then the header. The strip
    scrolls away once read; the header pins to the top for the rest of the page.
@@ -132,9 +132,9 @@ export default function Navbar() {
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
               {mobileOpen ? (
-                <X size={18} weight="light" aria-hidden="true" />
+                <XIcon size={18} weight="light" aria-hidden="true" />
               ) : (
-                <List size={18} weight="light" aria-hidden="true" />
+                <ListIcon size={18} weight="light" aria-hidden="true" />
               )}
             </button>
           </div>

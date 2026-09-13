@@ -63,12 +63,12 @@ const TRACKS: Track[] = [
       "A weekly series on risks, technical safety and governance, taught so newcomers can drop in. Three editions in Utrecht have reached more than 100 students, researchers, engineers and public-sector people.",
     outlineTitle: "Weekly themes",
     outline: [
-      "Introduction — capabilities, risks, and solution families",
-      "Risks and incidents — social harms, misuse, loss of control",
-      "Technical AI Safety — oversight, evaluations, interpretability",
-      "Regulation and governance — EU AI Act, audits, GPAI duties",
-      "Why safety is hard — incentives, funding gaps, race dynamics",
-      "Pathways — thesis, fellowship, then a full-time role",
+      "Introduction: capabilities, risks, and solution families",
+      "Risks and incidents: social harms, misuse, loss of control",
+      "Technical AI Safety: oversight, evaluations, interpretability",
+      "Regulation and governance: EU AI Act, audits, GPAI duties",
+      "Why safety is hard: incentives, funding gaps, race dynamics",
+      "Pathways: thesis, fellowship, then a full-time role",
     ],
     cities: [
       {
@@ -91,9 +91,9 @@ const TRACKS: Track[] = [
     outlineTitle: "Utrecht ARENA",
     outline: [
       "Transformers and mechanistic interpretability",
-      "Probing and representations — linear probes, SAEs",
-      "PPO and RLHF — the alignment pipeline",
-      "GRPO and reward hacking — seeing failure modes",
+      "Probing and representations: linear probes, SAEs",
+      "PPO and RLHF: the alignment pipeline",
+      "GRPO and reward hacking: seeing failure modes",
     ],
     cities: [
       {
@@ -103,7 +103,7 @@ const TRACKS: Track[] = [
       {
         city: "Groningen",
         detail:
-          "Technical track of AI Safety, Ethics, and Society. 6 weeks, 3–4 cohorts a year.",
+          "Technical track of AI Safety, Ethics, and Society. 6 weeks, 3 to 4 cohorts a year.",
       },
       {
         city: "Amsterdam",
@@ -125,12 +125,12 @@ const TRACKS: Track[] = [
       "Amsterdam runs BlueDot Frontier AI Governance. Groningen runs the governance track of AI Safety, Ethics, and Society. Utrecht hosts a weekly AI Governance & Policy discussion group. Facilitators include researchers, risk consultants, and public-sector people.",
     outlineTitle: "Six-week courses (Groningen and Amsterdam)",
     outline: [
-      "The EU AI Act — duties across the lifecycle",
-      "Dutch implementation — ministries, regulators, standards",
-      "Accountability — audits, evidence, GPAI obligations",
-      "Risk management — NIST and frontier evaluation",
-      "Case studies — accidents, misuse, institutional lag",
-      "Pathways — policy fellowships, ministries, standards bodies",
+      "The EU AI Act: duties across the lifecycle",
+      "Dutch implementation: ministries, regulators, standards",
+      "Accountability: audits, evidence, GPAI obligations",
+      "Risk management: NIST and frontier evaluation",
+      "Case studies: accidents, misuse, institutional lag",
+      "Pathways: policy fellowships, ministries, standards bodies",
     ],
     cities: [
       {

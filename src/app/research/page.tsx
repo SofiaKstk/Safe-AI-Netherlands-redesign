@@ -1,406 +1,474 @@
-"use client";
-
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import FadeIn from "@/components/FadeIn";
-import {
-  ROLES,
-  isNationalRoleOpen,
-  nationalPosting,
-} from "@/data/openPositions";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+
+import Reveal from "@/components/landing/Reveal";
+import FittingTheCurve from "@/components/research/FittingTheCurve";
+import FeaturedPublications from "@/components/research/FeaturedPublications";
+import SectionOrbits from "@/components/research/SectionOrbits";
+import SupervisorRow from "@/components/research/SupervisorRow";
 import {
   publications,
   supervisors,
   RESEARCH_EMAIL,
   RESEARCH_INTEREST_FORM_URL,
 } from "@/data/research";
-import { Cpu, FileText, GlobeHemisphereWest, UsersThree } from "@phosphor-icons/react/dist/ssr";
 
-/** Shows the hiring banner only while the Research Operations Lead role is open. */
-const researchLeadIsOpen = isNationalRoleOpen("research-operations-lead");
+export const metadata: Metadata = {
+  title: "Research hub",
+  description:
+    "The SAIN Research Hub matches you with an experienced supervisor, arranges compute, and takes a project from open question to published finding. Voluntary, remote-friendly, and open for applications at any time.",
+};
 
-const hubFeatures = [
+const SUPERVISOR_MAILTO = `mailto:${RESEARCH_EMAIL}?subject=${encodeURIComponent(
+  "Research Hub: becoming a supervisor",
+)}`;
+const RESEARCHER_MAILTO = `mailto:${RESEARCH_EMAIL}?subject=${encodeURIComponent(
+  "Research Hub: joining as a researcher",
+)}`;
+
+/* Counted from the data file rather than typed. The old hero carried "6+ Active
+   Projects  ·  20+ Researchers  ·  12+ Publications", and two of the three
+   traced to nothing while the third contradicted the exact twelve papers this
+   page lists. A number on this page has to be checkable by the reader, because
+   the reader is the sort who checks. */
+const factLine = [
+  `${publications.length} publications`,
+  `${supervisors.length} supervisors`,
+  "rolling applications",
+];
+
+/* The three doors into a project. All three are normal, so all three are set
+   the same way: no track is styled as the real one. */
+const projectRoutes = [
   {
-    title: "Supervised Matching",
-    description: "We connect talented researchers with PhD+ supervisors for structured, mentored AI Safety research projects.",
-    icon: (
-      <UsersThree className="w-6 h-6" weight="light" aria-hidden="true" />
-    ),
+    lead: "Work from a supervisor's agenda.",
+    body: "Every SAIN supervisor keeps a public research agenda, a document of open questions they want help investigating. Read the agendas below and pick a question that fits your background.",
   },
   {
-    title: "Compute & Support",
-    description: "We provide compute resources and logistical support for open collaborations and research projects.",
-    icon: (
-      <Cpu className="w-6 h-6" weight="light" aria-hidden="true" />
-    ),
+    lead: "Join an open collaboration.",
+    body: "Some projects run without formal supervision. One researcher leads, usually the person who designed the project, and SAIN connects collaborators and supports the work.",
   },
   {
-    title: "National Network",
-    description: "Access the full SAIN network: researchers, advisors, and practitioners across all Dutch chapters.",
-    icon: (
-      <GlobeHemisphereWest className="w-6 h-6" weight="light" aria-hidden="true" />
-    ),
-  },
-  {
-    title: "Publication Track",
-    description: "Our community has published at NeurIPS, ICLR, and other top venues. We help you build a strong AI Safety research track record.",
-    icon: (
-      <FileText className="w-6 h-6" weight="light" aria-hidden="true" />
-    ),
+    lead: "Bring your own idea.",
+    body: "Write a short proposal: the question, why it matters, how you would test it, and what you need. SAIN's research team reviews it, and can help you shape it if it is not fully formed yet.",
   },
 ];
+
+const eligibility = [
+  "Students at Bachelor, Master, or PhD level",
+  "Researchers working in industry",
+  "People with no formal affiliation",
+];
+
+function InverseLink({ href, children, external = false }: {
+  href: string;
+  children: ReactNode;
+  external?: boolean;
+}) {
+  const className =
+    "inline-flex items-center gap-3 text-label leading-6 text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white";
+  const content = (
+    <>
+      {children}
+      <ArrowRight size={16} weight="regular" aria-hidden="true" />
+    </>
+  );
+  return external ? (
+    <a href={href} className={className}>
+      {content}
+    </a>
+  ) : (
+    <Link href={href} className={className}>
+      {content}
+    </Link>
+  );
+}
+
+/* One step of the spine. The numeral is the page's own serif at the heading's
+   size, so its baseline lands on the title's without a nudge, and a 1px white
+   spine carries the eye from one step to the next. Same device as the landing's
+   research band, because it is the same journey told at length. */
+function Step({ step, id, title, children }: {
+  step: string;
+  id: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <li
+      id={id}
+      className="relative scroll-mt-36 pb-12 before:absolute before:bottom-0 before:left-[19px] before:top-11 before:w-px before:bg-white/[0.08] last:pb-0 last:before:hidden md:pb-16"
+    >
+      <div className="grid grid-cols-[40px_minmax(0,1fr)] gap-x-4">
+        <span aria-hidden="true" className="font-serif text-heading-sm tabular-nums text-white/40">
+          {step}
+        </span>
+        <div className="min-w-0">
+          <h3 className="font-serif text-heading-sm">{title}</h3>
+          {children}
+        </div>
+      </div>
+    </li>
+  );
+}
 
 export default function ResearchPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative pb-20 pt-16 md:pb-28 md:pt-20 bg-white overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04]">
+      {/* Hero. The claim on the left, the argument of the page drawn on the
+          right: a scatter, two people fitting a line through it, and the line
+          leaving the plot as a printed page. White fades into paper in the last
+          5%, a seam rather than a sky. */}
+      <section
+        aria-labelledby="research-hero-heading"
+        className="relative isolate overflow-hidden"
+        style={{
+          backgroundImage:
+            "linear-gradient(in oklab 180deg, white 0%, white 95%, #f7f5f2 100%)",
+        }}
+      >
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
           <div
-            className="absolute inset-0"
+            className="absolute -left-8 -top-20 h-[400px] w-[200px] opacity-[0.07] md:-left-4 md:-top-12 md:h-[440px] md:w-[260px] md:opacity-[0.12]"
             style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, #021c4d 1px, transparent 0)`,
-              backgroundSize: "40px 40px",
+              backgroundImage: "url('/illustrations/hero-orbits.svg')",
+              backgroundSize: "260px 440px",
+              backgroundRepeat: "no-repeat",
+              maskImage: "linear-gradient(to right, black 15%, transparent 100%)",
             }}
           />
+          <svg
+            className="absolute -bottom-10 -right-10 h-[190px] w-[190px] -scale-x-100 text-navy opacity-[0.06] md:h-[230px] md:w-[230px] md:opacity-[0.09]"
+            viewBox="0 0 230 230"
+            fill="none"
+          >
+            <g stroke="currentColor" strokeWidth="1">
+              <circle cx="0" cy="230" r="85" />
+              <circle cx="0" cy="230" r="119" />
+              <circle cx="0" cy="230" r="153" />
+            </g>
+            <path d="M167 80 Q168 87 174 88 Q168 89 167 96 Q166 89 160 88 Q166 87 167 80Z" fill="currentColor" />
+          </svg>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
-        <div className="section-container relative z-10">
-          <FadeIn>
-            <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-4">
-              Research Hub
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 className="heading-xl text-navy-900 max-w-3xl mb-6">
-              Advancing AI Safety research in the Netherlands
+        <div className="shell band-hero grid min-h-[60dvh] items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] xl:grid-cols-[minmax(0,700px)_minmax(0,1fr)]">
+          <Reveal hero className="flex min-w-0 flex-col gap-6">
+            <h1 id="research-hero-heading" className="font-serif text-display text-navy">
+              Make a first real contribution to AI Safety research
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-lg text-slate-500 max-w-2xl leading-relaxed mb-8">
-              The SAIN Research Hub connects talented researchers with
-              experienced supervisors, providing mentorship, compute, and
-              community to produce impactful AI Safety research.
+            <p className="max-w-[620px] font-sans text-body text-navy/72">
+              The SAIN Research Hub matches you with an experienced supervisor, arranges compute,
+              and takes a project from open question to published finding. It is voluntary,
+              remote-friendly, and open for applications at any time.
             </p>
-          </FadeIn>
-          <FadeIn delay={0.25}>
-            <div className="flex flex-wrap gap-3 mb-8">
-              <Link href="/research/handbook" className="btn-primary">
-                Read Research Hub Handbook
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-1">
+              <a
+                href={RESEARCH_INTEREST_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-accent"
+              >
+                Register your interest
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              <Link
+                href="/research/handbook"
+                className="inline-flex items-center gap-2 font-sans text-label text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
+              >
+                Read the research handbook
+                <ArrowRight size={16} weight="regular" aria-hidden="true" />
               </Link>
-              <Link href="#supervisors" className="btn-outline">
-                View supervisors
-              </Link>
             </div>
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            <div className="flex items-center gap-6 text-sm text-slate-500">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-navy-900">6+</span>
-                Active Projects
-              </div>
-              <div className="w-px h-8 bg-slate-200" />
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-navy-900">20+</span>
-                Researchers
-              </div>
-              <div className="w-px h-8 bg-slate-200" />
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-navy-900">12+</span>
-                Publications
-              </div>
-            </div>
-          </FadeIn>
+
+            {/* The quiet version of a stat row: three checkable facts on a
+                hairline, two of them counted straight off this page. The
+                separators are drawn rather than typed, so a screen reader reads
+                three facts and not two middots. */}
+            <ul
+              role="list"
+              className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-navy/14 pt-4"
+            >
+              {factLine.map((fact, i) => (
+                <li key={fact} className="flex items-center gap-3">
+                  {i > 0 ? <span aria-hidden="true" className="text-navy/25">·</span> : null}
+                  <span className="font-sans text-footnote text-navy/65">{fact}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal hero delay={0.08} className="flex min-w-0 items-center justify-center lg:justify-end">
+            <FittingTheCurve />
+          </Reveal>
         </div>
       </section>
 
-      {/* We're hiring — national Research Lead */}
-      {researchLeadIsOpen ? (
-        <section className="bg-white pt-10">
-          <div className="section-container">
-            <FadeIn>
-              <div className="flex flex-col gap-5 rounded-2xl border border-dutch-orange/30 bg-linear-to-br from-dutch-orange/6 to-transparent p-6 md:flex-row md:items-center md:justify-between md:p-7">
-                <div className="flex items-start gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
-                    <UsersThree className="h-5 w-5" weight="light" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-dutch-orange">
-                      We&apos;re hiring
-                    </p>
-                    <h2 className="font-display text-xl font-semibold text-navy-900 md:text-2xl">
-                      {ROLES["research-operations-lead"].title}
-                    </h2>
-                    <p className="mt-1 max-w-xl text-sm leading-relaxed text-slate-600">
-                      A paid, full-time role leading the Research Hub across
-                      every SAIN chapter. Make it flourish end to end and build it into the place where Dutch AI
-                      safety research talent gets matched, mentored, and published.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex shrink-0 flex-wrap gap-3 md:justify-end">
-                  <Link
-                    href={`/open-positions#${nationalPosting.slug}`}
-                    className="btn-primary"
+      {/* Eligibility, on paper: this band is the terms page of a printed
+          programme, so it runs on cream and stays a column plus a short list. */}
+      <section
+        aria-labelledby="eligibility-heading"
+        className="border-t border-navy/10 bg-cream"
+      >
+        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">
+          <h2
+            id="eligibility-heading"
+            className="max-w-[420px] font-serif text-heading-sm text-navy lg:w-[360px] lg:shrink-0"
+          >
+            You do not need a university post to do this work
+          </h2>
+
+          <div className="flex min-w-0 max-w-[720px] flex-col gap-5">
+            <p className="font-sans text-body text-navy/74">
+              SAIN&rsquo;s offer is one line: bring your expertise to AI Safety, and the community,
+              supervision, and support are here to take it further. The rest of this page is the
+              mechanism behind that line: how a project is chosen, what support looks like week to
+              week, and where the work ends up.
+            </p>
+
+            <div>
+              <p className="font-sans text-body text-navy/74">
+                The hub is open to anyone with sufficient background:
+              </p>
+              <ul role="list" className="mt-3">
+                {eligibility.map((item) => (
+                  <li
+                    key={item}
+                    className="border-t border-navy/10 py-2.5 font-sans text-ui text-navy"
                   >
-                    See position
-                  </Link>
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </section>
-      ) : null}
-
-      {/* How It Works */}
-      <section id="how-it-works" className="section-padding bg-white">
-        <div className="section-container">
-          <FadeIn>
-            <div className="text-center mb-16">
-              <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-3">
-                How It Works
-              </p>
-              <h2 className="heading-lg text-navy-900 mb-4">
-                A structured path to AI Safety research
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Whether you&apos;re a student looking for your first research
-                experience or a PhD looking to mentor the next generation, the
-                Research Hub has a place for you.
-              </p>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {hubFeatures.map((feature, i) => (
-              <FadeIn key={feature.title} delay={i * 0.1}>
-                <div className="text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-dutch-orange/10 text-dutch-orange flex items-center justify-center mx-auto mb-4">
-                    {feature.icon}
-                  </div>
-                  <h3 className="font-display font-semibold text-navy-900 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              </FadeIn>
-            ))}
+            <p className="font-sans text-body text-navy/74">
+              Remote participation works. Applications are rolling, so you can apply whenever you
+              are ready, and for supervised projects you hear back within a working week.
+            </p>
+            <p className="font-sans text-body text-navy/74">
+              One thing the hub is not: a job. SAIN does not pay stipends or salaries;
+              participation is voluntary and educational. What SAIN does provide is supervision,
+              compute, coordination, and, within reason, help with conference travel.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Supervisors */}
-      <section id="supervisors" className="section-padding bg-slate-50">
-        <div className="section-container">
-          <FadeIn>
-            <div className="text-center mb-16">
-              <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-3">
-                Supervisors
-              </p>
-              <h2 className="heading-lg text-navy-900 mb-4">
-                Research guidance from experienced mentors
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Research Hub participants can work with supervisors across
-                technical AI safety, governance, complex systems, and related
-                fields.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {supervisors.map((supervisor, i) => (
-              <FadeIn key={supervisor.name} delay={i * 0.1}>
-                <a
-                  href={supervisor.agenda}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card group p-5 h-full flex flex-col transition-[translate,border-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-navy-900/30 motion-safe:hover:-translate-y-0.5"
-                >
-                  <div className="relative w-full aspect-4/5 rounded-xl overflow-hidden mb-4 bg-slate-100">
-                    <Image
-                      src={supervisor.image}
-                      alt={supervisor.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  <h3 className="font-display font-semibold text-navy-900 transition-colors group-hover:text-dutch-orange">
-                    {supervisor.name}
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mt-1">
-                    {supervisor.position}
-                  </p>
-                  {/* The card itself is the link now, so the destination has to
-                      be named for anyone who cannot see the hover state. */}
-                  <span className="sr-only">Research agenda (opens in a new tab)</span>
-                </a>
-              </FadeIn>
-            ))}
-          </div>
-
-          <FadeIn delay={0.25}>
-            <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-5xl mx-auto">
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <h3 className="font-display font-semibold text-2xl text-navy-900 mb-3">
-                  Join as a researcher
-                </h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-5">
-                  If you want to be supervised or join an open collaboration
-                  project, fill in the expression of interest form. If you are
-                  unsure where you fit, email us and we&apos;ll help route you.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={RESEARCH_INTEREST_FORM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary"
-                  >
-                    Fill in the research form
-                  </a>
-                  <a
-                    href={`mailto:${RESEARCH_EMAIL}?subject=${encodeURIComponent("Research Hub: joining as a researcher")}`}
-                    className="btn-outline"
-                  >
-                    Email research team
-                  </a>
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <h3 className="font-display font-semibold text-2xl text-navy-900 mb-3">
-                  Become a supervisor
-                </h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-5">
-                  If you are interested in supervising AI Safety research
-                  projects through SAIN, email the Research Hub and we&apos;ll
-                  follow up with next steps.
-                </p>
-                <a
-                  href={`mailto:${RESEARCH_EMAIL}?subject=${encodeURIComponent("Research Hub: becoming a supervisor")}`}
-                  className="btn-primary"
-                >
-                  Become a supervisor
-                </a>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Publications. The landing's inverse band links here on a phone
-          instead of carrying the whole index itself. */}
-      <section id="publications" className="scroll-mt-28 section-padding bg-white">
-        <div className="section-container">
-          <FadeIn>
-            <div className="text-center mb-16">
-              <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-3">
-                Publications
-              </p>
-              <h2 className="heading-lg text-navy-900 mb-4">
-                Research from our community
-              </h2>
-              <p className="text-slate-500 max-w-2xl mx-auto">
-                Our researchers publish at top venues including NeurIPS, ICLR,
-                and compete in international AI Safety hackathons.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {publications.map((paper, i) => (
-              <FadeIn key={paper.title} delay={Math.min(i * 0.05, 0.4)}>
-                <a
-                  href={paper.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card p-5 h-full flex flex-col group"
-                >
-                  <div className="mb-3">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-navy-900/5 text-xs font-medium text-navy-700">
-                      {paper.venue}
-                    </span>
-                  </div>
-                  <h3 className="font-display font-semibold text-navy-900 mb-2 leading-snug group-hover:text-dutch-orange transition-colors">
-                    {paper.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 mt-auto">
-                    {paper.authors}
-                  </p>
-                </a>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="section-padding bg-navy-950">
-        <div className="section-container text-center">
-          <FadeIn>
-            <h2 className="heading-lg text-white mb-4">
-              Contribute to AI Safety research
+      {/* The process. Inverse is earned here because the band ends in the
+          page's proof: the three steps run into the papers they produced. */}
+      <section id="process" aria-labelledby="process-heading" className="scroll-mt-36 bg-navy text-white">
+        <div className="shell band-research">
+          <Reveal className="max-w-[760px]">
+            <h2 id="process-heading" className="font-serif text-heading">
+              From open question to published finding
             </h2>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <p className="text-lg text-slate-300 max-w-xl mx-auto mb-8">
-              Whether you want to join a supervised project, contribute to an
-              open collaboration, or supervise AI Safety research, here are the
-              clearest next steps.
+            <p className="mt-4 text-body text-white/75">
+              Every project in the hub moves through the same three steps. The handbook spells each
+              one out in full; this is the shape of it.
             </p>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-5xl mx-auto text-left">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                <h3 className="font-display font-semibold text-2xl text-white mb-3">
-                  Join as a researcher
-                </h3>
-                <p className="text-sm text-slate-300 leading-relaxed mb-5">
-                  If you want to be supervised or join an open collaboration
-                  project, fill in the expression of interest form. If you are
-                  unsure where you fit, email us and we&apos;ll help route you.
+          </Reveal>
+
+          <Reveal delay={0.05}>
+          <ol role="list" aria-label="The three steps of a project" className="mt-12 md:mt-16">
+            <Step step="01" id="choose" title="Choose a research project">
+              <p className="mt-5 max-w-[760px] text-body text-white/75">
+                There are three ways in, and all three are normal.
+              </p>
+
+              <ol role="list" className="mt-6 max-w-[760px]">
+                {projectRoutes.map((route, i) => (
+                  <li key={route.lead} className="flex gap-3 border-t border-white/10 py-3.5">
+                    <span
+                      aria-hidden="true"
+                      className="w-[22px] shrink-0 pt-1 font-sans text-footnote text-orange"
+                    >
+                      {i + 1}
+                    </span>
+                    <p className="min-w-0 text-body text-white/75">
+                      <span className="font-serif text-title-sm text-white">{route.lead}</span>{" "}
+                      {route.body}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+
+              <p className="mt-7 max-w-[760px] text-body text-white/75">
+                The scope is broad on purpose: technical alignment and interpretability, governance
+                and policy with an EU and Dutch emphasis, and foundational questions about how the
+                field measures progress. If you are unsure whether a topic counts as AI safety, the
+                default answer is yes, provided you can articulate a plausible pathway from the work
+                to reducing AI-related risk.
+              </p>
+
+              <div className="mt-6">
+                <InverseLink href="/research/handbook">Read the research handbook</InverseLink>
+              </div>
+            </Step>
+
+            <Step step="02" id="support" title="Work with support">
+              <div className="mt-5 flex max-w-[760px] flex-col gap-4">
+                <p className="text-body text-white/75">
+                  Fill in the interest form and, for supervised projects, you hear back within a
+                  working week. If there is a fit, a supervisor is formally assigned and the project
+                  gets its own channel in the community.
                 </p>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={RESEARCH_INTEREST_FORM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary"
-                  >
-                    Fill in the research form
-                  </a>
-                  <a
-                    href={`mailto:${RESEARCH_EMAIL}?subject=${encodeURIComponent("Research Hub: joining as a researcher")}`}
-                    className="btn-secondary"
-                  >
-                    Email research team
-                  </a>
-                </div>
+                <p className="text-body text-white/75">
+                  Supervision is a working relationship, not a lecture. You drive the day-to-day
+                  research; your supervisor helps scope the project realistically, reviews
+                  experiments and drafts, and steps in when a direction stops being productive.
+                  Meetings run weekly or biweekly, and you agree your commitment per project up
+                  front, whether that is five to ten hours a week alongside a degree or something
+                  closer to full time.
+                </p>
+                <p className="text-body text-white/75">
+                  Supervisors are usually researchers at PhD level or more senior, with exceptions.
+                  Compute is arranged per project at the start, and computationally inexpensive
+                  projects are encouraged. Remote participation works throughout.
+                </p>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                <h3 className="font-display font-semibold text-2xl text-white mb-3">
-                  Become a supervisor
-                </h3>
-                <p className="text-sm text-slate-300 leading-relaxed mb-5">
-                  If you are interested in supervising AI Safety research
-                  projects through SAIN, email the Research Hub and we&apos;ll
-                  follow up with next steps.
+              <div className="mt-6">
+                <InverseLink href="#supervisors">Meet the supervisors</InverseLink>
+              </div>
+            </Step>
+
+            <Step step="03" id="publish" title="Publish your findings">
+              <div className="mt-5 flex max-w-[760px] flex-col gap-4">
+                <p className="text-body text-white/75">
+                  A project is complete when its main question is adequately answered, including
+                  when the answer is negative, and the result is published in a presentable form: a
+                  workshop paper, a policy brief, or a blog post on SAIN&rsquo;s Substack or
+                  LessWrong. You get feedback on drafts, and SAIN may help with conference travel
+                  within reason.
                 </p>
-                <a
-                  href={`mailto:${RESEARCH_EMAIL}?subject=${encodeURIComponent("Research Hub: becoming a supervisor")}`}
-                  className="btn-primary"
-                >
+                <p className="text-body text-white/75">
+                  That is not hypothetical. Work from this community has been accepted at workshops
+                  at NeurIPS and ICLR, which is where most first contributions in this field land.
+                </p>
+              </div>
+
+              <FeaturedPublications />
+
+              {/* The full record. The landing and the handbook both deep-link
+                  to #publications, so the id belongs on the list itself. */}
+              <ul
+                role="list"
+                id="publications"
+                aria-label="All publications from the SAIN community"
+                className="research-publications mt-10 grid scroll-mt-36 gap-3 sm:grid-cols-2 xl:grid-cols-3"
+              >
+                {publications.map((paper) => (
+                  <li key={paper.link} className="flex">
+                    <a
+                      href={paper.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pub-chip w-full"
+                    >
+                      <span className="w-[118px] shrink-0 font-sans text-footnote font-medium text-orange md:w-[136px]">
+                        {paper.venueShort}
+                      </span>
+                      <span className="min-w-0 font-serif text-kicker-sm text-white">
+                        {paper.chipTitle}
+                        <span className="sr-only"> (opens in a new tab)</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Step>
+          </ol>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* The people. White ground, one orbit, portraits you can click through
+          to the agenda each person actually wrote. */}
+      <section
+        id="supervisors"
+        aria-labelledby="supervisors-heading"
+        className="relative isolate scroll-mt-36 overflow-hidden bg-white"
+      >
+        <SectionOrbits className="-left-20 top-10 h-[400px] w-[300px] md:-left-12" />
+        <div className="shell band-section">
+          <Reveal className="flex flex-col gap-10">
+            <div className="flex flex-col gap-4">
+              <h2 id="supervisors-heading" className="max-w-[620px] font-serif text-heading-sm text-navy">
+                The people you would work with
+              </h2>
+              <p className="max-w-[720px] font-sans text-body text-navy/74">
+                Every supervisor keeps a public research agenda. Read it before you apply: the
+                strongest expressions of interest respond to a question a supervisor has already
+                posed.
+              </p>
+            </div>
+
+            <SupervisorRow />
+
+            {/* The page's one supervisor moment, placed where the reader has
+                just finished checking the other supervisors. A hairline and a
+                column, not a second panel beside the first. */}
+            <div className="grid gap-6 border-t border-navy/14 pt-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-16">
+              <h3 className="font-serif text-title text-navy">Supervise the next project</h3>
+              <div className="flex max-w-[720px] flex-col items-start gap-6">
+                <p className="font-sans text-body text-navy/74">
+                  If you are an experienced researcher, usually at PhD level or above, and the
+                  papers above look like work you could have guided, more supervisors means more
+                  projects. Supervision is remote-friendly, meetings run at a cadence you agree per
+                  project, and the research team handles the coordination around you. Email us and
+                  we will follow up with next steps.
+                </p>
+                <a href={SUPERVISOR_MAILTO} className="btn-outline-ink">
                   Become a supervisor
                 </a>
               </div>
             </div>
-          </FadeIn>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* The close. The claim on the left, the two ways to act on the right,
+          and the handbook as a quiet footnote rather than a third button. */}
+      <section id="apply" aria-labelledby="apply-heading" className="scroll-mt-36 bg-navy">
+        <div className="shell band-close grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+          <div className="min-w-0">
+            <h2 id="apply-heading" className="max-w-[620px] font-serif text-closing text-white">
+              Apply whenever you are ready
+            </h2>
+            <p className="mt-4 max-w-[560px] font-sans text-body text-white/78">
+              Applications are rolling, and for supervised projects you hear back within a working
+              week. Fill in the interest form, or email the research team if you are not sure where
+              you fit and we will help route you.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-5 lg:shrink-0">
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={RESEARCH_INTEREST_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-accent"
+              >
+                Register your interest
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              <a href={RESEARCHER_MAILTO} className="btn-ghost-inverse">
+                Email the research team
+              </a>
+            </div>
+            <p className="max-w-[420px] font-sans text-footnote leading-[19px] text-white/60">
+              The full process, expectations, and norms are written down.{" "}
+              <Link
+                href="/research/handbook"
+                className="text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white"
+              >
+                Read the research handbook
+              </Link>
+            </p>
+          </div>
         </div>
       </section>
     </>

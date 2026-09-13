@@ -1,782 +1,680 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import FadeIn from "@/components/FadeIn";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+
+import Reveal from "@/components/landing/Reveal";
+import SectionOrbits from "@/components/landing/SectionOrbits";
+import ApplicationSteps from "@/components/careers/ApplicationSteps";
+import OutlineRows from "@/components/careers/OutlineRows";
+import RoleDisclosure from "@/components/careers/RoleDisclosure";
 import {
   APPLICATION_REVIEW,
   APPLICATION_TIMELINE,
   ROLES,
-  TEAM_LABELS,
   TEAM_ORDER,
+  type ChapterPosting,
   type Role,
-  type Team,
   buildApplicationUrl,
   chapterPositions,
   hasOpenPositions,
   isChapterRecruiting,
   isNationalRecruiting,
   nationalPosting,
+  openChapterPostingCount,
   openNationalPostings,
   recruitingChapters,
 } from "@/data/openPositions";
-import { Briefcase, Check, Plus } from "@phosphor-icons/react/dist/ssr";
 
 const INFO_EMAIL = "info@safeainetherlands.org";
+const JOIN_MAILTO = `mailto:${INFO_EMAIL}?subject=Joining SAIN`;
 
-export const metadata: Metadata = hasOpenPositions
-  ? {
-      title: "Open Positions",
-      description:
-        "Volunteer roles open across SAIN's chapters. Apply with your CV and a short motivation letter.",
-    }
-  : {
-      title: "Join SAIN",
-      description:
-        "Interested in volunteering with Safe AI Netherlands? There is always an open application — get in touch.",
-    };
-
-type GroupedPosting = {
-  team: Team;
-  roles: Array<{ role: Role; positions?: number; note?: string }>;
+/* One tab title for the page in both of its states. The description changes,
+   because the two states are answering different questions. */
+export const metadata: Metadata = {
+  title: "Careers",
+  description: hasOpenPositions
+    ? "Volunteer roles open at SAIN's chapters, and one paid role on the national team. Apply with your CV and a short motivation letter."
+    : "Interested in volunteering with Safe AI Netherlands? There is always an open application. Get in touch.",
 };
 
-function groupByTeam(
-  postings: NonNullable<
-    (typeof chapterPositions)[number]["postings"]
-  >
-): GroupedPosting[] {
-  const byTeam = new Map<Team, GroupedPosting["roles"]>();
-  for (const posting of postings) {
-    const role = ROLES[posting.roleId];
-    if (!role) continue;
-    const list = byTeam.get(role.team) ?? [];
-    list.push({ role, positions: posting.positions, note: posting.note });
-    byTeam.set(role.team, list);
-  }
-  return TEAM_ORDER.filter((team) => byTeam.has(team)).map((team) => ({
-    team,
-    roles: byTeam.get(team)!,
-  }));
+/* What the shared form asks for, in the order the form asks it. Kept beside
+   the page rather than in the data file: these are the form's fields, not
+   SAIN's roles, and they change when the form does. */
+const FORM_FIELDS = [
+  "Name and email",
+  "Chapter (Amsterdam, Utrecht, Groningen)",
+  "Role(s) you are applying for",
+  "CV (PDF)",
+  "Short motivation letter (PDF or text)",
+  "Optional: LinkedIn or portfolio link",
+];
+
+const NUMBER_WORDS = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+];
+
+/* Counts in the hero are read off the data, and read as words: "Six roles are
+   open right now", never "6 roles". Past twelve the digit is the honest
+   fallback, and by then the sentence has other problems. */
+function numberWord(n: number): string {
+  return NUMBER_WORDS[n] ?? String(n);
 }
 
-function RoleCard({
-  role,
-  note,
-  chapterSlug,
-  applyUrl: applyUrlOverride,
-}: {
-  role: Role;
-  note?: string;
-  chapterSlug?: string;
-  applyUrl?: string;
-}) {
-  const applyUrl =
-    applyUrlOverride ??
-    buildApplicationUrl({
-      chapter: chapterSlug,
-      role: role.formRoleValue ?? role.title,
-    });
-  
-    return (
-    <details className="group rounded-2xl border border-slate-200 bg-white open:border-dutch-orange/40 open:shadow-md">
-      <summary className="flex list-none items-start justify-between gap-4 p-5 md:p-6">
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <h4 className="font-display text-lg font-semibold text-navy-900">
-              {role.title}
-            </h4>
-            {role.employment ? (
-              <span className="ml-1 inline-flex items-center rounded-full bg-dutch-orange/10 px-2.5 py-0.5 text-xs font-semibold text-dutch-orange">
-                {role.employment.badge}
-              </span>
-            ) : null}
-            {role.commitmentBadge ? (
-              <span className="ml-1 inline-flex items-center rounded-full bg-dutch-orange/10 px-2.5 py-0.5 text-xs font-semibold text-dutch-orange">
-                {role.commitmentBadge}
-              </span>
-            ) : null}
-            {role.specialisationOf ? (
-              <span className="ml-1 inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">
-                Specialisation of {role.specialisationOf}
-              </span>
-            ) : null}
-          </div>
-          <p className="mt-1 text-sm text-slate-500">
-            {role.timeCommitment}. Reports to {role.reportsTo}.
-          </p>
-          {role.employment ? (
-            <p className="mt-1 text-sm text-slate-500">
-              {role.employment.location}.
-            </p>
-          ) : null}
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">
-            {role.mission}
-          </p>
-          {note ? (
-            <p className="mt-2 text-sm italic text-slate-500">{note}</p>
-          ) : null}
-        </div>
-        <span
-          aria-hidden
-          className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-transform group-open:rotate-45 group-open:border-dutch-orange/40 group-open:text-dutch-orange"
-        >
-          <Plus className="h-4 w-4" weight="light" aria-hidden="true" />
-        </span>
-      </summary>
+function capitalise(word: string): string {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
 
-      <div className="border-t border-slate-100 px-5 pb-6 pt-5 md:px-6">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="space-y-5 md:col-span-2">
-            <div>
-              <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Key responsibilities
-              </h5>
-              <ul className="mt-3 space-y-2">
-                {role.responsibilities.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
-                  >
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-dutch-orange" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {role.goodFitIf?.length ? (
-              <div>
-                <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  You may be a good fit if you
-                </h5>
-                <ul className="mt-3 space-y-2">
-                  {role.goodFitIf.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
-                    >
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-dutch-orange" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-            {role.alsoStrong?.length ? (
-              <div>
-                <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Strong candidates may also have
-                </h5>
-                <ul className="mt-3 space-y-2">
-                  {role.alsoStrong.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
-                    >
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-          <div className="space-y-5">
-            {role.preferredBackground ? (
-              <div>
-                <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Preferred background
-                </h5>
-                <dl className="mt-3 space-y-2 text-sm text-slate-600">
-                  {role.preferredBackground.field ? (
-                    <div>
-                      <dt className="font-semibold text-navy-900">Field</dt>
-                      <dd>{role.preferredBackground.field}</dd>
-                    </div>
-                  ) : null}
-                  {role.preferredBackground.level ? (
-                    <div>
-                      <dt className="font-semibold text-navy-900">Level</dt>
-                      <dd>{role.preferredBackground.level}</dd>
-                    </div>
-                  ) : null}
-                  {role.preferredBackground.experience ? (
-                    <div>
-                      <dt className="font-semibold text-navy-900">Experience</dt>
-                      <dd>{role.preferredBackground.experience}</dd>
-                    </div>
-                  ) : null}
-                  {role.preferredBackground.softSkills ? (
-                    <div>
-                      <dt className="font-semibold text-navy-900">Soft skills</dt>
-                      <dd>{role.preferredBackground.softSkills}</dd>
-                    </div>
-                  ) : null}
-                </dl>
-              </div>
-            ) : null}
-            {role.employment ? (
-              <div>
-                <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  What we offer
-                </h5>
-                <dl className="mt-3 space-y-2 text-sm text-slate-600">
-                  <div>
-                    <dt className="font-semibold text-navy-900">Salary</dt>
-                    <dd>{role.employment.salary}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-semibold text-navy-900">Contract</dt>
-                    <dd>{role.employment.contract}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-semibold text-navy-900">Start date</dt>
-                    <dd>{role.employment.startDate}</dd>
-                  </div>
-                </dl>
-                <ul className="mt-3 space-y-2">
-                  {role.employment.benefits.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
-                    >
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-dutch-orange" weight="light" aria-hidden="true" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-            <div>
-              <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Key collaborations
-              </h5>
-              <p className="mt-2 text-sm text-slate-600">
-                {role.collaborations}
-              </p>
-            </div>
-          </div>
-        </div>
+function formatList(items: string[]): string {
+  if (items.length < 2) return items[0] ?? "";
+  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+}
 
-        {role.applicationProcess?.length ? (
-          <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
-            <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Application process
-            </h5>
-            <ol className="mt-3 space-y-3">
-              {role.applicationProcess.map((step, i) => (
-                <li key={step} className="flex gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-dutch-orange/10 text-xs font-bold text-dutch-orange">
-                    {i + 1}
-                  </span>
-                  <span className="text-sm leading-relaxed text-slate-600">
-                    {step}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        ) : null}
-
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href={applyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-          >
-            Apply for this role
-          </a>
-          <span className="self-center text-xs text-slate-400">
-            {applyUrlOverride
-              ? ""
-              : role.specialisationOf
-                ? `Pre-fills the form's "${role.specialisationOf}" option. Mention "${role.title}" in your motivation letter.`
-                : "Opens the application form, pre-filled with this role."}
-          </span>
-        </div>
-      </div>
-    </details>
+/** Roles for a chapter, in team order, flattened to one run of rows. */
+function orderedRoles(
+  chapter: ChapterPosting,
+): Array<{ role: Role; note?: string }> {
+  const entries: Array<{ role: Role; note?: string }> = [];
+  for (const posting of chapter.postings ?? []) {
+    const role = ROLES[posting.roleId];
+    if (!role) continue;
+    entries.push({ role, note: posting.note });
+  }
+  return entries.sort(
+    (a, b) => TEAM_ORDER.indexOf(a.role.team) - TEAM_ORDER.indexOf(b.role.team),
   );
 }
 
-/**
- * Shown when no chapter is recruiting: the role listings and the timeline are
- * both hidden, and the route keeps working as a standing
- * open-application page instead of 404ing on existing links.
- */
+/** The hero's first sentence, counted off the postings rather than typed. */
+function openingSentence(): string {
+  const nationalCount = openNationalPostings.length;
+  const total = openChapterPostingCount + nationalCount;
+  const cities = recruitingChapters.map((c) => c.chapterSlug);
+
+  const clauses: string[] = [];
+  if (openChapterPostingCount > 0 && cities.length > 0) {
+    clauses.push(
+      `${numberWord(openChapterPostingCount)} volunteer ${
+        openChapterPostingCount === 1 ? "role" : "roles"
+      } at the ${formatList(cities)} ${
+        cities.length === 1 ? "chapter" : "chapters"
+      }`,
+    );
+  }
+  if (nationalCount > 0) {
+    clauses.push(
+      `${numberWord(nationalCount)} paid full-time ${
+        nationalCount === 1 ? "role" : "roles"
+      } on the national team`,
+    );
+  }
+
+  const lead = `${capitalise(numberWord(total))} ${
+    total === 1 ? "role is" : "roles are"
+  } open right now`;
+  const body =
+    clauses.length === 2 ? `${clauses[0]}, and ${clauses[1]}` : clauses[0];
+
+  return body ? `${lead}: ${body}.` : `${lead}.`;
+}
+
+function InlineMail({ href, children }: { href: string; children: string }) {
+  return (
+    <a
+      href={href}
+      className="font-sans text-label text-navy underline decoration-navy/25 underline-offset-4 transition-colors hover:decoration-navy focus-visible:decoration-navy"
+    >
+      {children}
+    </a>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   B2. Where the roles are.
+
+   The chapters band's thin index, carrying a schedule rather than a place: a
+   shared left hairline, the unit in the serif, what it is hiring for beside
+   it. Open units first, the closed one after them, because the reader is here
+   to act. The separators between role names are drawn, not typed, so a screen
+   reader reads three roles and not three middots.
+--------------------------------------------------------------------------- */
+type IndexRow = { name: string; details: string[]; href: string };
+
+function buildIndexRows(): IndexRow[] {
+  const rows: IndexRow[] = recruitingChapters.map((chapter) => ({
+    name: chapter.chapterName,
+    details: orderedRoles(chapter).map((entry) => entry.role.title),
+    href: `#chapter-${chapter.chapterSlug.toLowerCase()}`,
+  }));
+
+  if (isNationalRecruiting) {
+    rows.push({
+      name: nationalPosting.name,
+      details: openNationalPostings.flatMap(({ roleId }) => {
+        const role = ROLES[roleId];
+        if (!role) return [];
+        return role.employment
+          ? [role.title, "paid, full-time"]
+          : [role.title];
+      }),
+      href: `#${nationalPosting.slug}`,
+    });
+  }
+
+  for (const chapter of chapterPositions) {
+    if (isChapterRecruiting(chapter.chapterSlug)) continue;
+    rows.push({
+      name: chapter.chapterName,
+      details: ["At capacity, no open roles"],
+      href: `#chapter-${chapter.chapterSlug.toLowerCase()}`,
+    });
+  }
+
+  rows.push({ name: "How to apply", details: [], href: "#how-to-apply" });
+  return rows;
+}
+
+function RoleIndex() {
+  return (
+    <section
+      aria-labelledby="roles-index-heading"
+      className="border-t border-navy/10 bg-cream"
+    >
+      <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
+        <h2
+          id="roles-index-heading"
+          className="kicker pt-0.5 text-kicker text-navy/65 lg:w-[260px] lg:shrink-0"
+        >
+          Open roles, by city
+        </h2>
+        <ul role="list" className="flex flex-1 flex-col gap-3">
+          {buildIndexRows().map((row) => (
+            <li key={row.href}>
+              <a
+                href={row.href}
+                className="group flex flex-col gap-1.5 border-l border-navy/14 py-3 pl-[18px] pr-1 transition-colors hover:border-navy/45 focus-visible:border-navy/45 md:flex-row md:items-baseline md:gap-6"
+              >
+                <span className="font-serif text-title text-navy underline decoration-navy/20 underline-offset-4 group-hover:decoration-navy group-focus-visible:decoration-navy md:w-[210px] md:shrink-0">
+                  {row.name}
+                </span>
+                {row.details.length ? (
+                  <span className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 font-sans text-caption text-navy/65">
+                    {row.details.map((detail, i) => (
+                      <span key={detail} className="flex items-center gap-3">
+                        {i > 0 ? (
+                          <span aria-hidden="true" className="text-navy/25">
+                            ·
+                          </span>
+                        ) : null}
+                        {detail}
+                      </span>
+                    ))}
+                  </span>
+                ) : null}
+                <span className="text-navy/55 md:ml-auto md:self-center">
+                  <ArrowRight size={16} weight="regular" aria-hidden="true" />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   B4 / B5 / B6. One section per chapter, rendered from the same data. A
+   chapter that is recruiting gets its roles on career rows; a chapter that is
+   full gets one line and its inbox. Closed is a fact, not a section.
+--------------------------------------------------------------------------- */
+function ChapterSection({ chapter }: { chapter: ChapterPosting }) {
+  const id = `chapter-${chapter.chapterSlug.toLowerCase()}`;
+  const headingId = `${id}-heading`;
+  const recruiting = isChapterRecruiting(chapter.chapterSlug);
+
+  if (!recruiting) {
+    return (
+      <section
+        id={id}
+        aria-labelledby={headingId}
+        className="scroll-mt-36 border-t border-navy/10 bg-cream"
+      >
+        <div className="shell band-index">
+          <Reveal>
+            <h2
+              id={headingId}
+              className="font-serif text-heading-sm text-navy"
+            >
+              {chapter.heading}
+            </h2>
+            {chapter.closedNote ? (
+              <p className="mt-4 max-w-[720px] font-sans text-body text-navy/74">
+                {chapter.closedNote.beforeEmail}{" "}
+                <InlineMail
+                  href={`mailto:${chapter.inboxEmail}?subject=Future openings at SAIN ${chapter.chapterSlug}`}
+                >
+                  {chapter.inboxEmail}
+                </InlineMail>{" "}
+                {chapter.closedNote.afterEmail}
+              </p>
+            ) : null}
+          </Reveal>
+        </div>
+      </section>
+    );
+  }
+
+  const roles = orderedRoles(chapter);
+
+  return (
+    <section
+      id={id}
+      aria-labelledby={headingId}
+      className="scroll-mt-36 border-t border-navy/10 bg-cream"
+    >
+      <div className="shell band-section">
+        <Reveal>
+          <h2 id={headingId} className="font-serif text-heading text-navy">
+            {chapter.heading}
+          </h2>
+          {chapter.blurb ? (
+            <p className="mt-4 max-w-[720px] font-sans text-body text-navy/74">
+              {chapter.blurb}
+            </p>
+          ) : null}
+
+          <div className="mt-9 border-b border-navy/10">
+            {roles.map(({ role, note }) => (
+              <RoleDisclosure
+                key={role.id}
+                role={role}
+                note={note}
+                chapterSlug={chapter.chapterSlug}
+              />
+            ))}
+          </div>
+
+          {/* The door for everyone the list did not describe, and the chapter's
+              own inbox beside it. One label per destination: this button and
+              the per-role buttons above open the same form. */}
+          <div className="mt-10">
+            <h3 className="font-serif text-title-sm text-navy">
+              No role that fits? Apply anyway.
+            </h3>
+            <p className="mt-3 max-w-[720px] font-sans text-body text-navy/74">
+              If you want to join {chapter.chapterName} and none of the roles
+              above quite suits you, we still want to hear from you. Tell us
+              about yourself and what draws you to SAIN in your motivation
+              letter, and we will work out together where you fit.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <a
+                href={buildApplicationUrl({ chapter: chapter.chapterSlug })}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-accent"
+              >
+                Apply for SAIN {chapter.chapterSlug}
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              <p className="font-sans text-label text-navy/65">
+                Questions first?{" "}
+                <InlineMail
+                  href={`mailto:${chapter.inboxEmail}?subject=Open positions ${chapter.chapterSlug}`}
+                >
+                  {chapter.inboxEmail}
+                </InlineMail>
+              </p>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Mode A. Nothing is listed, and the page is a door left open: three bands and
+   the shell, nothing more.
+--------------------------------------------------------------------------- */
 function StandingApplication() {
   return (
     <>
-      <section className="relative overflow-hidden bg-white pb-20 pt-16 md:pb-28 md:pt-20">
-        <div className="absolute inset-0 opacity-[0.04]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, #021c4d 1px, transparent 0)`,
-              backgroundSize: "40px 40px",
-            }}
-          />
-        </div>
-        <div className="absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-slate-200 to-transparent" />
-
-        <div className="section-container relative z-10">
-          <FadeIn>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-dutch-orange">
-              Join SAIN
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 className="heading-xl mb-6 max-w-3xl text-navy-900">
+      <section
+        aria-labelledby="careers-heading"
+        className="relative isolate overflow-hidden"
+        style={{
+          backgroundImage:
+            "linear-gradient(in oklab 180deg, white 0%, white 95%, #f7f5f2 100%)",
+        }}
+      >
+        <SectionOrbits className="-left-24 top-0 h-[420px] w-[320px] md:-left-14" />
+        <div className="shell band-hero">
+          <Reveal hero className="flex flex-col gap-6">
+            <h1
+              id="careers-heading"
+              className="max-w-[760px] font-serif text-display text-navy"
+            >
               There is always an open application
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="mb-8 max-w-2xl text-lg leading-relaxed text-slate-500">
-              SAIN is a volunteer organisation. Our chapters in Amsterdam,
-              Utrecht, and Groningen are powered by people who care about the
-              development and integration of AI going well in the Netherlands
-              and abroad. We do not always list specific roles, but if you are
-              genuinely interested in contributing, we would love to hear from
-              you.
+            <p className="max-w-[680px] font-sans text-body text-navy/72">
+              SAIN is a volunteer organisation, run by people in Amsterdam,
+              Utrecht, and Groningen who care about the development and
+              integration of AI going well in the Netherlands and abroad. We are
+              not listing specific roles right now, but if you genuinely want to
+              contribute, we want to hear from you.
             </p>
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={`mailto:${INFO_EMAIL}?subject=Joining SAIN`}
-                className="btn-primary"
-              >
+            <div className="flex flex-wrap gap-3 pt-1">
+              <a href={JOIN_MAILTO} className="btn-accent">
                 Email {INFO_EMAIL}
               </a>
-              <Link href="/get-involved" className="btn-outline">
-                Browse ways to get involved
+              <Link href="/get-involved" className="btn-ghost">
+                Volunteer
               </Link>
             </div>
-          </FadeIn>
+          </Reveal>
         </div>
       </section>
 
-      <section className="bg-slate-50 section-padding">
-        <div className="section-container">
-          <FadeIn>
-            <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-white p-8 md:p-10">
-              <h2 className="heading-md mb-4 text-navy-900">How to apply</h2>
-              <p className="mb-6 text-slate-600 leading-relaxed">
-                Send us an email with a short introduction, your CV, and a brief
-                motivation letter. Tell us which chapter you are interested in
-                (Amsterdam, Utrecht, or Groningen) and what draws you to SAIN.
-                We will get back to you as soon as we can.
-              </p>
-              <a
-                href={`mailto:${INFO_EMAIL}?subject=Joining SAIN`}
-                className="btn-primary"
-              >
-                Get in touch
+      <section
+        aria-labelledby="standing-apply-heading"
+        className="border-t border-navy/10 bg-cream"
+      >
+        <div className="shell band-index">
+          <Reveal>
+            <h2
+              id="standing-apply-heading"
+              className="font-serif text-heading-sm text-navy"
+            >
+              Send us three things
+            </h2>
+            <OutlineRows
+              className="mt-6 max-w-[720px]"
+              items={[
+                "A short introduction: who you are and what you would like to do.",
+                "Your CV.",
+                "A brief motivation letter that names the chapter you are interested in and what draws you to SAIN.",
+              ]}
+            />
+            <p className="mt-6 max-w-[720px] font-sans text-body text-navy/74">
+              We read everything that comes in and will get back to you as soon
+              as we can.
+            </p>
+            <div className="mt-6">
+              <a href={JOIN_MAILTO} className="btn-accent">
+                Email {INFO_EMAIL}
               </a>
             </div>
-          </FadeIn>
+          </Reveal>
+        </div>
+      </section>
+
+      <section aria-labelledby="standing-close-heading" className="bg-navy">
+        <div className="shell band-close grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+          <div className="min-w-0">
+            <h2
+              id="standing-close-heading"
+              className="max-w-[620px] font-serif text-closing text-white"
+            >
+              No listed role does not mean no room.
+            </h2>
+            <p className="mt-4 max-w-[560px] font-sans text-body text-white/78">
+              The chapters grow around the people who turn up. Tell us what you
+              want to work on.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 lg:shrink-0">
+            <a href={JOIN_MAILTO} className="btn-accent">
+              Email {INFO_EMAIL}
+            </a>
+            <Link href="/get-involved" className="btn-ghost-inverse">
+              Volunteer
+            </Link>
+          </div>
         </div>
       </section>
     </>
   );
 }
 
-export default function OpenPositionsPage() {
+export default function CareersPage() {
   if (!hasOpenPositions) {
     return <StandingApplication />;
   }
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-white pb-20 pt-16 md:pb-28 md:pt-20">
-        <div className="absolute inset-0 opacity-[0.04]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, #021c4d 1px, transparent 0)`,
-              backgroundSize: "40px 40px",
-            }}
-          />
-        </div>
-        <div className="absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-slate-200 to-transparent" />
-
-        <div className="section-container relative z-10">
-          <FadeIn>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-dutch-orange">
-              Open Positions
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 className="heading-xl mb-6 max-w-3xl text-navy-900">
-              Join SAIN
+      {/* B1. The click paid off: the claim, then the count, then the form. */}
+      <section
+        aria-labelledby="careers-heading"
+        className="relative isolate overflow-hidden"
+        style={{
+          backgroundImage:
+            "linear-gradient(in oklab 180deg, white 0%, white 95%, #f7f5f2 100%)",
+        }}
+      >
+        <SectionOrbits className="-left-24 top-0 h-[420px] w-[320px] md:-left-14" />
+        <div className="shell band-hero">
+          <Reveal hero className="flex flex-col gap-6">
+            <h1
+              id="careers-heading"
+              className="font-serif text-display text-navy"
+            >
+              SAIN is hiring.
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="mb-6 max-w-2xl text-lg leading-relaxed text-slate-500">
-              SAIN is a volunteer organisation. Our chapters in Amsterdam,
-              Utrecht, and Groningen are powered by people who care about the
-              development and integration of AI going well in the Netherlands and abroad.
-              These are the roles we are currently hiring for.
+            <p className="max-w-[680px] font-sans text-body text-navy/72">
+              {openingSentence()} {APPLICATION_REVIEW.sentence}
             </p>
-          </FadeIn>
-          <FadeIn delay={0.25}>
-            <div className="mb-8 inline-flex flex-wrap items-center gap-3 rounded-2xl border border-dutch-orange/30 bg-dutch-orange/5 px-5 py-3">
-              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dutch-orange/15 text-dutch-orange">
-                <Briefcase className="h-5 w-5" weight="light" aria-hidden="true" />
-              </span>
-              <div className="text-sm leading-snug">
-                <p className="font-semibold uppercase tracking-wider text-dutch-orange">
-                  {APPLICATION_REVIEW.label}
-                </p>
-                <p className="text-navy-900">{APPLICATION_REVIEW.sentence}</p>
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            <div className="flex flex-wrap gap-3">
-              {isNationalRecruiting ? (
-                <a
-                  href={`#${nationalPosting.slug}`}
-                  className="rounded-full border border-dutch-orange/40 bg-dutch-orange/5 px-4 py-2 text-sm font-semibold text-dutch-orange transition-colors hover:bg-dutch-orange/10"
-                >
-                  {nationalPosting.name}
-                </a>
-              ) : null}
-              {recruitingChapters.map((c) => (
-                <a
-                  key={c.chapterSlug}
-                  href={`#chapter-${c.chapterSlug.toLowerCase()}`}
-                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-navy-900 transition-colors hover:border-dutch-orange/40 hover:text-dutch-orange"
-                >
-                  {c.chapterName}
-                </a>
-              ))}
-              <a
-                href="#how-to-apply"
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-navy-900 transition-colors hover:border-dutch-orange/40 hover:text-dutch-orange"
-              >
-                How to apply
-              </a>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* How to apply + timeline */}
-      <section id="how-to-apply" className="bg-slate-50 section-padding scroll-mt-32">
-        <div className="section-container">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-            <FadeIn>
-              <div>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-dutch-orange">
-                  How to apply
-                </p>
-                <h2 className="heading-md mb-4 text-navy-900">
-                  One application, any chapter, any role
-                </h2>
-                <p className="mb-4 text-slate-600 leading-relaxed">
-                  All chapter applications go through the same short form. You
-                  will pick the chapter and the role, attach your CV, and write
-                  a short motivation letter (one page is plenty). Your
-                  application is sent to the SAIN national inbox and the
-                  chapter you applied to.
-                </p>
-                {isNationalRecruiting ? (
-                  <p className="mb-6 text-slate-600 leading-relaxed">
-                    <a
-                      href={`#${nationalPosting.slug}`}
-                      className="font-semibold text-dutch-orange hover:underline"
-                    >
-                      {nationalPosting.name}
-                    </a>{" "}
-                    roles are not tied to a chapter and have their own form and
-                    application process.
-                  </p>
-                ) : null}
-                <ul className="mb-8 space-y-3 text-sm text-slate-600">
-                  {[
-                    "Name and email",
-                    "Chapter (Amsterdam, Utrecht, Groningen)",
-                    "Role(s) you are applying for",
-                    "CV (PDF)",
-                    "Short motivation letter (PDF or text)",
-                    "Optional: LinkedIn or portfolio link",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-dutch-orange" weight="light" aria-hidden="true" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={buildApplicationUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary"
-                  >
-                    Open application form
-                  </a>
-                  <Link href="/contact" className="btn-outline">
-                    Or get in touch first
-                  </Link>
-                </div>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.1}>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
-                <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-dutch-orange">
-                  Timeline
-                </p>
-                <h3 className="heading-md mb-2 text-navy-900">What happens next</h3>
-                <p className="mb-6 text-sm text-slate-500">
-                  Applications are reviewed {APPLICATION_REVIEW.phrase}.
-                </p>
-                <ol className="space-y-5">
-                  {APPLICATION_TIMELINE.map((step, i) => (
-                    <li key={step.label} className="flex gap-4">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dutch-orange/10 text-sm font-bold text-dutch-orange">
-                        {i + 1}
-                      </span>
-                      <div>
-                        <h4 className="font-display font-semibold text-navy-900">
-                          {step.label}
-                        </h4>
-                        <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                          {step.detail}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* National (SAIN-wide) positions — above the chapter sections */}
-      {isNationalRecruiting ? (
-        <section
-          id={nationalPosting.slug}
-          className="section-padding scroll-mt-32 bg-white"
-        >
-          <div className="section-container">
-            <FadeIn>
-              <div className="rounded-3xl border border-dutch-orange/30 bg-linear-to-br from-dutch-orange/6 to-transparent p-6 md:p-10">
-                <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-                  <div className="max-w-2xl">
-                    <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-dutch-orange">
-                      Organisation-wide
-                    </p>
-                    <h2 className="heading-lg mb-4 text-navy-900">
-                      {nationalPosting.name}
-                    </h2>
-                    <p className="text-slate-600 leading-relaxed">
-                      {nationalPosting.blurb}
-                    </p>
-                  </div>
-                  <div className="flex shrink-0 flex-wrap gap-3">
-                    <a
-                      href={`mailto:${nationalPosting.inboxEmail}?subject=National open positions at SAIN`}
-                      className="btn-outline"
-                    >
-                      {nationalPosting.inboxEmail}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  {openNationalPostings.map(({ roleId, note, applyUrl }) => {
-                    const role = ROLES[roleId];
-                    if (!role) return null;
-                    return (
-                      <RoleCard
-                        key={role.id}
-                        role={role}
-                        note={note}
-                        applyUrl={applyUrl}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </section>
-      ) : null}
-
-      {/* Chapter sections */}
-      {chapterPositions.map((chapter) => {
-        const isRecruiting = isChapterRecruiting(chapter.chapterSlug);
-        const grouped = chapter.postings ? groupByTeam(chapter.postings) : [];
-        return (
-          <section
-            id={`chapter-${chapter.chapterSlug.toLowerCase()}`}
-            key={chapter.chapterSlug}
-            className="section-padding scroll-mt-32 bg-white"
-          >
-            <div className="section-container">
-              <FadeIn>
-                <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-                  <div className="max-w-2xl">
-                    <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-dutch-orange">
-                      {isRecruiting ? "Now recruiting" : "Currently at capacity"}
-                    </p>
-                    <h2 className="heading-lg mb-4 text-navy-900">
-                      {chapter.chapterName}
-                    </h2>
-                    <p className="text-slate-600 leading-relaxed">
-                      {chapter.blurb}
-                    </p>
-                  </div>
-                  {isRecruiting ? (
-                    <div className="flex shrink-0 flex-wrap gap-3">
-                      <a
-                        href={buildApplicationUrl({
-                          chapter: chapter.chapterSlug,
-                        })}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-primary"
-                      >
-                        Apply for SAIN {chapter.chapterSlug}
-                      </a>
-                      <a
-                        href={`mailto:${chapter.inboxEmail}?subject=Open positions ${chapter.chapterSlug}`}
-                        className="btn-outline"
-                      >
-                        {chapter.inboxEmail}
-                      </a>
-                    </div>
-                  ) : (
-                    <div>
-                      <a
-                        href={`mailto:${chapter.inboxEmail}?subject=Future openings at SAIN ${chapter.chapterSlug}`}
-                        className="btn-outline"
-                      >
-                        {chapter.inboxEmail}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </FadeIn>
-
-              {isRecruiting ? (
-                <div className="space-y-12">
-                  {grouped.map((group) => (
-                    <FadeIn key={group.team}>
-                      <div>
-                        <div className="mb-5 flex items-center gap-3">
-                          <h3 className="font-display text-xl font-semibold text-navy-900">
-                            {TEAM_LABELS[group.team]}
-                          </h3>
-                          <span className="h-px flex-1 bg-slate-200" />
-                        </div>
-                        <div className="space-y-3">
-                          {group.roles.map(({ role, note }) => (
-                            <RoleCard
-                              key={role.id}
-                              role={role}
-                              note={note}
-                              chapterSlug={chapter.chapterSlug}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    </FadeIn>
-                  ))}
-
-                  <FadeIn>
-                    <div>
-                      <div className="mb-5 flex items-center gap-3">
-                        <h3 className="font-display text-xl font-semibold text-navy-900">
-                          Other
-                        </h3>
-                        <span className="h-px flex-1 bg-slate-200" />
-                      </div>
-                      <div className="rounded-2xl border border-dutch-orange/30 bg-linear-to-br from-dutch-orange/5 to-transparent p-5 md:p-6">
-                        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                          <div className="max-w-2xl">
-                            <h4 className="font-display text-lg font-semibold text-navy-900">
-                              Open application
-                            </h4>
-                            <p className="mt-1 text-sm text-slate-500">
-                              Don&apos;t see a role that fits? Apply anyway.
-                            </p>
-                            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                              Interested in AI safety and excited about joining
-                              SAIN {chapter.chapterSlug}, but none of the roles
-                              above quite suit you? We highly recommend
-                              applying regardless. Tell us about yourself and
-                              what draws you to SAIN in your motivation letter,
-                              and we&apos;ll figure out together what works
-                              well for you.
-                            </p>
-                          </div>
-                          <a
-                            href={buildApplicationUrl({
-                              chapter: chapter.chapterSlug,
-                            })}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-primary shrink-0"
-                          >
-                            Apply
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </FadeIn>
-                </div>
-              ) : chapter.closedNote ? (
-                <FadeIn delay={0.1}>
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
-                    <p className="text-slate-600">{chapter.closedNote}</p>
-                  </div>
-                </FadeIn>
-              ) : 
-              null}
-            </div>
-          </section>
-        );
-      })}
-
-      {/* Final CTA */}
-      <section className="section-padding bg-navy-950">
-        <div className="section-container text-center">
-          <FadeIn>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-dutch-orange">
-              Ready to apply?
-            </p>
-            <h2 className="heading-lg mb-4 text-white">
-              One form. Any chapter. Any role.
-            </h2>
-            <p className="mx-auto mb-3 max-w-2xl text-lg text-slate-300">
-              Send us your CV and a short motivation letter. We will get back to
-              you within two to three weeks.
-            </p>
-            <p className="mx-auto mb-8 max-w-2xl text-sm font-semibold uppercase tracking-widest text-dutch-orange">
-              Applications reviewed {APPLICATION_REVIEW.phrase}
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="pt-1">
               <a
                 href={buildApplicationUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary px-8 py-3.5 text-base"
+                className="btn-accent"
               >
                 Open application form
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
-              <Link
-                href="/contact"
-                className="btn-secondary px-8 py-3.5 text-base"
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* B2. The wayfinding the hero deliberately does not do. */}
+      <RoleIndex />
+
+      {/* B3. The page's honesty hinge: what the unpaid ask actually is, and
+          what it is worth. Type carries it; no illustration, no box. */}
+      <section
+        aria-labelledby="volunteer-heading"
+        className="relative isolate overflow-hidden border-t border-navy/10 bg-white"
+      >
+        <SectionOrbits className="-left-20 -bottom-24 h-[440px] w-[330px] rotate-[-18deg] md:-left-12" />
+        <div className="shell band-community">
+          <Reveal>
+            <h2
+              id="volunteer-heading"
+              className="max-w-[620px] font-serif text-heading-sm text-navy"
+            >
+              A volunteer role here is a working role
+            </h2>
+            <p className="mt-5 max-w-[760px] font-sans text-body text-navy/74">
+              Every chapter role is unpaid, and takes three to ten hours a week
+              alongside your studies or job. In return, the responsibility is
+              real: you run a course, a chapter&rsquo;s events, or its
+              communications, and the chapter depends on you doing it. SAIN
+              exists to help people build the skills and track record to work on
+              AI safety at labs, institutes, and ministries. The people who run
+              SAIN are on that same path, and a role here is a serious first
+              line on that CV.
+            </p>
+            <p className="mt-4 max-w-[760px] font-sans text-body text-navy/74">
+              One role is different. The Research Operations Lead is a paid,
+              full-time position on the small national team, listed with its
+              salary and terms below.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* B4, B5, B6. The chapters, in the order they are declared. */}
+      {chapterPositions.map((chapter) => (
+        <ChapterSection key={chapter.chapterSlug} chapter={chapter} />
+      ))}
+
+      {/* B7. The paid role. One substantial row on white, not a band of peers:
+          the badge and the salary are the honesty signals, and they get the
+          same weight the volunteer hours get above. */}
+      {isNationalRecruiting ? (
+        <section
+          id={nationalPosting.slug}
+          aria-labelledby="national-heading"
+          className="scroll-mt-36 border-t border-navy/10 bg-white"
+        >
+          <div className="shell band-section">
+            <Reveal>
+              <h2
+                id="national-heading"
+                className="max-w-[620px] font-serif text-heading text-navy"
               >
-                Contact a chapter directly
+                {nationalPosting.heading}
+              </h2>
+              <p className="mt-4 max-w-[760px] font-sans text-body text-navy/74">
+                {nationalPosting.blurb}
+              </p>
+
+              <div className="mt-9 border-b border-navy/10">
+                {openNationalPostings.map(({ roleId, note, applyUrl }) => {
+                  const role = ROLES[roleId];
+                  if (!role) return null;
+                  return (
+                    <RoleDisclosure
+                      key={role.id}
+                      role={role}
+                      note={note}
+                      applyUrl={applyUrl}
+                    />
+                  );
+                })}
+              </div>
+
+              <p className="mt-6 font-sans text-label text-navy/65">
+                Questions about this role?{" "}
+                <InlineMail
+                  href={`mailto:${nationalPosting.inboxEmail}?subject=National open positions at SAIN`}
+                >
+                  {nationalPosting.inboxEmail}
+                </InlineMail>
+              </p>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
+      {/* B8. What you send, and what happens then. The checklist takes the
+          course outline row; the stages take the stepped journey. */}
+      <section
+        id="how-to-apply"
+        aria-labelledby="how-to-apply-heading"
+        className="scroll-mt-36 bg-white"
+      >
+        <div className="shell">
+          <div className="border-t border-navy/14" />
+        </div>
+        <div className="shell band-section">
+          <Reveal>
+            <h2
+              id="how-to-apply-heading"
+              className="max-w-[620px] font-serif text-heading text-navy"
+            >
+              One short form for every chapter role
+            </h2>
+            <p className="mt-4 max-w-[760px] font-sans text-body text-navy/74">
+              Chapter applications go through the same form, whichever city and
+              role you choose. You pick the chapter and the role, attach your
+              CV, and write a short motivation letter; one page is plenty. Your
+              application goes to the SAIN national inbox and to the chapter you
+              applied to.
+              {isNationalRecruiting
+                ? " The Research Operations Lead has its own form, linked on the role above."
+                : ""}
+            </p>
+
+            <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <h3 className="font-serif text-title-sm text-navy">
+                  What the form asks for
+                </h3>
+                <OutlineRows className="mt-4" items={FORM_FIELDS} />
+              </div>
+              <div>
+                <h3 className="mb-6 font-serif text-title-sm text-navy">
+                  What happens after you apply
+                </h3>
+                <ApplicationSteps steps={APPLICATION_TIMELINE} />
+              </div>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <a
+                href={buildApplicationUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-accent"
+              >
+                Open application form
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              <Link href="/contact" className="btn-outline-ink">
+                Contact a chapter
               </Link>
             </div>
-          </FadeIn>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* B9. The close: the claim on the left, the two ways to act on the
+          right, and nothing else in the band. */}
+      <section aria-labelledby="careers-close-heading" className="bg-navy">
+        <div className="shell band-close grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+          <div className="min-w-0">
+            <h2
+              id="careers-close-heading"
+              className="max-w-[620px] font-serif text-closing text-white"
+            >
+              SAIN runs on people who decided to show up.
+            </h2>
+            <p className="mt-4 max-w-[560px] font-sans text-body text-white/78">
+              Send your CV and a short motivation letter. We respond within two
+              to three weeks, whenever you apply.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 lg:shrink-0">
+            <a
+              href={buildApplicationUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-accent"
+            >
+              Open application form
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            <Link href="/contact" className="btn-ghost-inverse">
+              Contact a chapter
+            </Link>
+          </div>
         </div>
       </section>
     </>

@@ -1,290 +1,280 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
-import FadeIn from "@/components/FadeIn";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+
+import Reveal from "@/components/landing/Reveal";
+import SectionOrbits from "@/components/landing/SectionOrbits";
 import {
-  chapterContactLinks,
   chapterRoleEmails,
   leadershipContacts,
   nationalContacts,
 } from "@/data/siteContact";
 
-const socials = [
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Every address SAIN uses: national role addresses, the chapter addresses in Groningen, Amsterdam and Utrecht, and the people who run them.",
+};
+
+/* The two places SAIN publishes, both linked from the site's structured data
+   already. Nothing else belongs on a contact page. */
+const online = [
   {
     name: "Substack",
     href: "https://safeainetherlands.substack.com/",
-    description: "Weekly articles on AI Safety",
+    detail: "Writing on AI Safety",
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/company/safe-ai-netherlands/",
-    description: "Follow us for updates",
+    detail: "Updates and open positions",
   },
 ];
+
+const emailLinkClass =
+  "font-sans text-label text-navy underline decoration-navy/20 underline-offset-4 transition-[text-decoration-color] hover:decoration-navy focus-visible:decoration-navy [overflow-wrap:anywhere]";
 
 export default function ContactPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative pb-20 pt-16 md:pb-28 md:pt-20 bg-white overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, #021c4d 1px, transparent 0)`,
-              backgroundSize: "40px 40px",
-            }}
-          />
-        </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
-
-        <div className="section-container relative z-10">
-          <FadeIn>
-            <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-4">
-              Contact
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 className="heading-xl text-navy-900 max-w-3xl mb-6">
-              Get in touch
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-lg text-slate-500 max-w-2xl leading-relaxed">
-              National addresses, chapter teams, named leads, and links to each
-              city&apos;s Join &amp; contact section.
-            </p>
-          </FadeIn>
+      {/* A directory, not a pitch: the hero says which question this page
+          answers and then gets out of the way. No CTA, because the action the
+          reader came for is on every row below. */}
+      <section
+        aria-labelledby="contact-heading"
+        className="relative isolate overflow-hidden bg-white"
+      >
+        <SectionOrbits className="-left-24 top-0 h-[420px] w-[320px] md:-left-14" />
+        <div className="shell band-hero flex flex-col gap-6">
+          <h1
+            id="contact-heading"
+            className="max-w-[760px] font-serif text-display text-navy"
+          >
+            Write to the address that fits the question.
+          </h1>
+          <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/72">
+            Every SAIN inbox is on this page: the national role addresses, the
+            addresses each chapter keeps, and the people behind them. If you
+            would rather join than write, every chapter page has a join section
+            of its own.
+          </p>
         </div>
       </section>
 
-      {/* National functional emails */}
-      <section id="national-emails" className="section-padding bg-white scroll-mt-28">
-        <div className="section-container">
-          <FadeIn>
-            <div className="mb-10">
-              <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-3">
-                National
-              </p>
-              <h2 className="heading-lg text-navy-900">
-                Functional email addresses
-              </h2>
-              <p className="mt-3 text-sm text-slate-500 max-w-2xl">
-                Use these when you know the topic but not which person should read it.
-              </p>
-            </div>
-          </FadeIn>
+      {/* National role addresses. Five rows on hairlines, because five cards
+          would give a list of inboxes the weight of a section. */}
+      <section aria-labelledby="national-heading" className="bg-white">
+        <div className="shell">
+          <div className="border-t border-navy/14" />
+        </div>
+        <div className="shell band-section flex flex-col gap-8">
+          <div className="flex flex-col gap-2.5">
+            <h2
+              id="national-heading"
+              className="font-serif text-heading text-navy"
+            >
+              Start with a role address.
+            </h2>
+            <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/74">
+              Use these when you know the topic but not the person who should
+              read it.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-            {nationalContacts.map((contact, i) => (
-              <FadeIn key={contact.email} delay={Math.min(i * 0.05, 0.25)}>
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="card p-5 h-full flex flex-col"
-                >
-                  <span className="text-xs font-semibold uppercase tracking-wider text-dutch-orange mb-2">
-                    {contact.label}
-                  </span>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-4">
-                    {contact.detail}
-                  </p>
-                  <div className="mt-auto min-w-0 w-full overflow-x-auto scrollbar-thin">
-                    <span className="inline-block text-sm font-medium text-navy-900 whitespace-nowrap">
-                      {contact.email}
-                    </span>
-                  </div>
+          <ul className="flex flex-col">
+            {nationalContacts.map((contact) => (
+              <li
+                key={contact.email}
+                className="grid items-baseline gap-x-8 gap-y-1.5 border-t border-navy/10 py-5 md:grid-cols-[minmax(0,210px)_minmax(0,1fr)_minmax(0,auto)]"
+              >
+                <h3 className="font-serif text-title-sm text-navy">
+                  {contact.label}
+                </h3>
+                <p className="font-sans text-body text-navy/72">
+                  {contact.detail}
+                </p>
+                <a href={`mailto:${contact.email}`} className={emailLinkClass}>
+                  {contact.email}
                 </a>
-              </FadeIn>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* The cities. Same rows, three times, because the chapters are peers. */}
+      <section
+        aria-labelledby="chapters-heading"
+        className="border-t border-navy/10 bg-cream"
+      >
+        <Reveal className="shell band-section flex flex-col gap-8">
+          <div className="flex flex-col gap-2.5">
+            <h2
+              id="chapters-heading"
+              className="font-serif text-heading-sm text-navy"
+            >
+              Or write to a city.
+            </h2>
+            <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/74">
+              Each chapter keeps its own addresses for collaboration, community,
+              education, events and outreach.
+            </p>
+          </div>
+
+          <div className="grid gap-10 lg:grid-cols-3 lg:gap-8">
+            {chapterRoleEmails.map((chapter) => (
+              <article key={chapter.chapter} className="flex flex-col gap-4">
+                <h3 className="font-serif text-title text-navy">
+                  {chapter.chapter}
+                </h3>
+                <ul className="flex flex-col">
+                  {chapter.roles.map((role) => (
+                    <li
+                      key={`${chapter.chapter}-${role.label}`}
+                      className="flex flex-col gap-1 border-t border-navy/10 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+                    >
+                      <span className="font-sans text-caption text-navy/65">
+                        {role.label}
+                      </span>
+                      <a
+                        href={`mailto:${role.email}`}
+                        className={`${emailLinkClass} sm:text-right`}
+                      >
+                        {role.email}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={chapter.joinHref}
+                  className="inline-flex w-fit items-center gap-1.5 font-sans text-label text-navy underline decoration-navy/20 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
+                >
+                  View chapter
+                  <ArrowRight size={16} weight="regular" aria-hidden="true" />
+                </Link>
+              </article>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* Leadership */}
-      <section className="section-padding bg-slate-50">
-        <div className="section-container">
-          <FadeIn>
-            <div className="mb-10">
-              <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-3">
-                Leadership
-              </p>
-              <h2 className="heading-lg text-navy-900">
-                Named contacts
-              </h2>
-              <p className="mt-3 text-sm text-slate-500 max-w-2xl">
-                National, chapter, and personal addresses where we list more than one inbox for someone.
-              </p>
-            </div>
-          </FadeIn>
+      {/* The named leads. A chapter address and a personal one are not the same
+          door, so both are printed under the person who answers them. */}
+      <section
+        aria-labelledby="leads-heading"
+        className="border-t border-navy/10 bg-white"
+      >
+        <Reveal className="shell band-section flex flex-col gap-8">
+          <div className="flex flex-col gap-2.5">
+            <h2 id="leads-heading" className="font-serif text-heading-sm text-navy">
+              The people behind those addresses.
+            </h2>
+            <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/74">
+              The national director and the chapter directors. Where someone
+              holds more than one inbox, both are listed.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl">
-            {leadershipContacts.map((person, i) => (
-              <FadeIn key={person.names} delay={Math.min(i * 0.06, 0.2)}>
-                <div className="card p-6 h-full flex flex-col">
-                  <h3 className="font-display font-semibold text-navy-900 mb-1">
+          <ul className="grid gap-x-12 gap-y-0 md:grid-cols-2">
+            {leadershipContacts.map((person) => (
+              <li
+                key={person.names}
+                className="flex flex-col gap-3 border-t border-navy/14 py-6"
+              >
+                <div>
+                  <h3 className="font-serif text-title-sm text-navy">
                     {person.names}
                   </h3>
-                  <p className="text-sm text-slate-400 mb-4">{person.role}</p>
-                  <ul className="space-y-3 mt-auto">
-                    {person.emails.map((row) => (
-                      <li
-                        key={`${person.names}-${row.label}-${row.email}`}
-                        className="text-sm border-b border-slate-100 pb-3 last:border-0 last:pb-0"
-                      >
-                        <span className="block text-xs uppercase tracking-wide text-slate-400 mb-1">
-                          {row.label}
-                        </span>
-                        <a
-                          href={`mailto:${row.email}`}
-                          className="font-medium text-dutch-orange hover:text-dutch-orange-dark transition-colors break-normal"
-                        >
-                          {row.email}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                  {person.linkedin ? (
+                  <p className="mt-0.5 font-sans text-footnote text-navy/65">
+                    {person.role}
+                  </p>
+                </div>
+                <ul className="flex flex-col gap-1.5">
+                  {person.emails.map((row) => (
+                    <li
+                      key={`${person.names}-${row.email}-${row.label}`}
+                      className="flex flex-wrap items-baseline gap-x-4 gap-y-0.5"
+                    >
+                      <span className="w-[150px] shrink-0 font-sans text-caption text-navy/65">
+                        {row.label}
+                      </span>
+                      <a href={`mailto:${row.email}`} className={emailLinkClass}>
+                        {row.email}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                {person.linkedin ? (
+                  <a
+                    href={person.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex w-fit items-center gap-1.5 font-sans text-label text-navy/72 underline decoration-navy/20 underline-offset-4 hover:text-navy hover:decoration-navy focus-visible:text-navy"
+                  >
+                    Profile
+                    <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </section>
+
+      {/* What is left of a contact page once the inboxes are done: where the
+          foundation is registered, and where it publishes. */}
+      <section
+        aria-labelledby="elsewhere-heading"
+        className="border-t border-navy/10 bg-cream"
+      >
+        <Reveal className="shell band-index flex flex-col gap-8">
+          <h2
+            id="elsewhere-heading"
+            className="font-serif text-heading-sm text-navy"
+          >
+            Where else to find SAIN.
+          </h2>
+          <div className="grid gap-8 border-t border-navy/14 pt-6 md:grid-cols-2 md:gap-16">
+            <div className="flex flex-col gap-2">
+              <p className="kicker text-kicker-sm text-navy/60">
+                Registered address
+              </p>
+              <address className="font-sans text-body not-italic text-navy/74">
+                Stichting Safe AI Netherlands
+                <br />
+                Hereplein 4
+                <br />
+                9711 GA Groningen
+                <br />
+                The Netherlands
+              </address>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <p className="kicker text-kicker-sm text-navy/60">Online</p>
+              <ul className="flex flex-col gap-2">
+                {online.map((channel) => (
+                  <li key={channel.name} className="flex flex-wrap items-baseline gap-x-3">
                     <a
-                      href={person.linkedin}
+                      href={channel.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 text-xs text-slate-400 hover:text-navy-900 transition-colors"
+                      className="inline-flex items-center gap-1.5 font-sans text-body text-navy underline decoration-navy/20 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
                     >
-                      Website / profile
+                      {channel.name}
+                      <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
+                      <span className="sr-only"> (opens in a new tab)</span>
                     </a>
-                  ) : null}
-                </div>
-              </FadeIn>
-            ))}
+                    <span className="font-sans text-caption text-navy/65">
+                      {channel.detail}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* Chapter role emails */}
-      <section className="section-padding bg-white">
-        <div className="section-container">
-          <FadeIn>
-            <div className="mb-10 text-center max-w-2xl mx-auto">
-              <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-3">
-                Chapters
-              </p>
-              <h2 className="heading-lg text-navy-900">
-                Role emails by city
-              </h2>
-              <p className="mt-3 text-sm text-slate-500">
-                Same breakdown as each chapter&apos;s Join &amp; contact section:
-                formal collaboration, community, education, events, outreach, and more.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            {chapterRoleEmails.map((block, bi) => (
-              <FadeIn key={block.chapter} delay={Math.min(bi * 0.08, 0.24)}>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-6 min-w-0 h-full flex flex-col">
-                  <h3 className="font-display font-semibold text-lg text-navy-900 mb-1">
-                    {block.chapter}
-                  </h3>
-                  <Link
-                    href={block.joinHref}
-                    className="text-sm font-medium text-dutch-orange hover:text-dutch-orange-dark mb-5"
-                  >
-                    Join &amp; contact on chapter page →
-                  </Link>
-                  <ul className="space-y-0 text-sm flex-1 divide-y divide-slate-200/80">
-                    {block.roles.map((row) => (
-                      <li
-                        key={`${block.chapter}-${row.label}`}
-                        className="grid grid-cols-1 md:grid-cols-[minmax(0,max-content)_minmax(0,1fr)] gap-x-4 gap-y-1 py-3 items-start min-w-0"
-                      >
-                        <span className="text-slate-500 shrink-0">{row.label}</span>
-                        <div className="min-w-0 md:flex md:justify-end md:overflow-x-auto md:scrollbar-thin">
-                          <a
-                            href={`mailto:${row.email}`}
-                            className="inline-block font-medium text-navy-900 hover:text-dutch-orange transition-colors whitespace-nowrap"
-                          >
-                            {row.email}
-                          </a>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-
-          <FadeIn delay={0.15}>
-            <div className="mt-12 flex flex-wrap justify-center gap-3">
-              {chapterContactLinks.map((chapter) => (
-                <Link
-                  key={chapter.name}
-                  href={chapter.href}
-                  className="btn-outline"
-                >
-                  {chapter.name}
-                </Link>
-              ))}
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Socials */}
-      <section className="section-padding bg-slate-50">
-        <div className="section-container">
-          <FadeIn>
-            <div className="text-center mb-12">
-              <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-3">
-                Stay connected
-              </p>
-              <h2 className="heading-lg text-navy-900">
-                Find us online
-              </h2>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {socials.map((social, i) => (
-              <FadeIn key={social.name} delay={i * 0.1}>
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card p-6 text-center group"
-                >
-                  <h3 className="font-display font-semibold text-navy-900 group-hover:text-dutch-orange transition-colors mb-1">
-                    {social.name}
-                  </h3>
-                  <p className="text-sm text-slate-500">
-                    {social.description}
-                  </p>
-                </a>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Address */}
-      <section className="section-padding bg-white">
-        <div className="section-container">
-          <FadeIn>
-            <div className="max-w-lg mx-auto text-center">
-              <p className="text-sm font-semibold uppercase tracking-widest text-dutch-orange mb-3">
-                Postal address
-              </p>
-              <h2 className="heading-md text-navy-900 mb-4">
-                Stichting Safe AI Netherlands
-              </h2>
-              <p className="text-slate-500">
-                Hereplein 4<br />
-                9711 GA Groningen<br />
-                The Netherlands
-              </p>
-            </div>
-          </FadeIn>
-        </div>
+        </Reveal>
       </section>
     </>
   );

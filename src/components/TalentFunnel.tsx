@@ -15,7 +15,7 @@ import type { CSSProperties } from "react";
  * The trapezoids narrow because the path narrows:
  * a course is open to anyone, a full-time role is not. The last band is solid
  * orange because that is the destination, and the photographs inside the bands
- * are texture — evidence that each step is a room that exists — not hero crops.
+ * are texture, evidence that each step is a room that exists, not hero crops.
  */
 
 type Band = {
@@ -129,8 +129,8 @@ const LAST = BANDS.length - 1;
 
 /**
  * Left-edge x at every horizontal rule, accumulated from the band insets. The
- * funnel is concave rather than a straight cone — each band tapers less
- * sharply than the one above it — so the side is a polyline, and it has to be
+ * funnel is concave rather than a straight cone (each band tapers less
+ * sharply than the one above it), so the side is a polyline, and it has to be
  * drawn as one path. Five separate trapezoid outlines gave every junction two
  * stacked horizontal rules and five independent stroke runs, which is what
  * made the bands read as stacked shapes instead of one funnel.

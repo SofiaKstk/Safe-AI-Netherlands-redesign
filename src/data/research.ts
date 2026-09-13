@@ -4,6 +4,20 @@
  * Shared by the landing page (the inverse "Already in the literature" band and
  * the supervisor list) and /research, so a new paper or a new supervisor is
  * added in exactly one place.
+ *
+ * Venue strings say "workshop" wherever the paper is a workshop paper. All five
+ * formal-venue papers here are workshop papers, and a bare "NeurIPS 2025" reads
+ * as main track to the exact reader this page is written for. Saying it plainly
+ * is the credibility move, not a weakness.
+ *
+ * The Apart Research placements ("1st Place", "3rd Place", "4th Place") are
+ * repo-only: design/briefs/research-evidence.md could not confirm any rank at
+ * source. They are held as the soft "Apart Research hackathon" label until
+ * someone reads the rank off each project page.
+ *
+ * Self-Ablating Transformers is a four-person paper (Ferrao, Mikaelson, Pepper,
+ * Perez-Campanero Antolin), not Ferrao solo; the author list was corrected
+ * against the published paper.
  */
 
 export type Publication = {
@@ -27,8 +41,8 @@ export const publications: Publication[] = [
   {
     title:
       "The Anatomy of Alignment: Decomposing Preference Optimization by Steering Sparse Features",
-    venueShort: "NeurIPS 2025 Spotlight",
-    venue: "NeurIPS 2025 Spotlight",
+    venueShort: "NeurIPS 2025 workshop · Spotlight",
+    venue: "NeurIPS 2025 Mechanistic Interpretability Workshop · Spotlight",
     authors: "Jeremias Ferrao, Matthijs van der Lende, Ilija Lichkovski",
     link: "https://arxiv.org/abs/2509.12934",
     chipTitle: "The Anatomy of Alignment",
@@ -40,9 +54,10 @@ export const publications: Publication[] = [
   },
   {
     title: "Self-Ablating Transformers: More Interpretability, Less Sparsity",
-    venueShort: "ICLR 2025",
-    venue: "ICLR 2025",
-    authors: "Jeremias Ferrao",
+    venueShort: "ICLR 2025 workshop",
+    venue: "ICLR 2025 Building Trust Workshop",
+    authors:
+      "Jeremias Ferrao, Luhan Mikaelson, Keenan Pepper, Natalia Perez-Campanero Antolin",
     link: "https://openreview.net/pdf?id=QcmEb490bK",
     chipTitle: "Self-Ablating Transformers",
     featured: {
@@ -53,8 +68,8 @@ export const publications: Publication[] = [
   },
   {
     title: "EU-Agent-Bench: Measuring Illegal Behavior of LLM Agents Under EU Law",
-    venueShort: "NeurIPS 2025",
-    venue: "NeurIPS 2025",
+    venueShort: "NeurIPS 2025 workshop",
+    venue: "NeurIPS 2025 Regulatable ML Workshop",
     authors: "Ilija Lichkovski, Alexander Müller, Mariam Ibrahim, Tiwai Mhundwa",
     link: "https://arxiv.org/abs/2510.21524",
     chipTitle: "EU-Agent-Bench",
@@ -67,40 +82,40 @@ export const publications: Publication[] = [
   {
     title:
       "Contextual Sparsity as a Tool for Mechanistic Understanding of Retrieval in Hybrid Foundation Models",
-    venueShort: "ICLR 2025",
-    venue: "ICLR 2025",
+    venueShort: "ICLR 2025 workshop",
+    venue: "ICLR 2025 SLLM Workshop",
     authors: "Davide Zani, Felix Michalak, Steven Abreu",
     link: "https://openreview.net/pdf?id=TGWzg86kYv",
     chipTitle: "Contextual Sparsity",
   },
   {
     title: "Steering Large Language Models using Conceptors",
-    venueShort: "NeurIPS 2024",
-    venue: "NeurIPS 2024",
+    venueShort: "NeurIPS 2024 workshop",
+    venue: "NeurIPS 2024 Workshop on Foundation Model Interventions",
     authors: "Joris Postmus, Steven Abreu",
     link: "https://jorispos.github.io/conceptor_steering/",
     chipTitle: "Steering LLMs using Conceptors",
   },
   {
     title: "AutoSteer: Weight-Preserving Reinforcement Learning for Interpretable Model Control",
-    venueShort: "1st, Apart Research",
-    venue: "1st Place, Apart Research Hackathon",
+    venueShort: "Apart Research hackathon",
+    venue: "Apart Research hackathon",
     authors: "Jeremias Ferrao",
     link: "https://www.apartresearch.com/project/autosteer-weight-preserving-reinforcement-learning-for-interpretable-model-control",
     chipTitle: "AutoSteer",
   },
   {
     title: "Local Learning Coefficients Predict Developmental Milestones During GRPO",
-    venueShort: "3rd, Apart Research",
-    venue: "3rd Place, Apart Research Hackathon",
+    venueShort: "Apart Research hackathon",
+    venue: "Apart Research hackathon",
     authors: "Jeremias Ferrao, Ilija Lichkovski",
     link: "https://apartresearch.com/project/local-learning-coefficients-predict-developmental-milestones-during-group-relative-policy-optimization-2te2",
     chipTitle: "Local Learning Coefficients",
   },
   {
     title: "Collective Deliberation for Safer CBRN Decisions: A Multi-Agent LLM Debate Pipeline",
-    venueShort: "4th, Apart Research",
-    venue: "4th Place, Apart Research Hackathon",
+    venueShort: "Apart Research hackathon",
+    venue: "Apart Research hackathon",
     authors: "Alexander Müller, Arsenijs Golicins, Galina Lesnic",
     link: "https://apartresearch.com/project/collective-deliberation-for-safer-cbrn-decisions-a-multi-agent-llm-debate-pipeline-3w8q",
     chipTitle: "Collective Deliberation",
@@ -124,7 +139,7 @@ export const publications: Publication[] = [
   {
     title: "Playing with Perception: Fooling Traffic Sign Classifiers via Copy-Paste Manipulation",
     venueShort: "Research project",
-    venue: "Research Project",
+    venue: "Research project",
     authors: "Davide Zani, Alexandru Dimofte",
     link: "https://drive.google.com/file/d/1JvhstWaLIHB9QPI-cg5S-1ASexhmqLSN/view",
     chipTitle: "Playing with Perception",

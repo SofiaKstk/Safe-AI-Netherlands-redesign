@@ -2,6 +2,8 @@ const siteUrl = "https://safeainetherlands.org";
 
 const routes = [
   "",
+  "/community",
+  "/courses",
   "/about",
   "/research",
   "/team",

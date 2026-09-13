@@ -1,24 +1,56 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+/* The renderer behind /about/vision, /about/theory-of-change,
+   /about/code-of-conduct and /research/handbook.
+
+   These are SAIN documents, so they are set like documents: a serif claim for
+   every turn, one reading column, hairlines instead of boxes, square corners,
+   and orange only where a numeral is doing the ordering. The markdown in
+   docs/*.md is written for GitHub, not for this page, so three things are
+   normalised on the way in: the escapes GitHub's exporter leaves behind, the
+   em dashes design.md forbids in copy, and the document's own H1, which the
+   page already prints as its title. */
+
 type Block =
-  | { type: "heading"; level: number; text: string }
+  | { type: "heading"; level: number; text: string; id: string }
   | { type: "paragraph"; text: string }
   | { type: "unordered-list"; items: string[] }
   | { type: "ordered-list"; items: string[] }
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "rule" };
 
-function cleanInline(text: string) {
+/* design.md: "Never use an em dash anywhere in copy." The source documents are
+   full of them, and rewriting docs/*.md by hand would drift from whatever the
+   board last approved, so the dash is resolved here instead. An em dash in
+   these files always joins two clauses, which a comma carries; a dash between
+   two numbers is a range, which a hyphen carries. */
+function normaliseDashes(text: string) {
   return text
-    .replace(/\\([\\.*+\-[\](){}#|>_])/g, "$1")
-    .replace(/\s{2,}$/g, "");
+    .replace(/(\d)\s*[–—]\s*(\d)/g, "$1-$2")
+    .replace(/\s*—\s*/g, ", ")
+    .replace(/\s+–\s+/g, ", ")
+    .replace(/,\s*,/g, ",")
+    .replace(/,\s*([.;:!?])/g, "$1");
+}
+
+function cleanInline(text: string) {
+  return normaliseDashes(
+    text.replace(/\\([\\.*+\-[\](){}#|>_~!`])/g, "$1"),
+  ).replace(/\s{2,}$/g, "");
 }
 
 function stripFormatting(text: string) {
   return cleanInline(text)
     .replace(/\*\*(.*?)\*\*/g, "$1")
     .replace(/\*(.*?)\*/g, "$1");
+}
+
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function renderFormatted(text: string, keyPrefix: string): ReactNode[] {
@@ -33,7 +65,10 @@ function renderFormatted(text: string, keyPrefix: string): ReactNode[] {
     }
 
     nodes.push(
-      <strong key={`${keyPrefix}-bold-${match.index}`}>
+      <strong
+        key={`${keyPrefix}-bold-${match.index}`}
+        className="font-medium text-navy"
+      >
         {cleanInline(match[1])}
       </strong>,
     );
@@ -73,6 +108,12 @@ function renderFormatted(text: string, keyPrefix: string): ReactNode[] {
   });
 }
 
+/* The inline link, per design.md: navy label, underline at ink/25 with a 4px
+   offset, deepening to full on hover. No colour change, because colour is not
+   the only sign of anything here. */
+const linkClass =
+  "text-navy underline decoration-navy/25 underline-offset-4 transition-[text-decoration-color] hover:decoration-navy focus-visible:decoration-navy";
+
 function renderInline(text: string, keyPrefix: string): ReactNode[] {
   const nodes: ReactNode[] = [];
   const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -81,27 +122,31 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
 
   while ((match = linkPattern.exec(text)) !== null) {
     if (match.index > lastIndex) {
-      nodes.push(...renderFormatted(text.slice(lastIndex, match.index), `${keyPrefix}-text-${match.index}`));
+      nodes.push(
+        ...renderFormatted(
+          text.slice(lastIndex, match.index),
+          `${keyPrefix}-text-${match.index}`,
+        ),
+      );
     }
 
     const [, label, href] = match;
     const isExternal = href.startsWith("http") || href.startsWith("mailto:");
-    const className =
-      "font-semibold text-dutch-orange hover:text-dutch-orange-dark underline decoration-dutch-orange/30 underline-offset-4 transition-colors";
 
     nodes.push(
       isExternal ? (
         <a
           key={`${keyPrefix}-link-${match.index}`}
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={className}
+          {...(href.startsWith("http")
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {})}
+          className={linkClass}
         >
           {renderFormatted(label, `${keyPrefix}-link-label-${match.index}`)}
         </a>
       ) : (
-        <Link key={`${keyPrefix}-link-${match.index}`} href={href} className={className}>
+        <Link key={`${keyPrefix}-link-${match.index}`} href={href} className={linkClass}>
           {renderFormatted(label, `${keyPrefix}-link-label-${match.index}`)}
         </Link>
       ),
@@ -149,12 +194,17 @@ function parseMarkdown(markdown: string): Block[] {
       continue;
     }
 
-    const headingMatch = /^(#{1,6})\s+(.+?)(?:\s+\{#[^}]+\})?$/.exec(line);
+    const headingMatch = /^(#{1,6})\s+(.+?)(?:\s+\{#([^}]+)\})?$/.exec(line);
     if (headingMatch) {
+      const text = stripFormatting(headingMatch[2]);
       blocks.push({
         type: "heading",
         level: headingMatch[1].length,
-        text: stripFormatting(headingMatch[2]),
+        text,
+        /* An explicit {#anchor} in the source wins, because other documents
+           already link to it; otherwise the heading slugs itself so in-page
+           links keep working. */
+        id: headingMatch[3] ?? slugify(text),
       });
       index += 1;
       continue;
@@ -224,87 +274,154 @@ function parseMarkdown(markdown: string): Block[] {
   return blocks;
 }
 
+/* Three depths of turn, so a document with Parts and a document without them
+   both start at the same weight. Depth is measured from the shallowest heading
+   left in the file, not from the hash count. */
+const headingStyles = [
+  {
+    Tag: "h2" as const,
+    className:
+      "mt-14 border-t border-navy/14 pt-7 font-serif text-heading-sm text-navy first:mt-0",
+  },
+  { Tag: "h3" as const, className: "mt-11 font-serif text-title text-navy" },
+  { Tag: "h4" as const, className: "mt-9 font-serif text-title-sm text-navy" },
+  {
+    Tag: "h5" as const,
+    className: "mt-8 font-serif text-title-sm text-navy/85",
+  },
+];
+
 export default function MarkdownDocument({ markdown }: { markdown: string }) {
-  const blocks = parseMarkdown(markdown);
+  const parsed = parseMarkdown(markdown);
+
+  /* The page prints the document's title in its own h1. Carrying the file's
+     H1 through as well would give the page two, so the leading one is
+     dropped; a later H1 (the Code of Conduct's two Parts) is structure and
+     stays. */
+  const blocks =
+    parsed[0]?.type === "heading" && parsed[0].level === 1
+      ? parsed.slice(1)
+      : parsed;
+
+  const shallowest = blocks.reduce(
+    (level, block) => (block.type === "heading" ? Math.min(level, block.level) : level),
+    6,
+  );
 
   return (
-    <article className="space-y-7 text-slate-700">
+    <article className="font-sans text-body text-navy/78">
       {blocks.map((block, index) => {
         if (block.type === "rule") {
-          return <hr key={index} className="border-slate-200" />;
+          /* Every section in these files ends with a `---` and starts with a
+             heading, and the heading already carries its own rule. Only the
+             separators that are doing something on their own are drawn. */
+          const next = blocks[index + 1];
+          if (!next || next.type === "heading") return null;
+
+          return (
+            <hr
+              key={index}
+              className="mt-9 border-0 border-t border-navy/10"
+            />
+          );
         }
 
         if (block.type === "heading") {
-          const sharedClass = "font-display font-bold text-navy-900";
-
-          if (block.level === 1) {
-            return (
-              <h1 key={index} className={`${sharedClass} text-4xl md:text-5xl`}>
-                {block.text}
-              </h1>
-            );
-          }
-
-          if (block.level === 2) {
-            return (
-              <h2 key={index} className={`${sharedClass} text-2xl md:text-3xl pt-4`}>
-                {block.text}
-              </h2>
-            );
-          }
+          const depth = Math.min(
+            Math.max(block.level - shallowest, 0),
+            headingStyles.length - 1,
+          );
+          const { Tag, className } = headingStyles[depth];
 
           return (
-            <h3 key={index} className={`${sharedClass} text-xl md:text-2xl pt-2`}>
+            <Tag key={index} id={block.id} className={`scroll-mt-32 ${className}`}>
               {block.text}
-            </h3>
+            </Tag>
           );
         }
 
         if (block.type === "paragraph") {
           return (
-            <p key={index} className="leading-8">
+            <p key={index} className="mt-5">
               {renderInline(block.text, `paragraph-${index}`)}
             </p>
           );
         }
 
-        if (block.type === "unordered-list" || block.type === "ordered-list") {
-          const ListTag = block.type === "unordered-list" ? "ul" : "ol";
+        if (block.type === "unordered-list") {
           return (
-            <ListTag
-              key={index}
-              className={`space-y-3 leading-8 ${
-                block.type === "unordered-list"
-                  ? "list-disc pl-6"
-                  : "list-decimal pl-6"
-              }`}
-            >
+            <ul key={index} className="mt-5 flex flex-col gap-3">
               {block.items.map((item, itemIndex) => (
-                <li key={itemIndex}>
-                  {renderInline(item, `list-${index}-${itemIndex}`)}
+                <li key={itemIndex} className="flex gap-3.5">
+                  {/* The landing's list marker: a 1px navy rule on the first
+                      line, not a dot and not an orange bullet. */}
+                  <span
+                    className="mt-[13px] h-px w-3.5 shrink-0 bg-navy/30"
+                    aria-hidden="true"
+                  />
+                  <span className="min-w-0">
+                    {renderInline(item, `list-${index}-${itemIndex}`)}
+                  </span>
                 </li>
               ))}
-            </ListTag>
+            </ul>
+          );
+        }
+
+        if (block.type === "ordered-list") {
+          /* The course outline row from design.md: a top hairline per row, the
+             numeral in Archivo at orange-ink in a 22px column. Ordering is the
+             one place a number carries meaning, so it is the one place the
+             orange goes. */
+          return (
+            <ol key={index} className="mt-6 flex flex-col">
+              {block.items.map((item, itemIndex) => (
+                <li
+                  key={itemIndex}
+                  className="flex gap-3 border-t border-navy/10 py-2.5"
+                >
+                  <span
+                    className="w-[22px] shrink-0 font-sans text-[12px] leading-[27px] tabular-nums text-orange-ink"
+                    aria-hidden="true"
+                  >
+                    {itemIndex + 1}
+                  </span>
+                  <span className="min-w-0">
+                    {renderInline(item, `list-${index}-${itemIndex}`)}
+                  </span>
+                </li>
+              ))}
+            </ol>
           );
         }
 
         return (
-          <div key={index} className="overflow-x-auto rounded-2xl border border-slate-200">
-            <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
-              <thead className="bg-slate-50 text-navy-900">
-                <tr>
+          <div
+            key={index}
+            className="mt-7 overflow-x-auto border-t border-navy/14"
+          >
+            <table className="w-full min-w-[540px] border-collapse text-left">
+              <thead>
+                <tr className="bg-cream">
                   {block.headers.map((header) => (
-                    <th key={header} className="px-4 py-3 font-display font-semibold">
+                    <th
+                      key={header}
+                      scope="col"
+                      className="border-b border-navy/14 px-4 py-3 align-bottom font-sans text-footnote font-medium text-navy/70"
+                    >
                       {renderInline(header, `table-${index}-header-${header}`)}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 bg-white">
+              <tbody>
                 {block.rows.map((row, rowIndex) => (
-                  <tr key={rowIndex}>
+                  <tr key={rowIndex} className="border-b border-navy/10">
                     {row.map((cell, cellIndex) => (
-                      <td key={cellIndex} className="px-4 py-3 align-top leading-6">
+                      <td
+                        key={cellIndex}
+                        className="px-4 py-3 align-top font-sans text-caption leading-[21px] text-navy/78"
+                      >
                         {renderInline(cell, `table-${index}-${rowIndex}-${cellIndex}`)}
                       </td>
                     ))}

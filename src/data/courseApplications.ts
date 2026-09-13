@@ -1,25 +1,17 @@
 /**
  * Course application status, per chapter.
  *
- * Single source of truth for the chapter course pages and the home-page
- * CoursePopup, so a cohort is never advertised as open in one place and closed
- * in another.
+ * Single source of truth for the chapter course pages, the courses page and the
+ * landing course tabs, so a cohort is never advertised as open in one place and
+ * closed in another.
  *
  * To open or close a cohort: flip `open` for that chapter and edit its
- * deadlines. When a new round opens, also bump `COURSE_POPUP_VERSION` so
- * visitors who dismissed the previous popup see the new one.
+ * deadlines.
  */
 
 /** Shared intake form for participants and facilitators, all chapters. */
 export const COURSE_APPLICATION_URL =
   "https://sainonboard.fillout.com/t/4fQyZTbTCAus";
-
-/**
- * Identifies the current popup content. Dismissals are stored per version, so
- * changing this string re-shows the popup to everyone who dismissed the last
- * one. Bump it whenever the popup's cities or deadlines change.
- */
-export const COURSE_POPUP_VERSION = "2026-09-utrecht-groningen";
 
 export type ChapterName = "Amsterdam" | "Groningen" | "Utrecht";
 
