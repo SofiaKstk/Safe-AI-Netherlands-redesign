@@ -290,15 +290,12 @@ export default function Home() {
 
       {/* One research story: the invitation, the people, and the work they publish. */}
       <section id="research" aria-labelledby="research-heading" className="scroll-mt-36 bg-navy text-white">
-        <div className="shell band-research">
+        <div className="shell pb-16 pt-12 md:pb-20 md:pt-16">
           <Reveal className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:gap-12 xl:grid-cols-[minmax(0,650px)_minmax(0,1fr)] xl:gap-24">
             <div className="flex flex-col items-start gap-6">
 
               <h2 id="research-heading" className="max-w-[560px] font-serif text-heading">The SAIN Research Hub</h2>
               <p className="max-w-[590px] text-body text-white/75">Bring your academic expertise to AI Safety. Connect with researchers, develop a focused project, and take your work further with support from SAIN.</p>
-              <div className="mt-2 flex flex-wrap items-center gap-6">
-                <a href="https://forms.gle/na3wbBR4V1YVHAnFA" target="_blank" rel="noopener noreferrer" className="btn-accent">Join as a researcher<span className="sr-only"> (opens in a new tab)</span></a>
-              </div>
             </div>
             <ResearchIllustration />
           </Reveal>

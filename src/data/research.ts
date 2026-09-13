@@ -15,6 +15,12 @@ export type Publication = {
   chipTitle: string;
   authors: string;
   link: string;
+  /** Selected landing-page evidence; summaries are grounded in the linked papers. */
+  featured?: {
+    illustration: "alignment" | "ablation" | "eu-agents";
+    venueLabel: string;
+    summary: string;
+  };
 };
 
 export const publications: Publication[] = [
@@ -26,6 +32,11 @@ export const publications: Publication[] = [
     authors: "Jeremias Ferrao, Matthijs van der Lende, Ilija Lichkovski",
     link: "https://arxiv.org/abs/2509.12934",
     chipTitle: "The Anatomy of Alignment",
+    featured: {
+      illustration: "alignment",
+      venueLabel: "NeurIPS 2025 workshop · Spotlight",
+      summary: "A transparent view of preference optimisation reveals how models can learn to favour style and formatting over honesty.",
+    },
   },
   {
     title: "Self-Ablating Transformers: More Interpretability, Less Sparsity",
@@ -34,6 +45,11 @@ export const publications: Publication[] = [
     authors: "Jeremias Ferrao",
     link: "https://openreview.net/pdf?id=QcmEb490bK",
     chipTitle: "Self-Ablating Transformers",
+    featured: {
+      illustration: "ablation",
+      venueLabel: "ICLR 2025 · Building Trust Workshop",
+      summary: "Training small language models to select their active components produces more specialised, interpretable circuits without sacrificing language modelling performance.",
+    },
   },
   {
     title: "EU-Agent-Bench: Measuring Illegal Behavior of LLM Agents Under EU Law",
@@ -42,6 +58,11 @@ export const publications: Publication[] = [
     authors: "Ilija Lichkovski, Alexander Müller, Mariam Ibrahim, Tiwai Mhundwa",
     link: "https://arxiv.org/abs/2510.21524",
     chipTitle: "EU-Agent-Bench",
+    featured: {
+      illustration: "eu-agents",
+      venueLabel: "NeurIPS 2025 · Regulatable ML Workshop",
+      summary: "A benchmark tests whether AI agents take unlawful actions under EU law, even when the user’s request is benign.",
+    },
   },
   {
     title:
