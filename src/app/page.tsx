@@ -56,20 +56,20 @@ const chapters = [
   },
 ];
 
-/* Career destinations. A 26px orange icon, a 240px serif title, a description
-   that grows, and the destination on the right: one shared rhythm, so the rows
-   read as a list rather than four cards. Phosphor at light weight is the
-   closest match to the 1.4 stroke the rest of the page draws with.
+/* Career destinations. Four cells in the index band below the courses: a
+   26px orange icon, a serif title, a description, and the destination in the
+   page's serif-italic metadata voice as the cell's last line.
 
-   One icon per row. There used to be two -- a topic glyph on the left and a
-   second glyph beside the destination -- which put eight icons in a four-item
-   list and gave the destination the same weight as the track itself. A
-   Buildings glyph in front of the words "Labs and institutes" is the bullet
-   dot design.md warns about: it repeats the label instead of adding to it.
+   One icon per cell. There used to be two -- a topic glyph and a second one
+   in front of the destination -- which put eight icons in a four-item list
+   and gave the destination the same weight as the track itself. A Buildings
+   glyph ahead of the words "Labs and institutes" is the bullet dot design.md
+   warns about: it repeats the label instead of adding to it. For the same
+   reason the first description no longer ends by naming the destination
+   printed under it.
 
-   The destination is set in the page's serif-italic metadata voice and pushed
-   to the band's right edge, so the four of them read down as a column of
-   answers to "where does this lead" rather than as a fourth strip of prose. */
+   Phosphor at light weight is the closest match to the 1.4 stroke the rest of
+   the page draws with. */
 const careerTracks = [
   {
     title: "Technical research",
@@ -333,33 +333,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Careers. Paper band: a quote, then the destinations as hairline rows. */}
-      <section id="careers" aria-labelledby="careers-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
-        <div className="shell band-section flex flex-col gap-9">
-          <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] xl:grid-cols-[minmax(0,1fr)_minmax(280px,520px)]">
-            <div className="flex min-w-0 flex-col gap-[22px]">
-              <p className="kicker text-kicker text-navy/65">Careers</p>
-              <h2 id="careers-heading" className="max-w-[620px] font-serif text-heading-sm text-navy">Build an AI Safety career</h2>
-              <p className="max-w-[720px] font-sans text-body text-navy/74">
-                Most people who end up working on AI Safety did not plan for it. We shorten that
-                path with mentorship, funding advice, and introductions to the labs, institutes and
-                ministries hiring in Europe right now.
-              </p>
-              <Link
-                href="/open-positions"
-                className="btn-outline-ink self-start"
-              >
-                See open positions
-              </Link>
-            </div>
+      {/* Careers. An index band, built like the communities one above: the
+          label and the voice on the left, the destinations as hairline cells
+          on the right. It used to open with a heading, a paragraph and a
+          button and only then reach the four tracks, which made the tracks
+          the tail of a section rather than the section itself. The tracks are
+          what this band is.
 
-            {/* Dropped to the heading's line rather than the band's top edge.
-                Level with the "Careers" kicker the quote read as a second
-                label for the section; level with the heading it reads as
-                something the section is saying. The offset is the left
-                column's own stack: the kicker's 24px line and the 22px gap
-                under it. */}
-            <blockquote className="flex min-w-0 flex-col gap-[18px] lg:mt-[46px]">
+          The quote sits under the label now instead of beside a heading it
+          had to be nudged down to meet, so nothing here depends on matching
+          the height of a stack in the other column. */}
+      <section id="careers" aria-labelledby="careers-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
+        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
+          <div className="flex min-w-0 flex-col gap-[22px] lg:w-[300px] lg:shrink-0">
+            <h2 id="careers-heading" className="kicker pt-0.5 text-kicker text-navy/65">
+              Careers
+            </h2>
+            <blockquote className="flex min-w-0 flex-col gap-[18px]">
               <p className="kicker text-base leading-[22px] text-navy/65">
                 Internship · Existential Risk Observatory
               </p>
@@ -378,35 +368,27 @@ export default function Home() {
             </blockquote>
           </div>
 
-          {/* The list aligns to the shell's own margins. The rows used to sit
-              inside a 22px inset, so the icons started to the right of the
-              kicker and heading above them and the band ran on two left edges.
-              A closing rule under the last row so the list ends rather than
-              stops. */}
-          <div className="border-b border-navy/10">
+          {/* The chapter cell's own geometry: a left hairline, an 18px inset,
+              and the column stretched to its neighbours so the four rules run
+              the same length. */}
+          <div className="grid flex-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {careerTracks.map((track) => (
-              <div
+              <article
                 key={track.title}
-                className="flex flex-col gap-4 border-t border-navy/10 py-[18px] lg:flex-row lg:items-center lg:gap-6"
+                className="border-l border-navy/14 py-1 pl-[18px] pr-4"
               >
-                <div className="flex items-center gap-4 lg:contents">
-                  <track.Icon
-                    size={26}
-                    weight="light"
-                    className="shrink-0 text-orange"
-                    aria-hidden="true"
-                  />
-                  <h3 className="font-serif text-title-sm text-navy lg:w-[200px] lg:shrink-0 xl:w-[240px]">
-                    {track.title}
-                  </h3>
-                </div>
-                <p className="flex-1 font-sans text-ui leading-[23px] text-navy/68">
+                <track.Icon
+                  size={26}
+                  weight="light"
+                  className="text-orange"
+                  aria-hidden="true"
+                />
+                <h3 className="mt-3 font-serif text-title-sm text-navy">{track.title}</h3>
+                <p className="mt-2 font-sans text-ui leading-[23px] text-navy/68">
                   {track.description}
                 </p>
-                <p className="kicker text-caption text-navy/65 lg:w-[150px] lg:shrink-0 lg:text-right xl:w-[168px]">
-                  {track.destination}
-                </p>
-              </div>
+                <p className="kicker mt-3 text-caption text-navy/65">{track.destination}</p>
+              </article>
             ))}
           </div>
         </div>
