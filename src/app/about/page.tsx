@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import ScrollCue from "@/components/ScrollCue";
+import TalentFunnel from "@/components/TalentFunnel";
 import { leadership } from "@/data/leadership";
 import { sainDocuments } from "@/data/sainDocuments";
 import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
@@ -140,7 +141,40 @@ export default function AboutPage() {
             solutions.
           </p>
         </div>
-        <ScrollCue href="#team" />
+        <ScrollCue href="#pipeline" />
+      </section>
+
+      {/* The SAIN Talent Pipeline. The landing makes the claim in one sentence
+          and links here; this is where the shape of it lives. Every band is a
+          link back to the landing section that describes that step, so the
+          diagram is a way into the site rather than a picture of one. */}
+      <section id="pipeline" className="section-padding scroll-mt-32 bg-white">
+        <div className="section-container">
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,436px)]">
+            <div className="max-w-2xl">
+              <FadeIn>
+                <h2 className="heading-lg text-navy-900">The SAIN Talent Pipeline</h2>
+              </FadeIn>
+              <FadeIn delay={0.1}>
+                <p className="mt-6 text-lg leading-relaxed text-slate-600">
+                  Each band is a step, and each one is open to anyone ready for it: a free
+                  course, a community that keeps meeting once the course ends, research
+                  projects that need hands, and the roles people move on to from there.
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.15}>
+                <p className="mt-5 text-lg leading-relaxed text-slate-600">
+                  It narrows because the path narrows. A course is open to everyone, a
+                  full-time role is not. Follow a band to read what that step involves.
+                </p>
+              </FadeIn>
+            </div>
+
+            <FadeIn delay={0.2} direction="none" className="mx-auto w-full min-w-0 max-w-[436px]">
+              <TalentFunnel />
+            </FadeIn>
+          </div>
+        </div>
       </section>
 
       {/* Leadership Team */}

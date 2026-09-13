@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import CommunityPrints from "@/components/landing/CommunityPrints";
@@ -10,7 +11,6 @@ import HeroChart from "@/components/landing/HeroChart";
 import PathwayTrail from "@/components/landing/PathwayTrail";
 import PublicationMarquee from "@/components/landing/PublicationMarquee";
 import SectionOrbits from "@/components/landing/SectionOrbits";
-import TalentFunnel from "@/components/landing/TalentFunnel";
 import { publications, RESEARCH_EMAIL } from "@/data/research";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import {
@@ -37,21 +37,27 @@ export const metadata: Metadata = {
     "SAIN provides the community, courses and resources to help students and professionals join the AI Safety field in the Netherlands. Every programme is free.",
 };
 
+/* The photograph is the one each chapter page opens with, so arriving on the
+   chapter is a continuation of the picture the hover already showed. These are
+   720x280 crops of those heroes, not the heroes themselves: `output: "export"`
+   ships images unoptimized, and the three full-size JPEGs come to 3.8MB for a
+   band that is 118px tall. Regenerate with sharp from `-hero.jpg` if a chapter
+   page changes its photograph. */
 const chapters = [
   {
     city: "Utrecht",
-    blurb: "Fundamentals, ARENA track, discussion groups",
     href: "/chapters/utrecht",
+    photo: "/photos/cities/utrecht-index.webp",
   },
   {
     city: "Groningen",
-    blurb: "Technical and governance tracks",
     href: "/chapters/groningen",
+    photo: "/photos/cities/groningen-index.webp",
   },
   {
     city: "Amsterdam",
-    blurb: "BlueDot technical and governance courses",
     href: "/chapters/amsterdam",
+    photo: "/photos/cities/amsterdam-index.webp",
   },
 ];
 
@@ -171,14 +177,30 @@ export default function Home() {
           </h2>
           <div className="grid flex-1 gap-6 sm:grid-cols-3">
             {chapters.map((chapter) => (
-              <article key={chapter.city} className="border-l border-navy/14 py-0.5 pl-[18px]">
+              <article
+                key={chapter.city}
+                className="chapter-cell relative isolate border-l border-navy/14 py-6 pl-[18px] pr-4"
+              >
+                {/* The city, held behind the cell and painted in on hover. The
+                    navy wash is what carries the name and the link over a
+                    photograph; without it the cell would be unreadable on the
+                    bright half of every image. */}
+                <span className="chapter-cell-photo pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+                  <Image
+                    src={chapter.photo}
+                    alt=""
+                    width={720}
+                    height={280}
+                    className="h-full w-full object-cover"
+                  />
+                  <span className="absolute inset-0 bg-navy/78" />
+                </span>
                 <h3 className="font-serif text-title text-navy">{chapter.city}</h3>
-                <p className="mt-2 font-sans text-sm leading-5 text-navy/66">{chapter.blurb}</p>
                 <Link
                   href={chapter.href}
-                  className="mt-2.5 inline-flex items-center gap-1.5 font-sans text-sm leading-5 text-navy underline decoration-navy/20 underline-offset-4 transition-colors hover:decoration-navy focus-visible:decoration-navy"
+                  className="mt-2 inline-flex items-center gap-1.5 font-sans text-sm leading-5 text-navy underline decoration-navy/20 underline-offset-4 after:absolute after:inset-0 hover:decoration-navy focus-visible:decoration-navy"
                 >
-                  View courses
+                  View chapter
                   <Arrow />
                 </Link>
               </article>
@@ -187,14 +209,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mission and courses are one band on one ground. The funnel's widest
-          band already reads "Join a free course", so explaining the pipeline
-          and opening its first step is a single argument — splitting it across
-          two surfaces made the reader start over halfway through. */}
+      {/* Mission and courses are one band on one ground: explaining the
+          pipeline and opening its first step is a single argument, and
+          splitting it across two surfaces made the reader start over halfway
+          through. The funnel that used to sit in the right column now opens
+          /about, so the claim stays here and the diagram is a click away. */}
       <section aria-labelledby="mission-heading" className="relative isolate overflow-hidden border-t border-navy/10 bg-white">
         <SectionOrbits className="-left-20 top-6 h-[400px] w-[300px] md:-left-12" />
         <div id="mission" className="shell band-section-top relative isolate scroll-mt-36">
-          <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] xl:grid-cols-[minmax(0,1fr)_minmax(0,436px)]">
+          <div className="w-full">
             <div className="flex w-full min-w-0 max-w-[760px] flex-col gap-[22px]">
               <h2 id="mission-heading" className="max-w-[640px] font-serif text-heading text-navy">
                 How SAIN is upskilling the next wave of AI Safety experts in the Netherlands.
@@ -208,7 +231,14 @@ export default function Home() {
                 <p>
                   The goal is simple: help students and young professionals make a first real
                   contribution. Then we connect the strongest people onward to organisations,
-                  programmes, and jobs. That&rsquo;s the SAIN Talent Pipeline.
+                  programmes, and jobs. That&rsquo;s the{" "}
+                  <Link
+                    href="/about#pipeline"
+                    className="text-navy underline decoration-navy/25 underline-offset-4 transition-colors hover:decoration-navy focus-visible:decoration-navy"
+                  >
+                    SAIN Talent Pipeline
+                  </Link>
+                  .
                 </p>
               </div>
               <div className="pt-1">
@@ -223,8 +253,6 @@ export default function Home() {
                 </a>
               </div>
             </div>
-
-            <Reveal delay={0.08} className="mx-auto w-full min-w-0 max-w-[436px]"><TalentFunnel /></Reveal>
           </div>
         </div>
 

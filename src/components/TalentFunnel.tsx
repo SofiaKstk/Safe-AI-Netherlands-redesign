@@ -1,7 +1,11 @@
 import type { CSSProperties } from "react";
 
 /**
- * The SAIN Talent Pipeline. The trapezoids narrow because the path narrows:
+ * The SAIN Talent Pipeline. It lives on /about now, so every band points back
+ * at the landing section that describes its step rather than at an anchor on
+ * its own page.
+ *
+ * The trapezoids narrow because the path narrows:
  * a course is open to anyone, a full-time role is not. The last band is solid
  * orange because that is the destination, and the photographs inside the bands
  * are texture — evidence that each step is a room that exists — not hero crops.
@@ -30,7 +34,7 @@ const BANDS: Band[] = [
   {
     width: 432,
     inset: 8.8,
-    href: "#courses",
+    href: "/#courses",
     label: "Start with a free course",
     labelCqw: 3.7,
     labelClass: "max-w-[78%] text-center leading-[1.25] text-navy",
@@ -44,7 +48,7 @@ const BANDS: Band[] = [
   {
     width: 356,
     inset: 9,
-    href: "#community",
+    href: "/#community",
     label: "Participate in SAIN's community",
     labelCqw: 3.47,
     labelClass: "max-w-[78%] text-center leading-[1.27] text-navy",
@@ -58,7 +62,7 @@ const BANDS: Band[] = [
   {
     width: 292,
     inset: 8.9,
-    href: "#research",
+    href: "/#research",
     label: "Contribute and collaborate on research or projects",
     labelCqw: 3.24,
     labelClass: "max-w-[78%] text-center leading-[1.29] text-navy",
@@ -72,7 +76,7 @@ const BANDS: Band[] = [
   {
     width: 240,
     inset: 9.2,
-    href: "#careers",
+    href: "/#careers",
     label: "Undertake a fellowship or internship in AI Safety",
     labelCqw: 3.01,
     labelClass: "max-w-[78%] text-center leading-[1.31] text-navy",
@@ -86,7 +90,7 @@ const BANDS: Band[] = [
   {
     width: 196,
     inset: 10.2,
-    href: "#careers",
+    href: "/#careers",
     label: "Work full-time in AI Safety",
     labelCqw: 3.24,
     labelClass: "max-w-[78%] text-center leading-[1.29] text-white",

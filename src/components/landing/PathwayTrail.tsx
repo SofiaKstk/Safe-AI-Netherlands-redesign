@@ -1,7 +1,8 @@
 /**
- * The path again, as a close. Same five stops as the funnel, but drawn on the
- * inverse ground as a zigzag trail against a single spine — the funnel argues
- * that the path narrows, the trail argues that it is walkable.
+ * The path, as a close. Same five stops as the funnel on /about, but drawn on
+ * the inverse ground as a zigzag trail against a single spine — the funnel
+ * argues that the path narrows, the trail argues that it is walkable. It is
+ * the only drawing of the pipeline the landing carries now.
  */
 
 const STOPS = [
