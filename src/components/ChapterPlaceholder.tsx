@@ -124,7 +124,7 @@ export default function ChapterPlaceholder({
                 >
                   Get Involved in {city}
                 </a>
-                <Link href="/get-involved#start-chapter" className="btn-outline">
+                <Link href="/community#start-chapter" className="btn-outline">
                   Learn About Starting a Chapter
                 </Link>
               </div>

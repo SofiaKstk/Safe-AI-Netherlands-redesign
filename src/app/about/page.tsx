@@ -449,7 +449,7 @@ export default function AboutPage() {
               <Link href="/get-involved" className="btn-primary">
                 Get Involved
               </Link>
-              <Link href="/get-involved#start-chapter" className="btn-secondary">
+              <Link href="/community#start-chapter" className="btn-secondary">
                 Start a Chapter
               </Link>
             </div>

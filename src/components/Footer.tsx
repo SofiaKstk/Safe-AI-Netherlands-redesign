@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 
-/* Inverse navy close. Newsreader italic for the stichting line and the column
-   titles, Archivo for the links. One bottom rule, then the legal line and the
-   cities. No second logo treatment. */
+/* Inverse navy close. IBM Plex Serif italic for the stichting line and the
+   column titles, Archivo for the links. One bottom rule, then the legal line
+   and the cities. No second logo treatment.
+
+   The nav above carries three routes only, so the footer carries the whole
+   map: the community and its city doors, every programme, and the
+   organisation pages the nav no longer names. */
 
 type FooterLink = { name: string; href: string; external?: boolean };
 
@@ -11,21 +15,20 @@ const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: "Community",
     links: [
-      { name: "Chapters", href: "/#chapters" },
+      { name: "Community", href: "/community" },
+      { name: "Utrecht", href: "/chapters/utrecht" },
       { name: "Groningen", href: "/chapters/groningen" },
       { name: "Amsterdam", href: "/chapters/amsterdam" },
-      { name: "Utrecht", href: "/chapters/utrecht" },
       { name: "Join the community", href: COMMUNITY_JOIN_URL, external: true },
     ],
   },
   {
     title: "Programmes",
     links: [
-      { name: "Courses", href: "/get-involved#courses" },
-      { name: "Discussion groups", href: "/get-involved#discussion-groups" },
-      { name: "Events", href: "/get-involved#events" },
+      { name: "Courses", href: "/courses" },
       { name: "Research hub", href: "/research" },
       { name: "Research handbook", href: "/research/handbook" },
+      { name: "Volunteer", href: "/get-involved" },
     ],
   },
   {
@@ -33,10 +36,28 @@ const columns: { title: string; links: FooterLink[] }[] = [
     links: [
       { name: "About", href: "/about" },
       { name: "Team", href: "/team" },
-      { name: "Open positions", href: "/open-positions" },
+      { name: "Careers", href: "/open-positions" },
       { name: "Contact", href: "/contact" },
-      { name: "Newsletter", href: "https://safeainetherlands.substack.com/", external: true },
     ],
+  },
+];
+
+/* The same three channels layout.tsx declares in the organisation's JSON-LD. */
+const socials: FooterLink[] = [
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/company/safe-ai-netherlands/",
+    external: true,
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/sainetherlands/",
+    external: true,
+  },
+  {
+    name: "Newsletter",
+    href: "https://safeainetherlands.substack.com/",
+    external: true,
   },
 ];
 
@@ -89,6 +110,13 @@ export default function Footer() {
             >
               info@safeainetherlands.org
             </a>
+            <ul role="list" className="flex flex-wrap gap-x-5 gap-y-1">
+              {socials.map((social) => (
+                <li key={social.name}>
+                  <FooterAnchor link={social} />
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="grid flex-1 gap-8 sm:grid-cols-3">
