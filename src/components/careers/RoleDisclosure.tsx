@@ -206,11 +206,15 @@ export default function RoleDisclosure({
             Apply for this role
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
+          {/* The footnote tells the applicant what to do in the form rather
+              than promising what the form will already have done for them: the
+              pre-fill entry ids in openPositions.ts are still unverified, and
+              Google drops entry keys it does not recognise without a word. */}
           {applyUrlOverride ? null : (
             <p className="max-w-[400px] font-sans text-footnote text-navy/65">
               {role.specialisationOf
                 ? `Applies through the form's "${role.specialisationOf}" option. Mention "${role.title}" in your motivation letter.`
-                : "Opens the application form, pre-filled with this role."}
+                : `Opens the shared application form. Choose "${role.title}" there.`}
             </p>
           )}
         </div>

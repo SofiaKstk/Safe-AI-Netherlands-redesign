@@ -7,10 +7,11 @@ import type { ReactNode } from "react";
    These are SAIN documents, so they are set like documents: a serif claim for
    every turn, one reading column, hairlines instead of boxes, square corners,
    and orange only where a numeral is doing the ordering. The markdown in
-   docs/*.md is written for GitHub, not for this page, so three things are
+   docs/*.md is written for GitHub, not for this page, so four things are
    normalised on the way in: the escapes GitHub's exporter leaves behind, the
-   em dashes design.md forbids in copy, and the document's own H1, which the
-   page already prints as its title. */
+   em dashes design.md forbids in copy, the American spellings the rest of the
+   site does not use, and the document's own H1, which the page already prints
+   as its title. */
 
 type Block =
   | { type: "heading"; level: number; text: string; id: string }
@@ -34,14 +35,48 @@ function normaliseDashes(text: string) {
     .replace(/,\s*([.;:!?])/g, "$1");
 }
 
+/* A pair of em dashes is not two dashes. When two of them bound an
+   interjection, they are doing the work of parentheses, and turning each one
+   into a comma collapses the interjection into whatever list sits beside it
+   ("the right ecosystem, education, research, community, and visibility, and
+   make it easy to enter"). So the pair is resolved first, on the whole block,
+   before the bold/italic split hands single fragments to cleanInline. A pair
+   that spans a sentence boundary is not a pair, and is left to the single-dash
+   rule. */
+function normalisePairedDashes(text: string) {
+  return text
+    .replace(/\s*—\s*([^—]+?)\s*—\s*/g, (match, inner: string) =>
+      /\.\s/.test(inner) ? match : ` (${inner}) `,
+    )
+    .replace(/\)\s+([.,;:!?])/g, ")$1")
+    .replace(/^\s+\(/, "(");
+}
+
+/* design.md: British spelling. The documents are written in American spelling,
+   so /about renders "organisation" while /about/vision one click later renders
+   "organization". Same argument as the dashes: normalise on the way in rather
+   than editing markdown the board approved. The stem list is closed, and holds
+   only what actually occurs in docs/*.md. */
+const izePattern =
+  /\b(organi|centrali|prioriti|recogni|reali|standardi|professionali|polari|authori)z(es|ed|ing|ers|er|ations|ational|ation|e)\b/gi;
+
+function normaliseSpelling(text: string) {
+  return text
+    .replace(izePattern, "$1s$2")
+    .replace(/\b([Bb]ehavio)r/g, "$1ur")
+    .replace(/\b([Pp]rogram)(s?)\b/g, "$1me$2")
+    .replace(/\b([Mm]odel)(ed|ing)\b/g, "$1l$2")
+    .replace(/\b([Cc])enter\b/g, "$1entre");
+}
+
 function cleanInline(text: string) {
-  return normaliseDashes(
-    text.replace(/\\([\\.*+\-[\](){}#|>_~!`])/g, "$1"),
+  return normaliseSpelling(
+    normaliseDashes(text.replace(/\\([\\.*+\-[\](){}#|>_~!`])/g, "$1")),
   ).replace(/\s{2,}$/g, "");
 }
 
 function stripFormatting(text: string) {
-  return cleanInline(text)
+  return cleanInline(normalisePairedDashes(text))
     .replace(/\*\*(.*?)\*\*/g, "$1")
     .replace(/\*(.*?)\*/g, "$1");
 }
@@ -114,7 +149,10 @@ function renderFormatted(text: string, keyPrefix: string): ReactNode[] {
 const linkClass =
   "text-navy underline decoration-navy/25 underline-offset-4 transition-[text-decoration-color] hover:decoration-navy focus-visible:decoration-navy";
 
-function renderInline(text: string, keyPrefix: string): ReactNode[] {
+function renderInline(source: string, keyPrefix: string): ReactNode[] {
+  /* Whole-block first, so a dash pair is still a pair when it wraps a bold
+     phrase and the split below would otherwise cut it in two. */
+  const text = normalisePairedDashes(source);
   const nodes: ReactNode[] = [];
   const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
   let lastIndex = 0;

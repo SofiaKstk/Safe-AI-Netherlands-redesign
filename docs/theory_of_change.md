@@ -74,7 +74,7 @@ Organized by pillar (see [Vision](/about/vision) for full descriptions):
 
 ---
 
-## **5\. Evidence and Validation**
+## **4\. Evidence and Validation**
 
 SAIN's theory builds on demonstrated proof-of-concept:
 
@@ -90,7 +90,7 @@ SAIN's theory builds on demonstrated proof-of-concept:
 
 ---
 
-## **6\. Scaling Logic**
+## **5\. Scaling Logic**
 
 The chapter model produces a **cycle** that is central to the theory:
 

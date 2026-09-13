@@ -28,10 +28,11 @@ import {
 const INFO_EMAIL = "info@safeainetherlands.org";
 const JOIN_MAILTO = `mailto:${INFO_EMAIL}?subject=Joining SAIN`;
 
-/* One tab title for the page in both of its states. The description changes,
-   because the two states are answering different questions. */
+/* Title and description both follow the page's state, because the two states
+   are answering different questions: one is a live listing of open roles, the
+   other is a standing invitation. */
 export const metadata: Metadata = {
-  title: "Careers",
+  title: hasOpenPositions ? "Open positions" : "Join SAIN",
   description: hasOpenPositions
     ? "Volunteer roles open at SAIN's chapters, and one paid role on the national team. Apply with your CV and a short motivation letter."
     : "Interested in volunteering with Safe AI Netherlands? There is always an open application. Get in touch.",
@@ -308,7 +309,9 @@ function ChapterSection({ chapter }: { chapter: ChapterPosting }) {
 
           {/* The door for everyone the list did not describe, and the chapter's
               own inbox beside it. One label per destination: this button and
-              the per-role buttons above open the same form. */}
+              the per-role buttons above open the same form. Outline ink here,
+              so the accent fill stays with "apply for this specific role" and
+              the three shared-form asks. */}
           <div className="mt-10">
             <h3 className="font-serif text-title-sm text-navy">
               No role that fits? Apply anyway.
@@ -324,7 +327,7 @@ function ChapterSection({ chapter }: { chapter: ChapterPosting }) {
                 href={buildApplicationUrl({ chapter: chapter.chapterSlug })}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-accent"
+                className="btn-outline-ink"
               >
                 Apply for SAIN {chapter.chapterSlug}
                 <span className="sr-only"> (opens in a new tab)</span>
@@ -604,9 +607,10 @@ export default function CareersPage() {
             <p className="mt-4 max-w-[760px] font-sans text-body text-navy/74">
               Chapter applications go through the same form, whichever city and
               role you choose. You pick the chapter and the role, attach your
-              CV, and write a short motivation letter; one page is plenty. Your
-              application goes to the SAIN national inbox and to the chapter you
-              applied to.
+              CV, and write a short motivation letter; one page is plenty.
+              {/* The sentence naming where an application lands is out until
+                  the form's submission trigger is wired to info@ and the
+                  chapter inbox. See the setup notes in openPositions.ts. */}
               {isNationalRecruiting
                 ? " The Research Operations Lead has its own form, linked on the role above."
                 : ""}
@@ -637,8 +641,10 @@ export default function CareersPage() {
                 Open application form
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
+              {/* /courses and /get-involved offer /contact under this same
+                  label as the softer second step; one label per destination. */}
               <Link href="/contact" className="btn-outline-ink">
-                Contact a chapter
+                Or get in touch first
               </Link>
             </div>
           </Reveal>
@@ -672,7 +678,7 @@ export default function CareersPage() {
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <Link href="/contact" className="btn-ghost-inverse">
-              Contact a chapter
+              Or get in touch first
             </Link>
           </div>
         </div>

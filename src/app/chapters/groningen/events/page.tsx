@@ -102,7 +102,14 @@ export default function GroningenEventsArchivePage() {
                         <h3 className="mt-1.5 font-serif text-title-sm text-navy">
                           {event.title}
                         </h3>
-                        <div className="mt-2.5 flex max-w-[var(--container-copy)] flex-col gap-2.5 font-sans text-[15.5px] leading-[25px] text-navy/74">
+                        {/* The blurbs are the original announcements, so many
+                            of them invite you to something that has already
+                            happened. Attributing the tense per row is what
+                            keeps a 2023 entry from reading as a live one. */}
+                        <p className="kicker mt-3 text-kicker-sm text-navy/55">
+                          From the announcement at the time
+                        </p>
+                        <div className="mt-1.5 flex max-w-[var(--container-copy)] flex-col gap-2.5 font-sans text-[15.5px] leading-[25px] text-navy/74">
                           {event.description
                             .split("\n\n")
                             .map((paragraph) => (

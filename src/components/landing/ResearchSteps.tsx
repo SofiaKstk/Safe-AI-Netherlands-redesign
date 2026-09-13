@@ -54,7 +54,9 @@ export default function ResearchSteps() {
         <div className="mt-6">
           <p className="mb-5 text-label text-white/65">Explore our supervisors’ research agendas</p>
           <ResearchPeople />
-          <a href={`mailto:${RESEARCH_EMAIL}?subject=Becoming a SAIN research supervisor`} className="mt-4 inline-flex items-center gap-3 text-label text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white">
+          {/* Same subject line /research and the handbook use, so the three
+              "Become a supervisor" links land in the inbox as one thread. */}
+          <a href={`mailto:${RESEARCH_EMAIL}?subject=${encodeURIComponent("Research Hub: becoming a supervisor")}`} className="mt-4 inline-flex items-center gap-3 text-label text-white/80 underline decoration-white/35 underline-offset-4 hover:text-white focus-visible:text-white">
             Become a supervisor <ArrowRight size={16} aria-hidden="true" />
           </a>
         </div>

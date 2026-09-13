@@ -45,13 +45,22 @@ const SUPERVISOR_MAILTO = `mailto:${RESEARCH_EMAIL}?subject=${encodeURIComponent
 )}`;
 
 const ONBOARDING_FORM_URL = "https://sainonboard.fillout.com/new";
+/* Responder paths, not editor paths. The source document recorded these two
+   forms by their document ids, which Google resolves to the editor: a
+   researcher without edit rights lands on "You need permission", and the
+   page's headline weekly obligation stops working. /viewform is the path a
+   respondent gets. Both still need one signed-out check by the team, and if
+   either form is not shared with responders the callout should route through
+   research@safeainetherlands.org instead of linking a form that 403s. */
 const WEEKLY_CHECKIN_URL =
-  "https://docs.google.com/forms/d/1Uu4JrMh9j6iNa4seeIyqPnkCtikFXPgT8-pUPnwzVVE/";
+  "https://docs.google.com/forms/d/1Uu4JrMh9j6iNa4seeIyqPnkCtikFXPgT8-pUPnwzVVE/viewform";
 const BIWEEKLY_CHECKIN_URL =
-  "https://docs.google.com/forms/d/1bBQ8jstIOWAFzOuskhLMv9lnGvcU87ZTtSSKo8mni9o/edit";
+  "https://docs.google.com/forms/d/1bBQ8jstIOWAFzOuskhLMv9lnGvcU87ZTtSSKo8mni9o/viewform";
 const SUBSTACK_URL = "https://aisig.substack.com/";
-const PROJECT_ARCHIVE_URL =
-  "https://safeainetherlands.org/research#:~:text=Research%20from%20our%20community";
+/* The archive is the publications list on /research, so this stays on the
+   site: an internal route and a real element id, not a text fragment that no
+   longer matches and sends a reader off a preview build to production. */
+const PROJECT_ARCHIVE_URL = "/research#publications";
 
 /* The handbook follows the life of a project, so the contents does too. These
    ids are the page's stable deep links; the sticky rail at xl reads the same
@@ -105,13 +114,21 @@ const proposalElements = [
   "Expected outputs",
 ];
 
-/** A chapter of the document: an h2 turn under the rule that separates it. */
+/* A chapter of the document: an h2 turn under the rule that separates it.
+
+   The numeral above the heading is the index role doing wayfinding, the same
+   two digits the contents list and the rail carry. It exists because the
+   document cross-references itself by number, and a reader who has scrolled
+   past a heading needs a visible referent to know they are in section 4. It is
+   not a kicker: Archivo at the index role, never serif, never a sentence. */
 function Chapter({
   id,
+  index,
   title,
   children,
 }: {
   id: string;
+  index: number;
   title: string;
   children: ReactNode;
 }) {
@@ -121,9 +138,15 @@ function Chapter({
       aria-labelledby={`${id}-heading`}
       className="scroll-mt-32 border-t border-navy/10 pt-10"
     >
+      <p
+        aria-hidden="true"
+        className="font-sans text-index tabular-nums text-navy/50"
+      >
+        {String(index).padStart(2, "0")}
+      </p>
       <h2
         id={`${id}-heading`}
-        className="font-serif text-heading text-navy"
+        className="mt-2 font-serif text-heading text-navy"
       >
         {title}
       </h2>
@@ -270,7 +293,7 @@ export default function ResearchHubHandbookPage() {
               </Reveal>
 
               {/* 1 */}
-              <Chapter id="purpose" title="What the Research Hub is for">
+              <Chapter id="purpose" index={1} title="What the Research Hub is for">
                 <P>
                   SAIN exists to raise awareness of the full spectrum of
                   existing and potential harms from AI, contribute to shaping
@@ -334,7 +357,7 @@ export default function ResearchHubHandbookPage() {
               </Chapter>
 
               {/* 2 */}
-              <Chapter id="before-you-apply" title="Before you apply">
+              <Chapter id="before-you-apply" index={2} title="Before you apply">
                 <Turn>There are two ways to do research through SAIN</Turn>
                 <P>
                   The hub currently runs in two modes. Everything later in this
@@ -422,6 +445,7 @@ export default function ResearchHubHandbookPage() {
               {/* 3 */}
               <Chapter
                 id="getting-started"
+                index={3}
                 title="From application to running project"
               >
                 <Turn>Onboarding starts with one form</Turn>
@@ -470,7 +494,7 @@ export default function ResearchHubHandbookPage() {
                 </P>
                 <p>
                   <OutLink href={RESEARCH_INTEREST_FORM_URL}>
-                    Fill in the research form
+                    Register your interest
                   </OutLink>
                 </p>
 
@@ -486,7 +510,7 @@ export default function ResearchHubHandbookPage() {
               </Chapter>
 
               {/* 4 */}
-              <Chapter id="during-the-project" title="During the project">
+              <Chapter id="during-the-project" index={4} title="During the project">
                 <Turn>Researchers drive the work; supervisors steer it</Turn>
                 <P>
                   Three roles keep a project moving, and each owes the others
@@ -572,20 +596,23 @@ export default function ResearchHubHandbookPage() {
                 {/* The most-searched fact block on the page, flush after the
                     rhythm it belongs to so a skim-reader lands on it. */}
                 <Callout label="Deadlines">
+                  {/* The form is the phrase the sentence already uses, so the
+                      sentence carries the link rather than trailing a label
+                      that repeats it. */}
                   <div className="flex flex-col gap-3">
                     <p className="font-sans text-body text-navy/74">
-                      Researchers: fill in the weekly check-in form every
-                      Sunday.{" "}
+                      Researchers: fill in the{" "}
                       <OutLink href={WEEKLY_CHECKIN_URL}>
-                        Weekly check-in form
-                      </OutLink>
+                        weekly check-in form
+                      </OutLink>{" "}
+                      every Sunday.
                     </p>
                     <p className="font-sans text-body text-navy/74">
-                      Supervisors: fill in the bi-weekly check-in form every
-                      second Sunday.{" "}
+                      Supervisors: fill in the{" "}
                       <OutLink href={BIWEEKLY_CHECKIN_URL}>
-                        Bi-weekly check-in form
-                      </OutLink>
+                        bi-weekly check-in form
+                      </OutLink>{" "}
+                      every second Sunday.
                     </p>
                   </div>
                 </Callout>
@@ -643,10 +670,17 @@ export default function ResearchHubHandbookPage() {
                   </div>
                   <div>
                     <SubTitle>Responsible use of AI tools</SubTitle>
+                    {/* The lead-in is a position, not a rule, so it reads as a
+                        paragraph above the three rules, the way the dual-use
+                        block below already does. */}
+                    <p className="mt-3 font-sans text-body text-navy/74">
+                      We are not against using AI tools such as LLMs for coding
+                      or writing. Where a researcher has considered it carefully
+                      and it clearly helps, we encourage it. However:
+                    </p>
                     <div className="mt-3">
                       <Bullets
                         items={[
-                          "We are not against using AI tools such as LLMs for coding or writing. Where a researcher has considered it carefully and it clearly helps, we encourage it. However:",
                           "Always check outputs carefully. Do not uncritically trust generated content.",
                           "Avoid feeding sensitive or confidential data into tools unless you are confident they handle data responsibly.",
                           "Where relevant, disclose your use of AI tools.",
@@ -695,7 +729,7 @@ export default function ResearchHubHandbookPage() {
               </Chapter>
 
               {/* 5 */}
-              <Chapter id="publishing" title="Finishing and publishing">
+              <Chapter id="publishing" index={5} title="Finishing and publishing">
                 <Turn>A project is complete when the question is answered</Turn>
                 <Bullets
                   items={[
@@ -713,8 +747,11 @@ export default function ResearchHubHandbookPage() {
                   items={[
                     "A research paper at a conference, journal, or workshop.",
                     <>
-                      A blog post on SAIN&rsquo;s Substack and/or LessWrong.{" "}
-                      <OutLink href={SUBSTACK_URL}>SAIN&rsquo;s Substack</OutLink>
+                      A blog post on{" "}
+                      <OutLink href={SUBSTACK_URL}>
+                        SAIN&rsquo;s Substack
+                      </OutLink>{" "}
+                      and/or LessWrong.
                     </>,
                     "A policy brief.",
                   ]}
@@ -735,11 +772,11 @@ export default function ResearchHubHandbookPage() {
                   items={[
                     <>
                       Output and other relevant resources, such as data, code,
-                      notes, and drafts, are stored in SAIN&rsquo;s project
-                      archive.{" "}
+                      notes, and drafts, are stored in{" "}
                       <InLink href={PROJECT_ARCHIVE_URL}>
                         SAIN&rsquo;s project archive
                       </InLink>
+                      .
                     </>,
                     "Write a short note on what went well and what could have gone better, ideally shared with the SAIN community.",
                     "The project may be extended as a follow-up.",
@@ -748,7 +785,7 @@ export default function ResearchHubHandbookPage() {
               </Chapter>
 
               {/* 6 */}
-              <Chapter id="escalation" title="If something goes wrong">
+              <Chapter id="escalation" index={6} title="If something goes wrong">
                 <P>
                   We hope you never need this section, but it matters that the
                   path is written down before anyone needs it.
@@ -814,7 +851,7 @@ export default function ResearchHubHandbookPage() {
               </Chapter>
 
               {/* 7 */}
-              <Chapter id="supervisors" title="If you supervise">
+              <Chapter id="supervisors" index={7} title="If you supervise">
                 <P>
                   Supervisor expectations are in{" "}
                   <InLink href="#during-the-project">section 4</InLink>. The
@@ -890,7 +927,7 @@ export default function ResearchHubHandbookPage() {
               rel="noopener noreferrer"
               className="btn-accent"
             >
-              Fill in the research form
+              Register your interest
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <a href={SUPERVISOR_MAILTO} className="btn-ghost-inverse">

@@ -9,16 +9,25 @@
  * focus-visible because a keyboard never fires :hover, and both transforms
  * sit behind motion-safe.
  *
- * Photographs are served as plain <img>: `output: "export"` ships next/image
- * unoptimized anyway, and the team and advisory portraits have no responsive
- * rungs yet (see scripts/generate-responsive-images.mjs).
+ * Photographs are served as plain <img> with a hand-built srcSet: `output:
+ * "export"` ships next/image unoptimized, so without one every tile downloads
+ * the full-size original, and these originals run to 1.6MB each.
  */
+
+/* The rungs `npm run images` writes for these portraits. These and the widths
+   in scripts/generate-responsive-images.mjs have to agree. Every rung is JPEG,
+   including for the two sources that are PNG. */
+const RUNGS = [160, 320, 440];
+const rung = (image: string, width: number) =>
+  `${image.replace(/\.(jpe?g|png|webp)$/i, "")}-${width}.jpg`;
+
 export default function Portrait({
   name,
   meta,
   href,
   image,
   width = "w-[140px]",
+  sizes,
 }: {
   name: string;
   /** Role or affiliation, set in footnote tone under the name. */
@@ -27,6 +36,8 @@ export default function Portrait({
   image: string;
   /** Tailwind width class for the tile column. */
   width?: string;
+  /** The CSS width of the tile at each breakpoint, for the srcSet to pick from. */
+  sizes: string;
 }) {
   return (
     <li className={width}>
@@ -40,10 +51,12 @@ export default function Portrait({
             context or Safari lets the corners through. */}
         <span className="block isolate overflow-hidden border border-navy/15 transition-colors duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-navy/45 group-focus-visible:border-navy/45">
           <img
-            src={image}
+            src={rung(image, 320)}
+            srcSet={RUNGS.map((w) => `${rung(image, w)} ${w}w`).join(", ")}
+            sizes={sizes}
             alt=""
-            width={336}
-            height={336}
+            width={440}
+            height={440}
             loading="lazy"
             decoding="async"
             className="aspect-square w-full object-cover transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:scale-[1.04] motion-safe:group-focus-visible:scale-[1.04]"

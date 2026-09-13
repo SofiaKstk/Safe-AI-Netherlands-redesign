@@ -44,7 +44,10 @@ const BANDS: Band[] = [
     width: 432,
     inset: 8.8,
     href: "/#courses",
-    label: "Start with a free course",
+    /* Not "Start with a free course": that label belongs to the accent CTA
+       beside this diagram, which goes to /courses, while this band goes to the
+       landing's courses section. One label per destination. */
+    label: "Take a free course, open to anyone",
     labelCqw: 3.7,
     labelClass: "max-w-[78%] text-center leading-[1.25]",
     photo: "/landing/funnel-01.jpg",
@@ -89,7 +92,7 @@ const BANDS: Band[] = [
     width: 240,
     inset: 9.2,
     href: "/#careers",
-    label: "Undertake a fellowship or internship in AI Safety",
+    label: "Undertake a fellowship or internship in AI safety",
     labelCqw: 3.01,
     labelClass: "max-w-[78%] text-center leading-[1.31]",
     photo: "/landing/funnel-04.jpg",
@@ -104,7 +107,7 @@ const BANDS: Band[] = [
     width: 196,
     inset: 10.2,
     href: "/#careers",
-    label: "Work full-time in AI Safety",
+    label: "Work full-time in AI safety",
     labelCqw: 3.24,
     labelClass: "max-w-[78%] text-center leading-[1.29]",
     photo: "/landing/funnel-05.jpg",

@@ -123,10 +123,8 @@ export default function VolunteerPage() {
               SAIN runs on volunteers
             </h1>
             <p className="max-w-[620px] font-sans text-body text-navy/72">
-              Every programme is free because people give a few hours a week to run it. Our
-              chapters in Amsterdam, Utrecht, and Groningen are powered by people who care
-              about the development and integration of AI going well in the Netherlands and
-              abroad. This page is the work, what you get from it, and the way in.
+              Every programme is free because people give a few hours a week to run it. This
+              page is the work, what you get from it, and the way in.
             </p>
             <div className="pt-1">
               <Link href="/open-positions" className="btn-accent self-start">
@@ -167,9 +165,9 @@ export default function VolunteerPage() {
               Six teams, three to ten hours a week
             </h2>
             <p className="max-w-[680px] font-sans text-body text-navy/74">
-              Every chapter runs the same teams. Leads carry a team and report to the
-              chapter&rsquo;s director; team members carry a slice of it. Most roles are three
-              to five hours a week, leads six to ten.
+              Amsterdam, Utrecht and Groningen each run the same teams. Leads carry a team and
+              report to the chapter&rsquo;s director; team members carry a slice of it. Most
+              roles are three to five hours a week, leads six to ten.
             </p>
           </div>
 
@@ -277,55 +275,56 @@ export default function VolunteerPage() {
         aria-labelledby="how-to-apply-heading"
         className="scroll-mt-36 border-t border-navy/10 bg-white"
       >
-        <div className="shell band-section grid items-start gap-10 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:gap-16">
-          <div className="flex min-w-0 flex-col gap-4">
+        {/* One column, not a split: the two bands either side of this one are
+            splits, and the four steps read better as a sequence running the
+            width of the page than as a column beside a claim. */}
+        <div className="shell band-section">
+          <div className="flex max-w-[720px] flex-col gap-4">
             <h2
               id="how-to-apply-heading"
               className="font-serif text-heading-sm text-navy"
             >
               One short application, reviewed as it arrives
             </h2>
-            <p className="max-w-[420px] font-sans text-body text-navy/74">
+            <p className="max-w-[680px] font-sans text-body text-navy/74">
               All chapter applications go through the same short form: name, CV, and a
               one-page motivation letter. Applications are reviewed on a rolling basis, so
               apply whenever you are ready.
             </p>
           </div>
 
-          <div className="min-w-0">
-            <ol className="font-sans text-body text-navy">
-              {STEPS.map((step, i) => (
-                <li
-                  key={step.title}
-                  className="flex items-baseline gap-3 border-t border-navy/10 py-3"
-                >
-                  <span className="w-[22px] shrink-0 font-sans text-xs text-orange-ink">
-                    {i + 1}
-                  </span>
-                  <span className="max-w-[640px] leading-[25px] text-navy/74">
-                    <span className="text-navy">{step.title}</span> {step.body}
-                  </span>
-                </li>
-              ))}
-            </ol>
-
-            <p className="mt-6 max-w-[640px] font-sans text-body text-navy/74">
-              No role that fits? Apply anyway. Tell us what you want to do in your motivation
-              letter, and we will figure out together what works well for you.
-            </p>
-
-            <div className="mt-7 flex flex-wrap items-center gap-6">
-              <Link href="/open-positions" className="btn-accent">
-                See open positions
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-1.5 font-sans text-label text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
+          <ol className="mt-9 font-sans text-body text-navy">
+            {STEPS.map((step, i) => (
+              <li
+                key={step.title}
+                className="flex items-baseline gap-3 border-t border-navy/10 py-3"
               >
-                Or get in touch first
-                <ArrowRight size={16} weight="regular" aria-hidden="true" />
-              </Link>
-            </div>
+                <span className="w-[22px] shrink-0 font-sans text-xs text-orange-ink">
+                  {i + 1}
+                </span>
+                <span className="max-w-[760px] leading-[25px] text-navy/74">
+                  <span className="text-navy">{step.title}</span> {step.body}
+                </span>
+              </li>
+            ))}
+          </ol>
+
+          <p className="mt-6 max-w-[680px] font-sans text-body text-navy/74">
+            No role that fits? Apply anyway. Tell us what you want to do in your motivation
+            letter, and we will figure out together what works well for you.
+          </p>
+
+          {/* No accent button here. The close is the page's last ask, and a
+              second orange "See open positions" two bands above it turns that
+              ask into a repeat. This band ends on the quieter door. */}
+          <div className="mt-6">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-1.5 font-sans text-label text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
+            >
+              Or get in touch first
+              <ArrowRight size={16} weight="regular" aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
@@ -353,7 +352,9 @@ export default function VolunteerPage() {
               href="/community#start-chapter"
               className="inline-flex items-center gap-1.5 font-sans text-label text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
             >
-              Learn more
+              {/* /about sends readers to this same anchor as "Start a chapter";
+                  one label per destination. */}
+              Start a chapter
               <ArrowRight size={16} weight="regular" aria-hidden="true" />
             </Link>
           </div>

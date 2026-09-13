@@ -78,7 +78,8 @@ In order. Each is a thing the page must establish in the reader's head before th
   1. **Work from a supervisor's agenda.** Every SAIN supervisor keeps a public research agenda, a document of open questions they want help investigating. Read the agendas below and pick a question that fits your background.
   2. **Join an open collaboration.** Some projects run without formal supervision. One researcher leads, usually the person who designed the project, and SAIN connects collaborators and supports the work.
   3. **Bring your own idea.** Write a short proposal: the question, why it matters, how you would test it, and what you need. SAIN's research team reviews it, and can help you shape it if it is not fully formed yet.
-- **Closing body:** The scope is broad on purpose: technical alignment and interpretability, governance and policy with an EU and Dutch emphasis, and foundational questions about how the field measures progress. If you are unsure whether a topic counts as AI safety, the default answer is yes, provided you can articulate a plausible pathway from the work to reducing AI-related risk.
+- **Closing body:** The scope is broad on purpose: technical alignment and interpretability, governance and policy with an EU and Dutch emphasis, and foundational questions about how the field measures progress. If you are unsure whether a topic counts as AI Safety, the default answer is yes, provided you can articulate a plausible pathway from the work to reducing AI-related risk.
+  - House form, noted 13 September 2026: `AI Safety` is capitalised everywhere on this page, matching the h1, the eligibility paragraph, and the landing's `Your AI Safety career starts here.` This line previously read `AI safety` and was the page's only lowercase instance.
 - **Text link:** `Read the research handbook` → /research/handbook
 
 **Step 02 (heading-sm): Work with support**

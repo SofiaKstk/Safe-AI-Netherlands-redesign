@@ -122,14 +122,6 @@ const record = [
   },
 ];
 
-/* src/data/sainDocuments.ts carries one American spelling ("Behavioral") and is
-   owned elsewhere, so the page holds the British wording the copy brief sets.
-   Everything else about a document still comes from the data file. */
-const DOCUMENT_DESCRIPTION: Record<string, string> = {
-  "code-of-conduct":
-    "Behavioural standards for SAIN participants and operational standards for chapters under the SAIN brand.",
-};
-
 export default function AboutPage() {
   return (
     <>
@@ -356,6 +348,7 @@ export default function AboutPage() {
                   href={person.linkedin}
                   image={person.image}
                   width="w-[140px] sm:w-[158px]"
+                  sizes="(min-width: 640px) 158px, 140px"
                 />
               ))}
             </ul>
@@ -383,6 +376,7 @@ export default function AboutPage() {
                         href={member.link}
                         image={member.image}
                         width="w-[132px] sm:w-[146px]"
+                        sizes="(min-width: 640px) 146px, 132px"
                       />
                     ))}
                   </ul>
@@ -402,10 +396,11 @@ export default function AboutPage() {
       >
         <div className="shell band-section">
           <Reveal className="flex flex-col">
-            <p className="kicker text-kicker text-navy/65">The foundational documents</p>
+            {/* No kicker: the heading already says what the band is, which is
+                the case the Kicker Budget gives none. */}
             <h2
               id="documents-heading"
-              className="mt-4 max-w-[620px] font-serif text-heading text-navy"
+              className="max-w-[620px] font-serif text-heading text-navy"
             >
               The rules we hold ourselves to are public.
             </h2>
@@ -418,22 +413,31 @@ export default function AboutPage() {
             </p>
           </Reveal>
 
+          {/* Rows, not cards. Three cream boxes on white repeated the geometry
+              of the band above and borrowed the one boxed treatment the system
+              has earned, which is publication cards on inverse. As hairline
+              rows the documents read as one index with the two doors under
+              them, in the same idiom. */}
           <Reveal delay={0.05}>
-            <ul role="list" className="mt-10 grid gap-5 md:grid-cols-3">
+            <ul role="list" className="mt-10 flex flex-col">
               {sainDocuments.map((document) => (
-                <li key={document.slug} className="flex">
+                <li key={document.slug}>
                   <Link
                     href={`/about/${document.slug}`}
-                    className="group flex w-full flex-col border border-navy/16 bg-cream p-6 transition-colors duration-200 hover:bg-navy/[0.055] focus-visible:bg-navy/[0.055]"
+                    className="group flex flex-col gap-3 border-t border-navy/14 py-6 md:flex-row md:items-baseline md:justify-between md:gap-10"
                   >
-                    <span className="kicker text-kicker-sm text-navy/60">{document.eyebrow}</span>
-                    <span className="mt-2 font-serif text-title-sm text-navy underline decoration-transparent underline-offset-4 transition-[text-decoration-color] duration-200 group-hover:decoration-navy group-focus-visible:decoration-navy">
-                      {document.title}
+                    <span className="block min-w-0">
+                      <span className="kicker block text-kicker-sm text-navy/60">
+                        {document.eyebrow}
+                      </span>
+                      <span className="mt-1.5 block font-serif text-title-sm text-navy underline decoration-transparent underline-offset-4 transition-[text-decoration-color] duration-200 group-hover:decoration-navy group-focus-visible:decoration-navy">
+                        {document.title}
+                      </span>
+                      <span className="mt-2 block max-w-[620px] font-sans text-kicker-sm text-navy/74">
+                        {document.description}
+                      </span>
                     </span>
-                    <span className="mt-3 font-sans text-caption leading-[21px] text-navy/74">
-                      {DOCUMENT_DESCRIPTION[document.slug] ?? document.description}
-                    </span>
-                    <span className="mt-6 inline-flex items-center gap-2 font-sans text-label text-navy">
+                    <span className="inline-flex shrink-0 items-center gap-2 font-sans text-label text-navy underline decoration-navy/25 underline-offset-4 group-hover:decoration-navy group-focus-visible:decoration-navy">
                       Read document
                       <ArrowRight size={16} weight="regular" aria-hidden="true" />
                     </span>
@@ -443,8 +447,8 @@ export default function AboutPage() {
             </ul>
           </Reveal>
 
-          <Reveal delay={0.05} className="mt-12 flex flex-col">
-            <div className="flex flex-col gap-3 border-t border-navy/14 pt-6 md:flex-row md:items-baseline md:justify-between md:gap-10">
+          <Reveal delay={0.05} className="flex flex-col">
+            <div className="flex flex-col gap-3 border-t border-navy/14 py-6 md:flex-row md:items-baseline md:justify-between md:gap-10">
               <p className="max-w-[620px] font-sans text-body text-navy/72">
                 Role addresses and chapter contacts live on one page, so they stay accurate.
               </p>
@@ -456,7 +460,7 @@ export default function AboutPage() {
                 <ArrowRight size={16} weight="regular" aria-hidden="true" />
               </Link>
             </div>
-            <div className="mt-5 flex flex-col gap-3 border-t border-navy/14 pt-6 md:flex-row md:items-baseline md:justify-between md:gap-10">
+            <div className="flex flex-col gap-3 border-t border-navy/14 py-6 md:flex-row md:items-baseline md:justify-between md:gap-10">
               <p className="max-w-[620px] font-sans text-body text-navy/72">
                 Want to bring SAIN to your city? Chapters adopt the brand, the legal umbrella and
                 ready-made curricula instead of starting from scratch.
@@ -485,8 +489,12 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3 lg:shrink-0">
+            {/* "Join the community" is reserved site-wide for the onboarding
+                form (COMMUNITY_JOIN_URL). This goes to the community page, so
+                it carries the page label, the way the chapter pages say
+                "Visit the Research hub". */}
             <Link href="/community" className="btn-accent">
-              Join the community
+              Visit the community
             </Link>
             <Link href="/get-involved" className="btn-ghost-inverse">
               Volunteer

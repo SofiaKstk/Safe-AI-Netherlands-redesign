@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 /* The handbook's reading furniture.
@@ -183,7 +184,9 @@ export function OutLink({
   );
 }
 
-/** A plain inline link that stays on the site. */
+/** A plain inline link that stays on the site. Same-page anchors stay a plain
+    anchor; a route on the site routes through next/link, so a cross-page
+    reference is a client navigation and not a fresh document load. */
 export function InLink({
   href,
   children,
@@ -191,11 +194,14 @@ export function InLink({
   href: string;
   children: ReactNode;
 }) {
-  return (
-    <a
-      href={href}
-      className="font-sans text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
-    >
+  const className =
+    "font-sans text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy";
+  return href.startsWith("/") ? (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  ) : (
+    <a href={href} className={className}>
       {children}
     </a>
   );

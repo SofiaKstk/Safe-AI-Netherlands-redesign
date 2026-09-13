@@ -15,6 +15,12 @@
  * source. They are held as the soft "Apart Research hackathon" label until
  * someone reads the rank off each project page.
  *
+ * "Playing with Perception" is the one entry behind a Google Drive link rather
+ * than arXiv, OpenReview, or Apart Research, and the hero's publication count is
+ * counted off this array, so a private file would break a counted claim. Checked
+ * signed out on 13 September 2026: the file downloads anonymously, so the chip
+ * stays. Re-check if the count or the link ever changes.
+ *
  * Self-Ablating Transformers is a four-person paper (Ferrao, Mikaelson, Pepper,
  * Perez-Campanero Antolin), not Ferrao solo; the author list was corrected
  * against the published paper.
@@ -206,8 +212,8 @@ export const supervisors: Supervisor[] = [
   },
   {
     name: "Ana Lucic",
-    position: "Assistant professor, University of Amsterdam",
-    positionShort: "Assistant professor, University of Amsterdam",
+    position: "Assistant Professor, University of Amsterdam",
+    positionShort: "Assistant Professor, University of Amsterdam",
     image: "/photos/supervisors/Ana_Lucic-800.png",
     imageSmall: "/photos/supervisors/Ana_Lucic-312.png",
     agenda:

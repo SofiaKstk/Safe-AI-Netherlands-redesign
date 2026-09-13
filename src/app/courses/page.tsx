@@ -37,12 +37,22 @@ const someoneIsOpen = openCourseApplications.length > 0;
    rows rather than a paragraph: she is checking whether her weeks have room in
    them, and a row is something you scan for your own city. */
 const CADENCE = [
-  "Cohorts run per chapter. Groningen and Amsterdam teach in six-week blocks, three to four times a year. Utrecht's ARENA block runs four weeks.",
+  "Cohorts run per chapter. Groningen and Amsterdam teach in six-week blocks, and Groningen runs three to four cohorts a year. Utrecht's ARENA block runs four weeks.",
   "The six-week courses pair weekly readings with an on-site discussion session.",
   "AI Safety Fundamentals in Utrecht is weekly and modular. Drop in for any theme, about 60 minutes.",
   "Some programmes are application-based and close per cohort. The Amsterdam BlueDot tracks are an example.",
   "One form covers participants and facilitators. Facilitator deadlines close a few days earlier.",
 ];
+
+/* Deadlines carry their year in the data so a passed date reads as expired
+   rather than ambiguous. In the apply row both dates sit in one sentence, so
+   the facilitator date drops the year it shares with the participant date. */
+function facilitatorDate(participants: string, facilitators: string): string {
+  const year = participants.match(/\b(\d{4})$/)?.[1];
+  return year && facilitators.endsWith(year)
+    ? facilitators.slice(0, -year.length).trim()
+    : facilitators;
+}
 
 const CITY_PAGES = [
   { city: "Utrecht", href: "/chapters/utrecht" },
@@ -211,7 +221,10 @@ export default function CoursesPage() {
                           Applications open.
                         </p>
                         <p className="font-sans text-label text-white/78">
-                          {`Apply by ${entry.deadlines.participants} (${entry.deadlines.facilitators} to facilitate).`}
+                          {`Apply by ${entry.deadlines.participants} (${facilitatorDate(
+                            entry.deadlines.participants,
+                            entry.deadlines.facilitators,
+                          )} to facilitate).`}
                         </p>
                       </>
                     ) : (

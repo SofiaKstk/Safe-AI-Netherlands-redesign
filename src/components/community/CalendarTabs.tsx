@@ -97,7 +97,10 @@ export default function CalendarTabs() {
               type="button"
               id={`calendar-tab-${entry.id}`}
               aria-expanded={on}
-              aria-controls={`calendar-panel-${entry.id}`}
+              /* Only the open panel is mounted, so only the open header may
+                 point at one: an aria-controls naming an id that is not in the
+                 document sends assistive tech looking for nothing. */
+              aria-controls={on ? `calendar-panel-${entry.id}` : undefined}
               onClick={() => setActiveId(entry.id)}
               onKeyDown={onHeaderKeyDown(i)}
               /* The divider belongs to the gap between two headers, not to

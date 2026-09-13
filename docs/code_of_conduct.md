@@ -2,7 +2,7 @@
 
 ---
 
-This Code of Conduct has two parts. **Part I** sets behavioral standards for everyone who participates in SAIN activities. **Part II** sets operational standards for chapters that operate under the SAIN brand. Together, they define what it means to be part of Safe AI Netherlands.
+This Code of Conduct has two parts. **Part I** sets behavioural standards for everyone who participates in SAIN activities. **Part II** sets operational standards for chapters that operate under the SAIN brand. Together, they define what it means to be part of Safe AI Netherlands.
 
 ---
 

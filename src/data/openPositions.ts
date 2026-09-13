@@ -17,13 +17,24 @@
 /**
  * Single Google Form for all chapters and roles.
  *
+ * PRE-SHIP BLOCKER (checked 13 September 2026): fetching the URL below returns
+ * HTTP 401 with an ordinary browser user agent, which means the form is not
+ * publicly readable: it is either restricted to signed-in or in-organisation
+ * Google accounts, or it no longer exists. A public form answers 200. Every
+ * chapter apply button on /open-positions points here, so before this page
+ * ships someone has to open the form in a logged-out browser and confirm an
+ * outside applicant can reach and submit it. If they cannot, point the chapter
+ * apply CTAs at the chapter inboxes until the form is public.
+ *
  * SETUP NOTES:
  * - Form fields: Name, Email, Chapter (Amsterdam / Utrecht), Role(s), CV upload,
  *   Motivation letter upload (or long-text), LinkedIn (optional), availability.
  * - Email routing: configure a Google Apps Script trigger on form submission
  *   that emails info@safeainetherlands.org plus the relevant chapter inbox
  *   (infoams@ or infoutr@) based on the "Chapter" answer. Apps Script template
- *   is left as an action item for whoever sets up the form.
+ *   is left as an action item for whoever sets up the form. Until that trigger
+ *   exists the page must not promise where an application lands, so the
+ *   routing sentence has been taken out of the how-to-apply copy.
  * - Pre-fill: this URL is appended with `&entry.<id>=<value>` to pre-select the
  *   chapter and role for the applicant. Until the form exists, the URL below is
  *   a placeholder that links to the contact page so the page is never broken.
@@ -44,9 +55,12 @@ export const RESEARCH_OPERATIONS_LEAD_APPLICATION_FORM_URL =
   "https://airtable.com/appMwcwhDIpVSvLrz/pagfucm2gVY91sjPg/form";
 
 /**
- * Pre-fill entry IDs for the Google Form. Replace with the real IDs once the
- * form is created (right-click each field in the live form -> "Get pre-filled
- * link" to read the IDs out of the URL).
+ * Pre-fill entry IDs for the Google Form. Still unconfirmed: replace with the
+ * real IDs read off a pre-filled link from the live form (open the form, use
+ * "Get pre-filled link", and read the entry ids out of the resulting URL).
+ * Google silently drops unknown entry keys, so a wrong id costs the applicant
+ * nothing except a field they fill in themselves. Nothing on the page promises
+ * the pre-fill until these are verified.
  */
 export const FORM_PREFILL = {
   chapterEntryId: "entry.2132087508",
@@ -204,7 +218,7 @@ export const ROLES: Record<string, Role> = {
         "Written communication, organisation, comfort facilitating discussion-based learning.",
     },
     collaborations:
-      "Chapter (Co-)Director, facilitators, Communications Lead, Community Manager.",
+      "The chapter director, facilitators, Communications Lead, Community Manager.",
   },
 
   "education-course-facilitator": {
@@ -213,7 +227,7 @@ export const ROLES: Record<string, Role> = {
     team: "education",
     scope: "chapter",
     reportsTo: "Education Lead",
-    timeCommitment: "~4 hours per week during iterations (one 2-hour session plus prep)",
+    timeCommitment: "About 4 hours per week during iterations (one 2-hour session plus prep)",
     mission:
       "Facilitate one cohort of the course. Lead weekly discussions, support participants, and mark final projects.",
     responsibilities: [
@@ -242,7 +256,7 @@ export const ROLES: Record<string, Role> = {
     scope: "chapter",
     reportsTo: "Education Lead",
     timeCommitment:
-      "~3 hours per week during the running block (1-hour session plus ~2 hours of prep, curation, and chat moderation)",
+      "About 3 hours per week during the running block (1-hour session plus about 2 hours of prep, curation, and chat moderation)",
     mission:
       "Run one Discussion Group on a specific theme (technical safety, AI governance, privacy, and so on). Maintain a high-quality, casual environment where 8 to 10 participants engage seriously with shared material and with each other.",
     responsibilities: [
@@ -275,8 +289,11 @@ export const ROLES: Record<string, Role> = {
     team: "events",
     scope: "chapter",
     reportsTo: "Chapter (Co-)Director",
+    /* No badge here on purpose. The five chapter roles are peers, and a chip
+       reading "Part-time" beside the paid role's "Paid - Full-time" chip read
+       as its smaller sibling rather than as unpaid. The hours line under the
+       title carries the commitment. */
     timeCommitment: "6 to 10 hours per week",
-    commitmentBadge: "Part-time",
     mission:
       "Plan and execute the chapter's events. Maintain the chapter's event presence, attract speakers, organise community life. Identify opportunities for SAIN exposure to reach new audiences, strengthen the community, and inspire people into AI safety careers.",
     responsibilities: [
@@ -286,7 +303,7 @@ export const ROLES: Record<string, Role> = {
       "Manage event logistics: venue, catering, marketing handover to Communications.",
       "Run the team meeting.",
       "Triage the chapter events inbox.",
-      "Coordinate budget with the Chapter (Co-)Director.",
+      "Coordinate budget with the chapter director.",
     ],
     preferredBackground: {
       field: "Open. Genuine interest in AI safety required.",
@@ -297,7 +314,7 @@ export const ROLES: Record<string, Role> = {
         "Project management, comfort cold-emailing speakers, calmness under deadline pressure, strong social skills.",
     },
     collaborations:
-      "Chapter (Co-)Director, Communications Lead, Community Manager, external speakers, venue contacts.",
+      "The chapter director, Communications Lead, Community Manager, external speakers, venue contacts.",
   },
 
   "events-team-member": {
@@ -357,7 +374,7 @@ export const ROLES: Record<string, Role> = {
         "Writing, visual sense, attention to brand consistency.",
     },
     collaborations:
-      "Chapter (Co-)Director, Events Lead, Education Lead, Research Lead, Community Manager, other chapters' Communications Leads.",
+      "The chapter director, Events Lead, Education Lead, Research Lead, Community Manager, other chapters' Communications Leads.",
   },
 
   "communications-team-member": {
@@ -540,7 +557,7 @@ export const ROLES: Record<string, Role> = {
         "Warmth, social fluency, reliability, comfort with light data work.",
     },
     collaborations:
-      "Chapter (Co-)Director, all team leads, course graduates, community members.",
+      "The chapter director, all team leads, course graduates, community members.",
   },
 
   "on-campus-ambassador": {
@@ -579,7 +596,7 @@ export const ROLES: Record<string, Role> = {
     scope: "national",
     reportsTo: "Director",
     timeCommitment:
-      "Full-time (1.0 FTE), 40 hours per week, 5 day week",
+      "Full-time (1.0 FTE), 40 hours per week, 5-day week",
     mission:
       "The SAIN Research Hub already exists: supervisors, projects, and a first cohort of researchers. Your job is to make it flourish end to end and build it into the place where Dutch AI safety research talent gets matched, mentored, and published, with output credible enough that researchers and policymakers cite it. You lead the volunteer Research Operations teams in each chapter city and are responsible for the Hub's results. You report directly to the Director and have a budget for the Hub's operations. We are just starting up, so you will be part of the small national team working at SAIN. This role is heavy on project management rather than research insight.",
     responsibilities: [

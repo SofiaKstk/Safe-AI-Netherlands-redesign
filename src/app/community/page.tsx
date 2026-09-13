@@ -10,6 +10,7 @@ import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 import {
   COURSE_APPLICATION_URL,
   courseApplicationFor,
+  courseApplications,
   type ChapterName,
 } from "@/data/courseApplications";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
@@ -45,7 +46,10 @@ const chapters: {
     photo: "/photos/cities/groningen-index.webp",
     lines: [
       "Active since 2023, first as AISIG, the AI Safety Initiative Groningen. One of the most active AI safety communities in Europe.",
-      "Members have published at venues including NeurIPS and ICLR.",
+      /* Workshops, said out loud. Every NeurIPS and ICLR item in research.ts
+         is a workshop paper, and a bare venue name reads as main track to
+         exactly the reader this line is trying to convince. */
+      "Members have published at NeurIPS and ICLR workshops.",
     ],
   },
   {
@@ -69,8 +73,14 @@ const COURSE_NAMES: Record<ChapterName, string> = {
   Amsterdam: "Technical AI Safety & Frontier AI Governance",
 };
 
-/* Soonest deadline first, then the chapter whose applications are closed. */
-const DEADLINE_ORDER: ChapterName[] = ["Groningen", "Utrecht", "Amsterdam"];
+/* Open cohorts first, closed ones after, derived rather than listed: a band
+   whose whole job is "there is a date you can still make" must not open on a
+   chapter whose applications shut last week because a hand-written array said
+   so. Within each group the file's own order stands. */
+const DEADLINE_ORDER: ChapterName[] = [
+  ...courseApplications.filter((c) => c.open).map((c) => c.chapter),
+  ...courseApplications.filter((c) => !c.open).map((c) => c.chapter),
+];
 
 const chapterProvides = [
   "The SAIN brand and national recognition",
@@ -116,8 +126,11 @@ function DeadlineRow({ chapter }: { chapter: ChapterName }) {
             <span>Facilitators by {entry.deadlines.facilitators}</span>
           </p>
         ) : (
+          /* The lead sentence is the state; the note is only the next date.
+             Without it the row announces an October opening without ever
+             saying that today is shut. Same wording as CourseBand.tsx. */
           <p className="mt-1 font-sans text-caption text-navy/65">
-            {entry.closedNote}
+            Applications are closed. {entry.closedNote}
           </p>
         )}
       </div>
@@ -128,12 +141,19 @@ function DeadlineRow({ chapter }: { chapter: ChapterName }) {
           rel="noopener noreferrer"
           className="btn-accent justify-self-start md:justify-self-end"
         >
-          Sign up
+          {/* The chapter pages call this same Fillout form "Apply to the free
+              course"; one label per destination, so the second ask reads as
+              the same door and not a second commitment. */}
+          Apply to the free course
           <span className="sr-only"> (opens in a new tab)</span>
         </a>
       ) : (
+        /* The chapter cells above say "View chapter" and land on the chapter
+           route, so this one has to land there too: the shared entry carries a
+           #programs anchor for the pages that deep-link into it, and the
+           anchor comes off here rather than the label changing. */
         <Link
-          href={entry.href}
+          href={entry.href.split("#")[0]}
           className="inline-flex items-center gap-1.5 justify-self-start font-sans text-label text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy md:justify-self-end"
         >
           View chapter
@@ -204,7 +224,13 @@ export default function CommunityPage() {
 
           {/* Two prints, overlapped. The hero's job is to look like somewhere
               people already are; the naming is the next band's work, so these
-              carry no caption bars to compete with the claim. */}
+              carry no caption bars to compete with the claim.
+
+              These are the page's LCP, so they are eager and they carry their
+              own rungs: `output: "export"` ships next/image unoptimized, and
+              the sources are a 415KB jpg and a 135KB png drawn at 254 and 194
+              CSS. The ladder is written by scripts/generate-responsive-images
+              and has to agree with the widths below. */}
           <Reveal
             hero
             delay={0.08}
@@ -213,7 +239,9 @@ export default function CommunityPage() {
             <div className="flex items-end gap-4 sm:gap-6">
               <figure className="w-[46%] shrink-0 rotate-[-3deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[210px]">
                 <img
-                  src="/photos/events/forecasting-hackathon.png"
+                  src="/photos/events/forecasting-hackathon-640.webp"
+                  srcSet="/photos/events/forecasting-hackathon-320.webp 320w, /photos/events/forecasting-hackathon-640.webp 640w, /photos/events/forecasting-hackathon-900.webp 900w"
+                  sizes="(min-width: 640px) 194px, 42vw"
                   alt="People working in pairs through a SAIN forecasting hackathon"
                   width={420}
                   height={525}
@@ -223,7 +251,9 @@ export default function CommunityPage() {
               </figure>
               <figure className="w-[54%] shrink-0 translate-y-4 rotate-[2.5deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[270px]">
                 <img
-                  src="/photos/events/utrecht/win4AISafety_congrats_the_winners.jpg"
+                  src="/photos/events/utrecht/win4AISafety_congrats_the_winners-640.webp"
+                  srcSet="/photos/events/utrecht/win4AISafety_congrats_the_winners-320.webp 320w, /photos/events/utrecht/win4AISafety_congrats_the_winners-640.webp 640w, /photos/events/utrecht/win4AISafety_congrats_the_winners-900.webp 900w"
+                  sizes="(min-width: 640px) 254px, 50vw"
                   alt="The winners of Win4AISafety with the SAIN Utrecht organisers"
                   width={540}
                   height={405}
@@ -270,7 +300,7 @@ export default function CommunityPage() {
                 decide afterwards.
               </p>
               <p className="font-sans text-body text-navy/74">
-                Around the weekly rhythm sit the bigger moments. This spring
+                Around the weekly rhythm sit the bigger moments. This year
                 Groningen ran an AI control hackathon over a March weekend, hosted
                 talks by Fatih Turkmen and Tekla Emborg, and took the stage at
                 TEDxBroerstraat. Utrecht closed its technical course with a dinner in
@@ -341,12 +371,16 @@ export default function CommunityPage() {
                 <h3 className="font-serif text-title text-navy">{chapter.city}</h3>
                 {/* globals.css flips the heading and the link to cream under the
                     scrim; these two lines are this page's addition to the cell,
-                    so they carry the same flip as utilities. */}
+                    so they carry the same flip as utilities. The hover half is
+                    gated on the same fine-pointer query the scrim is, or a tap
+                    on a phone turns the text cream over a cream ground and the
+                    lines simply vanish. focus-within stays ungated, because the
+                    scrim comes up for the keyboard everywhere. */}
                 <div className="mt-2.5 flex flex-col gap-2">
                   {chapter.lines.map((line) => (
                     <p
                       key={line}
-                      className="font-sans text-caption text-navy/72 transition-colors duration-300 group-hover:text-cream group-focus-within:text-cream"
+                      className="font-sans text-caption text-navy/72 transition-colors duration-300 group-focus-within:text-cream [@media(hover:hover)and(pointer:fine)]:group-hover:text-cream"
                     >
                       {line}
                     </p>

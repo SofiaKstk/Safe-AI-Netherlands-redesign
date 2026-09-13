@@ -54,9 +54,7 @@ export default function ContactPage() {
           </h1>
           <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/72">
             Every SAIN inbox is on this page: the national role addresses, the
-            addresses each chapter keeps, and the people behind them. If you
-            would rather join than write, every chapter page has a join section
-            of its own.
+            addresses each chapter keeps, and the people behind them.
           </p>
         </div>
       </section>
@@ -67,7 +65,7 @@ export default function ContactPage() {
         <div className="shell">
           <div className="border-t border-navy/14" />
         </div>
-        <div className="shell band-section flex flex-col gap-8">
+        <Reveal className="shell band-section flex flex-col gap-8">
           <div className="flex flex-col gap-2.5">
             <h2
               id="national-heading"
@@ -99,7 +97,7 @@ export default function ContactPage() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </section>
 
       {/* The cities. Same rows, three times, because the chapters are peers. */}
@@ -146,7 +144,7 @@ export default function ContactPage() {
                   ))}
                 </ul>
                 <Link
-                  href={chapter.joinHref}
+                  href={chapter.href}
                   className="inline-flex w-fit items-center gap-1.5 font-sans text-label text-navy underline decoration-navy/20 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
                 >
                   View chapter
@@ -155,11 +153,29 @@ export default function ContactPage() {
               </article>
             ))}
           </div>
+
+          {/* The one ask a directory can earn, and the page's only orange:
+              writing to a chapter and joining one are different doors, and
+              this is the second. */}
+          <div className="flex flex-col gap-4 border-t border-navy/14 pt-7">
+            <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/74">
+              If you would rather join than write, you do not need an address.
+              The community page is the way in, and it is the same way in for
+              all three chapters.
+            </p>
+            {/* "Join the community" is reserved site-wide for the onboarding
+                form; this is the community page, so it says so. */}
+            <Link href="/community" className="btn-accent w-fit">
+              Visit the community
+            </Link>
+          </div>
         </Reveal>
       </section>
 
-      {/* The named leads. A chapter address and a personal one are not the same
-          door, so both are printed under the person who answers them. */}
+      {/* The named leads. The shared inboxes were printed two bands ago, so
+          this one prints only what is new: the person, and the address only
+          they read. Cells on a left hairline rather than a fourth stack of
+          label-and-email rows. */}
       <section
         aria-labelledby="leads-heading"
         className="border-t border-navy/10 bg-white"
@@ -170,16 +186,16 @@ export default function ContactPage() {
               The people behind those addresses.
             </h2>
             <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/74">
-              The national director and the chapter directors. Where someone
-              holds more than one inbox, both are listed.
+              The national director and the chapter directors, each with the
+              address only they read.
             </p>
           </div>
 
-          <ul className="grid gap-x-12 gap-y-0 md:grid-cols-2">
+          <ul className="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
             {leadershipContacts.map((person) => (
               <li
                 key={person.names}
-                className="flex flex-col gap-3 border-t border-navy/14 py-6"
+                className="flex flex-col gap-3 border-l border-navy/14 py-1 pl-[18px]"
               >
                 <div>
                   <h3 className="font-serif text-title-sm text-navy">
@@ -189,21 +205,17 @@ export default function ContactPage() {
                     {person.role}
                   </p>
                 </div>
-                <ul className="flex flex-col gap-1.5">
-                  {person.emails.map((row) => (
-                    <li
-                      key={`${person.names}-${row.email}-${row.label}`}
-                      className="flex flex-wrap items-baseline gap-x-4 gap-y-0.5"
-                    >
-                      <span className="w-[150px] shrink-0 font-sans text-caption text-navy/65">
-                        {row.label}
-                      </span>
-                      <a href={`mailto:${row.email}`} className={emailLinkClass}>
-                        {row.email}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <div className="flex flex-col gap-1">
+                  <a
+                    href={`mailto:${person.email}`}
+                    className={emailLinkClass}
+                  >
+                    {person.email}
+                  </a>
+                  <p className="font-sans text-footnote text-navy/60">
+                    {person.alsoAnswers}
+                  </p>
+                </div>
                 {person.linkedin ? (
                   <a
                     href={person.linkedin}
@@ -237,7 +249,9 @@ export default function ContactPage() {
           </h2>
           <div className="grid gap-8 border-t border-navy/14 pt-6 md:grid-cols-2 md:gap-16">
             <div className="flex flex-col gap-2">
-              <p className="kicker text-kicker-sm text-navy/60">
+              {/* Column labels, not section names: the kicker is reserved for
+                  the latter, and this band already has its heading. */}
+              <p className="font-sans text-caption text-navy/65">
                 Registered address
               </p>
               <address className="font-sans text-body not-italic text-navy/74">
@@ -252,7 +266,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <p className="kicker text-kicker-sm text-navy/60">Online</p>
+              <p className="font-sans text-caption text-navy/65">Online</p>
               <ul className="flex flex-col gap-2">
                 {online.map((channel) => (
                   <li key={channel.name} className="flex flex-wrap items-baseline gap-x-3">

@@ -211,7 +211,7 @@ export default function ResearchPage() {
         aria-labelledby="eligibility-heading"
         className="border-t border-navy/10 bg-cream"
       >
-        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">
+        <div className="shell band-section flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">
           <h2
             id="eligibility-heading"
             className="max-w-[420px] font-serif text-heading-sm text-navy lg:w-[360px] lg:shrink-0"
@@ -297,7 +297,7 @@ export default function ResearchPage() {
               <p className="mt-7 max-w-[760px] text-body text-white/75">
                 The scope is broad on purpose: technical alignment and interpretability, governance
                 and policy with an EU and Dutch emphasis, and foundational questions about how the
-                field measures progress. If you are unsure whether a topic counts as AI safety, the
+                field measures progress. If you are unsure whether a topic counts as AI Safety, the
                 default answer is yes, provided you can articulate a plausible pathway from the work
                 to reducing AI-related risk.
               </p>
@@ -408,22 +408,22 @@ export default function ResearchPage() {
             <SupervisorRow />
 
             {/* The page's one supervisor moment, placed where the reader has
-                just finished checking the other supervisors. A hairline and a
-                column, not a second panel beside the first. */}
-            <div className="grid gap-6 border-t border-navy/14 pt-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-16">
+                just finished checking the other supervisors. One column under a
+                hairline: heading, paragraph, and the button directly under the
+                sentence that argues for it. The eligibility band already runs
+                the heading-left, copy-right split, and the page uses it once. */}
+            <div className="flex max-w-[720px] flex-col items-start gap-5 border-t border-navy/14 pt-8">
               <h3 className="font-serif text-title text-navy">Supervise the next project</h3>
-              <div className="flex max-w-[720px] flex-col items-start gap-6">
-                <p className="font-sans text-body text-navy/74">
-                  If you are an experienced researcher, usually at PhD level or above, and the
-                  papers above look like work you could have guided, more supervisors means more
-                  projects. Supervision is remote-friendly, meetings run at a cadence you agree per
-                  project, and the research team handles the coordination around you. Email us and
-                  we will follow up with next steps.
-                </p>
-                <a href={SUPERVISOR_MAILTO} className="btn-outline-ink">
-                  Become a supervisor
-                </a>
-              </div>
+              <p className="font-sans text-body text-navy/74">
+                If you are an experienced researcher, usually at PhD level or above, and the
+                papers above look like work you could have guided, more supervisors means more
+                projects. Supervision is remote-friendly, meetings run at a cadence you agree per
+                project, and the research team handles the coordination around you. Email us and
+                we will follow up with next steps.
+              </p>
+              <a href={SUPERVISOR_MAILTO} className="btn-outline-ink mt-1">
+                Become a supervisor
+              </a>
             </div>
           </Reveal>
         </div>

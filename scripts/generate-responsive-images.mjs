@@ -27,7 +27,9 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const pub = (p) => path.join(ROOT, "public", p);
 
 /* Each entry says where the file is used and how wide it is drawn there, so
-   the ladder can be checked against the markup rather than guessed at. */
+   the ladder can be checked against the markup rather than guessed at. An
+   entry may set `format` when the rungs should leave the source's container
+   behind, for photographs that were handed over as PNG. */
 const TARGETS = [
   {
     note: "TalentFunnel bands (<=432 CSS) and PathwayTrail cards (<=520 CSS)",
@@ -78,6 +80,56 @@ const TARGETS = [
       "photos/supervisors/Ana_Lucic.png",
     ],
     widths: [312, 800],
+  },
+  {
+    /* /about portraits: leadership tiles at 140-158 CSS, advisory at 132-146.
+       The originals were going into those tiles untouched, 6.6MB of them, one
+       of which is 7581px square.
+
+       440 is the top rung because the narrowest source is 459 wide and a rung
+       wider than its source is skipped, which would leave a srcSet entry
+       pointing at a file that was never written. Every rung is JPEG even where
+       the source is a PNG: these are photographs, and the two PNGs carry alpha
+       that flattens onto the white ground the band draws them on. */
+    note: "About portraits: leadership tiles <=158 CSS, advisory <=146 CSS",
+    files: [
+      "photos/team/Alexander.jpg",
+      "photos/team/Tarteel_Mohamed.jpg",
+      "photos/team/Ana_resized.jpeg",
+      "photos/team/Andreea_resized.jpeg",
+      "photos/team/Riccardo_resized.jpeg",
+      "photos/advisory_board/Teun.jpg",
+      "photos/advisory_board/Jesse.jpg",
+      "photos/advisory_board/nandi.jpg",
+      "photos/advisory_board/Jelle.jpeg",
+      "photos/advisory_board/lisa_gotoh_revised.jpeg",
+      "photos/advisory_board/Robert_Praasjpeg.jpeg",
+      "photos/advisory_board/charbel.png",
+      "photos/advisory_board/Richard.png",
+      "photos/advisory_board/Video_Jesselit_039_close-up.jpg",
+      "photos/advisory_board/Stephen_Corlett.jpg",
+    ],
+    widths: [160, 320, 440],
+    format: ".jpg",
+  },
+  {
+    /* /community: the hero pair (<=254 CSS) and the EventPrints strip, which
+       is 72vw on a phone and about 260 CSS in the xl scatter. These were the
+       last full-size sources on the site, shipping 400 to 590KB each to draw
+       a print the width of a postcard. webp because several of the sources are
+       phone PNGs, where a PNG rung is still several times a webp one. */
+    note: "Community hero prints (<=254 CSS) and EventPrints (72vw, <=260 CSS)",
+    files: [
+      "photos/events/control-hackathon.png",
+      "photos/events/forecasting-hackathon.png",
+      "photos/events/pub-quiz.jpg",
+      "photos/events/tedx-broerstraat.webp",
+      "photos/events/utrecht/aisfundamentals-graduation-ceremony.jpeg",
+      "photos/events/utrecht/discussion-eu2031.jpeg",
+      "photos/events/utrecht/win4AISafety_congrats_the_winners.jpg",
+    ],
+    widths: [320, 640, 900],
+    format: ".webp",
   },
 ];
 
@@ -132,11 +184,15 @@ for (const target of TARGETS) {
         continue;
       }
 
-      const out = `${base}-${width}${ext}`;
-      const buffer = await encode(
-        sharp(input).resize({ width, withoutEnlargement: true }),
-        ext,
-      ).toBuffer();
+      /* A target may recode: a photograph shipped as PNG is a photograph, and
+         a rung of it should be JPEG. Alpha is flattened onto white first,
+         because JPEG has none and the default fill is black. */
+      const outExt = target.format ?? ext;
+      const recoding = outExt !== ext;
+      const out = `${base}-${width}${outExt}`;
+      let pipeline = sharp(input).resize({ width, withoutEnlargement: true });
+      if (recoding && meta.hasAlpha) pipeline = pipeline.flatten({ background: "#ffffff" });
+      const buffer = await encode(pipeline, outExt).toBuffer();
 
       await writeFile(out, buffer);
       variantBytes += buffer.length;

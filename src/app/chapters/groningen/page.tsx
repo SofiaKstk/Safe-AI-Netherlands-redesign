@@ -10,6 +10,7 @@ import PublicationChips from "@/components/chapters/PublicationChips";
 import ShowUpBand from "@/components/chapters/ShowUpBand";
 import TeamBand, { type TeamMember } from "@/components/chapters/TeamBand";
 import { aisigTeam } from "@/data/aisigTeam";
+import { publications } from "@/data/research";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
@@ -80,6 +81,31 @@ const prints: Print[] = [
     tilt: "xl:rotate-[2deg]",
   },
 ];
+
+/* The four papers this chapter's people are on, read out of the research hub's
+   own file rather than retyped here. Venue, title and author list therefore
+   cannot drift from /research, and the venues keep the word "workshop" they
+   carry at source: these are workshop papers, and a bare "NeurIPS 2025" reads
+   as the main conference to exactly the reader this page is written for. */
+const CHIP_TITLES = [
+  "Steering LLMs using Conceptors",
+  "Self-Ablating Transformers",
+  "The Anatomy of Alignment",
+  "EU-Agent-Bench",
+];
+
+const chips = CHIP_TITLES.map((chipTitle) => {
+  const paper = publications.find((p) => p.chipTitle === chipTitle);
+  if (!paper) {
+    throw new Error(`No publication in research.ts titled "${chipTitle}"`);
+  }
+  return {
+    venue: paper.venueShort,
+    title: paper.chipTitle,
+    authors: paper.authors,
+    url: paper.link,
+  };
+});
 
 export default function GroningenPage() {
   return (
@@ -159,7 +185,7 @@ export default function GroningenPage() {
 
       <EvidenceBand
         heading="29 events and counting"
-        body="Since October 2023 the chapter has run 29 events: hackathons, course graduations, research talks, pub quizzes, and socials; first as AISIG and, since 30 April 2026, as SAIN Groningen. Members' research has been published at venues including NeurIPS and ICLR."
+        body="Since October 2023 the chapter has run 29 events: hackathons, course graduations, research talks, pub quizzes, and socials; first as AISIG and, since 30 April 2026, as SAIN Groningen. Members' research has been published at NeurIPS and ICLR workshops."
       >
         <div>
           <PrintStrip
@@ -175,36 +201,7 @@ export default function GroningenPage() {
         </div>
 
         <div className="max-w-[var(--container-copy-wide)]">
-          <PublicationChips
-            publications={[
-              {
-                venue: "NeurIPS 2024",
-                title: "Steering LLMs using Conceptors",
-                authors: "Joris Postmus, Steven Abreu",
-                url: "https://jorispos.github.io/conceptor_steering/",
-              },
-              {
-                venue: "ICLR 2025",
-                title: "Self-Ablating Transformers",
-                authors: "Jeremias Ferrao",
-                url: "https://openreview.net/pdf?id=QcmEb490bK",
-              },
-              {
-                venue: "NeurIPS 2025 Spotlight",
-                title: "The Anatomy of Alignment",
-                authors:
-                  "Jeremias Ferrao, Matthijs van der Lende, Ilija Lichkovski",
-                url: "https://arxiv.org/abs/2509.12934",
-              },
-              {
-                venue: "NeurIPS 2025",
-                title: "EU-Agent-Bench",
-                authors:
-                  "Ilija Lichkovski, Alexander Müller, Mariam Ibrahim, Tiwai Mhundwa",
-                url: "https://arxiv.org/abs/2510.21524",
-              },
-            ]}
-          />
+          <PublicationChips publications={chips} />
           <p className="mt-4">
             <Link
               href="/research"

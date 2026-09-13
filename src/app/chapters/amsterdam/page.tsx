@@ -32,6 +32,22 @@ const ELLIS_URL = "https://ivi.fnwi.uva.nl/ellis/";
 
 const team: readonly TeamMember[] = sainAmsTeam;
 
+/* The two courses as two columns on one hairline, the same geometry Groningen
+   uses for its two tracks. Named courses are the thing a reader scans for, and
+   they were buried mid-paragraph until now. The shared facts (six weeks, the
+   workload, the certificate) stay in the paragraph rather than being printed
+   twice: nothing in the repo distinguishes the two courses on those counts. */
+const courses = [
+  {
+    name: "Technical AI Safety",
+    detail: "The technical course, built on BlueDot's curriculum.",
+  },
+  {
+    name: "Frontier AI Governance",
+    detail: "The governance course, built on BlueDot's curriculum.",
+  },
+];
+
 const pastEvents = pastEventsThisYear(
   lumaPastEventsAmsterdam as RawPastEvent[],
 );
@@ -76,7 +92,7 @@ export default function AmsterdamPage() {
 
       <CourseBand
         city="Amsterdam"
-        heading="Two free courses return in October"
+        heading="Two free courses run in Amsterdam"
         footnote={
           <>
             The courses are independently run by SAIN Amsterdam and are not
@@ -111,14 +127,29 @@ export default function AmsterdamPage() {
           </>
         }
       >
+        <dl className="grid max-w-[var(--container-copy-wide)] gap-6 md:grid-cols-2 md:gap-8">
+          {courses.map((course) => (
+            <div
+              key={course.name}
+              className="border-l border-navy/14 py-1 pl-[18px]"
+            >
+              <dt className="font-serif text-title-sm text-navy">
+                {course.name}
+              </dt>
+              <dd className="mt-1.5 font-sans text-ui text-navy/74">
+                {course.detail}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
         <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/74">
-          We run two courses built on BlueDot&rsquo;s curriculum: Technical AI
-          Safety and Frontier AI Governance, both on site in Amsterdam. Six
-          weeks, about two hours of reading and two hours of discussion a week,
-          with a certificate on completion; selection is application-based. The
-          last iteration reached more than 70 people: students, PhDs, engineers,
-          policymakers, and consultants. Facilitators include PhDs,
-          risk-management consultants, and an ELLIS assistant professor.
+          Both run on site in Amsterdam. Six weeks, about two hours of reading
+          and two hours of discussion a week, with a certificate on completion;
+          selection is application-based. The last iteration reached more than
+          70 people: students, PhDs, engineers, policymakers, and consultants.
+          Facilitators include PhDs, risk-management consultants, and an ELLIS
+          assistant professor.
         </p>
       </CourseBand>
 

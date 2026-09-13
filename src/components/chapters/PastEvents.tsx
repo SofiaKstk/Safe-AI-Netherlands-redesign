@@ -13,6 +13,17 @@ import { ArrowUpRight, CaretRight } from "@phosphor-icons/react/dist/ssr";
 
 export type RawPastEvent = { name: string; url: string; startAt: string };
 
+/**
+ * Luma titles arrive with em dashes in them ("Discussion Group — Europe 2031").
+ * The design system bans the character in copy, and a string's provenance does
+ * not change what the reader sees, so the separator is re-set on the way to the
+ * page as the middot the print captions already use. A colon would collide with
+ * the colons several of these titles carry ("Week 4: RLHF, GRPO").
+ */
+function withoutDashes(name: string): string {
+  return name.replace(/\s*[—–]\s*/g, " · ");
+}
+
 function academicYearStart(now: Date): Date {
   const year = now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1;
   return new Date(year, 8, 1);
@@ -71,7 +82,7 @@ export default function PastEvents({
                 })}
               </span>
               <span className="flex-1 font-sans text-ui text-navy">
-                {event.name}
+                {withoutDashes(event.name)}
               </span>
               <CaretRight
                 size={13}

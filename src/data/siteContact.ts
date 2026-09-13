@@ -17,7 +17,7 @@ export const nationalContacts: NationalContact[] = [
     email: "info@safeainetherlands.org",
   },
   {
-    label: "Media & outreach",
+    label: "Media and outreach",
     detail: "Press, public outreach, and partnerships",
     email: "pr@safeainetherlands.org",
   },
@@ -47,61 +47,58 @@ export const chapterContactLinks = [
 export type LeadershipContact = {
   names: string;
   role: string;
-  emails: { label: string; email: string }[];
+  /** The address that belongs to this person and to nobody else. */
+  email: string;
+  /** The shared inbox they also answer, already printed in full further up the page. */
+  alsoAnswers: string;
   linkedin?: string;
 };
 
-/** Named leads: chapter or national inboxes plus personal addresses where relevant. */
+/** Named leads. The shared inboxes are listed once, in the bands above; what is
+ *  new here is the person and the address only they read. */
 export const leadershipContacts: LeadershipContact[] = [
   {
     names: "Alexander Müller",
     role: "Director SAIN",
-    emails: [
-      { label: "National formal", email: "info@safeainetherlands.org" },
-      { label: "Personal", email: "alexander@safeainetherlands.org" },
-    ],
+    email: "alexander@safeainetherlands.org",
+    alsoAnswers: "Also answers the formal role address above.",
     linkedin: "https://alexanderakm.github.io/",
   },
   {
     names: "Tarteel Mohamed",
     role: "Director SAIN Groningen",
-    emails: [
-      { label: "Personal", email: "tarteel@safeainetherlands.org" },
-      { label: "Groningen chapter", email: "infogro@safeainetherlands.org" },
-    ],
+    email: "tarteel@safeainetherlands.org",
+    alsoAnswers: "Also answers the SAIN Groningen chapter address above.",
     linkedin: "https://www.linkedin.com/in/tarteel-mohamed-8918aa2a7/",
   },
   {
     names: "Ana Paula Castillo Rodriguez",
     role: "Co-Director SAIN Amsterdam",
-    emails: [
-      { label: "Amsterdam chapter", email: "infoams@safeainetherlands.org" },
-      { label: "Personal", email: "ana@safeainetherlands.org" },
-    ],
+    email: "ana@safeainetherlands.org",
+    alsoAnswers: "Also answers the SAIN Amsterdam chapter address above.",
     linkedin: "https://www.linkedin.com/in/ana-paula-casrod/",
   },
   {
     names: "Andreea Chivu",
     role: "Co-Director SAIN Amsterdam",
-    emails: [
-      { label: "Amsterdam chapter", email: "infoams@safeainetherlands.org" },
-      { label: "Personal", email: "andreea@safeainetherlands.org" },
-    ],
+    email: "andreea@safeainetherlands.org",
+    alsoAnswers: "Also answers the SAIN Amsterdam chapter address above.",
     linkedin: "https://www.linkedin.com/in/andreea-chivu-0924911a6/",
   },
   {
     names: "Riccardo Campanella",
     role: "Director SAIN Utrecht",
-    emails: [
-      { label: "Utrecht chapter", email: "infoutr@safeainetherlands.org" },
-      { label: "Personal", email: "riccardo@safeainetherlands.org" },
-    ],
+    email: "riccardo@safeainetherlands.org",
+    alsoAnswers: "Also answers the SAIN Utrecht chapter address above.",
     linkedin: "https://www.linkedin.com/in/riccardo-campanella/",
   },
 ];
 
 export type ChapterRoleEmails = {
   chapter: string;
+  /** The chapter page itself, for a link labelled "View chapter". */
+  href: string;
+  /** The join section of that page, for a link that asks someone to join. */
   joinHref: string;
   roles: { label: string; email: string }[];
 };
@@ -109,41 +106,44 @@ export type ChapterRoleEmails = {
 export const chapterRoleEmails: ChapterRoleEmails[] = [
   {
     chapter: "SAIN Groningen",
+    href: "/chapters/groningen",
     joinHref: "/chapters/groningen#join",
     roles: [
       { label: "Formal collaboration", email: "infogro@safeainetherlands.org" },
-      { label: "Community Manager", email: "cmgro@safeainetherlands.org" },
+      { label: "Community manager", email: "cmgro@safeainetherlands.org" },
       { label: "Education", email: "edugro@safeainetherlands.org" },
       { label: "Research", email: "research@safeainetherlands.org" },
       { label: "Events", email: "eventsgro@safeainetherlands.org" },
       { label: "Substack", email: "substack@safeainetherlands.org" },
-      { label: "Public Outreach", email: "prgro@safeainetherlands.org" },
+      { label: "Public outreach", email: "prgro@safeainetherlands.org" },
     ],
   },
   {
     chapter: "SAIN Amsterdam",
+    href: "/chapters/amsterdam",
     joinHref: "/chapters/amsterdam#join",
     roles: [
       { label: "Formal collaboration", email: "infoams@safeainetherlands.org" },
-      { label: "Community Manager", email: "cmams@safeainetherlands.org" },
+      { label: "Community manager", email: "cmams@safeainetherlands.org" },
       { label: "Education", email: "eduams@safeainetherlands.org" },
       { label: "Research", email: "research@safeainetherlands.org" },
       { label: "Events", email: "eventsams@safeainetherlands.org" },
       { label: "Substack", email: "substack@safeainetherlands.org" },
-      { label: "Public Outreach", email: "prams@safeainetherlands.org" },
+      { label: "Public outreach", email: "prams@safeainetherlands.org" },
     ],
   },
   {
     chapter: "SAIN Utrecht",
+    href: "/chapters/utrecht",
     joinHref: "/chapters/utrecht#join",
     roles: [
       { label: "Formal collaboration", email: "infoutr@safeainetherlands.org" },
-      { label: "Community Manager", email: "cmutr@safeainetherlands.org" },
+      { label: "Community manager", email: "cmutr@safeainetherlands.org" },
       { label: "Education", email: "eduutr@safeainetherlands.org" },
       { label: "Research", email: "research@safeainetherlands.org" },
       { label: "Events", email: "eventsutr@safeainetherlands.org" },
       { label: "Substack", email: "substack@safeainetherlands.org" },
-      { label: "Public Outreach", email: "prutr@safeainetherlands.org" },
+      { label: "Public outreach", email: "prutr@safeainetherlands.org" },
     ],
   },
 ];

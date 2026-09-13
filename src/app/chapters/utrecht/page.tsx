@@ -209,7 +209,7 @@ export default function UtrechtPage() {
 
       <EvidenceBand
         heading="This already happened in Utrecht"
-        body="This academic year the chapter ran the Win4AISafety open research summer challenge, a full technical course with a closing dinner, discussion groups including a Europe 2031 scenario session, and research talks, including an Anthropic researcher speaking to more than 60 people."
+        body="Over the past year the chapter ran the Win4AISafety open research summer challenge, a full technical course with a closing dinner, discussion groups including a Europe 2031 scenario session, and research talks, including an Anthropic researcher speaking to more than 60 people."
       >
         <div>
           <PrintStrip

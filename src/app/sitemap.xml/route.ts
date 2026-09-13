@@ -1,3 +1,5 @@
+import { sainDocuments } from "@/data/sainDocuments";
+
 const siteUrl = "https://safeainetherlands.org";
 
 const routes = [
@@ -8,12 +10,17 @@ const routes = [
   "/research",
   "/team",
   "/get-involved",
+  "/open-positions",
   "/contact",
   "/chapters/groningen",
   "/chapters/groningen/events",
   "/chapters/utrecht",
   "/chapters/amsterdam",
   "/research/handbook",
+  // The governing documents under /about/[document], read from the same
+  // source the pages are generated from, so a new document cannot ship
+  // unlisted.
+  ...sainDocuments.map((document) => `/about/${document.slug}`),
 ];
 
 function escapeXml(value: string) {

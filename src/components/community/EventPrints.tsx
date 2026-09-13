@@ -19,13 +19,19 @@ import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
  * off the screen edge as the affordance, and a tilted scatter from xl where the
  * five of them reach their full width on the 1440 canvas.
  *
- * These files have no responsive rungs on disk (the generator writes them for
- * /landing and /photos/cities only), so each is served at its single source
- * with the crop doing the work. Lazy, below the fold, and none is large.
+ * `output: "export"` ships next/image unoptimized, so each print carries its
+ * own srcSet off the webp rungs scripts/generate-responsive-images.mjs writes
+ * beside the sources. The ladder therefore lives in two places and has to
+ * agree: `rungs` below names only the widths that exist on disk, because a
+ * rung wider than its source is skipped by the generator and a srcSet entry
+ * pointing at a file nobody wrote is a broken image at that breakpoint.
  */
 
 type Print = {
+  /** The source on disk; the rungs sit beside it as `<name>-<width>.webp`. */
   src: string;
+  /** Widths the generator actually wrote for this source. */
+  rungs: number[];
   alt: string;
   caption: string;
   /** Where the crop sits in the frame. */
@@ -41,6 +47,7 @@ type Print = {
 const PRINTS: Print[] = [
   {
     src: "/photos/events/control-hackathon.png",
+    rungs: [320, 640, 900],
     alt: "Participants working through a weekend AI control hackathon in Groningen",
     caption: "AI control hackathon · SAIN Groningen",
     position: "50% 45%",
@@ -50,6 +57,7 @@ const PRINTS: Print[] = [
   },
   {
     src: "/photos/events/tedx-broerstraat.webp",
+    rungs: [320, 640],
     alt: "A SAIN Groningen speaker on the TEDxBroerstraat stage",
     caption: "TEDxBroerstraat · SAIN Groningen",
     position: "50% 40%",
@@ -59,6 +67,7 @@ const PRINTS: Print[] = [
   },
   {
     src: "/photos/events/utrecht/aisfundamentals-graduation-ceremony.jpeg",
+    rungs: [320, 640, 900],
     alt: "An AI Safety Fundamentals cohort at its graduation ceremony in Utrecht",
     caption: "Course graduation · SAIN Utrecht",
     position: "50% 40%",
@@ -69,6 +78,7 @@ const PRINTS: Print[] = [
   },
   {
     src: "/photos/events/pub-quiz.jpg",
+    rungs: [320, 640, 900],
     alt: "A SAIN Groningen pub quiz in the evening",
     caption: "Pub quiz · SAIN Groningen",
     position: "50% 50%",
@@ -78,6 +88,7 @@ const PRINTS: Print[] = [
   },
   {
     src: "/photos/events/utrecht/discussion-eu2031.jpeg",
+    rungs: [320, 640],
     alt: "A discussion group in Utrecht working through a Europe 2031 scenario",
     caption: "Europe 2031 scenario discussion · SAIN Utrecht",
     position: "50% 45%",
@@ -162,14 +173,23 @@ export default function EventPrints() {
            with the copy above it. */
         className="scroll-strip -mx-6 flex snap-x snap-mandatory scroll-pl-6 items-center gap-4 overflow-x-auto px-6 pb-9 pt-4 md:-mx-12 md:scroll-pl-12 md:px-12 xl:mx-0 xl:grid xl:w-full xl:grid-cols-5 xl:gap-3 xl:overflow-visible xl:px-2 xl:py-8"
       >
-        {PRINTS.map((print) => (
+        {PRINTS.map((print) => {
+          const base = print.src.replace(/\.[^.]+$/, "");
+          return (
           <figure
             key={print.src}
             className={`community-print relative w-[72vw] shrink-0 snap-start bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[46vw] md:w-[38vw] lg:w-[30vw] xl:w-auto xl:shrink ${print.tilt} ${print.scatter}`}
           >
             <div className="relative overflow-hidden">
               <img
-                src={print.src}
+                src={`${base}-${print.rungs[print.rungs.length - 1]}.webp`}
+                srcSet={print.rungs
+                  .map((w) => `${base}-${w}.webp ${w}w`)
+                  .join(", ")}
+                /* 72vw on a phone down to one fifth of the 1440 canvas in the
+                   scatter, where the anchored print's 1.1 scale is the widest
+                   any of them is drawn. */
+                sizes="(min-width: 1280px) 290px, (min-width: 1024px) 30vw, (min-width: 768px) 38vw, (min-width: 640px) 46vw, 72vw"
                 alt={print.alt}
                 width={480}
                 height={360}
@@ -185,7 +205,8 @@ export default function EventPrints() {
               </figcaption>
             </div>
           </figure>
-        ))}
+          );
+        })}
       </div>
 
       <button
