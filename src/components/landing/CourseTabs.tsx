@@ -112,9 +112,11 @@ const TRACKS: Track[] = [
       },
     ],
     photo: "/landing/course-technical.jpg",
-    photoWidths: [640, 960, 1280, 1920],
-    photoAlt: "Technical alignment workshop in progress",
-    caption: "Week 1 · Transformers and interpretability",
+    /* The source is 1024 wide, so the ladder stops at 960. */
+    photoWidths: [640, 960],
+    photoAlt:
+      "Six technical track graduates standing beside the SAIN Amsterdam banner",
+    caption: "Technical AI Safety graduation · SAIN Amsterdam",
   },
   {
     id: "policy",
@@ -147,9 +149,10 @@ const TRACKS: Track[] = [
       },
     ],
     photo: "/landing/course-policy.jpg",
-    photoWidths: [640],
-    photoAlt: "Governance and policy discussion group around a table",
-    caption: "Discussion group · Utrecht",
+    /* The master is 1920 wide, so the ladder stops at 1280. */
+    photoWidths: [640, 960, 1280],
+    photoAlt: "Discussion groups talking around tables at SAIN Amsterdam",
+    caption: "Discussion group · SAIN Amsterdam",
   },
 ];
 
