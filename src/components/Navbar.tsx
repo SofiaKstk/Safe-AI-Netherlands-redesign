@@ -103,18 +103,16 @@ export default function Navbar() {
           behind a strip the reader has already taken in. */}
       {hasOpenPositions && (
         <div className="flex items-center justify-center gap-3 bg-orange px-6 py-[11px] md:px-12">
-          {/* Navy on orange, not white: white on #FF6025 is 3.02:1, and at 15px
-              that is the least readable line on the page. */}
-          <p className="kicker text-kicker-sm text-navy/85">
+          <p className="kicker text-kicker-sm text-white/85">
             We are hiring
           </p>
           <span
-            className="hidden h-px w-[22px] bg-navy/40 sm:block"
+            className="hidden h-px w-[22px] bg-white/50 sm:block"
             aria-hidden="true"
           />
           <Link
             href="/open-positions"
-            className="font-sans text-caption text-navy underline decoration-navy/45 underline-offset-4 transition-colors hover:decoration-navy focus-visible:decoration-navy"
+            className="font-sans text-caption text-white underline decoration-white/45 underline-offset-4 transition-colors hover:decoration-white focus-visible:decoration-white"
           >
             See open positions
           </Link>

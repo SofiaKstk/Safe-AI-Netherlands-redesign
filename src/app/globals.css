@@ -15,7 +15,7 @@
   /* Brand surfaces and ink */
   --color-navy: #021c4d;
   --color-orange: #ff6025;
-  --color-orange-hover: #e75b22;
+  --color-orange-hover: #e65620;
   --color-cream: #f7f5f2;
 
   /* Orange for text on a light ground, and only there.
@@ -225,16 +225,14 @@
     outline-offset: 3px;
   }
 
-  /* White rings belong on navy. On orange the navy ring from the rule above is
-     both more legible (5.45:1 against white's 3.02:1) and consistent with the
-     navy labels those grounds now carry. */
-  .bg-navy :focus-visible {
+  .bg-navy :focus-visible,
+  .bg-orange :focus-visible {
     outline-color: #ffffff;
   }
 
   ::selection {
     background-color: var(--color-orange);
-    color: var(--color-navy);
+    color: #ffffff;
   }
 }
 
@@ -321,18 +319,17 @@
    Buttons. Square. Archivo. No shadow.
 ----------------------------------------------------------------------------- */
 
-/* Orange is the identity of joining. Never invert the fill to navy on hover.
+/* Orange is the identity of joining. Never invert it to navy on hover.
 
-   The label is navy because white on #FF6025 is 3.02:1 -- the one element the
-   page exists to get clicked was the hardest thing on it to read. Navy on the
-   same orange is 5.45:1, and 4.64:1 on the hover tint, so the fill keeps its
-   identity in every state and the text clears AA. White never sits on orange. */
+   The label is white. That is a deliberate brand call, not an oversight: white
+   on #FF6025 is 3.02:1, which clears AA only at large-text sizes, so keep an
+   eye on any small type placed on an orange ground. */
 @utility btn-accent {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: var(--color-orange);
-  color: var(--color-navy);
+  color: #ffffff;
   font-family: var(--font-sans);
   font-size: 14.5px;
   line-height: 20px;
@@ -355,14 +352,11 @@
   font-size: 13.5px;
   line-height: 18px;
   padding: 11px 18px;
-  transition:
-    background-color 200ms ease,
-    color 200ms ease;
+  transition: background-color 200ms ease;
 
   &:hover,
   &:focus-visible {
     background: var(--color-orange);
-    color: var(--color-navy);
   }
 }
 

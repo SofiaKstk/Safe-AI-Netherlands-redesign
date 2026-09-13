@@ -67,13 +67,7 @@ export default function PathwayTrail() {
                 }`}
                 style={{ objectPosition: stop.objectPosition }}
               />
-              <p
-                className={`relative font-serif text-sm leading-[19px] ${
-                  last ? "text-navy" : "text-white"
-                }`}
-              >
-                {stop.label}
-              </p>
+              <p className="relative font-serif text-sm leading-[19px] text-white">{stop.label}</p>
             </div>
           );
 
