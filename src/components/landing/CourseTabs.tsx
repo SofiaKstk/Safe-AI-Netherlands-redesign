@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { CaretDown } from "@phosphor-icons/react/dist/ssr";
+import { CaretDown, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 import {
   courseApplicationFor,
@@ -46,7 +46,6 @@ type Track = {
      resolve its own route out of courseApplications instead of carrying a
      second copy of it here. */
   cities: { city: ChapterName; detail: string }[];
-  cta: { label: string; href: string };
   photo: string;
   /** Rungs on disk for `photo`. See scripts/generate-responsive-images.mjs. */
   photoWidths: number[];
@@ -77,7 +76,6 @@ const TRACKS: Track[] = [
         detail: "Weekly, modular. Drop in for any theme. ~60 min.",
       },
     ],
-    cta: { label: "Join the fundamentals series", href: "/chapters/utrecht#programs" },
     photo: "/landing/course-fundamentals.jpg",
     photoWidths: [640, 960, 1280, 1920],
     photoAlt: "SAIN Utrecht cohort at graduation",
@@ -113,7 +111,6 @@ const TRACKS: Track[] = [
           "BlueDot Technical AI Safety. 6 weeks, on-site, application-based.",
       },
     ],
-    cta: { label: "See all courses", href: "/get-involved#courses" },
     photo: "/landing/course-technical.jpg",
     photoWidths: [640, 960, 1280, 1920],
     photoAlt: "Technical alignment workshop in progress",
@@ -149,7 +146,6 @@ const TRACKS: Track[] = [
         detail: "BlueDot Frontier AI Governance. On-site, application-based.",
       },
     ],
-    cta: { label: "See all courses", href: "/get-involved#courses" },
     photo: "/landing/course-policy.jpg",
     photoWidths: [640],
     photoAlt: "Governance and policy discussion group around a table",
@@ -362,19 +358,25 @@ export default function CourseTabs() {
                     href={courseApplicationFor(entry.city).href}
                     className="group/city flex flex-col gap-1 border-t border-navy/10 py-2.5 transition-colors duration-200 hover:bg-navy/5 focus-visible:bg-navy/5 sm:flex-row sm:items-baseline sm:gap-4"
                   >
-                    {/* No arrow glyph on the row. It was a fourth cue behind
-                        three that already said "link" -- the underline is drawn
-                        at rest, it darkens on hover, and the row takes a wash --
-                        so it carried nothing the others lacked. It also put two
-                        arrow shapes in one block: the caret on the header and
-                        this one here. The caret is md:hidden, so crossing 768px
-                        swapped which of the two was on screen and the pair read
-                        as one arrow changing shape with the viewport. The caret
-                        is the one that stays, because it is a disclosure
-                        control rather than a direction, and it exists only in
-                        the mode where the headers are a disclosure list. */}
-                    <span className="w-[108px] shrink-0 font-serif text-base leading-[22px] text-navy underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover/city:decoration-navy group-focus-visible/city:decoration-navy">
-                      {entry.city}
+                    <span className="flex w-[108px] shrink-0 items-baseline gap-1.5 font-serif text-base leading-[22px] text-navy">
+                      <span className="underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover/city:decoration-navy group-focus-visible/city:decoration-navy">
+                        {entry.city}
+                      </span>
+                      {/* The arrow points, it does not travel. It is the row's
+                          one cue for where the link goes rather than that it is
+                          one, and with the panel CTA gone it is the only mark
+                          of onward travel left in the block. Sliding it read as
+                          the glyph lagging the cursor: 2px is under the
+                          distance you take for a gesture, but 200ms is over the
+                          time you fail to notice. So it deepens with the
+                          underline instead -- one gesture, and colour is a cue
+                          reduced motion keeps. */}
+                      <ArrowRight
+                        size={12}
+                        weight="light"
+                        aria-hidden="true"
+                        className="shrink-0 -translate-y-px text-navy/45 transition-colors duration-200 group-hover/city:text-navy group-focus-visible/city:text-navy"
+                      />
                     </span>
                     <span className="font-sans text-ui leading-[22px] text-navy/72">
                       {entry.detail}
@@ -382,13 +384,6 @@ export default function CourseTabs() {
                   </Link>
                 ))}
               </div>
-
-              <Link
-                href={active.cta.href}
-                className="btn-ink mt-auto self-start"
-              >
-                {active.cta.label}
-              </Link>
             </motion.div>
 
             {/* The photograph keeps its cross-dissolve, so the largest mass on the
