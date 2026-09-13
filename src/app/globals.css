@@ -606,6 +606,30 @@
   }
 }
 
+/* The strip's arrows, for the screens that have no thumb to push it with.
+
+   A phone or a tablet already has the gesture, and a chip parked over the
+   first print would only take a photograph away from it -- so the arrows are
+   gated on a fine pointer rather than on width. Above xl there is no strip
+   left to steer, only the scatter, so they stop there too.
+
+   Faint at rest is the whole point: the prints are the argument this band
+   makes, and a control at full strength on top of one competes with it.
+   Hover and focus bring it up to full, deepen the shadow to the prints' own,
+   and lean it along the axis of travel. */
+.strip-arrow {
+  display: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Spelled max-width rather than `width < 1280px`: the range form lowers to
+   `not (min-width: ...)`, which a Safari older than 16.4 drops whole, taking
+   the two conditions that matter with it. */
+@media (hover: hover) and (pointer: fine) and (max-width: 1279.98px) {
+  .strip-arrow { display: grid; }
+}
+
 /* Motion feedback: keep movement local and preserve the surrounding layout. */
 .community-print img {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -637,6 +661,7 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
   .community-print:hover img,
+  .strip-arrow:hover, .strip-arrow:focus-visible,
   .btn-accent:hover, .btn-ink:hover, .btn-ghost:hover, .btn-ghost-inverse:hover,
   .btn-accent:focus-visible, .btn-ink:focus-visible,
   .btn-ghost:focus-visible, .btn-ghost-inverse:focus-visible,
