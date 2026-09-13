@@ -726,8 +726,8 @@
   padding: 16.1px 27.6px;
 }
 
-/* Below 384px the longest label ("Join the SAIN Community - Free") is wider
-   than the shell and wraps to two lines inside the button. Give back the
+/* Below 384px the longest label ("Start with a free course") is wide enough
+   at the size above to wrap to two lines inside the button. Give back the
    padding the override added rather than let the label break. */
 @media (width < 24rem) {
   #main :is(.btn-accent, .btn-ink, .btn-ghost, .btn-outline-ink, .btn-ghost-inverse) {

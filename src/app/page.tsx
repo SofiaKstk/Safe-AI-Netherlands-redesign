@@ -151,14 +151,16 @@ export default function Home() {
               projects, then connect strong contributors to the organisations, programmes and roles
               where they can take the next step.
             </p>
-            {/* Secondary on purpose. The hero states the claim; this is the
-                way to the page that argues it, now that the mission band and
-                the funnel live on /about. The orange is spent further down,
-                where the page asks for something. */}
             <div className="pt-1">
-              <Link href="/about#pipeline" className="btn-outline-ink self-start">
-                How SAIN works
-              </Link>
+              <a
+                href={COMMUNITY_JOIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-accent"
+              >
+                Join the community
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
             </div>
           </Reveal>
           <Reveal hero delay={0.08} className="flex min-w-0 items-center justify-center lg:justify-end">
@@ -271,8 +273,11 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+              {/* Same words as the hero's button on purpose: one label per
+                  destination, so the second ask reads as the same door rather
+                  than a new one. */}
               <a href={COMMUNITY_JOIN_URL} target="_blank" rel="noopener noreferrer" className="btn-accent">
-                Join the SAIN Community - Free
+                Join the community
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
