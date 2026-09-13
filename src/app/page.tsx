@@ -179,7 +179,7 @@ export default function Home() {
             {chapters.map((chapter) => (
               <article
                 key={chapter.city}
-                className="chapter-cell relative isolate border-l border-navy/14 py-6 pl-[18px] pr-4"
+                className="chapter-cell relative isolate border-l border-navy/14 py-5 pl-[18px] pr-4"
               >
                 {/* The city, held behind the cell and painted in on hover. The
                     navy wash is what carries the name and the link over a
