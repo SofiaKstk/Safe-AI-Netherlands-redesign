@@ -170,8 +170,11 @@ export default function Home() {
       {/* Chapters. A thin index band: cities as peers, left hairline, no cards. */}
       <section id="chapters" aria-labelledby="chapters-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
         <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
+          {/* "Communities" in the label, "chapters" in the anchor and the
+              links: the word on the page changed, the URL others link to did
+              not. */}
           <h2 id="chapters-heading" className="kicker pt-0.5 text-kicker text-navy/65 lg:w-[300px] lg:shrink-0">
-            Local chapters
+            Local communities
           </h2>
           <div className="grid flex-1 gap-6 sm:grid-cols-3">
             {chapters.map((chapter) => (
