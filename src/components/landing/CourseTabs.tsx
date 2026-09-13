@@ -366,11 +366,20 @@ export default function CourseTabs() {
                       <span className="underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover/city:decoration-navy group-focus-visible/city:decoration-navy">
                         {entry.city}
                       </span>
+                      {/* The arrow points, it does not travel. Sliding it was a
+                          fourth cue on a row that already had three -- the
+                          underline is there at rest, it darkens on hover, and
+                          the whole row takes a wash -- and 2px of it eased in
+                          and out over 200ms reads as the glyph lagging the
+                          cursor rather than as a nudge. Every other arrow on
+                          the site is static beside its link, so it deepens with
+                          the underline instead: one gesture, and colour is a
+                          cue reduced motion keeps. */}
                       <ArrowRight
                         size={12}
                         weight="light"
                         aria-hidden="true"
-                        className="shrink-0 -translate-y-px text-navy/45 transition-transform duration-200 motion-safe:group-hover/city:translate-x-0.5"
+                        className="shrink-0 -translate-y-px text-navy/45 transition-colors duration-200 group-hover/city:text-navy group-focus-visible/city:text-navy"
                       />
                     </span>
                     <span className="font-sans text-ui leading-[22px] text-navy/72">
