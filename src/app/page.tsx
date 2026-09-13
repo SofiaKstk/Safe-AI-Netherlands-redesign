@@ -94,7 +94,7 @@ const careerTracks = [
 
 function Arrow() {
   return (
-    <ArrowRight size={12} weight="light" aria-hidden="true" />
+    <ArrowRight size={16} weight="regular" aria-hidden="true" />
   );
 }
 

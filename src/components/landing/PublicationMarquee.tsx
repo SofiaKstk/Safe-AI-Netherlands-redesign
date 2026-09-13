@@ -89,8 +89,8 @@ function PublicationsLink() {
           All {publications.length} publications
         </span>
         <ArrowRight
-          size={14}
-          weight="light"
+          size={16}
+          weight="regular"
           aria-hidden="true"
           className="shrink-0 text-white/50"
         />

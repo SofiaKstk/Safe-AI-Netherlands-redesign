@@ -358,7 +358,7 @@ export default function CourseTabs() {
                     href={courseApplicationFor(entry.city).href}
                     className="group/city flex flex-col gap-1 border-t border-navy/10 py-2.5 transition-colors duration-200 hover:bg-navy/5 focus-visible:bg-navy/5 sm:flex-row sm:items-baseline sm:gap-4"
                   >
-                    <span className="flex w-[108px] shrink-0 items-baseline gap-1.5 font-serif text-base leading-[22px] text-navy">
+                    <span className="flex w-[112px] shrink-0 items-center gap-1.5 font-serif text-base leading-[22px] text-navy">
                       <span className="underline decoration-navy/25 underline-offset-4 transition-colors duration-200 group-hover/city:decoration-navy group-focus-visible/city:decoration-navy">
                         {entry.city}
                       </span>
@@ -370,12 +370,28 @@ export default function CourseTabs() {
                           distance you take for a gesture, but 200ms is over the
                           time you fail to notice. So it deepens with the
                           underline instead -- one gesture, and colour is a cue
-                          reduced motion keeps. */}
+                          reduced motion keeps.
+
+                          Regular at 16, not light at 12, and the two are tied:
+                          Phosphor scales the shaft with the weight, so light at
+                          12 draws it 12/256 * 12 = 0.56px. Half a pixel cannot
+                          fill one, so the rasterizer split it across two rows
+                          at ~28% each, which text-navy/45 halved again -- the
+                          shaft vanished and left the head, which reads as a
+                          caret. Rows are 43px, a non-integer number of device
+                          pixels at 125% scaling, so each one landed on a
+                          different sub-pixel phase and only some arrows lost
+                          it. Regular at 16 is exactly 1.00px, the floor where
+                          that cannot happen. Dropping either number puts it
+                          back under a pixel. Centred rather than baseline-set
+                          because the box bottom on the baseline sat the head
+                          ~2.4px above the cap band once it grew, and the column
+                          is 112px rather than 108px to absorb the same 4px. */}
                       <ArrowRight
-                        size={12}
-                        weight="light"
+                        size={16}
+                        weight="regular"
                         aria-hidden="true"
-                        className="shrink-0 -translate-y-px text-navy/45 transition-colors duration-200 group-hover/city:text-navy group-focus-visible/city:text-navy"
+                        className="shrink-0 text-navy/45 transition-colors duration-200 group-hover/city:text-navy group-focus-visible/city:text-navy"
                       />
                     </span>
                     <span className="font-sans text-ui leading-[22px] text-navy/72">
