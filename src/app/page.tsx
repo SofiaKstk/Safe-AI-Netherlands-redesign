@@ -18,14 +18,10 @@ import {
 } from "@/data/courseApplications";
 import {
   ArrowRight,
-  Bank,
   Broadcast,
-  Buildings,
   Flask,
   PencilSimpleLine,
   ShieldCheck,
-  Stack,
-  UsersThree,
 } from "@phosphor-icons/react/dist/ssr";
 
 /* No `title` here on purpose: the landing falls through to the root layout's
@@ -61,37 +57,43 @@ const chapters = [
 ];
 
 /* Career destinations. A 26px orange icon, a 240px serif title, a description
-   that grows, and a 160px destination: one shared rhythm, so the rows read as
-   a list rather than four cards. Phosphor at light weight is the closest match
-   to the 1.4 stroke the rest of the page draws with. */
+   that grows, and the destination on the right: one shared rhythm, so the rows
+   read as a list rather than four cards. Phosphor at light weight is the
+   closest match to the 1.4 stroke the rest of the page draws with.
+
+   One icon per row. There used to be two -- a topic glyph on the left and a
+   second glyph beside the destination -- which put eight icons in a four-item
+   list and gave the destination the same weight as the track itself. A
+   Buildings glyph in front of the words "Labs and institutes" is the bullet
+   dot design.md warns about: it repeats the label instead of adding to it.
+
+   The destination is set in the page's serif-italic metadata voice and pushed
+   to the band's right edge, so the four of them read down as a column of
+   answers to "where does this lead" rather than as a fourth strip of prose. */
 const careerTracks = [
   {
     title: "Technical research",
-    description: "Interpretability, evaluations and control research at labs and institutes.",
+    description: "Interpretability, evaluations and control research.",
     destination: "Labs and institutes",
     Icon: Flask,
-    DestinationIcon: Buildings,
   },
   {
     title: "Governance and policy",
     description: "Advising ministries, regulators and standards bodies on frontier AI.",
     destination: "Public sector",
     Icon: PencilSimpleLine,
-    DestinationIcon: Bank,
   },
   {
     title: "Field building",
     description: "Running programmes, chapters and communications for the Dutch ecosystem.",
     destination: "Community",
     Icon: Broadcast,
-    DestinationIcon: UsersThree,
   },
   {
     title: "Security and compute",
     description: "Model security, compute governance and assurance engineering.",
     destination: "Industry",
     Icon: ShieldCheck,
-    DestinationIcon: Stack,
   },
 ];
 
@@ -376,11 +378,16 @@ export default function Home() {
             </blockquote>
           </div>
 
-          <div>
+          {/* The list aligns to the shell's own margins. The rows used to sit
+              inside a 22px inset, so the icons started to the right of the
+              kicker and heading above them and the band ran on two left edges.
+              A closing rule under the last row so the list ends rather than
+              stops. */}
+          <div className="border-b border-navy/10">
             {careerTracks.map((track) => (
               <div
                 key={track.title}
-                className="flex flex-col gap-4 border-t border-navy/10 px-[22px] py-[18px] lg:flex-row lg:items-center lg:gap-6"
+                className="flex flex-col gap-4 border-t border-navy/10 py-[18px] lg:flex-row lg:items-center lg:gap-6"
               >
                 <div className="flex items-center gap-4 lg:contents">
                   <track.Icon
@@ -396,13 +403,7 @@ export default function Home() {
                 <p className="flex-1 font-sans text-ui leading-[23px] text-navy/68">
                   {track.description}
                 </p>
-                <p className="flex items-center gap-[7px] font-sans text-caption text-navy/65 lg:w-[140px] lg:shrink-0 xl:w-40">
-                  <track.DestinationIcon
-                    size={16}
-                    weight="light"
-                    className="shrink-0 text-navy/45"
-                    aria-hidden="true"
-                  />
+                <p className="kicker text-caption text-navy/65 lg:w-[150px] lg:shrink-0 lg:text-right xl:w-[168px]">
                   {track.destination}
                 </p>
               </div>
