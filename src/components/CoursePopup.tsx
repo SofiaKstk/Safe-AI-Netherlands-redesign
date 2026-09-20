@@ -26,11 +26,11 @@ import {
  * of the data and of any dismissal. Closed chapters then show their closed
  * note in place of a deadline, so the layout can be judged with real copy.
  *
- * The chrome is the system's: a white sheet with square corners on a navy
- * scrim, italic kicker with the 7px orange square, serif heading with the
- * cities on a subheading line, hairline rows for the deadlines, one accent
- * button per open city, and a plain text link to put it off. Nothing rounded,
- * nothing glassy.
+ * Two panels on a square sheet. The claim sits on navy, the ground the
+ * system reserves for asking a decision, with the hero's orbital linework
+ * and one orange sparkle; the cities sit on white as hairline rows that are
+ * themselves the links, a deadline under each name, and one accent button to
+ * the courses page. Nothing rounded, nothing glassy.
  */
 
 const OPEN_DELAY_MS = 1500;
@@ -146,87 +146,115 @@ export default function CoursePopup() {
             aria-labelledby="course-popup-title"
             aria-describedby="course-popup-description"
             tabIndex={-1}
-            className="relative max-h-[calc(100dvh-2rem)] w-full max-w-[560px] overflow-y-auto bg-white shadow-[0_18px_60px_#021C4D40] outline-none"
+            className="relative grid max-h-[calc(100dvh-2rem)] w-full max-w-[880px] overflow-y-auto bg-white shadow-[0_18px_60px_#021C4D40] outline-none md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]"
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
             transition={{ duration: reduce ? 0 : 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <button
-              type="button"
-              onClick={close}
-              aria-label="Close"
-              className="absolute right-4 top-5 inline-flex size-10 items-center justify-center text-navy/60 transition-colors hover:text-navy focus-visible:text-navy"
-            >
-              <XIcon size={18} weight="light" aria-hidden="true" />
-            </button>
+            {/* The claim, on the inverse ground the system reserves for a
+                decision, with the hero's orbital linework bleeding off the
+                corner and its one sparkle. */}
+            <div className="relative isolate overflow-hidden bg-navy px-7 pb-8 pt-7 text-white sm:px-9 sm:pb-10 sm:pt-9">
+              <svg
+                className="pointer-events-none absolute -bottom-20 -left-16 h-[300px] w-[300px] text-white opacity-[0.14]"
+                viewBox="0 0 300 300"
+                fill="none"
+                aria-hidden="true"
+              >
+                <g stroke="currentColor" strokeWidth="1">
+                  <circle cx="150" cy="150" r="70" />
+                  <circle cx="150" cy="150" r="110" />
+                  <circle cx="150" cy="150" r="149" />
+                </g>
+              </svg>
+              <svg
+                className="pointer-events-none absolute right-8 top-8 h-4 w-4 text-orange md:bottom-10 md:right-9 md:top-auto"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M8 0 Q8.6 6.8 16 8 Q8.6 9.2 8 16 Q7.4 9.2 0 8 Q7.4 6.8 8 0Z" />
+              </svg>
 
-            <div className="px-7 pb-8 pt-7 sm:px-9 sm:pb-9 sm:pt-8">
-              <p className="kicker flex items-center gap-3 pr-10 text-kicker-sm text-navy/65">
+              <p className="kicker relative flex items-center gap-3 text-kicker-sm text-white/70">
                 <span className="size-[7px] shrink-0 bg-orange" aria-hidden="true" />
                 {open.length ? "Applications open" : "Courses"}
               </p>
               <h2
                 id="course-popup-title"
-                className="mt-4 max-w-[440px] pr-6 font-serif text-heading-sm text-navy"
+                className="relative mt-5 font-serif text-heading text-white"
               >
                 Free AI Safety courses, in person.
               </h2>
-              {/* The cities on their own line, so the heading stays two lines
-                  whether one chapter is open or all three. */}
-              <p className="mt-2 font-serif text-title-sm text-navy/72">
+              <p className="relative mt-3 font-serif text-title-sm text-white/75">
                 In {cities}.
               </p>
               <p
                 id="course-popup-description"
-                className="mt-4 max-w-[480px] font-sans text-caption leading-[22px] text-navy/74"
+                className="relative mt-6 max-w-[400px] font-sans text-caption leading-[22px] text-white/72"
               >
                 A few weeks of reading and discussion with people entering the
-                field, taught by SAIN&rsquo;s chapters. No previous background is
-                needed, and every programme is free. Pick your city to see the
-                course and apply.
+                field, taught by SAIN&rsquo;s chapters. No previous background
+                is needed, and every programme is free.
               </p>
+            </div>
 
-              <ul role="list" className="mt-6 border-b border-navy/10">
+            {/* The cities, each row the door to its chapter's course. */}
+            <div className="relative px-7 pb-7 pt-7 sm:px-9 sm:pb-8 sm:pt-8">
+              <button
+                type="button"
+                onClick={close}
+                aria-label="Close"
+                className="absolute right-3 top-3 inline-flex size-10 items-center justify-center text-navy/55 transition-colors hover:text-navy focus-visible:text-navy"
+              >
+                <XIcon size={18} weight="light" aria-hidden="true" />
+              </button>
+
+              <p className="kicker pr-10 text-kicker-sm text-navy/65">
+                Pick your city
+              </p>
+              <ul role="list" className="mt-4 border-b border-navy/12">
                 {listed.map((course) => (
-                  <li
-                    key={course.chapter}
-                    className="flex flex-col gap-1 border-t border-navy/10 py-3 sm:flex-row sm:items-baseline sm:gap-6"
-                  >
-                    <span className="font-serif text-title-sm text-navy sm:w-[120px] sm:shrink-0">
-                      {course.chapter}
-                    </span>
-                    {course.open ? (
-                      <span className="font-sans text-footnote text-navy/65">
-                        Participants by {course.deadlines.participants}
-                        <span aria-hidden="true" className="px-2 text-navy/25">
-                          ·
+                  <li key={course.chapter}>
+                    <Link
+                      href={course.href}
+                      onClick={close}
+                      className="group -mx-3 flex items-center justify-between gap-4 border-t border-navy/12 px-3 py-4 transition-colors hover:bg-cream focus-visible:bg-cream"
+                    >
+                      <span className="min-w-0">
+                        <span className="block font-serif text-title text-navy underline decoration-transparent underline-offset-4 transition-[text-decoration-color] duration-200 group-hover:decoration-navy group-focus-visible:decoration-navy">
+                          {course.chapter}
                         </span>
-                        Facilitators by {course.deadlines.facilitators}
+                        {course.open ? (
+                          <span className="mt-1 block font-sans text-footnote text-navy/65">
+                            Apply by {course.deadlines.participants}
+                            <span aria-hidden="true" className="px-2 text-navy/25">
+                              ·
+                            </span>
+                            Facilitators by {course.deadlines.facilitators}
+                          </span>
+                        ) : (
+                          <span className="mt-1 block font-sans text-footnote text-navy/65">
+                            Applications are closed. {course.closedNote}
+                          </span>
+                        )}
                       </span>
-                    ) : (
-                      <span className="font-sans text-footnote text-navy/65">
-                        Applications are closed. {course.closedNote}
-                      </span>
-                    )}
+                      <ArrowRight
+                        size={18}
+                        weight="regular"
+                        aria-hidden="true"
+                        className="shrink-0 text-navy/55 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-navy"
+                      />
+                    </Link>
                   </li>
                 ))}
               </ul>
 
               <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <div className="flex flex-wrap gap-3">
-                  {(open.length ? open : listed).map((course) => (
-                    <Link
-                      key={course.chapter}
-                      href={course.href}
-                      onClick={close}
-                      className={`${open.length ? "btn-accent" : "btn-outline-ink"} gap-2`}
-                    >
-                      {course.chapter}
-                      <ArrowRight size={16} weight="regular" aria-hidden="true" />
-                    </Link>
-                  ))}
-                </div>
+                <Link href="/courses" onClick={close} className="btn-accent">
+                  Join a free course
+                </Link>
                 <button
                   type="button"
                   onClick={close}
