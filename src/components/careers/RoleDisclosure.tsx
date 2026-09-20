@@ -195,10 +195,13 @@ export default function RoleDisclosure({
           </div>
         </div>
 
+        {/* One rule above the stages, none between them: the numbers carry the
+            order, and the rule marks where the role ends and the process
+            starts. */}
         {role.applicationProcess?.length ? (
-          <div className="mt-8 max-w-[760px]">
+          <div className="mt-8 max-w-[760px] border-t border-navy/14 pt-7">
             <PanelLabel>How this role is filled</PanelLabel>
-            <OutlineRows items={role.applicationProcess} />
+            <OutlineRows items={role.applicationProcess} rules={false} />
           </div>
         ) : null}
 

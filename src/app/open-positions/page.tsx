@@ -131,6 +131,22 @@ function openingSentence(): string {
   return body ? `${lead}: ${body}.` : `${lead}.`;
 }
 
+/** One link per unit with a section on this page: national first, then the
+    chapters in the order they are declared, recruiting or not. */
+function sectionLinks(): Array<{ name: string; href: string }> {
+  const links: Array<{ name: string; href: string }> = [];
+  if (isNationalRecruiting) {
+    links.push({ name: nationalPosting.name, href: `#${nationalPosting.slug}` });
+  }
+  for (const chapter of chapterPositions) {
+    links.push({
+      name: chapter.chapterName,
+      href: `#chapter-${chapter.chapterSlug.toLowerCase()}`,
+    });
+  }
+  return links;
+}
+
 function InlineMail({ href, children }: { href: string; children: string }) {
   return (
     <a
@@ -139,100 +155,6 @@ function InlineMail({ href, children }: { href: string; children: string }) {
     >
       {children}
     </a>
-  );
-}
-
-/* ---------------------------------------------------------------------------
-   B2. Where the roles are.
-
-   The chapters band's thin index, carrying a schedule rather than a place: a
-   shared left hairline, the unit in the serif, what it is hiring for beside
-   it. Open units first, the closed one after them, because the reader is here
-   to act. The separators between role names are drawn, not typed, so a screen
-   reader reads three roles and not three middots.
---------------------------------------------------------------------------- */
-type IndexRow = { name: string; details: string[]; href: string };
-
-function buildIndexRows(): IndexRow[] {
-  const rows: IndexRow[] = recruitingChapters.map((chapter) => ({
-    name: chapter.chapterName,
-    details: orderedRoles(chapter).map((entry) => entry.role.title),
-    href: `#chapter-${chapter.chapterSlug.toLowerCase()}`,
-  }));
-
-  if (isNationalRecruiting) {
-    rows.push({
-      name: nationalPosting.name,
-      details: openNationalPostings.flatMap(({ roleId }) => {
-        const role = ROLES[roleId];
-        if (!role) return [];
-        return role.employment
-          ? [role.title, "paid, full-time"]
-          : [role.title];
-      }),
-      href: `#${nationalPosting.slug}`,
-    });
-  }
-
-  for (const chapter of chapterPositions) {
-    if (isChapterRecruiting(chapter.chapterSlug)) continue;
-    rows.push({
-      name: chapter.chapterName,
-      details: ["At capacity, no open roles"],
-      href: `#chapter-${chapter.chapterSlug.toLowerCase()}`,
-    });
-  }
-
-  rows.push({ name: "How to apply", details: [], href: "#how-to-apply" });
-  return rows;
-}
-
-function RoleIndex() {
-  return (
-    <section
-      aria-labelledby="roles-index-heading"
-      className="border-t border-navy/10 bg-cream"
-    >
-      <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
-        <h2
-          id="roles-index-heading"
-          className="kicker pt-0.5 text-kicker text-navy/65 lg:w-[260px] lg:shrink-0"
-        >
-          Open roles, by city
-        </h2>
-        <ul role="list" className="flex flex-1 flex-col gap-3">
-          {buildIndexRows().map((row) => (
-            <li key={row.href}>
-              <a
-                href={row.href}
-                className="group flex flex-col gap-1.5 border-l border-navy/14 py-3 pl-[18px] pr-1 transition-colors hover:border-navy/45 focus-visible:border-navy/45 md:flex-row md:items-baseline md:gap-6"
-              >
-                <span className="font-serif text-title text-navy underline decoration-navy/20 underline-offset-4 group-hover:decoration-navy group-focus-visible:decoration-navy md:w-[210px] md:shrink-0">
-                  {row.name}
-                </span>
-                {row.details.length ? (
-                  <span className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 font-sans text-caption text-navy/65">
-                    {row.details.map((detail, i) => (
-                      <span key={detail} className="flex items-center gap-3">
-                        {i > 0 ? (
-                          <span aria-hidden="true" className="text-navy/25">
-                            ·
-                          </span>
-                        ) : null}
-                        {detail}
-                      </span>
-                    ))}
-                  </span>
-                ) : null}
-                <span className="text-navy/55 md:ml-auto md:self-center">
-                  <ArrowRight size={16} weight="regular" aria-hidden="true" />
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
   );
 }
 
@@ -498,9 +420,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* B2. The wayfinding the hero deliberately does not do. */}
-      <RoleIndex />
-
       {/* B3. The page's honesty hinge: what the unpaid ask actually is, and
           what it is worth. Type carries it; no illustration, no box. */}
       <section
@@ -540,14 +459,93 @@ export default function CareersPage() {
               The Research Operations Lead is a paid, full-time position on the
               small national team, listed with its salary and terms below.
             </p>
+
+            {/* The wayfinding that used to be a band of its own: one row of
+                links to each unit's section, open units first. */}
+            <nav aria-label="Jump to a team" className="mt-8 border-t border-navy/14 pt-5">
+              <ul role="list" className="flex flex-wrap gap-x-7 gap-y-3">
+                {sectionLinks().map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="inline-flex items-center gap-2 font-sans text-label text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
+                    >
+                      {link.name}
+                      <ArrowRight size={16} weight="regular" aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </Reveal>
         </div>
       </section>
 
-      {/* B4, B5, B6. The chapters, in the order they are declared. */}
-      {chapterPositions.map((chapter) => (
-        <ChapterSection key={chapter.chapterSlug} chapter={chapter} />
-      ))}
+      {/* B8. What you send, and what happens then. The checklist takes the
+          course outline row; the stages take the stepped journey. */}
+      <section
+        id="how-to-apply"
+        aria-labelledby="how-to-apply-heading"
+        className="scroll-mt-36 bg-white"
+      >
+        <div className="shell">
+          <div className="border-t border-navy/14" />
+        </div>
+        <div className="shell band-section">
+          <Reveal>
+            <h2
+              id="how-to-apply-heading"
+              className="max-w-[620px] font-serif text-heading text-navy"
+            >
+              One short form for every chapter role
+            </h2>
+            <p className="mt-4 max-w-[760px] font-sans text-body text-navy/74">
+              Chapter applications go through the same form, whichever city and
+              role you choose. You pick the chapter and the role, attach your
+              CV, and write a short motivation letter; one page is plenty.
+              {/* The sentence naming where an application lands is out until
+                  the form's submission trigger is wired to info@ and the
+                  chapter inbox. See the setup notes in openPositions.ts. */}
+              {isNationalRecruiting
+                ? " The Research Operations Lead has its own form, linked on the role below."
+                : ""}
+            </p>
+
+            <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <h3 className="font-serif text-title-sm text-navy">
+                  What the form asks for
+                </h3>
+                <OutlineRows className="mt-4" items={FORM_FIELDS} rules={false} />
+              </div>
+              <div>
+                <h3 className="mb-6 font-serif text-title-sm text-navy">
+                  What happens after you apply
+                </h3>
+                <ApplicationSteps steps={APPLICATION_TIMELINE} />
+              </div>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <a
+                href={buildApplicationUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-accent gap-2"
+              >
+                Open application form
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              {/* /courses and /get-involved offer /contact under this same
+                  label as the softer second step; one label per destination. */}
+              <Link href="/contact" className="btn-outline-ink">
+                Or get in touch first
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       {/* B7. The paid role. One substantial row on white, not a band of peers:
           the badge and the salary are the honesty signals, and they get the
@@ -598,71 +596,10 @@ export default function CareersPage() {
         </section>
       ) : null}
 
-      {/* B8. What you send, and what happens then. The checklist takes the
-          course outline row; the stages take the stepped journey. */}
-      <section
-        id="how-to-apply"
-        aria-labelledby="how-to-apply-heading"
-        className="scroll-mt-36 bg-white"
-      >
-        <div className="shell">
-          <div className="border-t border-navy/14" />
-        </div>
-        <div className="shell band-section">
-          <Reveal>
-            <h2
-              id="how-to-apply-heading"
-              className="max-w-[620px] font-serif text-heading text-navy"
-            >
-              One short form for every chapter role
-            </h2>
-            <p className="mt-4 max-w-[760px] font-sans text-body text-navy/74">
-              Chapter applications go through the same form, whichever city and
-              role you choose. You pick the chapter and the role, attach your
-              CV, and write a short motivation letter; one page is plenty.
-              {/* The sentence naming where an application lands is out until
-                  the form's submission trigger is wired to info@ and the
-                  chapter inbox. See the setup notes in openPositions.ts. */}
-              {isNationalRecruiting
-                ? " The Research Operations Lead has its own form, linked on the role above."
-                : ""}
-            </p>
-
-            <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <h3 className="font-serif text-title-sm text-navy">
-                  What the form asks for
-                </h3>
-                <OutlineRows className="mt-4" items={FORM_FIELDS} />
-              </div>
-              <div>
-                <h3 className="mb-6 font-serif text-title-sm text-navy">
-                  What happens after you apply
-                </h3>
-                <ApplicationSteps steps={APPLICATION_TIMELINE} />
-              </div>
-            </div>
-
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href={buildApplicationUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-accent gap-2"
-              >
-                Open application form
-                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-              {/* /courses and /get-involved offer /contact under this same
-                  label as the softer second step; one label per destination. */}
-              <Link href="/contact" className="btn-outline-ink">
-                Or get in touch first
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* The chapters, in the order they are declared. */}
+      {chapterPositions.map((chapter) => (
+        <ChapterSection key={chapter.chapterSlug} chapter={chapter} />
+      ))}
 
       {/* B9. The close: the claim on the left, the two ways to act on the
           right, and nothing else in the band. */}

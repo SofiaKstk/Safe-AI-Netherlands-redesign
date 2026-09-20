@@ -1026,7 +1026,7 @@ export const nationalPosting: NationalPosting = {
   name: "SAIN Netherlands",
   heading: "One paid role on the national team",
   blurb:
-    "Most of SAIN runs on volunteers. The Research Operations Lead is the exception: a paid, full-time staff role that works across Amsterdam, Utrecht, and Groningen and reports to the Director. It has its own application form and hiring process, separate from the chapter form below.",
+    "Most of SAIN runs on volunteers. The Research Operations Lead is the exception: a paid, full-time staff role that works across Amsterdam, Utrecht, and Groningen and reports to the Director. It has its own application form and hiring process, separate from the chapter form above.",
   inboxEmail: "info@safeainetherlands.org",
   status: "open",
   postings: [

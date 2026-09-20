@@ -8,16 +8,23 @@
 export default function OutlineRows({
   items,
   className,
+  rules = true,
 }: {
   items: string[];
   className?: string;
+  /** Draw the hairline per row. Off, the numbers alone carry the sequence. */
+  rules?: boolean;
 }) {
   return (
     <ol role="list" className={className}>
       {items.map((item, i) => (
         <li
           key={item}
-          className="flex gap-3 border-t border-navy/10 py-[7px] last:border-b last:border-navy/10"
+          className={`flex gap-3 ${
+            rules
+              ? "border-t border-navy/10 py-[7px] last:border-b last:border-navy/10"
+              : "py-1"
+          }`}
         >
           <span
             aria-hidden="true"
