@@ -121,7 +121,10 @@ const TRACKS: Track[] = [
       },
     ],
     photo: "/landing/course-technical.jpg",
-    photoWidths: [640, 960, 1280, 1920],
+    /* Only these two rungs exist on disk; the source is 960 wide. Listing
+       1280 and 1920 here sent wide viewports to files that were never
+       written, which is why this tab's photograph came up blank. */
+    photoWidths: [640, 960],
     photoAlt: "Technical alignment workshop in progress",
     caption: "Week 1 · Transformers and interpretability",
   },
@@ -158,7 +161,7 @@ const TRACKS: Track[] = [
       },
     ],
     photo: "/landing/course-policy.jpg",
-    photoWidths: [640],
+    photoWidths: [640, 960, 1280],
     photoAlt: "Governance and policy discussion group around a table",
     caption: "Discussion group · Utrecht",
   },
@@ -388,7 +391,7 @@ export default function CourseTabs() {
                 initial={false}
                 animate={{ opacity: on ? 1 : 0 }}
                 transition={{ duration: reduce ? 0 : 0.3, ease: "linear" }}
-                className="relative order-first min-h-[280px] overflow-hidden md:order-none xl:min-h-[587px]"
+                className="relative order-first min-h-[350px] overflow-hidden md:order-none xl:min-h-[587px]"
               >
                 <img
                   src={active.photo.replace(/\.jpg$/, `-${active.photoWidths[0]}.jpg`)}
