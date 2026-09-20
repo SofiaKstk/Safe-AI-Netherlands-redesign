@@ -18,6 +18,11 @@ const navigation: {
   isActive: (path: string) => boolean;
 }[] = [
   {
+    name: "Courses",
+    href: "/courses",
+    isActive: (p) => p === "/courses" || p.startsWith("/courses/"),
+  },
+  {
     name: "Community",
     href: "/community",
     /* The chapter pages live under the Community door, so they light it up. */

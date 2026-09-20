@@ -29,7 +29,7 @@ Write for that reader. British spelling (`programme`, `organisation`). Sentence 
 
 The site the landing belongs to. Build inner pages into this structure; do not invent routes.
 
-**Primary nav:** `Community` (/community) | `Research hub` (/research) | `About` (/about). **Header buttons:** `Join a free course` (/courses, ink fill) and `Volunteer` (/get-involved, ghost). **Open positions** lives at `/open-positions` and is reached from the announcement bar and the footer only, never the nav. Chapter sub-pages stay at `/chapters/utrecht`, `/chapters/groningen`, `/chapters/amsterdam`, under the Community page. `/research/handbook` is the research handbook. `/contact` stays.
+**Primary nav:** `Courses` (/courses) | `Community` (/community) | `Research hub` (/research) | `About` (/about). **Header buttons:** `Join a free course` (/courses, ink fill) and `Volunteer` (/get-involved, ghost). **Open positions** lives at `/open-positions` and is reached from the announcement bar and the footer only, never the nav. Chapter sub-pages stay at `/chapters/utrecht`, `/chapters/groningen`, `/chapters/amsterdam`, under the Community page. `/research/handbook` is the research handbook. `/contact` stays.
 
 One avatar per page. Write each page to exactly one reader:
 
