@@ -22,6 +22,7 @@ import {
   nationalPosting,
   openChapterPostingCount,
   openNationalPostings,
+  paidChapterPostingCount,
   recruitingChapters,
 } from "@/data/openPositions";
 
@@ -34,7 +35,7 @@ const JOIN_MAILTO = `mailto:${INFO_EMAIL}?subject=Joining SAIN`;
 export const metadata: Metadata = {
   title: hasOpenPositions ? "Open positions" : "Join SAIN",
   description: hasOpenPositions
-    ? "Volunteer roles open at SAIN's chapters, and one paid role on the national team. Apply with your CV and a short motivation letter."
+    ? "Volunteer and paid roles open at SAIN's chapters and on the national team. Apply with your CV and a short motivation letter."
     : "Interested in volunteering with Safe AI Netherlands? There is always an open application. Get in touch.",
 };
 
@@ -106,7 +107,7 @@ function openingSentence(): string {
   const clauses: string[] = [];
   if (openChapterPostingCount > 0 && cities.length > 0) {
     clauses.push(
-      `${numberWord(openChapterPostingCount)} volunteer ${
+      `${numberWord(openChapterPostingCount)} ${
         openChapterPostingCount === 1 ? "role" : "roles"
       } at the ${formatList(cities)} ${
         cities.length === 1 ? "chapter" : "chapters"
@@ -516,7 +517,7 @@ export default function CareersPage() {
               A volunteer role here is a working role
             </h2>
             <p className="mt-5 max-w-[760px] font-sans text-body text-navy/74">
-              Every chapter role is unpaid, and takes three to ten hours a week
+              Most chapter roles are unpaid, and take three to ten hours a week
               alongside your studies or job. In return, the responsibility is
               real: you run a course, a chapter&rsquo;s events, or its
               communications, and the chapter depends on you doing it. SAIN
@@ -525,10 +526,19 @@ export default function CareersPage() {
               SAIN are on that same path, and a role here is a serious first
               line on that CV.
             </p>
+            {/* Counted off the data: a chapter role is paid when its card
+                carries a "Paid" badge, and the sentence has to agree with the
+                badges the reader is about to see. */}
             <p className="mt-4 max-w-[760px] font-sans text-body text-navy/74">
-              One role is different. The Research Operations Lead is a paid,
-              full-time position on the small national team, listed with its
-              salary and terms below.
+              {paidChapterPostingCount > 0
+                ? `${capitalise(numberWord(paidChapterPostingCount))} chapter ${
+                    paidChapterPostingCount === 1 ? "role is" : "roles are"
+                  } paid part-time, and say so on ${
+                    paidChapterPostingCount === 1 ? "its card" : "their cards"
+                  }. `
+                : "One role is different. "}
+              The Research Operations Lead is a paid, full-time position on the
+              small national team, listed with its salary and terms below.
             </p>
           </Reveal>
         </div>

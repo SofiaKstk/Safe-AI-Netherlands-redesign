@@ -16,13 +16,27 @@ import { CaretDown } from "@phosphor-icons/react/dist/ssr";
  * strip one is always open.
  */
 
+/**
+ * One row of a course outline. A plain string is the theme; the object form
+ * adds a session line (date, time, room) and a sentence on what the session
+ * covers, for a cohort whose calendar is fixed.
+ */
+export type OutlineItem =
+  | string
+  | {
+      title: string;
+      /** "Wed 23 Sep · 18:00-19:00 · Janskerkhof 2-3, Room 0.19" */
+      meta?: string;
+      detail?: string;
+    };
+
 export type Course = {
   id: string;
   title: string;
   /** One paragraph: what it is, how long, where, what you leave with. */
   summary: string;
   outlineTitle: string;
-  outline: string[];
+  outline: OutlineItem[];
 };
 
 /* Written out: Tailwind reads class names as literals, so an interpolated
@@ -163,17 +177,34 @@ export default function CourseDisclosure({ courses }: { courses: Course[] }) {
                   {course.outlineTitle}
                 </p>
                 <ol className="font-sans text-ui text-navy">
-                  {course.outline.map((item, index) => (
-                    <li
-                      key={item}
-                      className="flex items-baseline gap-3 border-t border-navy/10 py-[7px]"
-                    >
-                      <span className="w-[22px] shrink-0 font-sans text-xs text-orange-ink">
-                        {index + 1}
-                      </span>
-                      {item}
-                    </li>
-                  ))}
+                  {course.outline.map((raw, index) => {
+                    const item = typeof raw === "string" ? { title: raw } : raw;
+                    return (
+                      <li
+                        key={item.title}
+                        className={`flex items-baseline gap-3 border-t border-navy/10 ${
+                          item.meta || item.detail ? "py-3" : "py-[7px]"
+                        }`}
+                      >
+                        <span className="w-[22px] shrink-0 font-sans text-xs text-orange-ink">
+                          {index + 1}
+                        </span>
+                        <span className="min-w-0">
+                          {item.title}
+                          {item.meta ? (
+                            <span className="mt-0.5 block font-sans text-footnote text-navy/65">
+                              {item.meta}
+                            </span>
+                          ) : null}
+                          {item.detail ? (
+                            <span className="mt-1 block font-sans text-caption leading-[20px] text-navy/74">
+                              {item.detail}
+                            </span>
+                          ) : null}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ol>
               </div>
             </motion.div>

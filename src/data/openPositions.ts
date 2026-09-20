@@ -91,6 +91,17 @@ export function buildApplicationUrl(opts?: {
 export const COMMS_TEAM_FORM_VALUE =
   "Communications Team member (general or Web Designer, Content Creator, Graphic Designer, Photographer)";
 
+/**
+ * Exact text of the catch-all option in the Google Form's role field.
+ *
+ * The form is not extended when a new role goes live on the website, so roles
+ * with no option of their own point here instead. Their card tells the
+ * applicant to pick this option and name the actual role in the motivation
+ * letter, which is what `formRoleValue === OPEN_POSITION_FORM_VALUE` switches
+ * on in the apply hint.
+ */
+export const OPEN_POSITION_FORM_VALUE = "Open position";
+
 // -----------------------------------------------------------------------------
 // Role catalogue
 // -----------------------------------------------------------------------------
@@ -289,11 +300,10 @@ export const ROLES: Record<string, Role> = {
     team: "events",
     scope: "chapter",
     reportsTo: "Chapter (Co-)Director",
-    /* No badge here on purpose. The five chapter roles are peers, and a chip
-       reading "Part-time" beside the paid role's "Paid - Full-time" chip read
-       as its smaller sibling rather than as unpaid. The hours line under the
-       title carries the commitment. */
     timeCommitment: "6 to 10 hours per week",
+    /* Paid since September 2026 (upstream #54). The badge is what tells a
+       reader this chapter role is compensated where its neighbours are not. */
+    commitmentBadge: "Paid - Part-time",
     mission:
       "Plan and execute the chapter's events. Maintain the chapter's event presence, attract speakers, organise community life. Identify opportunities for SAIN exposure to reach new audiences, strengthen the community, and inspire people into AI safety careers.",
     responsibilities: [
@@ -674,6 +684,223 @@ export const ROLES: Record<string, Role> = {
     collaborations:
       "Research Operations Lead, supervisors, researchers.",
   },
+
+  "education-lead-technical": {
+    id: "education-lead-technical",
+    title: "Education Lead, Technical & Repository Owner",
+    team: "education",
+    scope: "chapter",
+    reportsTo: "Chapter Director",
+    timeCommitment:
+      "10 to 15 hours per week, with iteration and incubation peaks",
+    commitmentBadge: "Paid - Part-time",
+    mission:
+      "Own the technical backbone of SAIN Utrecht's education-to-incubation pipeline: run the Technical AI Safety program, own and maintain SAIN Utrecht's demo-of-risks repository, and supervise and assess the technical quality of every incubated project from Forge through the Research Hub handoff. This role exists because SAIN Utrecht is moving from teaching concepts to shipping reproducible, code-based demonstrations and benchmarks, and someone needs to be responsible for what gets merged, what gets published, and whether a student's work is actually ready for incubation, a grant, or a mentor introduction. This is a paid position, not a volunteer role: compensation reflects the technical ownership and evaluation responsibilities below.",
+    responsibilities: [
+      "Plan and run Technical AI Safety course iterations (e.g. ARENA 2-4: LLMs/RL, Evaluation, Eval Science), including the Agents + CyberSec and Biorisk modules.",
+      "Own SAIN Utrecht's shared code repository: define contribution standards, review and approve pull requests, maintain CI/testing hygiene, and ensure reproducibility of published benchmarks and demos.",
+      "Technically supervise and grade Forge project proposals and the 12-week Incubation phase; sign off on which projects are ready to progress to the Research Hub, a Grant (Type 1/2), or an external mentor pipeline (e.g. ARENA, Apart Research).",
+      "Design and maintain hands-on project tracks drawn from the Agentic AI/CyberSec portfolio (agent security benchmarks, sandboxing, MCP/tool-ecosystem security) and the AI×Bio project ladder, calibrated to each cohort's skill level.",
+      "Recruit, train, and support technical facilitators and TAs; run the office hours homework review (TAing) for the Technical cohort.",
+      "Maintain curriculum currency against SAIN Research Hub agenda topics (mech interp, scalable oversight, agent foundations, robustness) and coordinate updates with the Director and Discussion Team.",
+      "Coordinate with the Communications Lead on technical-program marketing and with the Events Lead on hackathon and challenge design (DevPost, Apart Research collaborations).",
+    ],
+    preferredBackground: {
+      field: "AI/ML, Computer Science, or an adjacent technical field.",
+      level: "MSc required. PhD strongly preferred, or in progress.",
+      experience:
+        "Strong, demonstrable coding ability. Comfortable owning a shared codebase, reviewing others' code, and setting engineering standards, not just writing personal research code. A clear, verifiable history of technical output is required: published repos, research contributions, competition results (e.g. ARENA, MATS, MARS, SPAR, Apart Research sprints), or equivalent industry experience. This is not an entry-level role. Prior AI safety course completion or facilitation experience strongly preferred.",
+      softSkills:
+        "Comfortable assessing and giving critical feedback on others' technical work at a level participants and mentors will trust.",
+    },
+    alsoStrong: [
+      "Hands-on experience in cybersecurity and/or agentic AI systems (red-teaming, agent security, LLM evaluations), directly relevant to the Technical program's current curriculum direction.",
+    ],
+    collaborations:
+      "Chapter Director, Research Lead, Events Lead, Technical Facilitators, Communications Lead, external mentor network (ARENA, Apart Research, Research Hub).",
+    formRoleValue: OPEN_POSITION_FORM_VALUE,
+  },
+
+  "education-facilitator-cybersec": {
+    id: "education-facilitator-cybersec",
+    title: "Education Course Facilitator, CyberSec & Agentic AI Track",
+    team: "education",
+    scope: "chapter",
+    reportsTo: "Education Lead",
+    timeCommitment:
+      "~4 to 5 hours per week during iterations (one 2-hour session plus prep and homework review)",
+    mission:
+      "Facilitate the Agentic AI + CyberSec module of the Technical AI Safety program. Lead weekly sessions covering agent attack surfaces and defenses (prompt injection, tool misuse, memory poisoning, sandboxing, multi-agent security), support participants through their notebooks and project work, and help identify strong candidates for the Agentic AI Security project portfolio and the Forge/Incubation pipeline.",
+    responsibilities: [
+      "Read all assigned materials ahead of each cohort session (ARENA modules, agent security literature).",
+      "Run weekly interactive sessions on agentic AI security topics: attack taxonomies, agent identity and privilege management, MCP and tool-ecosystem risks, red-teaming frameworks.",
+      "Review homework notebooks and provide technical feedback; flag participants who complete strong work for the Research Hunger Games / solo project track.",
+      "Support project scoping for cohort members progressing into the Agentic AI Security Benchmark, Agent Sandbox, or Secure-by-Design portfolio projects.",
+      "Attend regular facilitator check-ins with the Education Lead; report on cohort progress and any participants ready for early hand-off.",
+    ],
+    preferredBackground: {
+      field:
+        "Computer Science, Cybersecurity, or AI/ML with hands-on security experience (red-teaming, pentesting, or agent/LLM security research).",
+      level:
+        "Professional or master's preferred. Strong bachelor's with relevant industry or CTF/red-team experience considered.",
+      experience:
+        "Direct hands-on exposure to agentic AI systems and/or applied cybersecurity, e.g. prior red-team work, security research, or completion of an AI safety technical course such as ARENA.",
+      softSkills:
+        "Warmth, ability to make technical material accessible to a mixed-skill cohort, comfort giving direct code and security feedback.",
+    },
+    collaborations:
+      "Education Lead, Research Lead, fellow Technical facilitators, Events Lead (for the hackathon pipeline).",
+    formRoleValue: OPEN_POSITION_FORM_VALUE,
+    specialisationOf: "Education Course Facilitator",
+  },
+
+  "education-facilitator-biosecurity": {
+    id: "education-facilitator-biosecurity",
+    title:
+      "Education Course Facilitator, Biosecurity & AI (CBRN Risk Focus)",
+    team: "education",
+    scope: "chapter",
+    reportsTo: "Education Lead",
+    timeCommitment:
+      "~4 hours per week during iterations (one 2-hour session plus prep)",
+    mission:
+      "Facilitate the biosecurity module across the Intro, Technical, and Governance programs, with a focus on AI-driven CBRN risk: how frontier AI systems intersect with biological risk pathways, how that risk is evaluated and governed, and how students can contribute to non-operational, safety-oriented research (threat modeling, evaluation design, governance analysis) without ever generating or handling operationally sensitive content.",
+    responsibilities: [
+      "Read all assigned readings ahead of sessions (SecureBio biorisk evaluations, dual-use LLM risk literature, relevant governance material) and keep pace with fast-moving developments in this area.",
+      "Run weekly sessions introducing AI×bio risk concepts at the appropriate level for each track: high-level risk-pathway framing for Intro, deeper technical and evaluation framing for Technical, and policy or governance framing for the Governance program.",
+      "Guide participants toward safe, non-dangerous project formats from the AI×Bio project ladder (e.g. risk-landscape mapping, threat modeling, capability taxonomies, evaluation-benchmark design, governance gap analysis), strictly avoiding any project that could generate or require real operational biological uplift content.",
+      "Provide feedback on written project work (essays, threat models, policy papers) and flag strong candidates for the Research Hub or Governance E2I pipeline.",
+      "Coordinate with the Education Lead on maintaining curriculum accuracy as CBRN-related guidance and public research evolves.",
+      "Attend regular facilitator check-ins with the Education Lead.",
+    ],
+    preferredBackground: {
+      field:
+        "Biosecurity, biosafety, life sciences, public health, or AI governance/policy with a demonstrated interest in dual-use biological risk. Candidates from a technical AI background with strong biosecurity literacy are also welcome.",
+      level:
+        "Master's or PhD preferred. Professionals with relevant biosecurity, biosafety, or policy experience strongly considered.",
+      experience:
+        "Familiarity with biosecurity risk frameworks, dual-use research of concern (DURC) norms, or AI-bio evaluation literature (e.g. SecureBio, frontier lab biorisk evaluations). Prior completion of an AI safety course preferred.",
+      softSkills:
+        "Strong ability to discuss CBRN risk pedagogically and responsibly, framing risk pathways and governance gaps without ever walking through operational detail. This is a non-negotiable requirement for the role. Comfort facilitating a sensitive topic with care, intellectual humility, and the ability to redirect discussion away from operational specifics while keeping it substantive.",
+    },
+    collaborations:
+      "Education Lead, Governance track facilitators, Research Lead, Director (for any content requiring sign-off given the sensitivity of the topic).",
+    formRoleValue: OPEN_POSITION_FORM_VALUE,
+    specialisationOf: "Education Course Facilitator",
+  },
+
+  "education-facilitator-embodied": {
+    id: "education-facilitator-embodied",
+    title:
+      "Education Course Facilitator, Embodied AI Safety (Physical AI Track)",
+    team: "education",
+    scope: "chapter",
+    reportsTo: "Education Lead",
+    timeCommitment:
+      "~4 to 5 hours per week during iterations (one 2-hour session plus prep and homework review)",
+    mission:
+      "Facilitate the Embodied AI Safety module of the Technical AI Safety program. Lead weekly sessions on the distinct risks posed by physical AI systems: sabotage of infrastructure, loss of control through irreversible physical action, and the limits of transferring digital-AI safety tooling (RLHF, CoT monitoring, interpretability) to multimodal, RL-trained, VLA/world-model architectures. Own the GitHub repository for the module's code and coursework, supervise students' hands-on work with reinforcement learning for robotics, and help identify strong candidates for embodied red-teaming and incubation projects.",
+    responsibilities: [
+      "Read all assigned materials ahead of each cohort session (physical AI misalignment case studies, RL-for-robotics literature, VLA/world-model safety papers, relevant threat-modeling and red-teaming reports).",
+      "Run weekly interactive sessions on embodied AI safety topics: embodiment and irreversibility, physical threat modeling, RL reward hacking in robotic control, sim-to-real gaps, and the non-transferability of LLM-era alignment techniques to non-linguistic, action-based systems.",
+      "Own and maintain the module's shared GitHub repository: set up starter code and simulation environments, define contribution standards, review and merge student pull requests, and keep coursework reproducible.",
+      "Supervise students' technical work with reinforcement learning for robotics (policy training, reward design, sim environments), using NVIDIA robotics/RL libraries (e.g. Isaac Sim, Isaac Lab, Isaac Gym) or comparable frameworks (e.g. MuJoCo, Affine) as the technical backbone of exercises and projects.",
+      "Provide TAing-style feedback on homework and project code: debugging RL training runs, reviewing environment and reward design, and giving direct, technical feedback students and mentors will trust.",
+      "Help scope and support student projects aligned with the Embodied AI Safety project ladder (e.g. red-teaming a simulated robot policy, threat-model case studies, monitoring and control prototypes for physical agents), drawing on collaborator work such as Convergent Robotics' threat-modeling and red-teaming agenda.",
+      "Draft and iterate on the curriculum for the Embodied AI Safety course (session plans, readings, project tracks) in coordination with the Education Lead, and keep it current as physical AI capabilities and incidents evolve.",
+      "Flag participants who complete strong work for the Forge/Incubation pipeline or for introductions to external collaborators working on physical AI safety.",
+      "Attend regular facilitator check-ins with the Education Lead; report on cohort progress and curriculum needs.",
+    ],
+    preferredBackground: {
+      field:
+        "Robotics, Computer Science, AI/ML, or a related technical field, with hands-on exposure to reinforcement learning and/or robotics.",
+      level:
+        "Master's or PhD preferred. Strong bachelor's with relevant research, an RL/robotics project, or industry experience considered.",
+      experience:
+        "Direct hands-on work with RL for robotics and familiarity with common simulation and training stacks (NVIDIA Isaac Sim/Isaac Lab/Isaac Gym, MuJoCo, Affine, or equivalent). Comfortable owning and maintaining a shared codebase (branching, PR review, reproducibility), not just personal research code. Some demonstrable technical output in robotics/RL or AI safety: repos, coursework, competition results, or research contributions. Prior completion of an AI safety technical course (e.g. ARENA) strongly preferred.",
+      softSkills:
+        "Ability to make RL and robotics concepts accessible to a mixed-skill cohort, comfort giving direct code feedback, and care in framing physical-risk scenarios responsibly.",
+    },
+    alsoStrong: [
+      "Familiarity with physical AI threat models (sabotage, loss of control, emotional or physical manipulation), or prior exposure to red-teaming methodology.",
+    ],
+    collaborations:
+      "Education Lead, Research Lead, fellow Technical facilitators, Events Lead (for the hackathon pipeline), external physical AI safety collaborators.",
+    formRoleValue: OPEN_POSITION_FORM_VALUE,
+    specialisationOf: "Education Course Facilitator",
+  },
+
+  "sain-ambassador": {
+    id: "sain-ambassador",
+    title: "SAIN Ambassador",
+    team: "outreach",
+    scope: "chapter",
+    reportsTo: "Events Lead",
+    timeCommitment:
+      "~4 to 6 hours per week, with peaks around conference season, welcome week, and major university events",
+    mission:
+      "Be the outward-facing presence of SAIN Utrecht on campus and beyond: get the chapter into rooms it is not in yet. Help represent SAIN Utrecht through tabling, pitching, workshops, talks, and conferences, with a particular focus on starting and maintaining collaborations with UU departments. This role exists to make sure SAIN Utrecht is visible, credible, and actively building relationships across the university, not just running its own internal programming.",
+    responsibilities: [
+      "Represent SAIN Utrecht at tabling events (welcome fairs, department open days, student association markets) to recruit interest and raise awareness of the chapter.",
+      "Pitch SAIN Utrecht, its mission, programs, and pipeline to university departments, student societies, professors, and potential partners, adapting the pitch to each audience.",
+      "Identify and pursue opportunities at conferences (attending, tabling, or speaking) that raise SAIN Utrecht's profile and surface new collaborators or participants.",
+      "Proactively build and maintain relationships with UU departments (e.g. Computer Science, Philosophy, Ethics, and other relevant faculties) to open doors for guest talks, joint workshops, course-integration opportunities, or research collaboration.",
+      "Scout and open new collaboration opportunities more broadly (other student associations, external orgs, academic groups) and hand off promising leads to the right internal owner: Education Lead, Research/Incubation Ops, or the Director.",
+      "Coordinate closely with the Communications Lead so events are promoted effectively (event pages, social posts, university channels) and messaging stays consistent across pitches and materials.",
+      "Coordinate closely with the Events Lead on the overall events calendar, prioritisation, and resourcing, ensuring ambassador activity feeds into rather than duplicates the chapter's broader event strategy.",
+      "Track outreach and collaboration status (contacts made, pitches given, events run, collaborations opened) and report regularly to the Events Lead.",
+    ],
+    preferredBackground: {
+      field:
+        "Open. This is a relationship and representation role rather than a technical one, though familiarity with AI safety concepts is important for credible pitching.",
+      experience:
+        "Prior experience with outreach, community-building, event organisation, or representing an organisation publicly. Student association board experience, ambassador or rep roles, and sales or partnerships experience all transfer well.",
+      softSkills:
+        "Comfort with cold outreach: willing to approach departments, professors, and organisations without a warm introduction, and to follow up persistently. A strong communicator, confident and adaptable when pitching to different audiences, from students at a table to faculty in a meeting. Reliability under event-logistics pressure, organisation, and the discretion to represent SAIN Utrecht credibly to external stakeholders.",
+    },
+    alsoStrong: [
+      "An existing network or familiarity with UU departments, student societies, or the broader Utrecht conference and event scene.",
+    ],
+    collaborations:
+      "Events Lead, Communications Lead, Chapter Director, UU departments, external student organisations and conference organisers.",
+    formRoleValue: OPEN_POSITION_FORM_VALUE,
+  },
+
+  "events-team-member-facilitator": {
+    id: "events-team-member-facilitator",
+    title: "Events Team Member, Facilitator",
+    team: "events",
+    scope: "chapter",
+    reportsTo: "Events Lead",
+    timeCommitment:
+      "~3 to 5 hours per week, with peaks during discussion group cycles and major events",
+    mission:
+      "Guide the conversation at SAIN Utrecht events. Lead discussion groups, reading groups, workshops, and panel Q&As so that participants of all backgrounds feel welcome, take part actively, and leave with a clearer understanding of AI safety. This role makes sure our events are not only well organised but also well discussed.",
+    responsibilities: [
+      "Facilitate discussion groups and reading groups as assigned by the Events Lead: open the session, guide the conversation, keep it on topic, and make sure everyone gets a chance to speak.",
+      "Prepare each session in advance: read the materials, and write a short session plan (agenda, timings, discussion questions, activities).",
+      "Moderate talks and panels: introduce speakers, keep time, and run the Q&A.",
+      "Run the interactive parts of workshops and research challenges, such as icebreakers, breakout groups, group exercises, and wrap-ups.",
+      "Create a safe and inclusive space: handle disagreements respectfully and adapt to mixed knowledge levels, from complete beginners to researchers.",
+      "Collect feedback from participants after sessions and share it with the Events Lead to improve future events.",
+      "Coordinate with the Education Lead on session content and reading materials where relevant.",
+      "Attend the weekly team meeting and help with general event logistics when needed (setup, check-in, cleanup).",
+    ],
+    preferredBackground: {
+      field:
+        "Open. A solid grasp of core AI safety concepts (e.g. alignment, interpretability, governance) is important, so you can guide discussions and answer basic questions.",
+      level: "Not relevant.",
+      experience:
+        "Not required; willingness to learn is enough. Prior experience with facilitating, teaching, tutoring, TA work, debating, or leading reading groups is a bonus, as is having completed an introductory AI safety course (e.g. BlueDot Impact).",
+      softSkills:
+        "A good listener, able to draw out quieter participants and keep more dominant voices in balance. Calm and neutral, able to guide discussions on contested topics without pushing personal views. Reliability, clear speaking, time management, and careful preparation.",
+    },
+    collaborations:
+      "Events Lead, Education Lead, fellow team members, guest speakers.",
+    formRoleValue: OPEN_POSITION_FORM_VALUE,
+    specialisationOf: "Events Team Member",
+  },
+
 };
 
 // -----------------------------------------------------------------------------
@@ -735,9 +962,12 @@ export const chapterPositions: ChapterPosting[] = [
     inboxEmail: "infoutr@safeainetherlands.org",
     status: "open",
     postings: [
-      { roleId: "education-lead" },
-      { roleId: "education-course-facilitator" },
-
+      { roleId: "education-lead-technical" },
+      { roleId: "education-facilitator-cybersec" },
+      { roleId: "education-facilitator-biosecurity" },
+      { roleId: "education-facilitator-embodied" },
+      { roleId: "sain-ambassador" },
+      { roleId: "events-team-member-facilitator" },
     ],
   },
   {
@@ -849,6 +1079,20 @@ export const recruitingChapters: ChapterPosting[] = chapterPositions.filter(
  */
 export const openChapterPostingCount = recruitingChapters.reduce(
   (total, chapter) => total + (chapter.postings?.length ?? 0),
+  0,
+);
+
+/**
+ * How many of those chapter roles are compensated. A role counts as paid when
+ * its badge says so; the careers page reads this so its "most chapter roles
+ * are unpaid" paragraph cannot drift from the badges under it.
+ */
+export const paidChapterPostingCount = recruitingChapters.reduce(
+  (total, chapter) =>
+    total +
+    (chapter.postings ?? []).filter((p) =>
+      ROLES[p.roleId]?.commitmentBadge?.startsWith("Paid"),
+    ).length,
   0,
 );
 

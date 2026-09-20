@@ -44,13 +44,41 @@ const courses: Course[] = [
     id: "fundamentals",
     title: "AI Safety Fundamentals",
     summary:
-      "AI Safety Fundamentals has run three times in Utrecht, reaching more than 100 participants: BSc and MSc students, researchers, engineers, and public-sector staff. Four weeks, one hour of reading and a one-hour lecture a week, at Utrecht University in the city centre. In week four you choose a technical or a governance path. You get a certificate for attending all sessions; no previous background is needed.",
-    outlineTitle: "Weekly themes",
+      "AI Safety Fundamentals has run three times in Utrecht, reaching more than 100 participants: BSc and MSc students, researchers, engineers, and public-sector staff. Four weeks, one hour of reading and a one-hour lecture a week, at Utrecht University in the city centre. In week four you choose a technical path, a governance path, or both. You get a certificate for attending all sessions; no previous background is needed.",
+    /* The autumn 2026 cohort's calendar, session by session, as the chapter
+       published it (upstream #54). Update the dates and rooms with each
+       cohort, or drop the meta lines back to plain themes between cohorts. */
+    outlineTitle: "Sessions, autumn 2026",
     outline: [
-      "Introduction",
-      "Types of risks and incidents",
-      "Why AI safety is difficult",
-      "Path specialisation: technical (robustness and jailbreaking, scalable oversight, alignment, evaluations, cybersecurity, agents) or governance (regulations, the EU AI Act, accountability, international actors)",
+      {
+        title: "Introduction",
+        meta: "Wed 23 Sep · 18:00-19:00 · Janskerkhof 2-3, Room 0.19",
+        detail:
+          "High-level overview of AI safety, why it matters now, capabilities and diffusion, types of risks, and solution strategies, technical and governance.",
+      },
+      {
+        title: "Types of risks and incidents",
+        meta: "Wed 30 Sep · 18:00-19:00 · Janskerkhof 2-3, Room 0.19",
+        detail:
+          "Social harms, frontier risks, misuse, loss of control; real-world cases and how research lags behind deployment.",
+      },
+      {
+        title: "Why AI safety is difficult",
+        meta: "Wed 7 Oct · 18:00-19:00 · Janskerkhof 15A, Room 101",
+        detail:
+          "Industry incentives, funding gaps, expert disagreement, slow regulation against fast labs, geopolitical race dynamics.",
+      },
+      {
+        title: "Technical AI safety path",
+        meta: "Wed 14 Oct · 18:00-19:00 · Janskerkhof 2-3, Room 0.19",
+        detail: "Jailbreaking, the scalable oversight problem, RLHF and reward signals.",
+      },
+      {
+        title: "Governance path",
+        meta: "Thu 15 Oct · 18:00-19:00 · Drift 23, Room 103",
+        detail:
+          "Overview of the EU AI Act, accountability in AI systems, international actors in AI safety.",
+      },
     ],
   },
   {
@@ -76,7 +104,7 @@ const team: readonly TeamMember[] = [
   },
   {
     name: "Luca 'Dug' Dughera",
-    title: "Event Lead",
+    title: "Events Lead",
     linkedin: "https://www.linkedin.com/in/luca-dughera/",
   },
   {

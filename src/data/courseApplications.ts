@@ -76,22 +76,20 @@ const cohorts: CourseApplication[] = [
   {
     chapter: "Groningen",
     href: "/chapters/groningen#programs",
-    /* The 11 September cohort has closed. Reopen this entry with the next
-       cohort's real dates rather than leaving a passed deadline reading as
-       open: every page that renders this file promises the reader that open
-       here means open on the chapter's page. */
+    /* The 11 September 2026 cohort has closed. Reopen this entry with the
+       next cohort's real dates rather than leaving a passed deadline reading
+       as open: every page that renders this file promises the reader that
+       open here means open on the chapter's page. */
     open: false,
-    closedNote: "Sign ups for the next cohort will open soon.",
+    closedNote: "Sign ups for the next cohort will open next semester.",
   },
   {
     chapter: "Utrecht",
     href: "/chapters/utrecht#programs",
-    open: true,
-    deadlines: {
-      participants: "18 September 2026",
-      facilitators: "15 September 2026",
-    },
-    closesAfter: "2026-09-18",
+    /* The 18 September 2026 cohort has closed; the course itself runs from
+       23 September, see the session dates on the Utrecht page. */
+    open: false,
+    closedNote: "Sign ups for the next cohort will open next semester.",
   },
 ];
 

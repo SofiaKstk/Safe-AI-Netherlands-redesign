@@ -78,6 +78,7 @@ const TARGETS = [
       "photos/supervisors/Jobst.png",
       "photos/supervisors/Guillame.jpg",
       "photos/supervisors/Ana_Lucic.png",
+      "photos/supervisors/Leon_Eshuijs.png",
     ],
     widths: [312, 800],
   },

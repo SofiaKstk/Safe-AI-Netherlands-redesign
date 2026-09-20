@@ -14,7 +14,12 @@ import type { ReactNode } from "react";
 
 import RuleList from "./RuleList";
 import OutlineRows from "./OutlineRows";
-import { buildApplicationUrl, type Role, type Team } from "@/data/openPositions";
+import {
+  buildApplicationUrl,
+  OPEN_POSITION_FORM_VALUE,
+  type Role,
+  type Team,
+} from "@/data/openPositions";
 
 /* The career row from design.md: a full-width row on a hairline with a 26px
    orange stroke icon, never an icon in a coloured tile. The glyph names the
@@ -214,9 +219,11 @@ export default function RoleDisclosure({
               Google drops entry keys it does not recognise without a word. */}
           {applyUrlOverride ? null : (
             <p className="max-w-[400px] font-sans text-footnote text-navy/65">
-              {role.specialisationOf
-                ? `Applies through the form's "${role.specialisationOf}" option. Mention "${role.title}" in your motivation letter.`
-                : `Opens the shared application form. Choose "${role.title}" there.`}
+              {role.formRoleValue === OPEN_POSITION_FORM_VALUE
+                ? `The form has no option for this role yet. Choose "${OPEN_POSITION_FORM_VALUE}" there and name "${role.title}" in your motivation letter.`
+                : role.specialisationOf
+                  ? `Applies through the form's "${role.specialisationOf}" option. Mention "${role.title}" in your motivation letter.`
+                  : `Opens the shared application form. Choose "${role.title}" there.`}
             </p>
           )}
         </div>
