@@ -55,6 +55,8 @@ type Track = {
   /** Rungs on disk for `photo`. See scripts/generate-responsive-images.mjs. */
   photoWidths: number[];
   photoAlt: string;
+  /** Where the crop sits in the frame; centred unless the photo says otherwise. */
+  photoPosition?: string;
   caption: string;
 };
 
@@ -163,6 +165,9 @@ const TRACKS: Track[] = [
     photo: "/landing/course-policy.jpg",
     photoWidths: [640, 960, 1280],
     photoAlt: "Governance and policy discussion group around a table",
+    /* Nearly square, so the wide stacked frame shows a band of it. Weighted
+       toward the top, where the faces and the table are. */
+    photoPosition: "50% 30%",
     caption: "Discussion group · Utrecht",
   },
 ];
@@ -405,7 +410,8 @@ export default function CourseTabs() {
                   alt={active.photoAlt}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 size-full object-cover object-center"
+                  className="absolute inset-0 size-full object-cover"
+                  style={{ objectPosition: active.photoPosition ?? "50% 50%" }}
                 />
                 <p className="kicker absolute inset-x-0 bottom-0 bg-navy/88 px-5 py-2.5 text-kicker-sm text-white">
                   {active.caption}
