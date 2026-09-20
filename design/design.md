@@ -29,14 +29,14 @@ Write for that reader. British spelling (`programme`, `organisation`). Sentence 
 
 The site the landing belongs to. Build inner pages into this structure; do not invent routes.
 
-**Primary nav:** `Community` (/community) | `Research hub` (/research) | `About` (/about). **Header buttons:** `Join a free course` (/courses, ink fill) and `Volunteer` (/get-involved, ghost). **Careers** lives at `/open-positions` and is reached from the announcement bar and the footer only, never the nav. Chapter sub-pages stay at `/chapters/utrecht`, `/chapters/groningen`, `/chapters/amsterdam`, under the Community page. `/research/handbook` is the research handbook. `/contact` stays.
+**Primary nav:** `Community` (/community) | `Research hub` (/research) | `About` (/about). **Header buttons:** `Join a free course` (/courses, ink fill) and `Volunteer` (/get-involved, ghost). **Open positions** lives at `/open-positions` and is reached from the announcement bar and the footer only, never the nav. Chapter sub-pages stay at `/chapters/utrecht`, `/chapters/groningen`, `/chapters/amsterdam`, under the Community page. `/research/handbook` is the research handbook. `/contact` stays.
 
 One avatar per page. Write each page to exactly one reader:
 
 - **Community** speaks to the same person the landing speaks to: someone deciding whether to walk into an event and join the community.
 - **Research hub** speaks to researchers. Primarily beginning researchers choosing a first real project; experienced researchers read the same page for reputability, and the page moves them to become supervisors.
 - **About** speaks to outsiders who need the mission and the means (the talent pipeline) established. It may inspire; it must be crystal clear about scale and stakes.
-- **Careers** speaks to candidates.
+- **Open positions** speaks to candidates.
 
 Every page hero must establish in one glance that the reader landed on the right page. The heading claims the page's territory; the subheading states the page's premise in one or two sentences. The hero's illustration, when there is one, supports the premise with an analogy, the way the landing's learning-to-steering drawing supports "your career starts here".
 

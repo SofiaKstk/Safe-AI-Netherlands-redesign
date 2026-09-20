@@ -37,7 +37,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     links: [
       { name: "About", href: "/about" },
       { name: "Team", href: "/team" },
-      { name: "Careers", href: "/open-positions" },
+      { name: "Open positions", href: "/open-positions" },
       { name: "Contact", href: "/contact" },
     ],
   },

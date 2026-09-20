@@ -170,11 +170,10 @@ function ChapterSection({ chapter }: { chapter: ChapterPosting }) {
 
   if (!recruiting) {
     return (
-      <section
-        id={id}
-        aria-labelledby={headingId}
-        className="scroll-mt-36 border-t border-navy/10 bg-cream"
-      >
+      <div id={id} aria-labelledby={headingId} className="scroll-mt-36">
+        <div className="shell">
+          <div className="border-t border-navy/14" />
+        </div>
         <div className="shell band-index">
           <Reveal>
             <h2
@@ -196,18 +195,17 @@ function ChapterSection({ chapter }: { chapter: ChapterPosting }) {
             ) : null}
           </Reveal>
         </div>
-      </section>
+      </div>
     );
   }
 
   const roles = orderedRoles(chapter);
 
   return (
-    <section
-      id={id}
-      aria-labelledby={headingId}
-      className="scroll-mt-36 border-t border-navy/10 bg-cream"
-    >
+    <div id={id} aria-labelledby={headingId} className="scroll-mt-36">
+      <div className="shell">
+        <div className="border-t border-navy/14" />
+      </div>
       <div className="shell band-section">
         <Reveal>
           <h2 id={headingId} className="font-serif text-heading text-navy">
@@ -268,7 +266,7 @@ function ChapterSection({ chapter }: { chapter: ChapterPosting }) {
           </div>
         </Reveal>
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -433,17 +431,16 @@ export default function CareersPage() {
               id="volunteer-heading"
               className="max-w-[620px] font-serif text-heading-sm text-navy"
             >
-              A volunteer role here is a working role
+              SAIN is run by volunteers
             </h2>
             <p className="mt-5 max-w-[760px] font-sans text-body text-navy/74">
-              Most chapter roles are unpaid, and take three to ten hours a week
-              alongside your studies or job. In return, the responsibility is
-              real: you run a course, a chapter&rsquo;s events, or its
-              communications, and the chapter depends on you doing it. SAIN
-              exists to help people build the skills and track record to work on
-              AI safety at labs, institutes, and ministries. The people who run
-              SAIN are on that same path, and a role here is a serious first
-              line on that CV.
+              Most of the roles on this page are volunteer roles, taken on by
+              people who want AI to go well and have three to ten hours a week
+              to give to that beside their studies or job. You would run a
+              course, a chapter&rsquo;s events or its communications, with a team
+              around you and a chapter that counts on you. Many of the people
+              who started this way now work on AI safety at labs, institutes and
+              ministries, and a role here is often the first entry on that CV.
             </p>
             {/* Counted off the data: a chapter role is paid when its card
                 carries a "Paid" badge, and the sentence has to agree with the
@@ -452,17 +449,20 @@ export default function CareersPage() {
               {paidChapterPostingCount > 0
                 ? `${capitalise(numberWord(paidChapterPostingCount))} chapter ${
                     paidChapterPostingCount === 1 ? "role is" : "roles are"
-                  } paid part-time, and say so on ${
-                    paidChapterPostingCount === 1 ? "its card" : "their cards"
+                  } paid part-time${
+                    isNationalRecruiting
+                      ? ", and the national team hires full-time"
+                      : ""
                   }. `
-                : "One role is different. "}
-              The Research Operations Lead is a paid, full-time position on the
-              small national team, listed with its salary and terms below.
+                : isNationalRecruiting
+                  ? "The national team hires full-time. "
+                  : ""}
+              Every paid role says so on its card, with the terms.
             </p>
 
             {/* The wayfinding that used to be a band of its own: one row of
                 links to each unit's section, open units first. */}
-            <nav aria-label="Jump to a team" className="mt-8 border-t border-navy/14 pt-5">
+            <nav aria-label="Jump to a team" className="mt-8">
               <ul role="list" className="flex flex-wrap gap-x-7 gap-y-3">
                 {sectionLinks().map((link) => (
                   <li key={link.href}>
@@ -507,7 +507,7 @@ export default function CareersPage() {
                   the form's submission trigger is wired to info@ and the
                   chapter inbox. See the setup notes in openPositions.ts. */}
               {isNationalRecruiting
-                ? " The Research Operations Lead has its own form, linked on the role below."
+                ? " National roles have their own forms, linked on each role below."
                 : ""}
             </p>
 
@@ -550,11 +550,12 @@ export default function CareersPage() {
       {/* B7. The paid role. One substantial row on white, not a band of peers:
           the badge and the salary are the honesty signals, and they get the
           same weight the volunteer hours get above. */}
+      <section aria-label="Open roles, by team" className="border-t border-navy/10 bg-cream">
       {isNationalRecruiting ? (
-        <section
+        <div
           id={nationalPosting.slug}
           aria-labelledby="national-heading"
-          className="scroll-mt-36 border-t border-navy/10 bg-white"
+          className="scroll-mt-36"
         >
           <div className="shell band-section">
             <Reveal>
@@ -593,13 +594,14 @@ export default function CareersPage() {
               </p>
             </Reveal>
           </div>
-        </section>
+        </div>
       ) : null}
-
-      {/* The chapters, in the order they are declared. */}
+      {/* The chapters, in the order they are declared, each behind a
+          shell-width hairline so the listing reads as one schedule. */}
       {chapterPositions.map((chapter) => (
         <ChapterSection key={chapter.chapterSlug} chapter={chapter} />
       ))}
+      </section>
 
       {/* B9. The close: the claim on the left, the two ways to act on the
           right, and nothing else in the band. */}
