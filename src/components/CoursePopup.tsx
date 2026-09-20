@@ -27,9 +27,10 @@ import {
  * note in place of a deadline, so the layout can be judged with real copy.
  *
  * The chrome is the system's: a white sheet with square corners on a navy
- * scrim, serif heading, italic kicker with the 7px orange square, hairline
- * rows for the deadlines, one accent button per open city, and a plain text
- * link to put it off. Nothing rounded, nothing glassy.
+ * scrim, italic kicker with the 7px orange square, serif heading with the
+ * cities on a subheading line, hairline rows for the deadlines, one accent
+ * button per open city, and a plain text link to put it off. Nothing rounded,
+ * nothing glassy.
  */
 
 const OPEN_DELAY_MS = 1500;
@@ -151,20 +152,16 @@ export default function CoursePopup() {
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
             transition={{ duration: reduce ? 0 : 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* The orange field the announcement bar uses, as the sheet's top
-                edge: this is the same kind of message. */}
-            <div className="h-1.5 bg-orange" aria-hidden="true" />
-
             <button
               type="button"
               onClick={close}
               aria-label="Close"
-              className="absolute right-4 top-6 inline-flex size-10 items-center justify-center text-navy/60 transition-colors hover:text-navy focus-visible:text-navy"
+              className="absolute right-4 top-5 inline-flex size-10 items-center justify-center text-navy/60 transition-colors hover:text-navy focus-visible:text-navy"
             >
               <XIcon size={18} weight="light" aria-hidden="true" />
             </button>
 
-            <div className="px-7 pb-8 pt-8 sm:px-9 sm:pb-9">
+            <div className="px-7 pb-8 pt-7 sm:px-9 sm:pb-9 sm:pt-8">
               <p className="kicker flex items-center gap-3 pr-10 text-kicker-sm text-navy/65">
                 <span className="size-[7px] shrink-0 bg-orange" aria-hidden="true" />
                 {open.length ? "Applications open" : "Courses"}
@@ -173,8 +170,13 @@ export default function CoursePopup() {
                 id="course-popup-title"
                 className="mt-4 max-w-[440px] pr-6 font-serif text-heading-sm text-navy"
               >
-                Free AI Safety courses, in person, in {cities}.
+                Free AI Safety courses, in person.
               </h2>
+              {/* The cities on their own line, so the heading stays two lines
+                  whether one chapter is open or all three. */}
+              <p className="mt-2 font-serif text-title-sm text-navy/72">
+                In {cities}.
+              </p>
               <p
                 id="course-popup-description"
                 className="mt-4 max-w-[480px] font-sans text-caption leading-[22px] text-navy/74"
