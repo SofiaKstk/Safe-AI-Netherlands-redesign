@@ -3,6 +3,7 @@ import { Archivo, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CoursePopup from "@/components/CoursePopup";
 
 /* IBM Plex Serif gives headings and editorial labels their scholarly voice. */
 const plexSerif = IBM_Plex_Serif({
@@ -130,6 +131,9 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        {/* Renders nothing unless a chapter is taking applications, or the URL
+            carries ?preview-popup. */}
+        <CoursePopup />
       </body>
     </html>
   );

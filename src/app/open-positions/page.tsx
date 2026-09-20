@@ -22,7 +22,6 @@ import {
   nationalPosting,
   openChapterPostingCount,
   openNationalPostings,
-  paidChapterPostingCount,
   recruitingChapters,
 } from "@/data/openPositions";
 
@@ -441,23 +440,6 @@ export default function CareersPage() {
               around you and a chapter that counts on you. Many of the people
               who started this way now work on AI safety at labs, institutes and
               ministries, and a role here is often the first entry on that CV.
-            </p>
-            {/* Counted off the data: a chapter role is paid when its card
-                carries a "Paid" badge, and the sentence has to agree with the
-                badges the reader is about to see. */}
-            <p className="mt-4 max-w-[760px] font-sans text-body text-navy/74">
-              {paidChapterPostingCount > 0
-                ? `${capitalise(numberWord(paidChapterPostingCount))} chapter ${
-                    paidChapterPostingCount === 1 ? "role is" : "roles are"
-                  } paid part-time${
-                    isNationalRecruiting
-                      ? ", and the national team hires full-time"
-                      : ""
-                  }. `
-                : isNationalRecruiting
-                  ? "The national team hires full-time. "
-                  : ""}
-              Every paid role says so on its card, with the terms.
             </p>
 
             {/* The wayfinding that used to be a band of its own: one row of
