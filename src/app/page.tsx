@@ -335,20 +335,22 @@ export default function Home() {
           {/* The quote is the band's evidence, so it is set apart from the
               argument beside it without leaving its column: a left hairline
               (the chapter cells' device), the words a size up in the light
-              serif, and an oversized opening mark hanging in the gutter as the
-              one typographic flourish. Navy only; orange stays with the
+              serif, and an oversized opening mark as the one typographic
+              flourish. The mark sits in the flow, on its own line between the
+              context and the words: positioned absolutely it landed under the
+              text once the column narrowed. Navy only; orange stays with the
               actions. */}
-          <blockquote className="relative flex min-w-0 flex-col gap-5 border-l border-navy/14 py-1 pl-6 lg:pl-7">
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute -top-3 left-3 select-none font-serif text-[88px] leading-none text-navy/[0.12] lg:left-4"
-            >
-              &ldquo;
-            </span>
+          <blockquote className="flex min-w-0 flex-col gap-4 border-l border-navy/14 py-1 pl-6 lg:pl-7">
             <p className="kicker text-base leading-[22px] text-navy/65">
               Internship · Existential Risk Observatory
             </p>
             <p className="font-serif text-heading-sm font-light text-navy">
+              <span
+                aria-hidden="true"
+                className="block h-[34px] select-none font-serif text-[72px] leading-[0.9] text-navy/[0.14]"
+              >
+                &ldquo;
+              </span>
               Without this community I almost certainly wouldn&rsquo;t be where I am.
             </p>
             <footer className="border-t border-navy/14 pt-3">

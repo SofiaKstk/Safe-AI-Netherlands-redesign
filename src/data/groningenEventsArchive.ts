@@ -13,7 +13,7 @@ export const groningenEventsArchive: GroningenArchivedEvent[] = [
     date: "Wednesday, July 1, 2026",
     time: "6:00 PM 10:00 PM",
     description:
-      "On July 1st, SAIN Groningen is having a privately catered barbecue to close out the year!\n\nAfter you register, you will receive a digital ticket. That is your entry into the event! Tickets will be scanned at the door.\n\nThis barbecue is fully vegetarian! Please note that access to the rooftop is via stairs only. Unfortunately, there are no elevators.",
+      "The closing ceremony of the 2025-2026 year: a privately catered, fully vegetarian rooftop barbecue at BOOVN, bringing the whole SAIN Groningen community together one last time before the summer.",
     image:
       "/photos/events/archive/archive-30.jpg",
     academicYear: "2025-2026",

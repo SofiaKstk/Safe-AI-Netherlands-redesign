@@ -238,25 +238,29 @@ export default function CommunityPage() {
             delay={0.08}
             className="flex min-w-0 items-center justify-center lg:justify-end"
           >
-            <div className="flex items-end gap-4 sm:gap-6">
+            {/* The pair is sized as fractions of a capped row rather than in
+                fixed pixels: at lg the column is 420 wide and two fixed prints
+                came to 530, so they ran left over the heading's paragraph and
+                hid its line ends. */}
+            <div className="flex w-full max-w-[540px] items-end gap-4 sm:gap-6">
               {/* The AI control hackathon announcement, shown whole: the source
                   is 3:2 and the frame is 3:2, so nothing is cropped away. */}
-              <figure className="w-[48%] shrink-0 rotate-[-3deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[236px]">
+              <figure className="w-[46%] shrink-0 rotate-[-3deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F]">
                 <img
                   src="/photos/events/control-hackathon-640.webp"
                   srcSet="/photos/events/control-hackathon-320.webp 320w, /photos/events/control-hackathon-640.webp 640w, /photos/events/control-hackathon-900.webp 900w"
-                  sizes="(min-width: 640px) 220px, 44vw"
+                  sizes="(min-width: 1280px) 232px, (min-width: 1024px) 180px, 42vw"
                   alt="Announcement for the SAIN Groningen AI control hackathon"
                   width={1080}
                   height={720}
                   className="aspect-[3/2] w-full object-cover"
                 />
               </figure>
-              <figure className="w-[52%] shrink-0 translate-y-4 rotate-[2.5deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[270px]">
+              <figure className="w-[50%] shrink-0 translate-y-4 rotate-[2.5deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F]">
                 <img
                   src="/photos/events/utrecht/win4AISafety_congrats_the_winners-640.webp"
                   srcSet="/photos/events/utrecht/win4AISafety_congrats_the_winners-320.webp 320w, /photos/events/utrecht/win4AISafety_congrats_the_winners-640.webp 640w, /photos/events/utrecht/win4AISafety_congrats_the_winners-900.webp 900w"
-                  sizes="(min-width: 640px) 254px, 50vw"
+                  sizes="(min-width: 1280px) 254px, (min-width: 1024px) 196px, 46vw"
                   alt="The winners of Win4AISafety with the SAIN Utrecht organisers"
                   width={540}
                   height={405}

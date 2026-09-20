@@ -46,10 +46,13 @@ type Print = {
 
 const PRINTS: Print[] = [
   {
-    src: "/photos/events/control-hackathon.png",
+    /* The forecasting hackathon poster. It used to open the page's hero,
+       and the control hackathon poster sat here; the two swapped places in
+       September 2026 so the hero carries the more legible of the pair. */
+    src: "/photos/events/forecasting-hackathon.png",
     rungs: [320, 640, 900],
-    alt: "Participants working through a weekend AI control hackathon in Groningen",
-    caption: "AI control hackathon · SAIN Groningen",
+    alt: "Announcement for the AISIG AI forecasting and timeline models hackathon in Groningen",
+    caption: "AI forecasting hackathon · SAIN Groningen",
     position: "50% 45%",
     crop: "aspect-[4/3]",
     tilt: "rotate-[-1.5deg]",
