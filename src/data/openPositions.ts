@@ -1023,10 +1023,10 @@ export type NationalPosting = {
  */
 export const nationalPosting: NationalPosting = {
   slug: "national",
-  name: "SAIN Netherlands",
-  heading: "One paid role on the national team",
+  name: "National team",
+  heading: "Roles on the national team",
   blurb:
-    "Most of SAIN runs on volunteers. The Research Operations Lead is the exception: a paid, full-time staff role that works across Amsterdam, Utrecht, and Groningen and reports to the Director. It has its own application form and hiring process, separate from the chapter form above.",
+    "Most of SAIN runs on volunteers in the chapters. National roles are the exception: they work across Amsterdam, Utrecht, and Groningen and report to the Director. Each has its own application form and hiring process, separate from the chapter form above.",
   inboxEmail: "info@safeainetherlands.org",
   status: "open",
   postings: [

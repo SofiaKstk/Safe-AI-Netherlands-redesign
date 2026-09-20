@@ -4,6 +4,9 @@ import Link from "next/link";
 import ChapterClose from "@/components/chapters/ChapterClose";
 import ChapterHero from "@/components/chapters/ChapterHero";
 import CourseBand from "@/components/chapters/CourseBand";
+import CourseDisclosure, {
+  type Course,
+} from "@/components/chapters/CourseDisclosure";
 import EvidenceBand from "@/components/chapters/EvidenceBand";
 import PastEvents, {
   pastEventsThisYear,
@@ -32,19 +35,38 @@ const ELLIS_URL = "https://ivi.fnwi.uva.nl/ellis/";
 
 const team: readonly TeamMember[] = sainAmsTeam;
 
-/* The two courses as two columns on one hairline, the same geometry Groningen
-   uses for its two tracks. Named courses are the thing a reader scans for, and
-   they were buried mid-paragraph until now. The shared facts (six weeks, the
-   workload, the certificate) stay in the paragraph rather than being printed
-   twice: nothing in the repo distinguishes the two courses on those counts. */
-const courses = [
+/* The two courses behind the same disclosure tabs Utrecht uses, so a reader
+   moving between chapter pages meets one device for "this chapter's courses".
+   The shared facts (six weeks, the workload, the certificate, the cohort
+   size) repeat in each summary on purpose: a tab is read on its own. The
+   outlines name what each course spends its sessions on, as the chapter
+   described it; BlueDot's week-by-week syllabus is not reproduced here. */
+const courses: Course[] = [
   {
-    name: "Technical AI Safety",
-    detail: "The technical course, built on BlueDot's curriculum.",
+    id: "technical",
+    title: "Technical AI Safety",
+    summary:
+      "Built on BlueDot's Technical AI Safety curriculum, with extra sessions on mechanistic interpretability, adversarial attacks and complex systems. Six weeks, about two hours of reading and two hours of discussion a week, on site in Amsterdam, with a certificate on completion. Selection is application-based; the last iteration reached more than 70 people across both courses, from students and PhDs to engineers, policymakers and consultants.",
+    outlineTitle: "What the sessions cover",
+    outline: [
+      "BlueDot's core technical readings and discussion",
+      "Extra session: mechanistic interpretability",
+      "Extra session: adversarial attacks",
+      "Extra session: complex systems",
+    ],
   },
   {
-    name: "Frontier AI Governance",
-    detail: "The governance course, built on BlueDot's curriculum.",
+    id: "governance",
+    title: "Frontier AI Governance",
+    summary:
+      "Built on BlueDot's Frontier AI Governance curriculum, with time set aside for case studies and real-world examples of regulatory, legal and societal challenges. Six weeks, about two hours of reading and two hours of discussion a week, on site in Amsterdam, with a certificate on completion. Selection is application-based. Facilitators include PhDs, risk-management consultants and an ELLIS assistant professor.",
+    outlineTitle: "What the sessions cover",
+    outline: [
+      "BlueDot's core governance readings and discussion",
+      "Case studies: regulation of frontier AI in practice",
+      "Real-world legal challenges",
+      "Real-world societal challenges",
+    ],
   },
 ];
 
@@ -133,30 +155,7 @@ export default function AmsterdamPage() {
           </>
         }
       >
-        <dl className="grid max-w-[var(--container-copy-wide)] gap-6 md:grid-cols-2 md:gap-8">
-          {courses.map((course) => (
-            <div
-              key={course.name}
-              className="border-l border-navy/14 py-1 pl-[18px]"
-            >
-              <dt className="font-serif text-title-sm text-navy">
-                {course.name}
-              </dt>
-              <dd className="mt-1.5 font-sans text-ui text-navy/74">
-                {course.detail}
-              </dd>
-            </div>
-          ))}
-        </dl>
-
-        <p className="max-w-[var(--container-copy)] font-sans text-body text-navy/74">
-          Both run on site in Amsterdam. Six weeks, about two hours of reading
-          and two hours of discussion a week, with a certificate on completion;
-          selection is application-based. The last iteration reached more than
-          70 people: students, PhDs, engineers, policymakers, and consultants.
-          Facilitators include PhDs, risk-management consultants, and an ELLIS
-          assistant professor.
-        </p>
+        <CourseDisclosure courses={courses} />
       </CourseBand>
 
       <TeamBand

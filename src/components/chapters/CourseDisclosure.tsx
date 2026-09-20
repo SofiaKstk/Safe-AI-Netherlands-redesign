@@ -21,6 +21,12 @@ import { CaretDown } from "@phosphor-icons/react/dist/ssr";
  * adds a session line (date, time, room) and a sentence on what the session
  * covers, for a cohort whose calendar is fixed.
  */
+export type OutlinePath = {
+  title: string;
+  meta?: string;
+  detail?: string;
+};
+
 export type OutlineItem =
   | string
   | {
@@ -28,6 +34,8 @@ export type OutlineItem =
       /** "Wed 23 Sep · 18:00-19:00 · Janskerkhof 2-3, Room 0.19" */
       meta?: string;
       detail?: string;
+      /** A session that splits: the reader picks one of these, or both. */
+      paths?: OutlinePath[];
     };
 
 export type Course = {
@@ -183,7 +191,7 @@ export default function CourseDisclosure({ courses }: { courses: Course[] }) {
                       <li
                         key={item.title}
                         className={`flex items-baseline gap-3 border-t border-navy/10 ${
-                          item.meta || item.detail ? "py-3" : "py-[7px]"
+                          item.meta || item.detail || item.paths ? "py-3" : "py-[7px]"
                         }`}
                       >
                         <span className="w-[22px] shrink-0 font-sans text-xs text-orange-ink">
@@ -199,6 +207,33 @@ export default function CourseDisclosure({ courses }: { courses: Course[] }) {
                           {item.detail ? (
                             <span className="mt-1 block font-sans text-caption leading-[20px] text-navy/74">
                               {item.detail}
+                            </span>
+                          ) : null}
+                          {item.paths?.length ? (
+                            /* The two-track columns on one hairline, the same
+                               geometry Groningen's tracks use, nested in the
+                               session that forks. */
+                            <span className="mt-4 grid gap-4 md:grid-cols-2 md:gap-6">
+                              {item.paths.map((path) => (
+                                <span
+                                  key={path.title}
+                                  className="block border-l border-navy/14 py-0.5 pl-4"
+                                >
+                                  <span className="block font-serif text-title-sm text-navy">
+                                    {path.title}
+                                  </span>
+                                  {path.meta ? (
+                                    <span className="mt-0.5 block font-sans text-footnote text-navy/65">
+                                      {path.meta}
+                                    </span>
+                                  ) : null}
+                                  {path.detail ? (
+                                    <span className="mt-1 block font-sans text-caption leading-[20px] text-navy/74">
+                                      {path.detail}
+                                    </span>
+                                  ) : null}
+                                </span>
+                              ))}
                             </span>
                           ) : null}
                         </span>

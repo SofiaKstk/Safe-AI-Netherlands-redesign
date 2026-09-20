@@ -69,15 +69,21 @@ const courses: Course[] = [
           "Industry incentives, funding gaps, expert disagreement, slow regulation against fast labs, geopolitical race dynamics.",
       },
       {
-        title: "Technical AI safety path",
-        meta: "Wed 14 Oct · 18:00-19:00 · Janskerkhof 2-3, Room 0.19",
-        detail: "Jailbreaking, the scalable oversight problem, RLHF and reward signals.",
-      },
-      {
-        title: "Governance path",
-        meta: "Thu 15 Oct · 18:00-19:00 · Drift 23, Room 103",
-        detail:
-          "Overview of the EU AI Act, accountability in AI systems, international actors in AI safety.",
+        title: "Path specialisation",
+        detail: "The fourth week splits in two. Take one path, or both.",
+        paths: [
+          {
+            title: "Technical AI safety",
+            meta: "Wed 14 Oct · 18:00-19:00 · Janskerkhof 2-3, Room 0.19",
+            detail: "Jailbreaking, the scalable oversight problem, RLHF and reward signals.",
+          },
+          {
+            title: "Governance",
+            meta: "Thu 15 Oct · 18:00-19:00 · Drift 23, Room 103",
+            detail:
+              "Overview of the EU AI Act, accountability in AI systems, international actors in AI safety.",
+          },
+        ],
       },
     ],
   },
