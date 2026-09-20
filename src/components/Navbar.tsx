@@ -73,21 +73,22 @@ export default function Navbar() {
           header instead of being left behind at its original offset. */}
       <div className="sticky top-0 z-50">
         <header className="border-b border-navy/10 bg-white/94 backdrop-blur-sm">
-          <div className="shell flex min-h-[70px] items-center justify-between gap-6 py-3.5">
+          <div className="shell flex min-h-[70px] items-center justify-between gap-6 py-2.5">
             <Link
               href="/"
               className="shrink-0"
               aria-label="Safe AI Netherlands home"
             >
               <img
-                src="/landing/logo-navy-121.png"
-                srcSet="/landing/logo-navy-121.png 1x, /landing/logo-navy-242.png 2x, /landing/logo-navy-363.png 3x"
+                src="/landing/logo-navy-182.png"
+                srcSet="/landing/logo-navy-182.png 1x, /landing/logo-navy-364.png 2x, /landing/logo-navy-546.png 3x"
                 alt="Safe AI Netherlands"
-                /* 50px. Past 42px the lockup no longer fits the 70px header, so
-                 the bar grows with it rather than cropping the mark. */
-                className="h-[50px] w-auto"
-                width={121}
-                height={50}
+                /* 75px, half again the 50px it shipped at (September 2026
+                 feedback). The bar grows with the mark rather than cropping
+                 it; the block padding comes down to keep the header near 95px. */
+                className="h-[75px] w-auto"
+                width={182}
+                height={75}
               />
             </Link>
 

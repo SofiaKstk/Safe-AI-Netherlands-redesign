@@ -7,6 +7,7 @@ import {
   type ChapterName,
 } from "@/data/courseApplications";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 /**
  * The chapter's course, and whether you can apply to it today.
@@ -66,9 +67,10 @@ export default function CourseBand({
                 href={COURSE_APPLICATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-accent mt-6"
+                className="btn-accent mt-6 gap-2"
               >
                 Apply to the free course
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </>
@@ -79,9 +81,10 @@ export default function CourseBand({
                 href={COMMUNITY_JOIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
+                className="inline-flex items-center gap-1.5 underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
               >
                 Join the community
+                <ArrowUpRight size={14} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>{" "}
               and you will hear when they open.

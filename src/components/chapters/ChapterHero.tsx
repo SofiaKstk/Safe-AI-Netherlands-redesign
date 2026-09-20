@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import Reveal from "@/components/landing/Reveal";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 /**
  * The chapter hero. Same split the landing runs: the claim on the left, the
@@ -74,9 +74,10 @@ export default function ChapterHero({
               href={COMMUNITY_JOIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-accent"
+              className="btn-accent gap-2"
             >
               Join the community
+              <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <a

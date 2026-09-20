@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { APPLICATION_REVIEW, isChapterRecruiting } from "@/data/openPositions";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 /**
  * Who runs the chapter, by name.
@@ -69,6 +70,12 @@ export default function TeamBand({
                     className="underline decoration-navy/20 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
                   >
                     {person.name}
+                    <ArrowUpRight
+                      size={14}
+                      weight="regular"
+                      aria-hidden="true"
+                      className="ml-1 inline-block shrink-0 align-[-2px]"
+                    />
                     <span className="sr-only">
                       , profile on LinkedIn (opens in a new tab)
                     </span>

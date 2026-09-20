@@ -1,4 +1,5 @@
 import {
+  ArrowUpRight,
   CalendarBlank,
   CaretDown,
   Compass,
@@ -201,9 +202,10 @@ export default function RoleDisclosure({
             href={applyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-accent"
+            className="btn-accent gap-2"
           >
             Apply for this role
+            <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
           {/* The footnote tells the applicant what to do in the form rather

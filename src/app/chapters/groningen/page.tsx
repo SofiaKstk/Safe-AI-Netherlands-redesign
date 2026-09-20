@@ -27,14 +27,8 @@ const EDU_EMAIL = "edugro@safeainetherlands.org";
 const INFO_EMAIL = "infogro@safeainetherlands.org";
 const LINKTREE_URL = "https://linktr.ee/saingroningen";
 
-/* The roster is the former AISIG list, which carries the director twice under
-   two titles. Rendering both would read as a data bug on a page whose whole
-   job is credibility, so the first title wins until the chapter confirms the
-   current roster. */
-const team: readonly TeamMember[] = aisigTeam.filter(
-  (person, index, all) =>
-    all.findIndex((other) => other.name === person.name) === index,
-);
+/* The roster the chapter confirmed in September 2026, in the order it gave. */
+const team: readonly TeamMember[] = aisigTeam;
 
 const tracks = [
   {
@@ -179,13 +173,13 @@ export default function GroningenPage() {
 
       <TeamBand
         city="Groningen"
-        body="SAIN Groningen is directed by Tarteel Mohamed, with work organised across four teams: education, research, events, and PR; a structure other chapters are adopting as they spin up. The chapter grew out of the AI Safety Initiative Groningen (AISIG), running since 2023."
+        body="SAIN Groningen is directed by Tarteel Mohamed, with work organised across four teams: education, events, communications, and research operations; a structure other chapters are adopting as they spin up. The chapter grew out of the AI Safety Initiative Groningen (AISIG), running since 2023."
         team={team}
       />
 
       <EvidenceBand
-        heading="29 events and counting"
-        body="Since October 2023 the chapter has run 29 events: hackathons, course graduations, research talks, pub quizzes, and socials; first as AISIG and, since 30 April 2026, as SAIN Groningen. Members' research has been published at NeurIPS and ICLR workshops."
+        heading="30 events and counting"
+        body="Since October 2023 the chapter has run 30 events: hackathons, course graduations, research talks, pub quizzes, and socials; first as AISIG and, since 30 April 2026, as SAIN Groningen. Members' research has been published at NeurIPS and ICLR workshops."
       >
         <div>
           <PrintStrip

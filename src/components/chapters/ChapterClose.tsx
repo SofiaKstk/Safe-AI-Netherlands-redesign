@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 
@@ -52,9 +53,10 @@ export default function ChapterClose({
               href={COMMUNITY_JOIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-accent"
+              className="btn-accent gap-2"
             >
               Join the community
+              <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <Link href="/get-involved" className="btn-ghost-inverse">
@@ -95,9 +97,10 @@ export default function ChapterClose({
             href={linktreeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={mailto}
+            className={`inline-flex items-center gap-1.5 ${mailto}`}
           >
             All {city} links
+            <ArrowUpRight size={14} weight="regular" aria-hidden="true" />
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </p>

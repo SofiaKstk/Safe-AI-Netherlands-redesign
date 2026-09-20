@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 import Reveal from "@/components/landing/Reveal";
 import SectionOrbits from "@/components/landing/SectionOrbits";
@@ -327,9 +327,10 @@ function ChapterSection({ chapter }: { chapter: ChapterPosting }) {
                 href={buildApplicationUrl({ chapter: chapter.chapterSlug })}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-outline-ink"
+                className="btn-outline-ink gap-2"
               >
                 Apply for SAIN {chapter.chapterSlug}
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
               <p className="font-sans text-label text-navy/65">
@@ -485,9 +486,10 @@ export default function CareersPage() {
                 href={buildApplicationUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-accent"
+                className="btn-accent gap-2"
               >
                 Open application form
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
@@ -636,9 +638,10 @@ export default function CareersPage() {
                 href={buildApplicationUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-accent"
+                className="btn-accent gap-2"
               >
                 Open application form
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
               {/* /courses and /get-involved offer /contact under this same
@@ -672,9 +675,10 @@ export default function CareersPage() {
               href={buildApplicationUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-accent"
+              className="btn-accent gap-2"
             >
               Open application form
+              <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <Link href="/contact" className="btn-ghost-inverse">

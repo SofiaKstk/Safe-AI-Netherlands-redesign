@@ -1,4 +1,4 @@
-import { ArrowUpRight, CaretRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 /**
  * What the chapter has already run this academic year, pulled from the Luma
@@ -84,9 +84,9 @@ export default function PastEvents({
               <span className="flex-1 font-sans text-ui text-navy">
                 {withoutDashes(event.name)}
               </span>
-              <CaretRight
-                size={13}
-                weight="bold"
+              <ArrowUpRight
+                size={14}
+                weight="regular"
                 aria-hidden="true"
                 className="shrink-0 self-center text-navy/45"
               />

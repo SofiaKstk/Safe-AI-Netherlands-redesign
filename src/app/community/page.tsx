@@ -13,7 +13,7 @@ import {
   courseApplications,
   type ChapterName,
 } from "@/data/courseApplications";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
   title: "Community",
@@ -94,7 +94,7 @@ const chapterProvides = [
 
 const founderSteps = [
   "Write to us about your city.",
-  "Work through the founding process with SAIN's board.",
+  "Work through the founding process with SAIN's leadership.",
   "Set up your local channels and your chapter page on this site.",
   "Do the first outreach and run the first meetup.",
   "When you are ready, run a first course; the curriculum and guides are part of the kit.",
@@ -139,12 +139,13 @@ function DeadlineRow({ chapter }: { chapter: ChapterName }) {
           href={COURSE_APPLICATION_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-accent justify-self-start md:justify-self-end"
+          className="btn-accent gap-2 justify-self-start md:justify-self-end"
         >
           {/* The chapter pages call this same Fillout form "Apply to the free
               course"; one label per destination, so the second ask reads as
               the same door and not a second commitment. */}
           Apply to the free course
+          <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
           <span className="sr-only"> (opens in a new tab)</span>
         </a>
       ) : (
@@ -214,9 +215,10 @@ export default function CommunityPage() {
                 href={COMMUNITY_JOIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-accent"
+                className="btn-accent gap-2"
               >
                 Join the community
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
@@ -237,19 +239,20 @@ export default function CommunityPage() {
             className="flex min-w-0 items-center justify-center lg:justify-end"
           >
             <div className="flex items-end gap-4 sm:gap-6">
-              <figure className="w-[46%] shrink-0 rotate-[-3deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[210px]">
+              {/* The AI control hackathon announcement, shown whole: the source
+                  is 3:2 and the frame is 3:2, so nothing is cropped away. */}
+              <figure className="w-[48%] shrink-0 rotate-[-3deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[236px]">
                 <img
-                  src="/photos/events/forecasting-hackathon-640.webp"
-                  srcSet="/photos/events/forecasting-hackathon-320.webp 320w, /photos/events/forecasting-hackathon-640.webp 640w, /photos/events/forecasting-hackathon-900.webp 900w"
-                  sizes="(min-width: 640px) 194px, 42vw"
-                  alt="People working in pairs through a SAIN forecasting hackathon"
-                  width={420}
-                  height={525}
-                  className="aspect-[4/5] w-full object-cover"
-                  style={{ objectPosition: "50% 45%" }}
+                  src="/photos/events/control-hackathon-640.webp"
+                  srcSet="/photos/events/control-hackathon-320.webp 320w, /photos/events/control-hackathon-640.webp 640w, /photos/events/control-hackathon-900.webp 900w"
+                  sizes="(min-width: 640px) 220px, 44vw"
+                  alt="Announcement for the SAIN Groningen AI control hackathon"
+                  width={1080}
+                  height={720}
+                  className="aspect-[3/2] w-full object-cover"
                 />
               </figure>
-              <figure className="w-[54%] shrink-0 translate-y-4 rotate-[2.5deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[270px]">
+              <figure className="w-[52%] shrink-0 translate-y-4 rotate-[2.5deg] bg-white p-2 shadow-[0_7px_22px_#021C4D1F] sm:w-[270px]">
                 <img
                   src="/photos/events/utrecht/win4AISafety_congrats_the_winners-640.webp"
                   srcSet="/photos/events/utrecht/win4AISafety_congrats_the_winners-320.webp 320w, /photos/events/utrecht/win4AISafety_congrats_the_winners-640.webp 640w, /photos/events/utrecht/win4AISafety_congrats_the_winners-900.webp 900w"
@@ -314,15 +317,9 @@ export default function CommunityPage() {
                 Groningen keeps{" "}
                 <Link
                   href="/chapters/groningen/events"
-                  className="inline-flex items-baseline gap-1 text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
+                  className="text-navy underline decoration-navy/25 underline-offset-4 hover:decoration-navy focus-visible:decoration-navy"
                 >
                   a full archive
-                  <ArrowRight
-                    size={16}
-                    weight="regular"
-                    aria-hidden="true"
-                    className="translate-y-[2px]"
-                  />
                 </Link>{" "}
                 of everything back to 2023.
               </p>
@@ -369,19 +366,14 @@ export default function CommunityPage() {
                   <span className="chapter-cell-scrim absolute inset-0 bg-navy" />
                 </span>
                 <h3 className="font-serif text-title text-navy">{chapter.city}</h3>
-                {/* globals.css flips the heading and the link to cream under the
-                    scrim; these two lines are this page's addition to the cell,
-                    so they carry the same flip as utilities. The hover half is
-                    gated on the same fine-pointer query the scrim is, or a tap
-                    on a phone turns the text cream over a cream ground and the
-                    lines simply vanish. focus-within stays ungated, because the
-                    scrim comes up for the keyboard everywhere. */}
+                {/* globals.css flips the heading, the link and these two lines
+                    to cream under the scrim (.chapter-cell p), behind the same
+                    fine-pointer gate as the scrim itself. It used to be done
+                    here with a stacked arbitrary variant that Tailwind never
+                    generated, which left navy text on the navy scrim. */}
                 <div className="mt-2.5 flex flex-col gap-2">
                   {chapter.lines.map((line) => (
-                    <p
-                      key={line}
-                      className="font-sans text-caption text-navy/72 transition-colors duration-300 group-focus-within:text-cream [@media(hover:hover)and(pointer:fine)]:group-hover:text-cream"
-                    >
+                    <p key={line} className="font-sans text-caption text-navy/72">
                       {line}
                     </p>
                   ))}
@@ -442,7 +434,10 @@ export default function CommunityPage() {
       </section>
 
       {/* Founding a chapter. A programme sheet on paper: what SAIN hands over on
-          the left, what the founder does on the right. */}
+          the left, what the founder does on the right. The two lists carry no
+          row rules: the left one is the landing's dash list, the right one is
+          numbered, and one hairline under each heading anchors its column.
+          Twelve hairlines between them read as a form, not a sheet. */}
       <section
         id="start-chapter"
         aria-labelledby="start-chapter-heading"
@@ -459,7 +454,7 @@ export default function CommunityPage() {
             <p className="font-sans text-body text-navy/74">
               No chapter in your city yet? The three that exist all started the same
               way: a few people who wanted a local AI safety community and were
-              willing to host the first meetup. SAIN&rsquo;s board guides founders
+              willing to host the first meetup. SAIN&rsquo;s leadership guides founders
               through the whole process, and no separate legal entity is needed; new
               chapters operate under the national stichting.
             </p>
@@ -470,12 +465,13 @@ export default function CommunityPage() {
             className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16"
           >
             <div>
-              <h3 className="kicker pb-2 text-kicker-sm text-navy/65">
+              <h3 className="kicker border-b border-navy/14 pb-3 text-kicker-sm text-navy/65">
                 What SAIN provides
               </h3>
-              <ul className="font-sans text-ui text-navy">
+              <ul role="list" className="mt-5 flex flex-col gap-3 font-sans text-ui text-navy">
                 {chapterProvides.map((item) => (
-                  <li key={item} className="border-t border-navy/10 py-[9px]">
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="h-px w-4 shrink-0 bg-navy/30" aria-hidden="true" />
                     {item}
                   </li>
                 ))}
@@ -483,19 +479,16 @@ export default function CommunityPage() {
             </div>
 
             <div>
-              <h3 className="kicker pb-2 text-kicker-sm text-navy/65">
+              <h3 className="kicker border-b border-navy/14 pb-3 text-kicker-sm text-navy/65">
                 What a founder does
               </h3>
-              <ol className="font-sans text-ui text-navy">
+              <ol role="list" className="mt-5 flex flex-col gap-3 font-sans text-ui text-navy">
                 {founderSteps.map((step, i) => (
-                  <li
-                    key={step}
-                    className="flex items-baseline gap-3 border-t border-navy/10 py-[9px]"
-                  >
-                    <span className="w-[22px] shrink-0 font-sans text-xs text-orange-ink">
+                  <li key={step} className="flex items-baseline gap-3">
+                    <span className="w-4 shrink-0 font-sans text-xs tabular-nums text-orange-ink">
                       {i + 1}
                     </span>
-                    {step}
+                    <span className="min-w-0">{step}</span>
                   </li>
                 ))}
               </ol>
@@ -544,9 +537,10 @@ export default function CommunityPage() {
               href={COMMUNITY_JOIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-accent"
+              className="btn-accent gap-2"
             >
               Join the community
+              <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <Link href="/get-involved" className="btn-ghost-inverse">

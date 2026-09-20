@@ -15,7 +15,7 @@ import {
   formatCityList,
   openCourseApplications,
 } from "@/data/courseApplications";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 /* No `title` here on purpose: the landing falls through to the root layout's
    `title.default`, so the tab reads "Safe AI Netherlands" and nothing more.
@@ -118,9 +118,10 @@ export default function Home() {
                 href={COMMUNITY_JOIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-accent"
+                className="btn-accent gap-2"
               >
                 Join the community
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
@@ -243,8 +244,9 @@ export default function Home() {
               {/* Same words as the hero's button on purpose: one label per
                   destination, so the second ask reads as the same door rather
                   than a new one. */}
-              <a href={COMMUNITY_JOIN_URL} target="_blank" rel="noopener noreferrer" className="btn-accent">
+              <a href={COMMUNITY_JOIN_URL} target="_blank" rel="noopener noreferrer" className="btn-accent gap-2">
                 Join the community
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
@@ -285,7 +287,7 @@ export default function Home() {
               The form itself is on /research, twice. */}
           <Reveal delay={0.05} className="mt-12 flex flex-col gap-6 border-t border-white/15 pt-8 md:mt-16 md:flex-row md:items-center md:justify-between md:gap-12">
             <p className="max-w-[520px] font-serif text-title leading-[30px] text-white">
-              Apply any time. Agree your commitment per project. Remote participation welcome.
+              Apply any time. Determine your commitment per project. Remote participation is welcome.
             </p>
             {/* One label per destination: the three chapter pages and the band
                 opener above all call /research "Visit the Research hub", so the
@@ -330,13 +332,24 @@ export default function Home() {
             </ul>
           </div>
 
-          <blockquote className="flex min-w-0 flex-col gap-[18px]">
+          {/* The quote is the band's evidence, so it is set apart from the
+              argument beside it without leaving its column: a left hairline
+              (the chapter cells' device), the words a size up in the light
+              serif, and an oversized opening mark hanging in the gutter as the
+              one typographic flourish. Navy only; orange stays with the
+              actions. */}
+          <blockquote className="relative flex min-w-0 flex-col gap-5 border-l border-navy/14 py-1 pl-6 lg:pl-7">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-3 left-3 select-none font-serif text-[88px] leading-none text-navy/[0.12] lg:left-4"
+            >
+              &ldquo;
+            </span>
             <p className="kicker text-base leading-[22px] text-navy/65">
               Internship · Existential Risk Observatory
             </p>
-            <p className="font-serif text-title font-light leading-[31px] text-navy">
-              &ldquo;Without this community I almost certainly wouldn&rsquo;t be where I
-              am.&rdquo;
+            <p className="font-serif text-heading-sm font-light text-navy">
+              Without this community I almost certainly wouldn&rsquo;t be where I am.
             </p>
             <footer className="border-t border-navy/14 pt-3">
               <cite className="block font-sans text-sm font-medium not-italic leading-5 text-navy">

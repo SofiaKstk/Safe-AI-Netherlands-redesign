@@ -636,6 +636,7 @@
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .chapter-cell h3,
+.chapter-cell p,
 .chapter-cell a {
   transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     text-decoration-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -643,7 +644,8 @@
 @media (hover: hover) and (pointer: fine) {
   .chapter-cell:hover .chapter-cell-photo { opacity: 1; }
   .chapter-cell:hover .chapter-cell-scrim { opacity: 0.78; }
-  .chapter-cell:hover h3 { color: var(--color-cream); }
+  .chapter-cell:hover h3,
+  .chapter-cell:hover p { color: var(--color-cream); }
   .chapter-cell:hover a {
     color: var(--color-cream);
     text-decoration-color: color-mix(in srgb, var(--color-cream) 45%, transparent);
@@ -652,7 +654,8 @@
 }
 .chapter-cell:focus-within .chapter-cell-photo { opacity: 1; }
 .chapter-cell:focus-within .chapter-cell-scrim { opacity: 0.78; }
-.chapter-cell:focus-within h3 { color: var(--color-cream); }
+.chapter-cell:focus-within h3,
+.chapter-cell:focus-within p { color: var(--color-cream); }
 .chapter-cell:focus-within a {
   color: var(--color-cream);
   text-decoration-color: var(--color-cream);
@@ -664,6 +667,7 @@
   .chapter-cell-photo,
   .chapter-cell-scrim,
   .chapter-cell h3,
+  .chapter-cell p,
   .chapter-cell a { transition: none; }
   .community-print:hover img,
   .strip-arrow:hover, .strip-arrow:focus-visible,

@@ -140,17 +140,22 @@ export default function AboutPage() {
               maskImage: "linear-gradient(to right, black 15%, transparent 100%)",
             }}
           />
+          {/* The orbit bleeds off the right edge only. The landing hangs this
+              off the bottom-right corner, where a cream band with a rule takes
+              over and the cut reads as the band's edge; here the next band is
+              white too, so a corner-hung orbit stopped mid-air at the seam.
+              Centred on the right edge, the arcs close on the page. */}
           <svg
-            className="absolute -bottom-16 -right-10 h-[190px] w-[190px] -scale-x-100 text-navy opacity-[0.06] md:h-[230px] md:w-[230px] md:opacity-[0.09]"
-            viewBox="0 0 230 230"
+            className="absolute -right-10 top-1/2 h-[380px] w-[190px] -translate-y-1/2 text-navy opacity-[0.06] md:h-[460px] md:w-[230px] md:opacity-[0.09]"
+            viewBox="0 0 230 460"
             fill="none"
           >
             <g stroke="currentColor" strokeWidth="1">
-              <circle cx="0" cy="230" r="85" />
-              <circle cx="0" cy="230" r="119" />
-              <circle cx="0" cy="230" r="153" />
+              <circle cx="230" cy="230" r="85" />
+              <circle cx="230" cy="230" r="119" />
+              <circle cx="230" cy="230" r="153" />
             </g>
-            <path d="M167 80 Q168 87 174 88 Q168 89 167 96 Q166 89 160 88 Q166 87 167 80Z" fill="currentColor" />
+            <path d="M63 80 Q64 87 70 88 Q64 89 63 96 Q62 89 56 88 Q62 87 63 80Z" fill="currentColor" />
           </svg>
         </div>
 
@@ -172,10 +177,10 @@ export default function AboutPage() {
             <span className="mt-9 block h-px w-full max-w-[900px] bg-navy/14" aria-hidden="true" />
 
             <p className="mt-6 max-w-[760px] font-sans text-body text-navy/72">
-              That is the mission of Stichting Safe AI Netherlands, across the full spectrum of
-              harm: from deepfakes and misinformation today to the loss of meaningful human control
-              over increasingly capable systems. This page shows the means: a free path from a first
-              course to full-time work on AI safety, and the people who run it.
+              That is the mission of Stichting Safe AI Netherlands. Our focus is the transformative
+              risks of AI: the loss of meaningful human control over increasingly capable systems,
+              and what follows from it. This page shows the means: a free path from a first course
+              to full-time work on AI safety, and the people who run it.
             </p>
           </Reveal>
         </div>
@@ -200,8 +205,7 @@ export default function AboutPage() {
             </h2>
             <div className="mt-6 flex max-w-[720px] flex-col gap-5 font-sans text-body text-navy/72">
               <p>
-                Some harms from AI are already routine: deepfakes, misinformation, systems tuned to
-                hold attention at the cost of mental health. Others grow with the systems
+                Some harms from AI are already visible. The ones we focus on grow with the systems
                 themselves. The more capability and autonomy we hand to AI, the harder it becomes to
                 keep meaningful human control, and a system that fails does not check who built it.
                 The harm lands on the people and institutions that deployed it as much as on anyone
@@ -225,7 +229,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The talent pipeline. The argument on the left, the diagram that draws
+      {/* The Funnel Diagram. The argument on the left, the diagram that draws
           it on the right; the prose never recaps the five bands, because the
           drawing has already said them. */}
       <section
@@ -236,15 +240,17 @@ export default function AboutPage() {
         <div className="shell band-section grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,436px)] lg:gap-16">
           <Reveal className="flex min-w-0 flex-col">
             <h2 id="pipeline-heading" className="max-w-[620px] font-serif text-heading text-navy">
-              Anyone can start. The path narrows on purpose.
+              Anyone can start. The path narrows as you grow.
             </h2>
             <div className="mt-6 flex max-w-[640px] flex-col gap-5 font-sans text-body text-navy/72">
               <p>
-                The drawing beside this text is the whole organisation. The wide end is a free
+                The Funnel Diagram beside this text is the whole organisation. The wide end is a free
                 course anyone can join, no technical background required. The narrow end is
                 full-time work on AI safety, in policy, research, industry or civil society. Between
-                them sit the community, the Research Hub, and fellowships. We call it the SAIN
-                talent pipeline.
+                them sit the community, the Research Hub, and fellowships. Progress through it is
+                visible, to us and to the person making it, and SAIN&rsquo;s job is to make each
+                next step reachable, so that every step someone takes compounds into a more
+                effective mission.
               </p>
               <p>
                 We are open about where our effort goes. SAIN builds the wide end: getting people
@@ -253,9 +259,9 @@ export default function AboutPage() {
                 introductions and referral letters.
               </p>
               <p>
-                Leaving the pipeline early is not failure. Someone who finishes one course and
-                returns to law, medicine or public administration carries that literacy into their
-                field, and a society that understands AI risk is itself an outcome we want.
+                We designed the pipeline with many good endings. Someone who takes one course and
+                returns to law, medicine or public administration carries that knowledge into their
+                profession, and a society fluent in AI risk is an outcome we actively want.
               </p>
             </div>
 
@@ -265,7 +271,7 @@ export default function AboutPage() {
               So far the pipeline has produced more than 100 course graduates across nine-plus
               cohorts, currently around 60 a year, and peer-reviewed research at NeurIPS and ICLR.
               The aim for mid-2027 is 250 or more graduates a year, reached by running the same
-              standardised course in more cities, not by diluting it.
+              standardised course in more cities.
             </p>
 
             <div className="pt-7">
@@ -329,12 +335,12 @@ export default function AboutPage() {
           <Reveal className="flex flex-col">
             <p className="kicker text-kicker text-navy/65">The people behind it</p>
             <h2 id="team-heading" className="mt-4 max-w-[620px] font-serif text-heading text-navy">
-              A small board, close to the work.
+              A small leadership, close to the work.
             </h2>
             <p className="mt-5 max-w-[720px] font-sans text-body text-navy/72">
-              SAIN is governed by a board of directors: the national director and the chapter
-              directors of Groningen, Amsterdam and Utrecht. The board takes the legal and strategic
-              decisions; the chapters run the courses, events and communities.
+              SAIN is led by its leadership: the national director and the chapter directors of
+              Groningen, Amsterdam and Utrecht. The leadership takes the strategic decisions; the
+              chapters run the courses, events and communities.
             </p>
           </Reveal>
 

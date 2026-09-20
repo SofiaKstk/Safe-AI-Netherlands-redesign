@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
 
 /* Inverse navy close. IBM Plex Serif italic for the stichting line and the
@@ -67,14 +68,26 @@ const documents: FooterLink[] = [
   { name: "Code of Conduct", href: "/about/code-of-conduct" },
 ];
 
-function FooterAnchor({ link }: { link: FooterLink }) {
+function FooterAnchor({
+  link,
+  iconSize = 16,
+}: {
+  link: FooterLink;
+  iconSize?: 14 | 16;
+}) {
   const className =
     "font-sans text-sm leading-5 text-white/78 transition-colors hover:text-white focus-visible:text-white";
 
   if (link.external) {
     return (
-      <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`inline-flex items-center gap-1.5 ${className}`}
+      >
         {link.name}
+        <ArrowUpRight size={iconSize} weight="regular" aria-hidden="true" />
         <span className="sr-only"> (opens in a new tab)</span>
       </a>
     );
@@ -113,7 +126,7 @@ export default function Footer() {
             <ul role="list" className="flex flex-wrap gap-x-5 gap-y-1">
               {socials.map((social) => (
                 <li key={social.name}>
-                  <FooterAnchor link={social} />
+                  <FooterAnchor link={social} iconSize={14} />
                 </li>
               ))}
             </ul>

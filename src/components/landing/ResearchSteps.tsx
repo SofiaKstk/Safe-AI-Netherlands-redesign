@@ -49,7 +49,7 @@ export default function ResearchSteps() {
 
       <ResearchStep step="02" id="research-support" title="Work with support">
         <p className="mt-5 max-w-[760px] text-body text-white/75">
-          Develop your work with supervisor feedback or independent collaborators. SAIN helps coordinate research and arrange compute according to project needs.
+          SAIN helps coordinate research and arrange compute according to project needs. Develop your work with supervisor feedback or independent collaborators.
         </p>
         <div className="mt-6">
           <p className="mb-5 text-label text-white/65">Explore our supervisors’ research agendas</p>

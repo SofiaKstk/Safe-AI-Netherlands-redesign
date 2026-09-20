@@ -13,7 +13,7 @@ import ShowUpBand from "@/components/chapters/ShowUpBand";
 import TeamBand, { type TeamMember } from "@/components/chapters/TeamBand";
 import lumaPastEventsAmsterdam from "@/data/lumaPastEventsAmsterdam.json";
 import { sainAmsTeam } from "@/data/sainAmsTeam";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
   title: "Amsterdam chapter",
@@ -76,6 +76,12 @@ export default function AmsterdamPage() {
                 width={98}
                 height={28}
                 className="h-7 w-auto"
+              />
+              <ArrowUpRight
+                size={14}
+                weight="regular"
+                aria-hidden="true"
+                className="ml-1 inline-block shrink-0 align-[-2px]"
               />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>

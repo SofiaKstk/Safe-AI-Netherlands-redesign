@@ -14,6 +14,8 @@
  * the full-size original, and these originals run to 1.6MB each.
  */
 
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+
 /* The rungs `npm run images` writes for these portraits. These and the widths
    in scripts/generate-responsive-images.mjs have to agree. Every rung is JPEG,
    including for the two sources that are PNG. */
@@ -67,6 +69,12 @@ export default function Portrait({
           {/* inline-block so the rule hugs the name rather than the column. */}
           <span className="relative inline-block">
             {name}
+            <ArrowUpRight
+              size={14}
+              weight="regular"
+              aria-hidden="true"
+              className="ml-1 inline-block shrink-0 align-[-2px]"
+            />
             <span
               aria-hidden="true"
               className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-orange transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"

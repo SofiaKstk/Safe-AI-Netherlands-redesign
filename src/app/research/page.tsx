@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 import Reveal from "@/components/landing/Reveal";
 import FittingTheCurve from "@/components/research/FittingTheCurve";
@@ -168,9 +168,10 @@ export default function ResearchPage() {
                 href={RESEARCH_INTEREST_FORM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-accent"
+                className="btn-accent gap-2"
               >
                 Register your interest
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
               <Link
@@ -231,12 +232,13 @@ export default function ResearchPage() {
               <p className="font-sans text-body text-navy/74">
                 The hub is open to anyone with sufficient background:
               </p>
-              <ul role="list" className="mt-3">
+              {/* The landing's dash list rather than hairline rows: three
+                  short items do not need a table, and the rules were reading
+                  as a form inside a reading column. */}
+              <ul role="list" className="mt-4 flex flex-col gap-2.5">
                 {eligibility.map((item) => (
-                  <li
-                    key={item}
-                    className="border-t border-navy/10 py-2.5 font-sans text-ui text-navy"
-                  >
+                  <li key={item} className="flex items-center gap-3 font-sans text-kicker-sm leading-[22px] text-navy">
+                    <span className="h-px w-4 shrink-0 bg-navy/30" aria-hidden="true" />
                     {item}
                   </li>
                 ))}
@@ -372,6 +374,12 @@ export default function ResearchPage() {
                       </span>
                       <span className="min-w-0 font-serif text-kicker-sm text-white">
                         {paper.chipTitle}
+                        <ArrowUpRight
+                          size={14}
+                          weight="regular"
+                          aria-hidden="true"
+                          className="ml-1 inline-block shrink-0 align-[-2px] text-white/70"
+                        />
                         <span className="sr-only"> (opens in a new tab)</span>
                       </span>
                     </a>
@@ -450,9 +458,10 @@ export default function ResearchPage() {
                 href={RESEARCH_INTEREST_FORM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-accent"
+                className="btn-accent gap-2"
               >
                 Register your interest
+                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
               <a href={RESEARCHER_MAILTO} className="btn-ghost-inverse">

@@ -17,9 +17,11 @@ import { ArrowUpRight, CaretDown } from "@phosphor-icons/react/dist/ssr";
  * the system, which is the trade for the calendar being live rather than a
  * screenshot of a Tuesday that has passed.
  *
- * Only the open panel is mounted. Three calendar iframes at once is three
- * third-party documents loading behind two tabs nobody opened, and unlike the
- * course tabs there is no crossfade here worth keeping them painted for.
+ * A panel is mounted the first time its tab is opened and then kept, hidden,
+ * when the reader moves on. Mounting only the open one meant every switch
+ * tore down a Luma document and loaded a fresh one: the band flashed cream,
+ * then Luma's white, then the events, and going back to a city did it all
+ * again. Nothing loads for a tab nobody has opened.
  */
 
 type City = {
@@ -65,6 +67,11 @@ const PANEL_CELL = "md:col-start-1 md:col-end-4 md:row-start-2";
 
 export default function CalendarTabs() {
   const [activeId, setActiveId] = useState(CITIES[0].id);
+  const [visited, setVisited] = useState<string[]>([CITIES[0].id]);
+  const open = (id: string) => {
+    setActiveId(id);
+    setVisited((ids) => (ids.includes(id) ? ids : [...ids, id]));
+  };
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const reduce = useReducedMotion();
 
@@ -76,7 +83,7 @@ export default function CalendarTabs() {
     if (!delta) return;
     event.preventDefault();
     const next = (index + delta + CITIES.length) % CITIES.length;
-    setActiveId(CITIES[next].id);
+    open(CITIES[next].id);
     tabRefs.current[next]?.focus();
   };
 
@@ -101,7 +108,7 @@ export default function CalendarTabs() {
                  point at one: an aria-controls naming an id that is not in the
                  document sends assistive tech looking for nothing. */
               aria-controls={on ? `calendar-panel-${entry.id}` : undefined}
-              onClick={() => setActiveId(entry.id)}
+              onClick={() => open(entry.id)}
               onKeyDown={onHeaderKeyDown(i)}
               /* The divider belongs to the gap between two headers, not to
                  either header's state. Stacked, it runs above each one. */
@@ -142,19 +149,22 @@ export default function CalendarTabs() {
               />
             </button>
 
-            {on && (
+            {visited.includes(entry.id) && (
               <div
                 id={`calendar-panel-${entry.id}`}
                 role="region"
                 aria-labelledby={`calendar-tab-${entry.id}`}
+                hidden={!on}
                 /* Stacked, the open header's own orange rule is already the
                    seam; a navy hairline under it would be a second line. */
                 className={`${PANEL_CELL} md:border-t md:border-navy/10`}
               >
                 {/* Its own scrollport, and a fixed height: a third-party
                     document is not allowed to decide how tall this band is, nor
-                    to hand its width back to the page body. */}
-                <div className="h-[560px] w-full overflow-auto bg-cream md:h-[680px]">
+                    to hand its width back to the page body. White, the same
+                    ground Luma's light theme paints, so the embed does not
+                    flash from cream to white as it arrives. */}
+                <div className="h-[560px] w-full overflow-auto bg-white md:h-[680px]">
                   <iframe
                     src={`https://luma.com/embed/calendar/${entry.calendar}/events?lt=light`}
                     title={`Upcoming SAIN ${entry.city} events`}

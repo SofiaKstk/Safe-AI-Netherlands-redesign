@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { supervisors } from "@/data/research";
 
 /* The supervisors, as a left-aligned row of 140px square portraits on white.
@@ -43,6 +44,12 @@ export default function SupervisorRow() {
               {/* inline-block so the rule hugs the name rather than the column. */}
               <span className="relative inline-block">
                 {person.name}
+                <ArrowUpRight
+                  size={14}
+                  weight="regular"
+                  aria-hidden="true"
+                  className="ml-1 inline-block shrink-0 align-[-2px]"
+                />
                 <span
                   aria-hidden="true"
                   className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-orange transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"

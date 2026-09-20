@@ -1,24 +1,18 @@
 /**
- * AISIG organiser roster (name + role) as listed on the former AISIG site.
+ * SAIN Groningen organiser roster (name + role), as confirmed by the chapter
+ * in September 2026. The file keeps its AISIG name because the chapter page
+ * imports it under that name; the people on it are the current SAIN
+ * Groningen team.
  */
 export const aisigTeam = [
   { name: "Tarteel Mohamed", title: "Director" },
-  { name: "Ilija Lichkovski", title: "Research Lead" },
-  { name: "Imaan Kanji Lalji", title: "Public Relations Lead" },
-  { name: "Tiwai Mhundwa", title: "Education Lead" },
-  { name: "Hanadi Al-Samarrai", title: "Events Lead & AI Governance Facilitator" },
-  { name: "Tarteel Mohamed", title: "Community Manager & Public Relations" },
-  { name: "Steven Abreu", title: "Research" },
-  { name: "Alice Dauphin", title: "Research & Public Outreach" },
-  { name: "Guillaume Pourcel", title: "Research" },
-  { name: "Iulia Bugan", title: "Governance & Privacy Lead" },
-  { name: "Jeremias Ferrao", title: "Technical Alignment Lead" },
-  { name: "Cansu Kutay", title: "AI Technical Facilitator" },
-  { name: "Sophia Lopotaru", title: "AI Technical Facilitator" },
-  { name: "Nabiha Duaa", title: "Events" },
-  { name: "Hristo Karagyozov", title: "Events" },
-  { name: "Jesse Kerkhof", title: "Events" },
-  { name: "Joris Postmus", title: "Advisory Board" },
+  { name: "Stan Feguson", title: "Education Lead" },
+  { name: "Tiwai Mhundwa", title: "Events Lead" },
+  { name: "Livv Renz", title: "Communications Lead" },
+  { name: "Aleksandar Todorov", title: "Research Operations" },
+  { name: "Maria Ptaszek", title: "Communications Team Member" },
+  { name: "Hristo Karagyozov", title: "Events Team Member" },
+  { name: "Anna Mikhailova", title: "Events Team Member" },
   { name: "Davide Zani", title: "Advisory Board" },
   { name: "Mariam Ibrahim", title: "Advisory Board" },
 ] as const;

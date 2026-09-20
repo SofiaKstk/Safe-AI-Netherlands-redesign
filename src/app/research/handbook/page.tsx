@@ -16,6 +16,7 @@ import {
   SubTitle,
   Turn,
 } from "@/components/handbook/prose";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { RESEARCH_EMAIL, RESEARCH_INTEREST_FORM_URL } from "@/data/research";
 
 export const metadata: Metadata = {
@@ -925,9 +926,10 @@ export default function ResearchHubHandbookPage() {
               href={RESEARCH_INTEREST_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-accent"
+              className="btn-accent gap-2"
             >
               Register your interest
+              <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <a href={SUPERVISOR_MAILTO} className="btn-ghost-inverse">

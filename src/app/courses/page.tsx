@@ -11,7 +11,7 @@ import {
   openCourseApplications,
   type CourseApplication,
 } from "@/data/courseApplications";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
   title: "Join a free course",
@@ -104,9 +104,10 @@ export default function CoursesPage() {
                   href={COMMUNITY_JOIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-accent self-start"
+                  className="btn-accent gap-2 self-start"
                 >
                   Join the community
+                  <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               )}
@@ -281,9 +282,10 @@ export default function CoursesPage() {
               href={COMMUNITY_JOIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ghost-inverse shrink-0 self-start md:self-auto"
+              className="btn-ghost-inverse shrink-0 gap-2 self-start md:self-auto"
             >
               Join the community
+              <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
