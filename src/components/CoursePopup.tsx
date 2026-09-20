@@ -214,16 +214,13 @@ export default function CoursePopup() {
               <p className="kicker pr-10 text-kicker-sm text-navy/65">
                 Pick your city
               </p>
-              <ul role="list" className="mt-2 border-b border-navy/12">
+              <ul role="list" className="mt-4 border-b border-navy/12">
                 {listed.map((course) => (
-                  <li
-                    key={course.chapter}
-                    className="border-t border-navy/12 first:border-t-0"
-                  >
+                  <li key={course.chapter}>
                     <Link
                       href={course.href}
                       onClick={close}
-                      className="group -mx-3 flex items-center justify-between gap-4 px-3 py-4 transition-colors hover:bg-cream focus-visible:bg-cream"
+                      className="group -mx-3 flex items-center justify-between gap-4 border-t border-navy/12 px-3 py-4 transition-colors hover:bg-cream focus-visible:bg-cream"
                     >
                       <span className="min-w-0">
                         <span className="block font-serif text-title text-navy underline decoration-transparent underline-offset-4 transition-[text-decoration-color] duration-200 group-hover:decoration-navy group-focus-visible:decoration-navy">
