@@ -177,13 +177,9 @@ export default function CoursePopup() {
                 <path d="M8 0 Q8.6 6.8 16 8 Q8.6 9.2 8 16 Q7.4 9.2 0 8 Q7.4 6.8 8 0Z" />
               </svg>
 
-              <p className="kicker relative flex items-center gap-3 text-kicker-sm text-white/70">
-                <span className="size-[7px] shrink-0 bg-orange" aria-hidden="true" />
-                {open.length ? "Applications open" : "Courses"}
-              </p>
               <h2
                 id="course-popup-title"
-                className="relative mt-5 font-serif text-heading text-white"
+                className="relative font-serif text-heading text-white"
               >
                 Free AI Safety courses, in person.
               </h2>
