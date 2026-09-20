@@ -173,15 +173,12 @@ export default function CoursesPage() {
             </ul>
           </div>
 
-          {/* Course-outline rows: a hairline above each, the number in
-              orange-ink in its own column. No cards; the rule is the
-              structure. */}
-          <ol className="min-w-0 font-sans text-ui text-navy">
+          {/* Numbered rows without rules between them: the orange-ink numbers
+              carry the sequence, and five hairlines beside a column of links
+              read as a form. */}
+          <ol className="flex min-w-0 flex-col gap-3 font-sans text-ui text-navy">
             {CADENCE.map((item, i) => (
-              <li
-                key={item}
-                className="flex items-baseline gap-3 border-t border-navy/10 py-2.5"
-              >
+              <li key={item} className="flex items-baseline gap-3">
                 <span className="w-[22px] shrink-0 font-sans text-xs text-orange-ink">
                   {i + 1}
                 </span>
@@ -201,9 +198,13 @@ export default function CoursesPage() {
             <h2 id="apply-heading" className="font-serif text-closing text-white">
               Apply in your city
             </h2>
+            {/* One paragraph either way: while nothing is open it also says
+                so, in place of a list with nothing to apply to. */}
             <p className="mt-4 font-sans text-body text-white/78">
-              Applications open and close per chapter. This list is live: open here means open
-              on the chapter&rsquo;s page.
+              Applications open and close per chapter.
+              {someoneIsOpen
+                ? ""
+                : " They are closed right now, and sign ups for the next cohort will open soon."}
             </p>
           </div>
 
@@ -259,11 +260,7 @@ export default function CoursesPage() {
                 </li>
               ))}
             </ul>
-          ) : (
-            <p className="mt-10 max-w-[620px] border-t border-white/10 pt-6 font-sans text-body text-white/78">
-              Applications are currently closed. Sign ups for the next cohort will open soon.
-            </p>
-          )}
+          ) : null}
 
           <div className="mt-10 flex flex-col gap-5 border-t border-white/15 pt-8 md:flex-row md:items-center md:justify-between md:gap-12">
             <p className="max-w-[520px] font-sans text-body text-white/78">
