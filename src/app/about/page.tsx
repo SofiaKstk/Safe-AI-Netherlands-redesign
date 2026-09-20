@@ -244,7 +244,7 @@ export default function AboutPage() {
             </h2>
             <div className="mt-6 flex max-w-[640px] flex-col gap-5 font-sans text-body text-navy/72">
               <p>
-                The Funnel Diagram beside this text is the whole organisation. The wide end is a free
+                The Funnel Diagram is the whole organisation. The wide end is a free
                 course anyone can join, no technical background required. The narrow end is
                 full-time work on AI safety, in policy, research, industry or civil society. Between
                 them sit the community, the Research Hub, and fellowships. Progress through it is
