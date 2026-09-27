@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
-import CommunityPrints from "@/components/landing/CommunityPrints";
-import CourseTabs from "@/components/landing/CourseTabs";
+import CourseLab from "@/components/landing/course-concepts/CourseLab";
+import FoldPin from "@/components/landing/FoldPin";
+import MissionStatement from "@/components/landing/MissionStatement";
 import Reveal from "@/components/landing/Reveal";
 import ResearchSteps from "@/components/landing/ResearchSteps";
 import ResearchIllustration from "@/components/landing/ResearchIllustration";
@@ -11,11 +11,12 @@ import ResearchOffer from "@/components/landing/ResearchOffer";
 import HeroChart from "@/components/landing/HeroChart";
 import SectionOrbits from "@/components/landing/SectionOrbits";
 import { COMMUNITY_JOIN_URL } from "@/data/siteContact";
+import { ATLAS } from "@/data/chapterAtlas";
 import {
   formatCityList,
   openCourseApplications,
 } from "@/data/courseApplications";
-import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight, GraduationCap } from "@phosphor-icons/react/dist/ssr";
 
 /* No `title` here on purpose: the landing falls through to the root layout's
    `title.default`, so the tab reads "Safe AI Netherlands" and nothing more.
@@ -25,29 +26,6 @@ export const metadata: Metadata = {
     "SAIN provides the community, courses and resources to help students and professionals join the AI Safety field in the Netherlands. Every programme is free.",
 };
 
-/* The photograph is the one each chapter page opens with, so arriving on the
-   chapter is a continuation of the picture the hover already showed. These are
-   720x280 crops of those heroes, not the heroes themselves: `output: "export"`
-   ships images unoptimized, and the three full-size JPEGs come to 3.8MB for a
-   band this size. `npm run images` writes them; the crop window for each city
-   lives there, next to the reason it is what it is. */
-const chapters = [
-  {
-    city: "Utrecht",
-    href: "/chapters/utrecht",
-    photo: "/photos/cities/utrecht-index.webp",
-  },
-  {
-    city: "Groningen",
-    href: "/chapters/groningen",
-    photo: "/photos/cities/groningen-index.webp",
-  },
-  {
-    city: "Amsterdam",
-    href: "/chapters/amsterdam",
-    photo: "/photos/cities/amsterdam-index.webp",
-  },
-];
 
 /* The four kinds of work SAIN opens doors into, named once under the claim
    they belong to. They were four cells with an icon apiece, which gave a
@@ -76,7 +54,7 @@ export default function Home() {
         className="relative isolate overflow-hidden"
         style={{
           backgroundImage:
-            "linear-gradient(in oklab 180deg, white 0%, white 95%, #f7f5f2 100%)",
+            "linear-gradient(in oklab 180deg, white 0%, white 100%)",
         }}
       >
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
@@ -132,48 +110,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Chapters. A thin index band: cities as peers, left hairline, no cards. */}
-      <section id="chapters" aria-labelledby="chapters-heading" className="scroll-mt-36 border-t border-navy/10 bg-cream">
-        <div className="shell band-index flex flex-col gap-8 lg:flex-row lg:items-start">
-          {/* "Communities" in the label, "chapters" in the anchor and the
-              links: the word on the page changed, the URL others link to did
-              not. */}
-          <h2 id="chapters-heading" className="kicker pt-0.5 text-kicker text-navy/65 lg:w-[300px] lg:shrink-0">
-            Local communities
+      {/* What SAIN is for, before the page offers any door. Inverse, as a
+          deliberate pause between the hero and the first programme: the
+          statement gets a ground of its own, and the courses band starts clean
+          on white after it. It ranks none of the ways in. */}
+      <section
+        id="mission"
+        aria-labelledby="mission-heading"
+        className="scroll-mt-36 bg-navy"
+      >
+        <div className="shell band-section flex flex-col items-center">
+          <h2 id="mission-heading" className="sr-only">
+            Why SAIN exists
           </h2>
-          <div className="grid flex-1 gap-6 sm:grid-cols-3">
-            {chapters.map((chapter) => (
-              <article
-                key={chapter.city}
-                className="chapter-cell relative isolate border-l border-navy/14 py-5 pl-[18px] pr-4"
-              >
-                {/* The city is always there, faint, and hover brings it up.
-                    It fades in from the left rather than covering the cell:
-                    the name and the link keep clean cream under them at rest
-                    and flat navy under them on hover, and the photograph gets
-                    the half of the cell that has nothing written on it. */}
-                <span className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-                  <Image
-                    src={chapter.photo}
-                    alt=""
-                    width={720}
-                    height={280}
-                    loading="eager"
-                    className="chapter-cell-photo h-full w-full object-cover"
-                  />
-                  <span className="chapter-cell-scrim absolute inset-0 bg-navy" />
-                </span>
-                <h3 className="font-serif text-title text-navy">{chapter.city}</h3>
-                <Link
-                  href={chapter.href}
-                  className="mt-2 inline-flex items-center gap-1.5 font-sans text-sm leading-5 text-navy underline decoration-navy/20 underline-offset-4 after:absolute after:inset-0 hover:decoration-navy focus-visible:decoration-navy"
-                >
-                  View chapter
-                  <Arrow />
-                </Link>
-              </article>
-            ))}
-          </div>
+          <Reveal>
+            <MissionStatement />
+          </Reveal>
+          <Reveal delay={0.05} className="mt-7 flex flex-col items-center gap-3 text-center">
+            <p className="max-w-[560px] font-sans text-body text-white/72">
+              A free, volunteer-run path from curiosity to contribution, through
+              courses, events, research and local chapters.
+            </p>
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-1.5 font-sans text-label text-white underline decoration-white/40 underline-offset-4 hover:decoration-white focus-visible:decoration-white"
+            >
+              Why SAIN exists
+              <Arrow />
+            </Link>
+          </Reveal>
         </div>
       </section>
 
@@ -183,13 +148,19 @@ export default function Home() {
       <section
         id="courses"
         aria-labelledby="courses-heading"
-        className="relative isolate scroll-mt-36 overflow-hidden border-t border-navy/10 bg-white"
+        className="relative isolate scroll-mt-36 overflow-hidden bg-white"
       >
         <SectionOrbits className="-left-20 top-6 h-[400px] w-[300px] md:-left-12" />
         <div className="shell band-section-top relative isolate pb-14">
-          <div className="mx-auto mb-10 max-w-[640px] text-center">
-            <h2 id="courses-heading" className="font-serif text-heading text-navy">Start with a free course</h2>
-            <p className="mt-2.5 font-sans text-body leading-[26px] text-navy/74">
+          <div className="mb-10 max-w-[680px]">
+            {/* The glyph that marks "trains" in the statement above, so this
+                band reads as the answer to that word. Orange as a large glyph,
+                not lettering. */}
+            <h2 id="courses-heading" className="flex items-center gap-3.5 font-serif text-heading text-navy">
+              <GraduationCap size={38} weight="light" aria-hidden="true" className="shrink-0 text-orange" />
+              Start with a free course
+            </h2>
+            <p className="mt-3 font-sans text-body leading-[26px] text-navy/74">
               Pick a track. Every programme is free and taught in person. What you join, and how it
               runs, depends on the chapter.
             </p>
@@ -203,59 +174,103 @@ export default function Home() {
               </p>
             )}
           </div>
-          <Reveal><CourseTabs /></Reveal>
+          <Reveal><CourseLab /></Reveal>
         </div>
       </section>
 
       {/* Show the community first, then explain how to join it. */}
-      <section id="community" aria-labelledby="community-heading" className="relative isolate scroll-mt-36 overflow-hidden bg-white">
-        <SectionOrbits className="-bottom-32 -left-20 h-[500px] w-[375px] rotate-[-20deg] md:-left-12" />
-        <div className="shell"><div className="border-t border-navy/14" /></div>
-        <div className="shell band-community flex flex-col gap-12 md:gap-16">
-          <Reveal><CommunityPrints /></Reveal>
-          <div className="grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,620px)] xl:gap-16">
-            <div className="flex flex-col gap-4">
-              <p className="kicker text-kicker text-navy/65">Community</p>
-              <h2 id="community-heading" className="max-w-[480px] font-serif text-heading-sm text-navy">
-                The community is how SAIN works.
-              </h2>
-            </div>
-            <div className="flex flex-col items-start gap-6">
-              <p className="max-w-[600px] font-sans text-body text-navy/74">
-                Weekly sessions, hackathons, and the evenings after. People meet friends and
-                collaborators here, and often find their next step in AI Safety.
-              </p>
-              <ul className="flex flex-col gap-2.5 font-sans text-kicker-sm leading-[22px] text-navy">
-                {[
-                  "Friends working on the same problems",
-                  "A network across Utrecht, Groningen and Amsterdam",
-                  "Events you can walk into",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    {/* Navy, not orange. design.md reserves orange for joining,
-                        hiring and active state: "If a page uses orange only as
-                        a bullet dot, it is not SAIN." The CTA below is where
-                        the orange belongs. */}
-                    <span className="h-px w-4 shrink-0 bg-navy/30" aria-hidden="true" />
-                    {item}
+      {/* The fold. Community pins under the header and the navy research
+          band slides up over it, as a sheet laid on the paper. CSS only
+          (sticky, no scroll listener). The wrapper bounds the pin, so it lets
+          go when research ends; FoldPin picks the offset so the whole band has
+          been on screen before research covers it, at any window height. */}
+      <div>
+        <FoldPin>
+      {/* Community, made of its chapters. Paper, its own ground between the
+          white mission-and-courses run and the navy research band. The claim
+          on the left, and on the right the three chapters as prints: each is
+          the photograph its chapter page opens with, so the print is the room
+          previewed and the whole print is the door. (This replaced both the
+          thin "Local communities" strip under the hero, whose #chapters anchor
+          it took, and a separate strip of uncaptioned event prints.) */}
+      <section id="community" aria-labelledby="community-heading" className="relative isolate scroll-mt-36 overflow-hidden bg-cream">
+        <div className="shell band-section grid items-center gap-12 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[minmax(0,380px)_minmax(0,1fr)] xl:gap-24">
+          <Reveal className="flex flex-col items-start gap-5">
+            <p className="kicker text-kicker text-navy/65">Community</p>
+            <h2 id="community-heading" className="font-serif text-heading text-navy">
+              Participate in the community
+            </h2>
+            <p className="font-sans text-body text-navy/74 [&_strong]:font-semibold [&_strong]:text-navy">
+              <strong>Discussion groups</strong>, <strong>hackathons</strong>,{" "}
+              <strong>talks</strong>, and the evenings after. People meet{" "}
+              <strong>friends and collaborators</strong> here, and often find their{" "}
+              <strong>next step in AI Safety</strong>.
+            </p>
+            {/* Same words as the hero's button on purpose: one label per
+                destination, so the second ask reads as the same door. */}
+            <a href={COMMUNITY_JOIN_URL} target="_blank" rel="noopener noreferrer" className="btn-accent mt-2 gap-2">
+              Join the community
+              <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </Reveal>
+
+          <Reveal delay={0.06} className="min-w-0">
+            <nav id="chapters" aria-label="Chapters" className="scroll-mt-36">
+              {/* A snap strip below sm, the next print past the edge as the
+                  affordance; three across from sm. */}
+              <ul
+                role="list"
+                className="-mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-6 pt-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 lg:gap-7"
+              >
+                {ATLAS.map((chapter, i) => (
+                  <li key={chapter.id} className="w-[72vw] max-w-[300px] shrink-0 snap-center sm:w-auto sm:max-w-none">
+                    <Link
+                      href={chapter.href}
+                      className={`group block ${i === 1 ? "sm:translate-y-4" : ""}`}
+                    >
+                      {/* Only the print tilts; the line under it stays level. */}
+                      <span
+                        className={`block bg-white p-2 shadow-[0_7px_22px_#021C4D1F] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1.5 group-hover:rotate-0 group-hover:shadow-[0_14px_34px_#021C4D29] group-focus-visible:rotate-0 ${
+                          ["-rotate-[2deg]", "rotate-[1.5deg]", "-rotate-[1deg]"][i]
+                        }`}
+                      >
+                        <span className="relative block aspect-[4/5] overflow-hidden bg-cream">
+                          <img
+                            src={`${chapter.photo}-640.webp`}
+                            srcSet={`${chapter.photo}-640.webp 640w, ${chapter.photo}-960.webp 960w`}
+                            sizes="(min-width: 1440px) 280px, (min-width: 640px) 30vw, 72vw"
+                            alt=""
+                            loading="lazy"
+                            className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+                          />
+                        </span>
+                        <span className="flex items-baseline justify-between gap-3 px-1.5 pb-1 pt-3">
+                          <span className="font-serif text-title text-navy">{chapter.city}</span>
+                          <span className="font-sans text-index tracking-normal text-orange-ink">{chapter.index}</span>
+                        </span>
+                      </span>
+                      <span className="mt-4 flex items-start justify-between gap-3 px-1">
+                        <span className="kicker text-kicker-sm text-navy/65">{chapter.origin}</span>
+                        <ArrowRight
+                          size={16}
+                          weight="regular"
+                          aria-hidden="true"
+                          className="mt-0.5 shrink-0 text-navy/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-navy"
+                        />
+                      </span>
+                    </Link>
                   </li>
                 ))}
               </ul>
-              {/* Same words as the hero's button on purpose: one label per
-                  destination, so the second ask reads as the same door rather
-                  than a new one. */}
-              <a href={COMMUNITY_JOIN_URL} target="_blank" rel="noopener noreferrer" className="btn-accent gap-2">
-                Join the community
-                <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </div>
-          </div>
+            </nav>
+          </Reveal>
         </div>
       </section>
+        </FoldPin>
 
       {/* One research story: the invitation, the people, and the work they publish. */}
-      <section id="research" aria-labelledby="research-heading" className="scroll-mt-36 bg-navy text-white">
+      <section id="research" aria-labelledby="research-heading" className="relative z-10 scroll-mt-36 bg-navy text-white shadow-[0_-18px_40px_-10px_#021C4D38]">
         {/* band-research rather than a hand-set pt/pb. Every other band on the
             page carries its own clamp from globals.css, and this one was
             running about 30px tighter at 1440 than the bands either side of
@@ -298,6 +313,7 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+      </div>
 
       {/* Careers. The claim, the paragraph that argues it, and the four kinds
           of work named on a closing rule, with the quote alongside.
