@@ -1,7 +1,8 @@
 import type { ChapterName } from "@/data/courseApplications";
 
-/* The three course tracks the landing offers. Shared by the landing's course
-   picker; each track's per-city routes resolve through courseApplications. */
+/* The three course tracks the landing offers, read by the landing's
+   CourseTracks. Each track's per-city routes resolve through
+   courseApplications, so they cannot drift from the chapter pages. */
 
 export type Track = {
   id: string;

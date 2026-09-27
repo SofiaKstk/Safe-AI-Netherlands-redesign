@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import CourseLab from "@/components/landing/course-concepts/CourseLab";
+import CourseTracks from "@/components/landing/CourseTracks";
 import FoldPin from "@/components/landing/FoldPin";
 import MissionStatement from "@/components/landing/MissionStatement";
 import Reveal from "@/components/landing/Reveal";
@@ -174,7 +174,7 @@ export default function Home() {
               </p>
             )}
           </div>
-          <Reveal><CourseLab /></Reveal>
+          <Reveal><CourseTracks /></Reveal>
         </div>
       </section>
 

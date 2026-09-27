@@ -6,7 +6,7 @@ import { courseApplicationFor, type ChapterName } from "@/data/courseApplication
 import { TRACKS } from "@/data/courseTracks";
 
 /**
- * Course concept D: the three tracks named, not taught. Each column is a small
+ * The landing's three course tracks, named rather than taught. Each column is a small
  * object: a glyph, the index and title, the tagline, and a fixed three-city
  * grid. The cities sit in the same place under every track, so reading across
  * the columns answers "what runs in my city" without a word: a filled mark
@@ -25,7 +25,7 @@ const GLYPH: Record<string, Icon> = {
   policy: Scales,
 };
 
-export default function ConceptD() {
+export default function CourseTracks() {
   return (
     <div>
       <ul role="list" className="grid gap-px bg-navy/12 md:grid-cols-3 border-y border-navy/12">
